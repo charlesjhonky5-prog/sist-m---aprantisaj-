@@ -690,74 +690,104 @@ footer{
 <body>
 
 <!-- ================= LOGIN ================= -->
-
 <div id="loginPage">
 
-  <div class="loginBox">
+  <div id="loginBox">
 
     <h2>📚 Sistèm Aprantisaj</h2>
 
-    <p style="text-align:center;margin-bottom:15px;">
-      Platfòm lekòl la
+    <p>
+      Tanpri konekte pou antre nan sistèm nan.
     </p>
 
+    <!-- GOOGLE -->
+    <button
+      id="googleButton"
+      class="btnPrimary"
+      onclick="connexionGoogle()">
+      🔵 Konekte ak Google
+    </button>
+
+    <div style="margin:15px 0;">
+      ───── oswa ─────
+    </div>
+
+    <!-- KONEKSYON -->
     <h3>🔐 Konekte</h3>
 
     <input
       type="email"
       id="loginEmail"
       placeholder="Email"
+      autocomplete="email"
     >
 
     <input
       type="password"
       id="loginPassword"
       placeholder="Modpas"
+      autocomplete="current-password"
     >
 
     <button
-      style="width:100%;"
-      onclick="connexionEmail()"
-    >
-      Konekte
+      class="btnPrimary"
+      onclick="connexionEmail()">
+      🔐 Konekte
     </button>
 
-    <div class="divider">— OSWA —</div>
+    <hr style="margin:25px 0;">
 
-    <button
-      class="btnGoogle"
-      onclick="connexionGoogle()"
+    <!-- NOUVO KONT -->
+    <h3>📝 Kreye yon nouvo kont</h3>
+
+    <input
+      type="text"
+      id="registerNom"
+      placeholder="Non"
+      autocomplete="family-name"
     >
-      🔴 Konekte ak Google
-    </button>
 
-    <hr style="margin:20px 0;">
-
-    <h3>📝 Kreye kont</h3>
+    <input
+      type="text"
+      id="registerPrenom"
+      placeholder="Prenon"
+      autocomplete="given-name"
+    >
 
     <input
       type="email"
       id="registerEmail"
-      placeholder="Nouvo email"
+      placeholder="Email"
+      autocomplete="email"
     >
 
     <input
       type="password"
       id="registerPassword"
-      placeholder="Nouvo modpas (6+ karaktè)"
+      placeholder="Modpas (6 karaktè oswa plis)"
+      autocomplete="new-password"
     >
 
     <button
-      class="btnGreen"
-      style="width:100%;"
-      onclick="creerCompte()"
-    >
-      Kreye kont
+      class="btnPrimary"
+      onclick="creerCompte()">
+      ➕ Kreye kont
     </button>
+
+    <!-- ENSTALE APP -->
+    <button
+      id="installBtn"
+      class="btnInstall"
+      style="display:block;width:100%;margin-top:12px;">
+      📱 Enstale Sistèm Aprantisaj
+    </button>
+
+    <p id="loginMessage"></p>
 
   </div>
 
 </div>
+
 
 
 <!-- ================= APPLICATION ================= -->
@@ -1565,41 +1595,48 @@ window.connexionGoogle = async function(){
 
 window.creerCompte = async function(){
 
-  const email =
-    document.getElementById(
-      "registerEmail"
-    ).value.trim();
+  const nom =
+    document.getElementById("registerNom").value.trim();
 
+  const prenom =
+    document.getElementById("registerPrenom").value.trim();
+
+  const email =
+    document.getElementById("registerEmail").value.trim();
 
   const password =
-    document.getElementById(
-      "registerPassword"
-    ).value;
+    document.getElementById("registerPassword").value;
 
-
-  if(!email || !password){
+  if(
+    nom === "" ||
+    prenom === "" ||
+    email === "" ||
+    password === ""
+  ){
 
     alert(
-      "Mete email ak modpas."
+      "Tanpri ranpli Non, Prenon, Email ak Modpas."
     );
 
     return;
-
   }
-
 
   if(password.length < 6){
 
     alert(
-      "Modpas la dwe genyen omwen 6 karaktè."
+      "Modpas la dwe gen omwen 6 karaktè."
     );
 
     return;
-
   }
 
-
   try{
+
+    const {
+      createUserWithEmailAndPassword
+    } = await import(
+      "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js"
+    );
 
     const result =
       await createUserWithEmailAndPassword(
@@ -1608,54 +1645,73 @@ window.creerCompte = async function(){
         password
       );
 
-
     const user = result.user;
 
-
     await setDoc(
-      doc(db,"users",user.uid),
+      doc(db, "users", user.uid),
       {
-
-        email:
-          user.email || email,
-
-        displayName:
-          user.displayName || "",
-
-        role:
-          "attente",
-
-        createdAt:
+        uid: user.uid,
+        nom: nom,
+        prenom: prenom,
+        email: email,
+        role: "attente",
+        dateCreation:
           new Date().toISOString()
-
-      }
+      },
+      { merge: true }
     );
-
 
     alert(
-      "Kont lan kreye avèk siksè.\n\n"
-      +
-      "Kont lan nan ATTENTE.\n"
-      +
-      "Admin lan dwe apwouve li."
+      "Kont lan kreye avèk siksè.\n\n" +
+      "Administratè a dwe valide kont lan."
     );
-
-
-    await signOut(auth);
-
 
   }catch(error){
 
     console.error(error);
 
-    alert(
-      "Kreyasyon kont echwe.\n\n"
-      + error.message
-    );
+    if(
+      error.code ===
+      "auth/email-already-in-use"
+    ){
+
+      alert(
+        "Email sa a deja gen yon kont.\n\n" +
+        "Tanpri konekte ak kont sa a " +
+        "oswa itilize yon lòt email."
+      );
+
+    }else if(
+      error.code === "auth/invalid-email"
+    ){
+
+      alert("Email sa a pa valab.");
+
+    }else if(
+      error.code === "auth/weak-password"
+    ){
+
+      alert(
+        "Modpas la twò fèb. " +
+        "Itilize omwen 6 karaktè."
+      );
+
+    }else{
+
+      alert(
+        "Kreyasyon kont lan pa mache.\n\n" +
+        error.message
+      );
+
+    }
 
   }
 
 };
+
+
+
+          
 
 
 /* ================= AUTH STATE ================= */
