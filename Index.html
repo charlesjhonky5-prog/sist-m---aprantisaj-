@@ -3,1357 +3,381 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Sistèm Aprantisaj</title>
-
-<link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#1769aa">
+<title>Sistèm Lekòl</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif
-}
-
-body{
-  background:#f4f6f9;
-  color:#222
-}
-
-#app{
-  display:none
-}
-
-#loginBox{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  background:#f4f6f9;
-  z-index:99999;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  padding:20px
-}
-
-#loginBox h2{
-  margin-bottom:20px
-}
-
-#loginBox input{
-  width:90%;
-  max-width:350px;
-  padding:12px;
-  margin:6px 0;
-  border:1px solid #ccc;
-  border-radius:6px;
-  font-size:16px
-}
-
-#loginBox button{
-  padding:12px 25px;
-  margin-top:10px;
-  border:none;
-  border-radius:6px;
-  background:#1769aa;
-  color:white;
-  cursor:pointer;
-  font-size:16px
-}
-
-header{
-  background:#1769aa;
-  color:white;
-  padding:22px 15px;
-  text-align:center
-}
-
-header h1{
-  margin-bottom:8px
-}
-
-nav{
-  background:white;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:8px;
-  padding:12px;
-  box-shadow:0 2px 6px #ccc;
-  position:sticky;
-  top:0;
-  z-index:10
-}
-
-nav button{
-  border:none;
-  background:#1769aa;
-  color:white;
-  padding:10px 14px;
-  border-radius:6px;
-  cursor:pointer
-}
-
-nav button:hover{
-  background:#0d4f83
-}
-
-main{
-  max-width:1100px;
-  margin:20px auto;
-  padding:15px
-}
-
-.section{
-  display:none
-}
-
-.section.active{
-  display:block
-}
-
-.card{
-  background:white;
-  padding:20px;
-  margin-bottom:18px;
-  border-radius:10px;
-  box-shadow:0 2px 8px #ddd
-}
-
-.card h2{
-  margin-bottom:15px
-}
-
-input,
-textarea,
-select{
-  width:100%;
-  padding:12px;
-  margin:8px 0 15px;
-  border:1px solid #ccc;
-  border-radius:6px;
-  font-size:15px
-}
-
-textarea{
-  resize:vertical
-}
-
-.action{
-  background:#1769aa;
-  color:white;
-  border:none;
-  padding:11px 17px;
-  border-radius:6px;
-  cursor:pointer;
-  margin:3px
-}
-
-.action:hover{
-  opacity:.9
-}
-
-.danger{
-  background:#c62828
-}
-
-.success{
-  background:#2e7d32
-}
-
-.warning{
-  background:#ef6c00
-}
-
-.gray{
-  background:#666
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  margin-bottom:20px
-}
-
-.stat{
-  background:white;
-  padding:22px;
-  text-align:center;
-  border-radius:10px;
-  box-shadow:0 2px 8px #ddd
-}
-
-.stat h3{
-  font-size:30px;
-  color:#1769aa;
-  margin-bottom:8px
-}
-
-.item{
-  border:1px solid #ddd;
-  padding:15px;
-  margin:10px 0;
-  border-radius:8px;
-  background:#fafafa
-}
-
-.item h3{
-  margin-bottom:8px
-}
-
-.item p{
-  margin:5px 0
-}
-
-.table-container{
-  overflow-x:auto
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:10px
-}
-
-th,
-td{
-  border:1px solid #ddd;
-  padding:10px;
-  text-align:left
-}
-
-th{
-  background:#1769aa;
-  color:white
-}
-
-.badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:15px;
-  font-size:12px;
-  color:white
-}
-
-.badge-green{
-  background:#2e7d32
-}
-
-.badge-red{
-  background:#c62828
-}
-
-.badge-orange{
-  background:#ef6c00
-}
-
-footer{
-  text-align:center;
-  padding:30px;
-  color:#666
-}
-
-@media(max-width:800px){
-
-  .stats{
-    grid-template-columns:repeat(2,1fr)
-  }
-
-  nav{
-    position:static
-  }
-
-  nav button{
-    flex:1 1 30%
-  }
-
-}
-
-@media(max-width:500px){
-
-  .stats{
-    grid-template-columns:1fr 1fr
-  }
-
-  nav button{
-    flex:1 1 45%;
-    font-size:13px
-  }
-
-  .card{
-    padding:15px
-  }
-
-}
-
-
-/* =========================
-   AKÈY PWOFESYONÈL
-========================= */
-
-#accueil{
-  padding:5px
-}
-
-#accueil .welcome-card{
-  background:linear-gradient(
-    135deg,
-    #1769aa,
-    #0d4f83
-  );
-  color:white;
-  border-radius:18px;
-  padding:28px;
-  margin-bottom:22px;
-  box-shadow:0 8px 25px rgba(0,0,0,.15)
-}
-
-#accueil .welcome-card h2{
-  font-size:29px;
-  margin-bottom:10px;
-  color:white
-}
-
-#accueil .welcome-card p{
-  font-size:16px;
-  line-height:1.6;
-  color:white
-}
-
-#accueil .dashboard-stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-  margin-bottom:22px
-}
-
-#accueil .dashboard-stat{
-  background:white;
-  border-radius:16px;
-  padding:22px;
-  text-align:left;
-  box-shadow:0 5px 18px rgba(0,0,0,.08);
-  border-left:5px solid #1769aa
-}
-
-#accueil .dashboard-stat .icon{
-  font-size:28px
-}
-
-#accueil .dashboard-stat h3{
-  font-size:31px;
-  color:#1769aa;
-  margin:7px 0
-}
-
-#accueil .quick-card{
-  background:white;
-  border-radius:16px;
-  padding:22px;
-  box-shadow:0 5px 18px rgba(0,0,0,.08)
-}
-
-
-/* =========================
-   LANG
-========================= */
-
-#languageBox{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:8px;
-  padding:10px;
-  background:#eef5fb
-}
-
-#languageBox label{
-  font-weight:bold;
-  color:#1769aa
-}
-
-#languageSelect{
-  width:auto;
-  margin:0;
-  padding:8px 12px
-}
-
-
-/* =========================
-   INSTALL APP
-========================= */
-
-#installAppBtn{
-  display:inline-block
-}
-
-@media(max-width:800px){
-
-  #accueil .dashboard-stats{
-    grid-template-columns:repeat(2,1fr)
-  }
-
-}
-
-@media(max-width:500px){
-
-  #accueil .dashboard-stats{
-    grid-template-columns:1fr 1fr
-  }
-
-  #accueil .welcome-card{
-    padding:22px
-  }
-
-}
-
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f4f6f9;color:#222}
+#app{display:none}
+#loginBox{position:fixed;inset:0;width:100%;height:100%;background:#f4f6f9;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px}
+#loginBox h2{margin-bottom:20px}
+#loginBox input{width:90%;max-width:350px;padding:12px;margin:6px 0;border:1px solid #ccc;border-radius:6px;font-size:16px}
+#loginBox button{padding:12px 25px;margin-top:10px;border:none;border-radius:6px;background:#1769aa;color:white;cursor:pointer;font-size:16px}
+header{background:#1769aa;color:white;padding:22px 15px;text-align:center}
+header h1{margin-bottom:8px}
+nav{background:white;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px;box-shadow:0 2px 6px #ccc;position:sticky;top:0;z-index:10}
+nav button{border:none;background:#1769aa;color:white;padding:10px 14px;border-radius:6px;cursor:pointer}
+nav button:hover{background:#0d4f83}
+main{max-width:1100px;margin:20px auto;padding:15px}
+.section{display:none}
+.section.active{display:block}
+.card{background:white;padding:20px;margin-bottom:18px;border-radius:10px;box-shadow:0 2px 8px #ddd}
+.card h2{margin-bottom:15px}
+input,textarea,select{width:100%;padding:12px;margin:8px 0 15px;border:1px solid #ccc;border-radius:6px;font-size:15px}
+textarea{resize:vertical}
+.action{background:#1769aa;color:white;border:none;padding:11px 17px;border-radius:6px;cursor:pointer;margin:3px}
+.action:hover{opacity:.9}
+.danger{background:#c62828}.success{background:#2e7d32}.warning{background:#ef6c00}.gray{background:#666}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:20px}
+.stat{background:white;padding:22px;text-align:center;border-radius:10px;box-shadow:0 2px 8px #ddd}
+.stat h3{font-size:30px;color:#1769aa;margin-bottom:8px}
+.item{border:1px solid #ddd;padding:15px;margin:10px 0;border-radius:8px;background:#fafafa}
+.item h3{margin-bottom:8px}.item p{margin:5px 0}
+.table-container{overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid #ddd;padding:10px;text-align:left}
+th{background:#1769aa;color:white}
+.badge{display:inline-block;padding:5px 9px;border-radius:15px;font-size:12px;color:white}
+.badge-green{background:#2e7d32}.badge-red{background:#c62828}.badge-orange{background:#ef6c00}
+footer{text-align:center;padding:30px;color:#666}
+@media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}nav{position:static}nav button{flex:1 1 30%}}
+@media(max-width:500px){.stats{grid-template-columns:1fr 1fr}nav button{flex:1 1 45%;font-size:13px}.card{padding:15px}}
 </style>
 </head>
 
 <body>
 
-
-<!-- =========================
-     LOGIN
-========================= -->
-
 <div id="loginBox">
-
   <h2>Connexion</h2>
-
-  <input
-    type="email"
-    id="emailLogin"
-    placeholder="E-mail"
-  >
-
-  <input
-    type="password"
-    id="passwordLogin"
-    placeholder="Mot de passe"
-  >
-
-  <button onclick="connecterUtilisateur()">
-    Se connecter
-  </button>
-
+  <input type="email" id="emailLogin" placeholder="E-mail">
+  <input type="password" id="passwordLogin" placeholder="Mot de passe">
+  <button onclick="connecterUtilisateur()">Se connecter</button>
 </div>
-
-
-<!-- =========================
-     APP
-========================= -->
 
 <div id="app">
 
-
 <header>
-
-  <h1>
-    📚 Sistèm Aprantisaj
-  </h1>
-
-  <p data-i18n="platform">
-    Platfòm pou jere elèv,
-    pwofesè, klas, devwa ak rezilta
-  </p>
-
+  <h1>📚 Sistèm Lekòl</h1>
+  <p>Platfòm pou jere elèv, pwofesè, klas, devwa ak rezilta</p>
 </header>
 
-
-<!-- =========================
-     LANG + INSTALL
-========================= -->
-
-<div id="languageBox">
-
-  <label for="languageSelect">
-    🌐 Lang:
-  </label>
-
-  <select
-    id="languageSelect"
-    onchange="changeLanguage(this.value)"
-  >
-
-    <option value="ht">
-      Kreyòl
-    </option>
-
-    <option value="fr">
-      Français
-    </option>
-
-  </select>
-
-
-  <button
-    id="installAppBtn"
-    class="action success"
-    onclick="installApp()"
-  >
-    📲 Enstale app
-  </button>
-
-</div>
-
-
-<!-- =========================
-     NAVIGATION
-========================= -->
-
 <nav>
-
-  <button onclick="showSection('accueil')">
-    🏠 Akèy
-  </button>
-
-  <button onclick="showSection('eleves')">
-    👨‍🎓 Elèv
-  </button>
-
-  <button onclick="showSection('professeurs')">
-    👨‍🏫 Pwofesè
-  </button>
-
-  <button onclick="showSection('classes')">
-    🏫 Klas
-  </button>
-
-  <button onclick="showSection('matieres')">
-    📚 Matyè
-  </button>
-
-  <button onclick="showSection('devoirs')">
-    📝 Devwa
-  </button>
-
-  <button onclick="showSection('remises')">
-    📥 Remèt
-  </button>
-
-  <button onclick="showSection('resultats')">
-    📊 Rezilta
-  </button>
-
-  <button onclick="showSection('statistiques')">
-    📈 Estatistik
-  </button>
-
-  <button onclick="showSection('sauvegarde')">
-    💾 Done
-  </button>
-
+  <button onclick="showSection('accueil')">🏠 Akèy</button>
+  <button onclick="showSection('eleves')">👨‍🎓 Elèv</button>
+  <button onclick="showSection('professeurs')">👨‍🏫 Pwofesè</button>
+  <button onclick="showSection('classes')">🏫 Klas</button>
+  <button onclick="showSection('matieres')">📚 Matyè</button>
+  <button onclick="showSection('devoirs')">📝 Devwa</button>
+  <button onclick="showSection('remises')">📥 Remèt</button>
+  <button onclick="showSection('resultats')">📊 Rezilta</button>
+  <button onclick="showSection('statistiques')">📈 Estatistik</button>
+  <button onclick="showSection('sauvegarde')">💾 Done</button>
 </nav>
-
 
 <main>
 
-
-<!-- =========================
-     AKEY
-========================= -->
-
-<section
-  id="accueil"
-  class="section active"
->
-
-  <div class="welcome-card">
-
-    <h2>
-      👋 Byenveni nan Sistèm Aprantisaj
-    </h2>
-
-    <p>
-      Jere elèv, pwofesè, klas,
-      matyè, devwa, remiz ak rezilta
-      nan yon sèl espas.
-    </p>
-
+<section id="accueil" class="section active">
+  <div class="card">
+    <h2>👋 Byenveni</h2>
+    <p>Byenveni nan sistèm jesyon lekòl la. Soti isit la ou kapab jere tout enfòmasyon lekòl la.</p>
   </div>
 
-
-  <div class="dashboard-stats">
-
-    <div class="dashboard-stat">
-
-      <div class="icon">
-        👨‍🎓
-      </div>
-
-      <h3 id="statEleves">
-        0
-      </h3>
-
-      <p>
-        Elèv
-      </p>
-
-    </div>
-
-
-    <div class="dashboard-stat">
-
-      <div class="icon">
-        👨‍🏫
-      </div>
-
-      <h3 id="statProfesseurs">
-        0
-      </h3>
-
-      <p>
-        Pwofesè
-      </p>
-
-    </div>
-
-
-    <div class="dashboard-stat">
-
-      <div class="icon">
-        🏫
-      </div>
-
-      <h3 id="statClasses">
-        0
-      </h3>
-
-      <p>
-        Klas
-      </p>
-
-    </div>
-
-
-    <div class="dashboard-stat">
-
-      <div class="icon">
-        📝
-      </div>
-
-      <h3 id="statDevoirs">
-        0
-      </h3>
-
-      <p>
-        Devwa
-      </p>
-
-    </div>
-
+  <div class="stats">
+    <div class="stat"><h3 id="statEleves">0</h3><p>👨‍🎓 Elèv</p></div>
+    <div class="stat"><h3 id="statProfesseurs">0</h3><p>👨‍🏫 Pwofesè</p></div>
+    <div class="stat"><h3 id="statClasses">0</h3><p>🏫 Klas</p></div>
+    <div class="stat"><h3 id="statDevoirs">0</h3><p>📝 Devwa</p></div>
   </div>
-
-
-  <div class="quick-card">
-
-    <h2>
-      ⚡ Aksyon rapid
-    </h2>
-
-    <button
-      class="action"
-      onclick="showSection('eleves')"
-    >
-      ➕ Ajoute elèv
-    </button>
-
-    <button
-      class="action"
-      onclick="showSection('professeurs')"
-    >
-      ➕ Ajoute pwofesè
-    </button>
-
-    <button
-      class="action"
-      onclick="showSection('classes')"
-    >
-      ➕ Ajoute klas
-    </button>
-
-    <button
-      class="action"
-      onclick="showSection('devoirs')"
-    >
-      ➕ Ajoute devwa
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- =========================
-     ELEV
-========================= -->
-
-<section
-  id="eleves"
-  class="section"
->
 
   <div class="card">
+    <h2>⚡ Aksyon rapid</h2>
+    <button class="action" onclick="showSection('eleves')">➕ Ajoute elèv</button>
+    <button class="action" onclick="showSection('professeurs')">➕ Ajoute pwofesè</button>
+    <button class="action" onclick="showSection('classes')">➕ Ajoute klas</button>
+    <button class="action" onclick="showSection('devoirs')">➕ Ajoute devwa</button>
+  </div>
+</section>
 
-    <h2>
-      👨‍🎓 Jesyon Elèv
-    </h2>
-
-    <input
-      id="nomEleve"
-      type="text"
-      placeholder="Non konplè elèv la"
-    >
-
-    <input
-      id="ageEleve"
-      type="number"
-      placeholder="Laj"
-    >
-
+<section id="eleves" class="section">
+  <div class="card">
+    <h2>👨‍🎓 Jesyon Elèv</h2>
+    <input id="nomEleve" type="text" placeholder="Non konplè elèv la">
+    <input id="ageEleve" type="number" placeholder="Laj">
     <select id="classeEleve">
-
-      <option value="">
-        Chwazi klas
-      </option>
-
+      <option value="">Chwazi klas</option>
     </select>
-
-    <input
-      id="telephoneEleve"
-      type="text"
-      placeholder="Telefòn"
-    >
-
-    <button
-      class="action"
-      onclick="ajouterEleve()"
-    >
-      ➕ Ajoute elèv
-    </button>
-
+    <input id="telephoneEleve" type="text" placeholder="Telefòn">
+    <button class="action" onclick="ajouterEleve()">➕ Ajoute elèv</button>
   </div>
 
-
   <div class="card">
-
-    <h2>
-      🔎 Rechèch elèv
-    </h2>
-
-    <input
-      id="rechercheEleve"
-      type="text"
+    <h2>🔎 Rechèch elèv</h2>
+    <input id="rechercheEleve" type="text"
       placeholder="Chèche pa non oswa klas..."
-      oninput="afficherEleves()"
-    >
-
+      oninput="afficherEleves()">
   </div>
 
-
   <div class="card">
-
-    <h2>
-      📋 Lis elèv
-    </h2>
-
+    <h2>📋 Lis elèv</h2>
     <div id="listeEleves"></div>
-
   </div>
-
 </section>
 
-
-<!-- =========================
-     PWOFESÈ
-========================= -->
-
-<section
-  id="professeurs"
-  class="section"
->
-
+<section id="professeurs" class="section">
   <div class="card">
-
-    <h2>
-      👨‍🏫 Jesyon Pwofesè
-    </h2>
-
-    <input
-      id="nomProfesseur"
-      type="text"
-      placeholder="Non konplè pwofesè a"
-    >
-
-    <input
-      id="telephoneProfesseur"
-      type="text"
-      placeholder="Telefòn"
-    >
-
-    <input
-      id="matiereProfesseur"
-      type="text"
-      placeholder="Matyè li anseye"
-    >
-
-    <button
-      class="action"
-      onclick="ajouterProfesseur()"
-    >
-      ➕ Ajoute pwofesè
-    </button>
-
+    <h2>👨‍🏫 Jesyon Pwofesè</h2>
+    <input id="nomProfesseur" type="text" placeholder="Non konplè pwofesè a">
+    <input id="telephoneProfesseur" type="text" placeholder="Telefòn">
+    <input id="matiereProfesseur" type="text" placeholder="Matyè li anseye">
+    <button class="action" onclick="ajouterProfesseur()">➕ Ajoute pwofesè</button>
   </div>
 
-
   <div class="card">
-
-    <h2>
-      📋 Lis pwofesè
-    </h2>
-
+    <h2>📋 Lis pwofesè</h2>
     <div id="listeProfesseurs"></div>
-
   </div>
-
 </section>
 
-
-<!-- =========================
-     KLAS
-========================= -->
-
-<section
-  id="classes"
-  class="section"
->
-
+<section id="classes" class="section">
   <div class="card">
-
-    <h2>
-      🏫 Jesyon Klas
-    </h2>
-
-    <input
-      id="nomClasse"
-      type="text"
-      placeholder="Egzanp: 7e AF"
-    >
-
-    <input
-      id="anneeClasse"
-      type="text"
-      placeholder="Egzanp: 2026-2027"
-    >
-
-    <button
-      class="action"
-      onclick="ajouterClasse()"
-    >
-      ➕ Ajoute klas
-    </button>
-
+    <h2>🏫 Jesyon Klas</h2>
+    <input id="nomClasse" type="text" placeholder="Egzanp: 7e AF">
+    <input id="anneeClasse" type="text" placeholder="Egzanp: 2026-2027">
+    <button class="action" onclick="ajouterClasse()">➕ Ajoute klas</button>
   </div>
 
-
   <div class="card">
-
-    <h2>
-      📋 Lis klas
-    </h2>
-
+    <h2>📋 Lis klas</h2>
     <div id="listeClasses"></div>
-
   </div>
-
 </section>
 
-
-<!-- =========================
-     MATYÈ
-========================= -->
-
-<section
-  id="matieres"
-  class="section"
->
-
+<section id="matieres" class="section">
   <div class="card">
-
-    <h2>
-      📚 Jesyon Matyè
-    </h2>
-
-    <input
-      id="nomMatiere"
-      type="text"
-      placeholder="Non matyè a"
-    >
-
-    <button
-      class="action"
-      onclick="ajouterMatiere()"
-    >
-      ➕ Ajoute matyè
-    </button>
-
+    <h2>📚 Jesyon Matyè</h2>
+    <input id="nomMatiere" type="text" placeholder="Non matyè a">
+    <button class="action" onclick="ajouterMatiere()">➕ Ajoute matyè</button>
   </div>
 
-
   <div class="card">
-
-    <h2>
-      📋 Lis matyè
-    </h2>
-
+    <h2>📋 Lis matyè</h2>
     <div id="listeMatieres"></div>
-
   </div>
-
 </section>
 
-
-<!-- =========================
-     DEVWA
-========================= -->
-
-<section
-  id="devoirs"
-  class="section"
->
-
+<section id="devoirs" class="section">
   <div class="card">
+    <h2>📝 Ajoute yon devwa</h2>
 
-    <h2>
-      📝 Ajoute yon devwa
-    </h2>
-
-    <input
-      id="titreDevoir"
-      type="text"
-      placeholder="Tit devwa a"
-    >
+    <input id="titreDevoir" type="text" placeholder="Tit devwa a">
 
     <select id="matiereDevoir">
-
-      <option value="">
-        Chwazi matyè
-      </option>
-
+      <option value="">Chwazi matyè</option>
     </select>
 
     <select id="classeDevoir">
-
-      <option value="">
-        Chwazi klas
-      </option>
-
+      <option value="">Chwazi klas</option>
     </select>
 
-    <input
-      id="dateDevoir"
-      type="date"
-    >
+    <input id="dateDevoir" type="date">
 
-    <textarea
-      id="descriptionDevoir"
+    <textarea id="descriptionDevoir"
       rows="5"
-      placeholder="Deskripsyon devwa a"
-    ></textarea>
+      placeholder="Deskripsyon devwa a"></textarea>
 
-    <button
-      class="action"
-      onclick="ajouterDevoir()"
-    >
+    <button class="action" onclick="ajouterDevoir()">
       ➕ Ajoute devwa
     </button>
-
   </div>
 
-
   <div class="card">
-
-    <h2>
-      🔎 Rechèch devwa
-    </h2>
-
-    <input
-      id="rechercheDevoir"
+    <h2>🔎 Rechèch devwa</h2>
+    <input id="rechercheDevoir"
       type="text"
       placeholder="Chèche devwa..."
-      oninput="afficherDevoirs()"
-    >
-
+      oninput="afficherDevoirs()">
   </div>
-
 
   <div class="card">
-
-    <h2>
-      📋 Lis devwa
-    </h2>
-
+    <h2>📋 Lis devwa</h2>
     <div id="listeDevoirs"></div>
-
   </div>
-
 </section>
 
-
-<!-- =========================
-     REMÈT
-========================= -->
-
-<section
-  id="remises"
-  class="section"
->
-
+<section id="remises" class="section">
   <div class="card">
-
-    <h2>
-      📥 Suivi devwa
-    </h2>
+    <h2>📥 Suivi devwa</h2>
 
     <select id="eleveRemise">
-
-      <option value="">
-        Chwazi elèv
-      </option>
-
+      <option value="">Chwazi elèv</option>
     </select>
 
     <select id="devoirRemise">
-
-      <option value="">
-        Chwazi devwa
-      </option>
-
+      <option value="">Chwazi devwa</option>
     </select>
 
     <select id="statutRemise">
-
-      <option value="Remèt">
-        ✅ Remèt
-      </option>
-
-      <option value="Pa remèt">
-        ❌ Pa remèt
-      </option>
-
+      <option value="Remèt">✅ Remèt</option>
+      <option value="Pa remèt">❌ Pa remèt</option>
     </select>
 
-    <input
-      id="noteRemise"
+    <input id="noteRemise"
       type="number"
       min="0"
       max="100"
-      placeholder="Nòt /100"
-    >
+      placeholder="Nòt /100">
 
-    <button
-      class="action"
-      onclick="ajouterRemise()"
-    >
+    <button class="action" onclick="ajouterRemise()">
       💾 Anrejistre
     </button>
-
   </div>
 
-
   <div class="card">
-
-    <h2>
-      📋 Lis devwa elèv yo
-    </h2>
-
+    <h2>📋 Lis devwa elèv yo</h2>
     <div id="listeRemises"></div>
-
   </div>
-
 </section>
 
-
-<!-- =========================
-     REZILTA
-========================= -->
-
-<section
-  id="resultats"
-  class="section"
->
-
+<section id="resultats" class="section">
   <div class="card">
+    <h2>📊 Rezilta Elèv</h2>
 
-    <h2>
-      📊 Rezilta Elèv
-    </h2>
-
-    <select
-      id="eleveResultat"
-      onchange="afficherResultatEleve()"
-    >
-
-      <option value="">
-        Chwazi elèv
-      </option>
-
+    <select id="eleveResultat"
+      onchange="afficherResultatEleve()">
+      <option value="">Chwazi elèv</option>
     </select>
-
   </div>
-
 
   <div class="card">
-
     <div id="resultatEleve"></div>
-
   </div>
-
 </section>
 
-
-<!-- =========================
-     ESTATISTIK
-========================= -->
-
-<section
-  id="statistiques"
-  class="section"
->
-
+<section id="statistiques" class="section">
   <div class="card">
-
-    <h2>
-      📈 Estatistik
-    </h2>
+    <h2>📈 Estatistik</h2>
 
     <div class="stats">
-
       <div class="stat">
-
-        <h3 id="totalElevesStat">
-          0
-        </h3>
-
-        <p>
-          Elèv
-        </p>
-
+        <h3 id="totalElevesStat">0</h3>
+        <p>Elèv</p>
       </div>
 
-
       <div class="stat">
-
-        <h3 id="totalProfStat">
-          0
-        </h3>
-
-        <p>
-          Pwofesè
-        </p>
-
+        <h3 id="totalProfStat">0</h3>
+        <p>Pwofesè</p>
       </div>
 
-
       <div class="stat">
-
-        <h3 id="totalDevoirStat">
-          0
-        </h3>
-
-        <p>
-          Devwa
-        </p>
-
+        <h3 id="totalDevoirStat">0</h3>
+        <p>Devwa</p>
       </div>
 
-
       <div class="stat">
-
-        <h3 id="moyenneStat">
-          0
-        </h3>
-
-        <p>
-          Mwayèn
-        </p>
-
+        <h3 id="moyenneStat">0</h3>
+        <p>Mwayèn</p>
       </div>
-
     </div>
-
   </div>
-
 </section>
 
-
-<!-- =========================
-     SAUVEGARDE
-========================= -->
-
-<section
-  id="sauvegarde"
-  class="section"
->
+<section id="sauvegarde" class="section">
 
   <div class="card">
-
-    <h2>
-      💾 Sauvegarde done
-    </h2>
-
+    <h2>💾 Sauvegarde done</h2>
     <p>
       Ou kapab telechaje tout done sistèm nan kòm yon fichye.
     </p>
-
     <br>
 
-    <button
-      class="action success"
-      onclick="exporterDonnees()"
-    >
+    <button class="action success"
+      onclick="exporterDonnees()">
       📥 Telechaje sauvegarde
     </button>
-
   </div>
 
-
   <div class="card">
-
-    <h2>
-      📤 Récupérer done
-    </h2>
-
+    <h2>📤 Récupérer done</h2>
     <p>
       Chwazi yon fichye sauvegarde ou te ekspòte avan.
     </p>
-
     <br>
 
-    <input
-      type="file"
+    <input type="file"
       id="importFile"
-      accept=".json"
-    >
+      accept=".json">
 
-    <button
-      class="action"
-      onclick="importerDonnees()"
-    >
+    <button class="action"
+      onclick="importerDonnees()">
       📤 Importer done
     </button>
-
   </div>
 
-
   <div class="card">
-
-    <h2>
-      ⚠️ Zòn danje
-    </h2>
-
+    <h2>⚠️ Zòn danje</h2>
     <p>
       Bouton sa a ap efase tout done ki nan navigatè sa a.
     </p>
-
     <br>
 
-    <button
-      class="action danger"
-      onclick="effacerTout()"
-    >
+    <button class="action danger"
+      onclick="effacerTout()">
       🗑️ Efase tout done
     </button>
-
   </div>
 
 </section>
 
-
 </main>
 
-
 <footer>
-  © 2026 - Sistèm Aprantisaj
+  © 2026 - Sistèm Lekòl
 </footer>
 
 </div>
 
-
-<!-- ==================================================
-     JAVASCRIPT
-================================================== -->
-
 <script>
 
 function showSection(id){
+  document.querySelectorAll(".section")
+    .forEach(s=>s.classList.remove("active"));
 
-  document
-    .querySelectorAll(".section")
-    .forEach(
-      s=>s.classList.remove("active")
-    );
+  const section=document.getElementById(id);
 
-  const section =
-    document.getElementById(id);
-
-  if(section)
+  if(section){
     section.classList.add("active");
+  }
 
   actualiserTout();
-
 }
 
-
 function getData(key){
-
   try{
-
     return JSON.parse(
       localStorage.getItem(key)||"[]"
     );
-
   }catch(e){
-
     return [];
-
   }
-
 }
 
-
 function saveData(key,data){
-
   localStorage.setItem(
     key,
     JSON.stringify(data)
   );
 
-  if(window.firebaseSaveData)
-    return window.firebaseSaveData(
-      key,
-      data
-    );
+  if(window.firebaseSaveData){
+    return window.firebaseSaveData(key,data);
+  }
 
   return Promise.resolve();
-
 }
 
-
 function escapeHTML(text){
-
-  if(
-    text===undefined ||
-    text===null
-  )
+  if(text===undefined||text===null){
     return "";
+  }
 
   return String(text)
     .replace(/&/g,"&amp;")
@@ -1361,91 +385,55 @@ function escapeHTML(text){
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
-
 }
-
 
 async function ajouterClasse(){
 
-  const nom =
-    document
-      .getElementById("nomClasse")
-      .value
-      .trim();
+  const nom=
+    document.getElementById("nomClasse")
+    .value.trim();
 
-  const annee =
-    document
-      .getElementById("anneeClasse")
-      .value
-      .trim();
+  const annee=
+    document.getElementById("anneeClasse")
+    .value.trim();
 
   if(!nom){
-
-    alert(
-      "Tanpri antre non klas la."
-    );
-
+    alert("Tanpri antre non klas la.");
     return;
-
   }
 
-  let classes =
-    getData("classes");
+  let classes=getData("classes");
 
   classes.push({
-
     id:Date.now(),
-
     nom,
-
     annee
-
   });
 
-  await saveData(
-    "classes",
-    classes
-  );
+  await saveData("classes",classes);
 
-  document
-    .getElementById("nomClasse")
-    .value="";
-
-  document
-    .getElementById("anneeClasse")
-    .value="";
+  document.getElementById("nomClasse").value="";
+  document.getElementById("anneeClasse").value="";
 
   afficherClasses();
-
   remplirSelects();
 
-  alert(
-    "Klas la ajoute avèk siksè."
-  );
-
+  alert("Klas la ajoute avèk siksè.");
 }
-
 
 function afficherClasses(){
 
-  const liste =
-    document.getElementById(
-      "listeClasses"
-    );
+  const liste=
+    document.getElementById("listeClasses");
 
-  if(!liste)
-    return;
+  if(!liste)return;
 
-  const classes =
-    getData("classes");
+  const classes=getData("classes");
 
   if(!classes.length){
-
-    liste.innerHTML =
+    liste.innerHTML=
       "<p>Pa gen klas anrejistre.</p>";
-
     return;
-
   }
 
   liste.innerHTML="";
@@ -1453,12 +441,8 @@ function afficherClasses(){
   classes.forEach(c=>{
 
     liste.innerHTML+=`
-
       <div class="item">
-
-        <h3>
-          🏫 ${escapeHTML(c.nom)}
-        </h3>
+        <h3>🏫 ${escapeHTML(c.nom)}</h3>
 
         <p>
           Ane lekòl:
@@ -1467,116 +451,74 @@ function afficherClasses(){
 
         <button
           class="action danger"
-          onclick="supprimerClasse(${c.id})"
-        >
+          onclick="supprimerClasse(${c.id})">
           🗑️ Efase
         </button>
-
       </div>
-
     `;
 
   });
-
 }
-
 
 async function supprimerClasse(id){
 
-  if(
-    !confirm(
-      "Èske ou vle efase klas sa a?"
-    )
-  )
-    return;
+  if(!confirm(
+    "Èske ou vle efase klas sa a?"
+  ))return;
 
-  let data =
+  let data=
     getData("classes")
-      .filter(
-        c=>c.id!==id
-      );
+    .filter(c=>c.id!==id);
 
-  await saveData(
-    "classes",
-    data
-  );
+  await saveData("classes",data);
 
   afficherClasses();
-
   remplirSelects();
-
 }
-
 
 async function ajouterMatiere(){
 
-  const nom =
-    document
-      .getElementById("nomMatiere")
-      .value
-      .trim();
+  const nom=
+    document.getElementById("nomMatiere")
+    .value.trim();
 
   if(!nom){
-
-    alert(
-      "Tanpri antre non matyè a."
-    );
-
+    alert("Tanpri antre non matyè a.");
     return;
-
   }
 
-  let data =
-    getData("matieres");
+  let data=getData("matieres");
 
   data.push({
-
     id:Date.now(),
-
     nom
-
   });
 
-  await saveData(
-    "matieres",
-    data
-  );
+  await saveData("matieres",data);
 
-  document
-    .getElementById("nomMatiere")
-    .value="";
+  document.getElementById(
+    "nomMatiere"
+  ).value="";
 
   afficherMatieres();
-
   remplirSelects();
 
-  alert(
-    "Matyè a ajoute avèk siksè."
-  );
-
+  alert("Matyè a ajoute avèk siksè.");
 }
-
 
 function afficherMatieres(){
 
-  const liste =
-    document.getElementById(
-      "listeMatieres"
-    );
+  const liste=
+    document.getElementById("listeMatieres");
 
-  if(!liste)
-    return;
+  if(!liste)return;
 
-  const data =
-    getData("matieres");
+  const data=getData("matieres");
 
   if(!data.length){
-
-    liste.innerHTML =
+    liste.innerHTML=
       "<p>Pa gen matyè.</p>";
-
     return;
-
   }
 
   liste.innerHTML="";
@@ -1584,180 +526,112 @@ function afficherMatieres(){
   data.forEach(m=>{
 
     liste.innerHTML+=`
-
       <div class="item">
-
         <h3>
           📚 ${escapeHTML(m.nom)}
         </h3>
 
         <button
           class="action danger"
-          onclick="supprimerMatiere(${m.id})"
-        >
+          onclick="supprimerMatiere(${m.id})">
           🗑️ Efase
         </button>
-
       </div>
-
     `;
 
   });
-
 }
-
 
 async function supprimerMatiere(id){
 
-  if(
-    !confirm(
-      "Èske ou vle efase matyè sa a?"
-    )
-  )
-    return;
+  if(!confirm(
+    "Èske ou vle efase matyè sa a?"
+  ))return;
 
-  let data =
+  let data=
     getData("matieres")
-      .filter(
-        m=>m.id!==id
-      );
+    .filter(m=>m.id!==id);
 
-  await saveData(
-    "matieres",
-    data
-  );
+  await saveData("matieres",data);
 
   afficherMatieres();
-
   remplirSelects();
-
 }
-
 
 async function ajouterEleve(){
 
-  const nom =
-    document
-      .getElementById("nomEleve")
-      .value
-      .trim();
+  const nom=
+    document.getElementById("nomEleve")
+    .value.trim();
 
-  const age =
-    document
-      .getElementById("ageEleve")
-      .value;
+  const age=
+    document.getElementById("ageEleve")
+    .value;
 
-  const classe =
-    document
-      .getElementById("classeEleve")
-      .value;
+  const classe=
+    document.getElementById("classeEleve")
+    .value;
 
-  const telephone =
-    document
-      .getElementById("telephoneEleve")
-      .value
-      .trim();
+  const telephone=
+    document.getElementById("telephoneEleve")
+    .value.trim();
 
   if(!nom){
-
-    alert(
-      "Tanpri antre non elèv la."
-    );
-
+    alert("Tanpri antre non elèv la.");
     return;
-
   }
 
-  let eleves =
-    getData("eleves");
+  let eleves=getData("eleves");
 
   eleves.push({
-
     id:Date.now(),
-
     nom,
-
     age,
-
     classe,
-
     telephone
-
   });
 
-  await saveData(
-    "eleves",
-    eleves
-  );
+  await saveData("eleves",eleves);
 
-  document
-    .getElementById("nomEleve")
-    .value="";
-
-  document
-    .getElementById("ageEleve")
-    .value="";
-
-  document
-    .getElementById("classeEleve")
-    .value="";
-
-  document
-    .getElementById("telephoneEleve")
-    .value="";
+  document.getElementById("nomEleve").value="";
+  document.getElementById("ageEleve").value="";
+  document.getElementById("classeEleve").value="";
+  document.getElementById("telephoneEleve").value="";
 
   afficherEleves();
-
   remplirSelects();
-
   actualiserDashboard();
 
-  alert(
-    "Elèv la ajoute avèk siksè."
-  );
-
+  alert("Elèv la ajoute avèk siksè.");
 }
-
 
 function afficherEleves(){
 
-  const liste =
-    document.getElementById(
-      "listeEleves"
+  const liste=
+    document.getElementById("listeEleves");
+
+  if(!liste)return;
+
+  const recherche=
+    document.getElementById("rechercheEleve")
+    ?.value.toLowerCase().trim()||"";
+
+  let data=
+    getData("eleves")
+    .filter(e=>
+      String(e.nom||"")
+        .toLowerCase()
+        .includes(recherche)
+      ||
+      String(e.classe||"")
+        .toLowerCase()
+        .includes(recherche)
     );
 
-  if(!liste)
-    return;
-
-  const recherche =
-    document
-      .getElementById("rechercheEleve")
-      ?.value
-      .toLowerCase()
-      .trim() || "";
-
-  let data =
-    getData("eleves")
-      .filter(
-        e=>
-          String(e.nom||"")
-            .toLowerCase()
-            .includes(recherche)
-
-          ||
-
-          String(e.classe||"")
-            .toLowerCase()
-            .includes(recherche)
-      );
-
   if(!data.length){
-
-    liste.innerHTML =
+    liste.innerHTML=
       "<p>Pa gen elèv ki koresponn.</p>";
-
     return;
-
   }
 
   liste.innerHTML="";
@@ -1765,7 +639,6 @@ function afficherEleves(){
   data.forEach(e=>{
 
     liste.innerHTML+=`
-
       <div class="item">
 
         <h3>
@@ -1789,92 +662,59 @@ function afficherEleves(){
 
         <button
           class="action danger"
-          onclick="supprimerEleve(${e.id})"
-        >
+          onclick="supprimerEleve(${e.id})">
           🗑️ Efase
         </button>
 
       </div>
-
     `;
 
   });
-
 }
-
 
 async function supprimerEleve(id){
 
-  if(
-    !confirm(
-      "Èske ou vle efase elèv sa a?"
-    )
-  )
-    return;
+  if(!confirm(
+    "Èske ou vle efase elèv sa a?"
+  ))return;
 
-  let data =
+  let data=
     getData("eleves")
-      .filter(
-        e=>e.id!==id
-      );
+    .filter(e=>e.id!==id);
 
-  await saveData(
-    "eleves",
-    data
-  );
+  await saveData("eleves",data);
 
   afficherEleves();
-
   remplirSelects();
-
   actualiserDashboard();
-
 }
-
 
 async function ajouterProfesseur(){
 
-  const nom =
-    document
-      .getElementById("nomProfesseur")
-      .value
-      .trim();
+  const nom=
+    document.getElementById("nomProfesseur")
+    .value.trim();
 
-  const telephone =
-    document
-      .getElementById("telephoneProfesseur")
-      .value
-      .trim();
+  const telephone=
+    document.getElementById("telephoneProfesseur")
+    .value.trim();
 
-  const matiere =
-    document
-      .getElementById("matiereProfesseur")
-      .value
-      .trim();
+  const matiere=
+    document.getElementById("matiereProfesseur")
+    .value.trim();
 
   if(!nom){
-
-    alert(
-      "Tanpri antre non pwofesè a."
-    );
-
+    alert("Tanpri antre non pwofesè a.");
     return;
-
   }
 
-  let data =
-    getData("professeurs");
+  let data=getData("professeurs");
 
   data.push({
-
     id:Date.now(),
-
     nom,
-
     telephone,
-
     matiere
-
   });
 
   await saveData(
@@ -1882,49 +722,39 @@ async function ajouterProfesseur(){
     data
   );
 
-  document
-    .getElementById("nomProfesseur")
-    .value="";
+  document.getElementById(
+    "nomProfesseur"
+  ).value="";
 
-  document
-    .getElementById("telephoneProfesseur")
-    .value="";
+  document.getElementById(
+    "telephoneProfesseur"
+  ).value="";
 
-  document
-    .getElementById("matiereProfesseur")
-    .value="";
+  document.getElementById(
+    "matiereProfesseur"
+  ).value="";
 
   afficherProfesseurs();
-
   actualiserDashboard();
 
-  alert(
-    "Pwofesè a ajoute avèk siksè."
-  );
-
+  alert("Pwofesè a ajoute avèk siksè.");
 }
-
 
 function afficherProfesseurs(){
 
-  const liste =
+  const liste=
     document.getElementById(
       "listeProfesseurs"
     );
 
-  if(!liste)
-    return;
+  if(!liste)return;
 
-  const data =
-    getData("professeurs");
+  const data=getData("professeurs");
 
   if(!data.length){
-
-    liste.innerHTML =
+    liste.innerHTML=
       "<p>Pa gen pwofesè anrejistre.</p>";
-
     return;
-
   }
 
   liste.innerHTML="";
@@ -1932,7 +762,6 @@ function afficherProfesseurs(){
   data.forEach(p=>{
 
     liste.innerHTML+=`
-
       <div class="item">
 
         <h3>
@@ -1951,34 +780,25 @@ function afficherProfesseurs(){
 
         <button
           class="action danger"
-          onclick="supprimerProfesseur(${p.id})"
-        >
+          onclick="supprimerProfesseur(${p.id})">
           🗑️ Efase
         </button>
 
       </div>
-
     `;
 
   });
-
 }
-
 
 async function supprimerProfesseur(id){
 
-  if(
-    !confirm(
-      "Èske ou vle efase pwofesè sa a?"
-    )
-  )
-    return;
+  if(!confirm(
+    "Èske ou vle efase pwofesè sa a?"
+  ))return;
 
-  let data =
+  let data=
     getData("professeurs")
-      .filter(
-        p=>p.id!==id
-      );
+    .filter(p=>p.id!==id);
 
   await saveData(
     "professeurs",
@@ -1986,68 +806,45 @@ async function supprimerProfesseur(id){
   );
 
   afficherProfesseurs();
-
   actualiserDashboard();
-
 }
-
 
 async function ajouterDevoir(){
 
-  const titre =
-    document
-      .getElementById("titreDevoir")
-      .value
-      .trim();
+  const titre=
+    document.getElementById("titreDevoir")
+    .value.trim();
 
-  const matiere =
-    document
-      .getElementById("matiereDevoir")
-      .value;
+  const matiere=
+    document.getElementById("matiereDevoir")
+    .value;
 
-  const classe =
-    document
-      .getElementById("classeDevoir")
-      .value;
+  const classe=
+    document.getElementById("classeDevoir")
+    .value;
 
-  const date =
-    document
-      .getElementById("dateDevoir")
-      .value;
+  const date=
+    document.getElementById("dateDevoir")
+    .value;
 
-  const description =
-    document
-      .getElementById("descriptionDevoir")
-      .value
-      .trim();
+  const description=
+    document.getElementById("descriptionDevoir")
+    .value.trim();
 
   if(!titre){
-
-    alert(
-      "Tanpri antre tit devwa a."
-    );
-
+    alert("Tanpri antre tit devwa a.");
     return;
-
   }
 
-  let data =
-    getData("devoirs");
+  let data=getData("devoirs");
 
   data.push({
-
     id:Date.now(),
-
     titre,
-
     matiere,
-
     classe,
-
     date,
-
     description
-
   });
 
   await saveData(
@@ -2055,76 +852,59 @@ async function ajouterDevoir(){
     data
   );
 
-  document
-    .getElementById("titreDevoir")
-    .value="";
+  document.getElementById(
+    "titreDevoir"
+  ).value="";
 
-  document
-    .getElementById("dateDevoir")
-    .value="";
+  document.getElementById(
+    "dateDevoir"
+  ).value="";
 
-  document
-    .getElementById("descriptionDevoir")
-    .value="";
+  document.getElementById(
+    "descriptionDevoir"
+  ).value="";
 
   afficherDevoirs();
-
   remplirSelects();
-
   actualiserDashboard();
 
-  alert(
-    "Devwa a ajoute avèk siksè."
-  );
-
+  alert("Devwa a ajoute avèk siksè.");
 }
-
 
 function afficherDevoirs(){
 
-  const liste =
+  const liste=
     document.getElementById(
       "listeDevoirs"
     );
 
-  if(!liste)
-    return;
+  if(!liste)return;
 
-  const recherche =
-    document
-      .getElementById("rechercheDevoir")
-      ?.value
-      .toLowerCase()
-      .trim() || "";
+  const recherche=
+    document.getElementById(
+      "rechercheDevoir"
+    )?.value.toLowerCase().trim()||"";
 
-  let data =
+  let data=
     getData("devoirs")
-      .filter(
-        d=>
-          String(d.titre||"")
-            .toLowerCase()
-            .includes(recherche)
-
-          ||
-
-          String(d.matiere||"")
-            .toLowerCase()
-            .includes(recherche)
-
-          ||
-
-          String(d.classe||"")
-            .toLowerCase()
-            .includes(recherche)
-      );
+    .filter(d=>
+      String(d.titre||"")
+        .toLowerCase()
+        .includes(recherche)
+      ||
+      String(d.matiere||"")
+        .toLowerCase()
+        .includes(recherche)
+      ||
+      String(d.classe||"")
+        .toLowerCase()
+        .includes(recherche)
+    );
 
   if(!data.length){
-
-    liste.innerHTML =
+    liste.innerHTML=
       "<p>Pa gen devwa ki koresponn.</p>";
-
     return;
-
   }
 
   liste.innerHTML="";
@@ -2135,24 +915,19 @@ function afficherDevoirs(){
 
     if(d.date){
 
-      const dat =
+      const dat=
         new Date(d.date);
 
-      statut =
+      statut=
         dat<new Date()
-
         ?
-
         '<span class="badge badge-red">Dat pase</span>'
-
         :
-
         '<span class="badge badge-green">A venir</span>';
 
     }
 
     liste.innerHTML+=`
-
       <div class="item">
 
         <h3>
@@ -2183,34 +958,25 @@ function afficherDevoirs(){
 
         <button
           class="action danger"
-          onclick="supprimerDevoir(${d.id})"
-        >
+          onclick="supprimerDevoir(${d.id})">
           🗑️ Efase
         </button>
 
       </div>
-
     `;
 
   });
-
 }
-
 
 async function supprimerDevoir(id){
 
-  if(
-    !confirm(
-      "Èske ou vle efase devwa sa a?"
-    )
-  )
-    return;
+  if(!confirm(
+    "Èske ou vle efase devwa sa a?"
+  ))return;
 
-  let data =
+  let data=
     getData("devoirs")
-      .filter(
-        d=>d.id!==id
-      );
+    .filter(d=>d.id!==id);
 
   await saveData(
     "devoirs",
@@ -2218,82 +984,61 @@ async function supprimerDevoir(id){
   );
 
   afficherDevoirs();
-
   remplirSelects();
-
   actualiserDashboard();
-
 }
-
 
 async function ajouterRemise(){
 
-  const eleveId =
-    document
-      .getElementById("eleveRemise")
-      .value;
+  const eleveId=
+    document.getElementById(
+      "eleveRemise"
+    ).value;
 
-  const devoirId =
-    document
-      .getElementById("devoirRemise")
-      .value;
+  const devoirId=
+    document.getElementById(
+      "devoirRemise"
+    ).value;
 
-  const statut =
-    document
-      .getElementById("statutRemise")
-      .value;
+  const statut=
+    document.getElementById(
+      "statutRemise"
+    ).value;
 
-  const note =
-    document
-      .getElementById("noteRemise")
-      .value;
+  const note=
+    document.getElementById(
+      "noteRemise"
+    ).value;
 
-  if(
-    !eleveId ||
-    !devoirId
-  ){
-
+  if(!eleveId||!devoirId){
     alert(
       "Tanpri chwazi elèv ak devwa."
     );
-
     return;
-
   }
 
-  let data =
-    getData("remises");
+  let data=getData("remises");
 
-  const existant =
-    data.find(
-      r=>
-        String(r.eleveId)===String(eleveId)
-        &&
-        String(r.devoirId)===String(devoirId)
+  const existant=
+    data.find(r=>
+      String(r.eleveId)===
+      String(eleveId)
+      &&
+      String(r.devoirId)===
+      String(devoirId)
     );
 
   if(existant){
-
-    existant.statut =
-      statut;
-
-    existant.note =
-      note;
-
+    existant.statut=statut;
+    existant.note=note;
   }else{
 
     data.push({
-
       id:Date.now(),
-
       eleveId,
-
       devoirId,
-
       statut,
-
       note
-
     });
 
   }
@@ -2305,67 +1050,53 @@ async function ajouterRemise(){
 
   afficherRemises();
 
-  document
-    .getElementById("noteRemise")
-    .value="";
+  document.getElementById(
+    "noteRemise"
+  ).value="";
 
   alert(
     "Suivi devwa a anrejistre."
   );
-
 }
-
 
 function afficherRemises(){
 
-  const liste =
+  const liste=
     document.getElementById(
       "listeRemises"
     );
 
-  if(!liste)
-    return;
+  if(!liste)return;
 
-  const remises =
-    getData("remises");
-
-  const eleves =
-    getData("eleves");
-
-  const devoirs =
-    getData("devoirs");
+  const remises=getData("remises");
+  const eleves=getData("eleves");
+  const devoirs=getData("devoirs");
 
   if(!remises.length){
-
-    liste.innerHTML =
+    liste.innerHTML=
       "<p>Pa gen done sou remèt devwa.</p>";
-
     return;
-
   }
 
   liste.innerHTML="";
 
   remises.forEach(r=>{
 
-    const e =
-      eleves.find(
-        x=>
-          String(x.id)===
-          String(r.eleveId)
+    const e=
+      eleves.find(x=>
+        String(x.id)===
+        String(r.eleveId)
       );
 
-    const d =
-      devoirs.find(
-        x=>
-          String(x.id)===
-          String(r.devoirId)
+    const d=
+      devoirs.find(x=>
+        String(x.id)===
+        String(r.devoirId)
       );
 
-    if(!e || !d)
-      return;
+    if(!e||!d)return;
 
-    const badge =
+    const badge=
       r.statut==="Remèt"
       ?
       "badge-green"
@@ -2373,7 +1104,6 @@ function afficherRemises(){
       "badge-red";
 
     liste.innerHTML+=`
-
       <div class="item">
 
         <h3>
@@ -2387,64 +1117,37 @@ function afficherRemises(){
 
         <p>
           <b>Estati:</b>
-
           <span class="badge ${badge}">
             ${escapeHTML(r.statut)}
           </span>
-
         </p>
 
         <p>
-
           <b>Nòt:</b>
-
-          ${
-            r.note!==null &&
-            r.note!==undefined &&
-            r.note!==""
-
-            ?
-
-            escapeHTML(r.note)+"/100"
-
-            :
-
-            "-"
-
-          }
-
+          ${escapeHTML(r.note||"Pa gen nòt")}
         </p>
 
         <button
           class="action danger"
-          onclick="supprimerRemise(${r.id})"
-        >
+          onclick="supprimerRemise(${r.id})">
           🗑️ Efase
         </button>
 
       </div>
-
     `;
 
   });
-
 }
-
 
 async function supprimerRemise(id){
 
-  if(
-    !confirm(
-      "Efase anrejistreman sa a?"
-    )
-  )
-    return;
+  if(!confirm(
+    "Efase anrejistreman sa a?"
+  ))return;
 
-  let data =
+  let data=
     getData("remises")
-      .filter(
-        r=>r.id!==id
-      );
+    .filter(r=>r.id!==id);
 
   await saveData(
     "remises",
@@ -2452,73 +1155,63 @@ async function supprimerRemise(id){
   );
 
   afficherRemises();
-
 }
-
 
 function afficherResultatEleve(){
 
-  const id =
-    document
-      .getElementById("eleveResultat")
-      .value;
+  const id=
+    document.getElementById(
+      "eleveResultat"
+    ).value;
 
-  const resultat =
-    document
-      .getElementById("resultatEleve");
+  const resultat=
+    document.getElementById(
+      "resultatEleve"
+    );
 
   if(!id){
-
-    resultat.innerHTML =
+    resultat.innerHTML=
       "<p>Chwazi yon elèv.</p>";
-
     return;
-
   }
 
-  const eleve =
+  const eleve=
     getData("eleves")
-      .find(
-        e=>
-          String(e.id)===
-          String(id)
-      );
+    .find(e=>
+      String(e.id)===
+      String(id)
+    );
 
-  if(!eleve)
-    return;
+  if(!eleve)return;
 
-  const devoirs =
+  const devoirs=
     getData("devoirs");
 
-  const notes =
+  const notes=
     getData("remises")
-      .filter(
-        r=>
-          String(r.eleveId)===
-          String(id)
-          &&
-          r.note!==""
-          &&
-          r.note!==undefined
-      );
+    .filter(r=>
+      String(r.eleveId)===
+      String(id)
+      &&
+      r.note!==""
+      &&
+      r.note!==undefined
+    );
 
-  const total =
+  const total=
     notes.reduce(
-      (a,n)=>
-        a+Number(n.note),
+      (a,n)=>a+Number(n.note),
       0
     );
 
-  const moyenne =
+  const moyenne=
     notes.length
     ?
-    (total/notes.length)
-      .toFixed(2)
+    (total/notes.length).toFixed(2)
     :
     "0";
 
   let html=`
-
     <h2>
       📊 Rezilta:
       ${escapeHTML(eleve.nom)}
@@ -2526,9 +1219,7 @@ function afficherResultatEleve(){
 
     <p>
       <b>Klas:</b>
-      ${escapeHTML(
-        eleve.classe||"Pa defini"
-      )}
+      ${escapeHTML(eleve.classe||"Pa defini")}
     </p>
 
     <br>
@@ -2544,43 +1235,25 @@ function afficherResultatEleve(){
       <table>
 
         <tr>
-
-          <th>
-            Devwa
-          </th>
-
-          <th>
-            Nòt
-          </th>
-
-          <th>
-            Estati
-          </th>
-
+          <th>Devwa</th>
+          <th>Nòt</th>
+          <th>Estati</th>
         </tr>
-
   `;
 
   notes.forEach(n=>{
 
-    const d =
-      devoirs.find(
-        x=>
-          String(x.id)===
-          String(n.devoirId)
+    const d=
+      devoirs.find(x=>
+        String(x.id)===
+        String(n.devoirId)
       );
 
     html+=`
-
       <tr>
-
         <td>
           ${escapeHTML(
-            d
-            ?
-            d.titre
-            :
-            "Devwa"
+            d?d.titre:"Devwa"
           )}
         </td>
 
@@ -2591,74 +1264,55 @@ function afficherResultatEleve(){
         <td>
           ${escapeHTML(n.statut)}
         </td>
-
       </tr>
-
     `;
 
   });
 
-  resultat.innerHTML =
+  resultat.innerHTML=
     html+
     "</table></div>";
-
 }
-
 
 function remplirSelects(){
 
-  const eleves =
+  const eleves=
     getData("eleves");
 
-  const classes =
+  const classes=
     getData("classes");
 
-  const matieres =
+  const matieres=
     getData("matieres");
 
-  const devoirs =
+  const devoirs=
     getData("devoirs");
 
-
   [
-    document.getElementById(
-      "classeEleve"
-    ),
-
-    document.getElementById(
-      "classeDevoir"
-    )
-
+    document.getElementById("classeEleve"),
+    document.getElementById("classeDevoir")
   ].forEach(s=>{
 
-    if(!s)
-      return;
+    if(!s)return;
 
     const v=s.value;
 
     s.innerHTML=
       '<option value="">Chwazi klas</option>';
 
-    classes.forEach(c=>{
-
+    classes.forEach(c=>
       s.innerHTML+=`
-
-        <option
-          value="${escapeHTML(c.nom)}"
-        >
+        <option value="${escapeHTML(c.nom)}">
           ${escapeHTML(c.nom)}
         </option>
-
-      `;
-
-    });
+      `
+    );
 
     s.value=v;
 
   });
 
-
-  const ms =
+  const ms=
     document.getElementById(
       "matiereDevoir"
     );
@@ -2670,62 +1324,41 @@ function remplirSelects(){
     ms.innerHTML=
       '<option value="">Chwazi matyè</option>';
 
-    matieres.forEach(m=>{
-
+    matieres.forEach(m=>
       ms.innerHTML+=`
-
-        <option
-          value="${escapeHTML(m.nom)}"
-        >
+        <option value="${escapeHTML(m.nom)}">
           ${escapeHTML(m.nom)}
         </option>
-
-      `;
-
-    });
+      `
+    );
 
     ms.value=v;
-
   }
 
-
   [
-    document.getElementById(
-      "eleveRemise"
-    ),
-
-    document.getElementById(
-      "eleveResultat"
-    )
-
+    document.getElementById("eleveRemise"),
+    document.getElementById("eleveResultat")
   ].forEach(s=>{
 
-    if(!s)
-      return;
+    if(!s)return;
 
     const v=s.value;
 
     s.innerHTML=
       '<option value="">Chwazi elèv</option>';
 
-    eleves.forEach(e=>{
-
+    eleves.forEach(e=>
       s.innerHTML+=`
-
         <option value="${e.id}">
           ${escapeHTML(e.nom)}
         </option>
-
-      `;
-
-    });
+      `
+    );
 
     s.value=v;
-
   });
 
-
-  const ds =
+  const ds=
     document.getElementById(
       "devoirRemise"
     );
@@ -2737,73 +1370,53 @@ function remplirSelects(){
     ds.innerHTML=
       '<option value="">Chwazi devwa</option>';
 
-    devoirs.forEach(d=>{
-
+    devoirs.forEach(d=>
       ds.innerHTML+=`
-
         <option value="${d.id}">
           ${escapeHTML(d.titre)}
         </option>
-
-      `;
-
-    });
+      `
+    );
 
     ds.value=v;
-
   }
-
 }
-
 
 function actualiserDashboard(){
 
-  document
-    .getElementById(
-      "statEleves"
-    )
-    .textContent =
-      getData("eleves").length;
+  document.getElementById(
+    "statEleves"
+  ).textContent=
+    getData("eleves").length;
 
-  document
-    .getElementById(
-      "statProfesseurs"
-    )
-    .textContent =
-      getData("professeurs").length;
+  document.getElementById(
+    "statProfesseurs"
+  ).textContent=
+    getData("professeurs").length;
 
-  document
-    .getElementById(
-      "statClasses"
-    )
-    .textContent =
-      getData("classes").length;
+  document.getElementById(
+    "statClasses"
+  ).textContent=
+    getData("classes").length;
 
-  document
-    .getElementById(
-      "statDevoirs"
-    )
-    .textContent =
-      getData("devoirs").length;
-
+  document.getElementById(
+    "statDevoirs"
+  ).textContent=
+    getData("devoirs").length;
 }
-
 
 function actualiserStatistiques(){
 
-  const notes =
+  const notes=
     getData("remises")
-      .filter(
-        r=>
-          r.note!==""
-          &&
-          r.note!==undefined
-      )
-      .map(
-        r=>Number(r.note)
-      );
+    .filter(r=>
+      r.note!==""
+      &&
+      r.note!==undefined
+    )
+    .map(r=>Number(r.note));
 
-  const moyenne =
+  const moyenne=
     notes.length
     ?
     notes.reduce(
@@ -2813,62 +1426,39 @@ function actualiserStatistiques(){
     :
     0;
 
-  document
-    .getElementById(
-      "totalElevesStat"
-    )
-    .textContent =
-      getData("eleves").length;
+  document.getElementById(
+    "totalElevesStat"
+  ).textContent=
+    getData("eleves").length;
 
-  document
-    .getElementById(
-      "totalProfStat"
-    )
-    .textContent =
-      getData("professeurs").length;
+  document.getElementById(
+    "totalProfStat"
+  ).textContent=
+    getData("professeurs").length;
 
-  document
-    .getElementById(
-      "totalDevoirStat"
-    )
-    .textContent =
-      getData("devoirs").length;
+  document.getElementById(
+    "totalDevoirStat"
+  ).textContent=
+    getData("devoirs").length;
 
-  document
-    .getElementById(
-      "moyenneStat"
-    )
-    .textContent =
-      moyenne.toFixed(2);
-
+  document.getElementById(
+    "moyenneStat"
+  ).textContent=
+    moyenne.toFixed(2);
 }
-
 
 function exporterDonnees(){
 
   const donnees={
-
-    eleves:
-      getData("eleves"),
-
-    professeurs:
-      getData("professeurs"),
-
-    classes:
-      getData("classes"),
-
-    matieres:
-      getData("matieres"),
-
-    devoirs:
-      getData("devoirs"),
-
-    remises:
-      getData("remises")
-
+    eleves:getData("eleves"),
+    professeurs:getData("professeurs"),
+    classes:getData("classes"),
+    matieres:getData("matieres"),
+    devoirs:getData("devoirs"),
+    remises:getData("remises")
   };
 
-  const fichier =
+  const fichier=
     new Blob(
       [
         JSON.stringify(
@@ -2882,12 +1472,10 @@ function exporterDonnees(){
       }
     );
 
-  const url =
-    URL.createObjectURL(
-      fichier
-    );
+  const url=
+    URL.createObjectURL(fichier);
 
-  const lien =
+  const lien=
     document.createElement("a");
 
   lien.href=url;
@@ -2898,38 +1486,31 @@ function exporterDonnees(){
   lien.click();
 
   URL.revokeObjectURL(url);
-
 }
-
 
 function importerDonnees(){
 
-  const fichier =
-    document
-      .getElementById(
-        "importFile"
-      )
-      .files[0];
+  const fichier=
+    document.getElementById(
+      "importFile"
+    ).files[0];
 
   if(!fichier){
-
     alert(
       "Chwazi yon fichye JSON an premye."
     );
-
     return;
-
   }
 
-  const lecteur =
+  const lecteur=
     new FileReader();
 
-  lecteur.onload =
+  lecteur.onload=
     async function(e){
 
       try{
 
-        const donnees =
+        const donnees=
           JSON.parse(
             e.target.result
           );
@@ -2945,18 +1526,18 @@ function importerDonnees(){
 
         for(
           const cle of cles
-        )
-
+        ){
           if(
             Array.isArray(
               donnees[cle]
             )
-          )
-
+          ){
             await saveData(
               cle,
               donnees[cle]
             );
+          }
+        }
 
         actualiserTout();
 
@@ -2974,21 +1555,14 @@ function importerDonnees(){
 
     };
 
-  lecteur.readAsText(
-    fichier
-  );
-
+  lecteur.readAsText(fichier);
 }
-
 
 async function effacerTout(){
 
-  if(
-    !confirm(
-      "ATANSYON ! Sa ap efase tout done sistèm nan. Èske ou sèten?"
-    )
-  )
-    return;
+  if(!confirm(
+    "ATANSYON ! Sa ap efase tout done sistèm nan. Èske ou sèten?"
+  ))return;
 
   const cles=[
     "eleves",
@@ -3000,8 +1574,7 @@ async function effacerTout(){
   ];
 
   cles.forEach(
-    c=>
-      localStorage.removeItem(c)
+    c=>localStorage.removeItem(c)
   );
 
   initialiserDonnees();
@@ -3011,48 +1584,84 @@ async function effacerTout(){
   alert(
     "Done lokal yo efase. Dokiman Firestore yo pa efase nan vèsyon sa a."
   );
-
 }
-
 
 function initialiserDonnees(){
 
-  // Pa gen elèv,
-  // pwofesè,
-  // klas oswa matyè
-  // demo ki mete otomatikman.
+  if(!localStorage.getItem("classes"))
 
+    localStorage.setItem(
+      "classes",
+      JSON.stringify([
+        {
+          id:1,
+          nom:"7e AF",
+          annee:"2026-2027"
+        },
+        {
+          id:2,
+          nom:"8e AF",
+          annee:"2026-2027"
+        },
+        {
+          id:3,
+          nom:"9e AF",
+          annee:"2026-2027"
+        }
+      ])
+    );
+
+  if(!localStorage.getItem("matieres"))
+
+    localStorage.setItem(
+      "matieres",
+      JSON.stringify([
+        {
+          id:1,
+          nom:"Matematik"
+        },
+        {
+          id:2,
+          nom:"Français"
+        },
+        {
+          id:3,
+          nom:"Syans sosyal"
+        },
+        {
+          id:4,
+          nom:"Fizik"
+        },
+        {
+          id:5,
+          nom:"Chimi"
+        },
+        {
+          id:6,
+          nom:"Biyoloji"
+        }
+      ])
+    );
 }
-
 
 function actualiserTout(){
 
   afficherEleves();
-
   afficherProfesseurs();
-
   afficherClasses();
-
   afficherMatieres();
-
   afficherDevoirs();
-
   afficherRemises();
-
   remplirSelects();
-
   actualiserDashboard();
-
   actualiserStatistiques();
-
 }
 
-
 initialiserDonnees();
-
 actualiserTout();
 
 </script>
+
 <script type="module">
 
 import {
@@ -3074,7 +1683,6 @@ import {
 }
 from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-
 const firebaseConfig={
 
   apiKey:
@@ -3094,65 +1702,55 @@ const firebaseConfig={
 
   appId:
     "1:505464315297:web:3e45543cb121eaf7243fe0"
-
 };
 
+const app=
+  initializeApp(firebaseConfig);
 
-const app =
-  initializeApp(
-    firebaseConfig
-  );
-
-const db =
+const db=
   getFirestore(app);
 
-const auth =
+const auth=
   getAuth(app);
 
+window.firebaseSaveData=
+  async function(key,data){
 
-window.firebaseSaveData =
-async function(key,data){
+    if(!auth.currentUser){
+      throw new Error(
+        "Ou pa konekte ak Firebase."
+      );
+    }
 
-  if(!auth.currentUser){
+    for(
+      const item of data
+    ){
 
-    throw new Error(
-      "Ou pa konekte ak Firebase."
+      if(!item.id){
+        item.id=Date.now();
+      }
+
+      await setDoc(
+        doc(
+          db,
+          key,
+          String(item.id)
+        ),
+        item
+      );
+    }
+
+    console.log(
+      "Firebase OK:",
+      key,
+      data.length,
+      "documents"
     );
-
-  }
-
-  for(
-    const item of data
-  ){
-
-    if(!item.id)
-      item.id=Date.now();
-
-    await setDoc(
-      doc(
-        db,
-        key,
-        String(item.id)
-      ),
-      item
-    );
-
-  }
-
-  console.log(
-    "Firebase OK:",
-    key,
-    data.length,
-    "documents"
-  );
-
-};
-
+  };
 
 async function synchroniserToutVersFirebase(){
 
-  if(!auth.currentUser)
-    return;
+  if(!auth.currentUser)return;
 
   const cles=[
     "eleves",
@@ -3167,94 +1765,79 @@ async function synchroniserToutVersFirebase(){
     const cle of cles
   ){
 
-    const data =
+    const data=
       getData(cle);
 
-    if(data.length)
+    if(data.length){
 
       await window.firebaseSaveData(
         cle,
         data
       );
 
+    }
   }
-
 }
 
+window.connecterUtilisateur=
+  async function(){
 
-window.connecterUtilisateur =
-async function(){
-
-  const email =
-    document
-      .getElementById(
+    const email=
+      document.getElementById(
         "emailLogin"
-      )
-      .value
-      .trim();
+      ).value.trim();
 
-  const motDePasse =
-    document
-      .getElementById(
+    const motDePasse=
+      document.getElementById(
         "passwordLogin"
-      )
-      .value;
+      ).value;
 
-  if(
-    !email ||
-    !motDePasse
-  ){
+    if(!email||!motDePasse){
 
-    alert(
-      "Tanpri antre e-mail ak modpas la."
-    );
+      alert(
+        "Tanpri antre e-mail ak modpas la."
+      );
 
-    return;
+      return;
+    }
 
-  }
+    try{
 
-  try{
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        motDePasse
+      );
 
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      motDePasse
-    );
+    }catch(error){
 
-  }catch(error){
+      alert(
+        "Erreur de connexion : "
+        +
+        error.message
+      );
 
-    alert(
-      "Erreur de connexion : "
-      +
-      error.message
-    );
-
-  }
-
-};
-
+    }
+  };
 
 onAuthStateChanged(
   auth,
   async function(user){
 
-    const loginBox =
+    const loginBox=
       document.getElementById(
         "loginBox"
       );
 
-    const appBox =
+    const appBox=
       document.getElementById(
         "app"
       );
 
     if(user){
 
-      loginBox.style.display =
-        "none";
-
-      appBox.style.display =
-        "block";
+      loginBox.style.display="none";
+      appBox.style.display="block";
 
       try{
 
@@ -3283,649 +1866,10 @@ onAuthStateChanged(
 
     }else{
 
-      loginBox.style.display =
-        "flex";
-
-      appBox.style.display =
-        "none";
+      loginBox.style.display="flex";
+      appBox.style.display="none";
 
     }
-
-  }
-);
-
-</script>
-
-
-<!-- =========================
-     INSTALLATION APP
-========================= -->
-
-<script>
-
-let deferredInstallPrompt =
-  null;
-
-
-window.addEventListener(
-  "beforeinstallprompt",
-  e=>{
-
-    e.preventDefault();
-
-    deferredInstallPrompt=e;
-
-    const b =
-      document.getElementById(
-        "installAppBtn"
-      );
-
-    if(b)
-      b.style.display=
-        "inline-block";
-
-  }
-);
-
-
-async function installApp(){
-
-  if(!deferredInstallPrompt){
-
-    alert(
-      "Si bouton enstalasyon an pa parèt, ouvri sit la nan Chrome epi chwazi 'Ajoute sou ekran dakèy' oswa 'Install app'."
-    );
-
-    return;
-
-  }
-
-  deferredInstallPrompt.prompt();
-
-  await deferredInstallPrompt.userChoice;
-
-  deferredInstallPrompt=null;
-
-  const b =
-    document.getElementById(
-      "installAppBtn"
-    );
-
-  if(b)
-    b.style.display=
-      "none";
-
-}
-
-
-if(
-  "serviceWorker"
-  in navigator
-){
-
-  window.addEventListener(
-    "load",
-    ()=>
-
-      navigator
-        .serviceWorker
-        .register(
-          "./sw.js"
-        )
-        .catch(
-          err=>
-            console.log(
-              "Service Worker:",
-              err
-            )
-        )
-
-  );
-
-}
-
-
-/* =========================
-   TRADIKSYON FRANÇAIS
-========================= */
-
-const staticFR={
-
-  "Connexion":
-    "Connexion",
-
-  "Se connecter":
-    "Se connecter",
-
-  "Akèy":
-    "Accueil",
-
-  "Elèv":
-    "Élèves",
-
-  "Pwofesè":
-    "Professeurs",
-
-  "Klas":
-    "Classes",
-
-  "Matyè":
-    "Matières",
-
-  "Devwa":
-    "Devoirs",
-
-  "Remèt":
-    "Remises",
-
-  "Rezilta":
-    "Résultats",
-
-  "Estatistik":
-    "Statistiques",
-
-  "Done":
-    "Données",
-
-  "Sistèm Aprantisaj":
-    "Système d’Apprentissage",
-
-  "Aksyon rapid":
-    "Actions rapides",
-
-  "Ajoute elèv":
-    "Ajouter un élève",
-
-  "Ajoute pwofesè":
-    "Ajouter un professeur",
-
-  "Ajoute klas":
-    "Ajouter une classe",
-
-  "Ajoute devwa":
-    "Ajouter un devoir",
-
-  "Jesyon Elèv":
-    "Gestion des élèves",
-
-  "Jesyon Pwofesè":
-    "Gestion des professeurs",
-
-  "Jesyon Klas":
-    "Gestion des classes",
-
-  "Jesyon Matyè":
-    "Gestion des matières",
-
-  "Ajoute yon devwa":
-    "Ajouter un devoir",
-
-  "Suivi devwa":
-    "Suivi des devoirs",
-
-  "Rezilta Elèv":
-    "Résultats des élèves",
-
-  "Estatistik":
-    "Statistiques",
-
-  "Sauvegarde done":
-    "Sauvegarde des données",
-
-  "Récupérer done":
-    "Récupérer les données",
-
-  "Zòn danje":
-    "Zone dangereuse",
-
-  "Lis elèv":
-    "Liste des élèves",
-
-  "Lis pwofesè":
-    "Liste des professeurs",
-
-  "Lis klas":
-    "Liste des classes",
-
-  "Lis matyè":
-    "Liste des matières",
-
-  "Lis devwa":
-    "Liste des devoirs",
-
-  "Lis devwa elèv yo":
-    "Liste des devoirs des élèves",
-
-  "Chwazi elèv":
-    "Choisir un élève",
-
-  "Chwazi devwa":
-    "Choisir un devoir",
-
-  "Chwazi klas":
-    "Choisir une classe",
-
-  "Chwazi matyè":
-    "Choisir une matière",
-
-  "Nòt /100":
-    "Note /100",
-
-  "Anrejistre":
-    "Enregistrer",
-
-  "Efase":
-    "Supprimer",
-
-  "Rechèch elèv":
-    "Rechercher un élève",
-
-  "Rechèch devwa":
-    "Rechercher un devoir",
-
-  "Telefòn":
-    "Téléphone",
-
-  "Laj":
-    "Âge",
-
-  "Ane lekòl":
-    "Année scolaire",
-
-  "Mwayèn":
-    "Moyenne",
-
-  "Pwofesè":
-    "Professeur",
-
-  "Elèv":
-    "Élève",
-
-  "Pa gen elèv ki koresponn.":
-    "Aucun élève correspondant.",
-
-  "Pa gen pwofesè anrejistre.":
-    "Aucun professeur enregistré.",
-
-  "Pa gen klas anrejistre.":
-    "Aucune classe enregistrée.",
-
-  "Pa gen matyè.":
-    "Aucune matière.",
-
-  "Pa gen devwa ki koresponn.":
-    "Aucun devoir correspondant.",
-
-  "Pa gen done sou remèt devwa.":
-    "Aucune remise enregistrée.",
-
-  "Pa gen nòt":
-    "Aucune note",
-
-  "Chwazi yon elèv.":
-    "Choisissez un élève.",
-
-  "Dat pase":
-    "Date passée",
-
-  "A venir":
-    "À venir",
-
-  "Tout klas":
-    "Toutes les classes"
-
-};
-
-
-function translateStaticFrench(){
-
-  const walker =
-    document.createTreeWalker(
-      document.body,
-      NodeFilter.SHOW_TEXT
-    );
-
-  const nodes=[];
-
-  let n;
-
-  while(
-    n=walker.nextNode()
-  ){
-
-    nodes.push(n);
-
-  }
-
-  nodes.forEach(
-    node=>{
-
-      const key =
-        node.nodeValue
-          .trim();
-
-      if(
-        staticFR[key]
-      ){
-
-        node.nodeValue =
-          node.nodeValue.replace(
-            key,
-            staticFR[key]
-          );
-
-      }
-
-    }
-  );
-
-
-  document
-    .querySelectorAll(
-      "input,textarea"
-    )
-    .forEach(
-      el=>{
-
-        const key =
-          el.placeholder
-            ?.trim();
-
-        if(
-          staticFR[key]
-        ){
-
-          el.placeholder =
-            staticFR[key];
-
-        }
-
-      }
-    );
-
-}
-
-
-const translations={
-
-  fr:{
-
-    platform:
-      "Plateforme pour gérer les élèves, les professeurs, les classes, les devoirs et les résultats",
-
-    accueil:
-      "🏠 Accueil",
-
-    eleves:
-      "👨‍🎓 Élèves",
-
-    professeurs:
-      "👨‍🏫 Professeurs",
-
-    classes:
-      "🏫 Classes",
-
-    matieres:
-      "📚 Matières",
-
-    devoirs:
-      "📝 Devoirs",
-
-    remises:
-      "📥 Remises",
-
-    resultats:
-      "📊 Résultats",
-
-    statistiques:
-      "📈 Statistiques",
-
-    sauvegarde:
-      "💾 Données",
-
-    welcome:
-      "👋 Bienvenue dans Système d’Apprentissage",
-
-    welcomeText:
-      "Gérez les élèves, professeurs, classes, matières, devoirs, remises et résultats dans un seul espace.",
-
-    quick:
-      "⚡ Actions rapides",
-
-    addEleve:
-      "➕ Ajouter un élève",
-
-    addProf:
-      "➕ Ajouter un professeur",
-
-    addClasse:
-      "➕ Ajouter une classe",
-
-    addDevoir:
-      "➕ Ajouter un devoir",
-
-    install:
-      "📲 Installer l’application",
-
-    eleveTitle:
-      "👨‍🎓 Gestion des élèves",
-
-    profTitle:
-      "👨‍🏫 Gestion des professeurs",
-
-    classeTitle:
-      "🏫 Gestion des classes",
-
-    matiereTitle:
-      "📚 Gestion des matières",
-
-    devoirTitle:
-      "📝 Ajouter un devoir",
-
-    remiseTitle:
-      "📥 Suivi des devoirs",
-
-    resultTitle:
-      "📊 Résultats des élèves",
-
-    statTitle:
-      "📈 Statistiques",
-
-    notePlaceholder:
-      "Note /100",
-
-    chooseEleve:
-      "Choisir un élève",
-
-    chooseDevoir:
-      "Choisir un devoir",
-
-    chooseClasse:
-      "Choisir une classe",
-
-    chooseMatiere:
-      "Choisir une matière"
-
-  },
-
-  ht:{
-
-    platform:
-      "Platfòm pou jere elèv, pwofesè, klas, devwa ak rezilta"
-
-  }
-
-};
-
-
-function changeLanguage(lang){
-
-  localStorage.setItem(
-    "appLanguage",
-    lang
-  );
-
-  if(
-    lang!=="fr"
-  ){
-
-    location.reload();
-
-    return;
-
-  }
-
-
-  translateStaticFrench();
-
-
-  const t =
-    translations.fr;
-
-
-  const buttons =
-    [
-      ...document.querySelectorAll(
-        "nav button"
-      )
-    ];
-
-
-  const nav=[
-
-    "accueil",
-    "eleves",
-    "professeurs",
-    "classes",
-    "matieres",
-    "devoirs",
-    "remises",
-    "resultats",
-    "statistiques",
-    "sauvegarde"
-
-  ];
-
-
-  buttons.forEach(
-    (b,i)=>{
-
-      if(nav[i])
-
-        b.textContent =
-          t[nav[i]]
-          ||
-          b.textContent;
-
-    }
-  );
-
-
-  const h =
-    document.querySelector(
-      "#accueil .welcome-card h2"
-    );
-
-  if(h)
-    h.textContent =
-      t.welcome;
-
-
-  const wp =
-    document.querySelector(
-      "#accueil .welcome-card p"
-    );
-
-  if(wp)
-    wp.textContent =
-      t.welcomeText;
-
-
-  const q =
-    document.querySelector(
-      "#accueil .quick-card h2"
-    );
-
-  if(q)
-    q.textContent =
-      t.quick;
-
-
-  const qs =
-    document.querySelectorAll(
-      "#accueil .quick-card button"
-    );
-
-
-  [
-    t.addEleve,
-    t.addProf,
-    t.addClasse,
-    t.addDevoir
-
-  ].forEach(
-    (x,i)=>{
-
-      if(qs[i])
-        qs[i].textContent=x;
-
-    }
-  );
-
-
-  const p =
-    document.querySelector(
-      '[data-i18n="platform"]'
-    );
-
-  if(p)
-    p.textContent =
-      t.platform;
-
-
-  const n =
-    document.getElementById(
-      "noteRemise"
-    );
-
-  if(n)
-    n.placeholder =
-      t.notePlaceholder;
-
-
-  document
-    .getElementById(
-      "installAppBtn"
-    )
-    .textContent =
-      t.install;
-
-}
-
-
-window.addEventListener(
-  "DOMContentLoaded",
-  ()=>{
-
-    const lang =
-      localStorage.getItem(
-        "appLanguage"
-      )
-      ||
-      "ht";
-
-    const sel =
-      document.getElementById(
-        "languageSelect"
-      );
-
-    if(sel)
-      sel.value=lang;
-
-    if(
-      lang==="fr"
-    )
-      changeLanguage("fr");
 
   }
 );
