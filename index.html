@@ -3430,6 +3430,16 @@ function afficherRemises(){
               r.note ?? "-"
             }
           </b>
+          <br>
+
+✍️ Koreksyon:
+<div class="correctionBox">
+  ${
+    esc(
+      r.correction || "Pa gen koreksyon ankò."
+    )
+  }
+</div>
 
           ${
             isAdmin()
