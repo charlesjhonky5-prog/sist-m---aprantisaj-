@@ -3,332 +3,1073 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Sistèm Lekòl</title>
 
+<meta name="theme-color" content="#1769aa">
+<meta name="description" content="Sistèm jesyon lekòl pou elèv, pwofesè, klas, matyè, devwa ak rezilta">
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#f4f6f9;color:#222}
-#app{display:none}
-#loginBox{position:fixed;inset:0;width:100%;height:100%;background:#f4f6f9;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px}
-#loginBox h2{margin-bottom:20px}
-#loginBox input{width:90%;max-width:350px;padding:12px;margin:6px 0;border:1px solid #ccc;border-radius:6px;font-size:16px}
-#loginBox button{padding:12px 25px;margin-top:10px;border:none;border-radius:6px;background:#1769aa;color:white;cursor:pointer;font-size:16px}
-header{background:#1769aa;color:white;padding:22px 15px;text-align:center}
-header h1{margin-bottom:8px}
-nav{background:white;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px;box-shadow:0 2px 6px #ccc;position:sticky;top:0;z-index:10}
-nav button{border:none;background:#1769aa;color:white;padding:10px 14px;border-radius:6px;cursor:pointer}
-nav button:hover{background:#0d4f83}
-main{max-width:1100px;margin:20px auto;padding:15px}
-.section{display:none}
-.section.active{display:block}
-.card{background:white;padding:20px;margin-bottom:18px;border-radius:10px;box-shadow:0 2px 8px #ddd}
-.card h2{margin-bottom:15px}
-input,textarea,select{width:100%;padding:12px;margin:8px 0 15px;border:1px solid #ccc;border-radius:6px;font-size:15px}
-textarea{resize:vertical}
-.action{background:#1769aa;color:white;border:none;padding:11px 17px;border-radius:6px;cursor:pointer;margin:3px}
-.action:hover{opacity:.9}
-.danger{background:#c62828}.success{background:#2e7d32}.warning{background:#ef6c00}.gray{background:#666}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:20px}
-.stat{background:white;padding:22px;text-align:center;border-radius:10px;box-shadow:0 2px 8px #ddd}
-.stat h3{font-size:30px;color:#1769aa;margin-bottom:8px}
-.item{border:1px solid #ddd;padding:15px;margin:10px 0;border-radius:8px;background:#fafafa}
-.item h3{margin-bottom:8px}.item p{margin:5px 0}
-.table-container{overflow-x:auto}
-table{width:100%;border-collapse:collapse;margin-top:10px}
-th,td{border:1px solid #ddd;padding:10px;text-align:left}
-th{background:#1769aa;color:white}
-.badge{display:inline-block;padding:5px 9px;border-radius:15px;font-size:12px;color:white}
-.badge-green{background:#2e7d32}.badge-red{background:#c62828}.badge-orange{background:#ef6c00}
-footer{text-align:center;padding:30px;color:#666}
-@media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}nav{position:static}nav button{flex:1 1 30%}}
-@media(max-width:500px){.stats{grid-template-columns:1fr 1fr}nav button{flex:1 1 45%;font-size:13px}.card{padding:15px}}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif
+}
+
+body{
+  background:#f4f6f9;
+  color:#222;
+  min-height:100vh
+}
+
+#app{
+  display:none
+}
+
+/* LOGIN */
+#loginBox{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  background:#f4f6f9;
+  z-index:99999;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:20px
+}
+
+#loginBox h2{
+  margin-bottom:20px
+}
+
+#loginBox input{
+  width:90%;
+  max-width:350px;
+  padding:12px;
+  margin:6px 0;
+  border:1px solid #ccc;
+  border-radius:6px;
+  font-size:16px
+}
+
+#loginBox button{
+  padding:12px 25px;
+  margin-top:10px;
+  border:none;
+  border-radius:6px;
+  background:#1769aa;
+  color:white;
+  cursor:pointer;
+  font-size:16px
+}
+
+#loginBox button:hover{
+  background:#0d4f83
+}
+
+/* HEADER */
+header{
+  background:linear-gradient(135deg,#1769aa,#0d4f83);
+  color:white;
+  padding:30px 15px;
+  text-align:center;
+  box-shadow:0 3px 10px #bbb
+}
+
+header h1{
+  margin-bottom:8px;
+  font-size:30px
+}
+
+header p{
+  opacity:.95
+}
+
+/* NAV */
+nav{
+  background:white;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+  padding:12px;
+  box-shadow:0 2px 6px #ccc;
+  position:sticky;
+  top:0;
+  z-index:10
+}
+
+nav button{
+  border:none;
+  background:#1769aa;
+  color:white;
+  padding:10px 14px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:14px
+}
+
+nav button:hover{
+  background:#0d4f83
+}
+
+/* MAIN */
+main{
+  max-width:1100px;
+  margin:20px auto;
+  padding:15px
+}
+
+.section{
+  display:none
+}
+
+.section.active{
+  display:block
+}
+
+/* CARDS */
+.card{
+  background:white;
+  padding:20px;
+  margin-bottom:18px;
+  border-radius:12px;
+  box-shadow:0 2px 8px #ddd
+}
+
+.card h2{
+  margin-bottom:15px
+}
+
+/* AKÈY */
+.welcomeCard{
+  background:linear-gradient(135deg,#1769aa,#258bd1);
+  color:white;
+  padding:28px;
+  border-radius:14px;
+  margin-bottom:20px;
+  box-shadow:0 4px 12px #ccc
+}
+
+.welcomeCard h2{
+  font-size:25px;
+  margin-bottom:8px
+}
+
+.welcomeCard p{
+  line-height:1.6
+}
+
+.dashboardTitle{
+  margin:5px 0 15px;
+  font-size:20px
+}
+
+/* STATS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:20px
+}
+
+.stat{
+  background:white;
+  padding:22px;
+  text-align:center;
+  border-radius:12px;
+  box-shadow:0 2px 8px #ddd;
+  border-top:4px solid #1769aa
+}
+
+.stat h3{
+  font-size:30px;
+  color:#1769aa;
+  margin-bottom:8px
+}
+
+.stat p{
+  color:#555
+}
+
+.statIcon{
+  font-size:28px;
+  margin-bottom:5px
+}
+
+/* QUICK ACTIONS */
+.quickActions{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px
+}
+
+.quickButton{
+  border:none;
+  padding:16px 10px;
+  border-radius:10px;
+  background:#1769aa;
+  color:white;
+  cursor:pointer;
+  font-size:14px
+}
+
+.quickButton:hover{
+  background:#0d4f83
+}
+
+/* INPUTS */
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  margin:8px 0 15px;
+  border:1px solid #ccc;
+  border-radius:6px;
+  font-size:15px;
+  background:white
+}
+
+textarea{
+  resize:vertical
+}
+
+/* BUTTONS */
+.action{
+  background:#1769aa;
+  color:white;
+  border:none;
+  padding:11px 17px;
+  border-radius:6px;
+  cursor:pointer;
+  margin:3px
+}
+
+.action:hover{
+  opacity:.9
+}
+
+.danger{
+  background:#c62828
+}
+
+.success{
+  background:#2e7d32
+}
+
+.warning{
+  background:#ef6c00
+}
+
+.gray{
+  background:#666
+}
+
+/* ITEMS */
+.item{
+  border:1px solid #ddd;
+  padding:15px;
+  margin:10px 0;
+  border-radius:8px;
+  background:#fafafa
+}
+
+.item h3{
+  margin-bottom:8px
+}
+
+.item p{
+  margin:5px 0
+}
+
+/* TABLE */
+.table-container{
+  overflow-x:auto
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:10px;
+  background:white
+}
+
+th,td{
+  border:1px solid #ddd;
+  padding:10px;
+  text-align:left
+}
+
+th{
+  background:#1769aa;
+  color:white
+}
+
+/* NÒT */
+.noteDisplay{
+  display:inline-block;
+  background:#e3f2fd;
+  color:#1769aa;
+  font-size:18px;
+  font-weight:bold;
+  padding:6px 12px;
+  border-radius:8px
+}
+
+.averageBox{
+  background:#f4f6f9;
+  padding:18px;
+  border-radius:10px;
+  margin:15px 0
+}
+
+.averageNumber{
+  font-size:28px;
+  font-weight:bold;
+  color:#1769aa
+}
+
+/* BADGES */
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:15px;
+  font-size:12px;
+  color:white
+}
+
+.badge-green{
+  background:#2e7d32
+}
+
+.badge-red{
+  background:#c62828
+}
+
+.badge-orange{
+  background:#ef6c00
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:30px;
+  color:#666
+}
+
+/* MOBILE */
+@media(max-width:800px){
+
+  .stats{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  nav{
+    position:static
+  }
+
+  nav button{
+    flex:1 1 30%
+  }
+
+  .quickActions{
+    grid-template-columns:repeat(2,1fr)
+  }
+}
+
+@media(max-width:500px){
+
+  header h1{
+    font-size:24px
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr
+  }
+
+  nav button{
+    flex:1 1 45%;
+    font-size:13px
+  }
+
+  .card{
+    padding:15px
+  }
+
+  .quickActions{
+    grid-template-columns:1fr 1fr
+  }
+}
 </style>
 </head>
 
 <body>
 
+<!-- LOGIN -->
 <div id="loginBox">
-  <h2>Connexion</h2>
-  <input type="email" id="emailLogin" placeholder="E-mail">
-  <input type="password" id="passwordLogin" placeholder="Mot de passe">
-  <button onclick="connecterUtilisateur()">Se connecter</button>
+
+  <h2>📚 Sistèm Lekòl</h2>
+
+  <p style="margin-bottom:12px;text-align:center">
+    Tanpri konekte pou antre nan sistèm nan.
+  </p>
+
+  <input
+    type="email"
+    id="emailLogin"
+    placeholder="E-mail"
+  >
+
+  <input
+    type="password"
+    id="passwordLogin"
+    placeholder="Mot de passe"
+  >
+
+  <button onclick="connecterUtilisateur()">
+    🔐 Se konekte
+  </button>
+
 </div>
 
+
+<!-- APP -->
 <div id="app">
 
 <header>
+
   <h1>📚 Sistèm Lekòl</h1>
-  <p>Platfòm pou jere elèv, pwofesè, klas, devwa ak rezilta</p>
+
+  <p>
+    Platfòm pou jere elèv, pwofesè, klas, devwa ak rezilta
+  </p>
+
 </header>
 
+
+<!-- NAVIGATION -->
 <nav>
-  <button onclick="showSection('accueil')">🏠 Akèy</button>
-  <button onclick="showSection('eleves')">👨‍🎓 Elèv</button>
-  <button onclick="showSection('professeurs')">👨‍🏫 Pwofesè</button>
-  <button onclick="showSection('classes')">🏫 Klas</button>
-  <button onclick="showSection('matieres')">📚 Matyè</button>
-  <button onclick="showSection('devoirs')">📝 Devwa</button>
-  <button onclick="showSection('remises')">📥 Remèt</button>
-  <button onclick="showSection('resultats')">📊 Rezilta</button>
-  <button onclick="showSection('statistiques')">📈 Estatistik</button>
-  <button onclick="showSection('sauvegarde')">💾 Done</button>
+
+  <button onclick="showSection('accueil')">
+    🏠 Akèy
+  </button>
+
+  <button onclick="showSection('eleves')">
+    👨‍🎓 Elèv
+  </button>
+
+  <button onclick="showSection('professeurs')">
+    👨‍🏫 Pwofesè
+  </button>
+
+  <button onclick="showSection('classes')">
+    🏫 Klas
+  </button>
+
+  <button onclick="showSection('matieres')">
+    📚 Matyè
+  </button>
+
+  <button onclick="showSection('devoirs')">
+    📝 Devwa
+  </button>
+
+  <button onclick="showSection('remises')">
+    📥 Remèt
+  </button>
+
+  <button onclick="showSection('resultats')">
+    📊 Rezilta
+  </button>
+
+  <button onclick="showSection('statistiques')">
+    📈 Estatistik
+  </button>
+
+  <button onclick="showSection('sauvegarde')">
+    💾 Done
+  </button>
+
 </nav>
+
 
 <main>
 
+<!-- AKÈY -->
 <section id="accueil" class="section active">
-  <div class="card">
-    <h2>👋 Byenveni</h2>
-    <p>Byenveni nan sistèm jesyon lekòl la. Soti isit la ou kapab jere tout enfòmasyon lekòl la.</p>
+
+  <div class="welcomeCard">
+
+    <h2>👋 Byenveni nan Sistèm Lekòl</h2>
+
+    <p>
+      Soti isit la ou kapab jere enfòmasyon elèv,
+      pwofesè, klas, matyè, devwa ak rezilta yo.
+    </p>
+
   </div>
+
+  <h3 class="dashboardTitle">
+    📊 Rezime sistèm nan
+  </h3>
 
   <div class="stats">
-    <div class="stat"><h3 id="statEleves">0</h3><p>👨‍🎓 Elèv</p></div>
-    <div class="stat"><h3 id="statProfesseurs">0</h3><p>👨‍🏫 Pwofesè</p></div>
-    <div class="stat"><h3 id="statClasses">0</h3><p>🏫 Klas</p></div>
-    <div class="stat"><h3 id="statDevoirs">0</h3><p>📝 Devwa</p></div>
+
+    <div class="stat">
+
+      <div class="statIcon">👨‍🎓</div>
+
+      <h3 id="statEleves">0</h3>
+
+      <p>Elèv</p>
+
+    </div>
+
+    <div class="stat">
+
+      <div class="statIcon">👨‍🏫</div>
+
+      <h3 id="statProfesseurs">0</h3>
+
+      <p>Pwofesè</p>
+
+    </div>
+
+    <div class="stat">
+
+      <div class="statIcon">🏫</div>
+
+      <h3 id="statClasses">0</h3>
+
+      <p>Klas</p>
+
+    </div>
+
+    <div class="stat">
+
+      <div class="statIcon">📝</div>
+
+      <h3 id="statDevoirs">0</h3>
+
+      <p>Devwa</p>
+
+    </div>
+
   </div>
 
+
   <div class="card">
+
     <h2>⚡ Aksyon rapid</h2>
-    <button class="action" onclick="showSection('eleves')">➕ Ajoute elèv</button>
-    <button class="action" onclick="showSection('professeurs')">➕ Ajoute pwofesè</button>
-    <button class="action" onclick="showSection('classes')">➕ Ajoute klas</button>
-    <button class="action" onclick="showSection('devoirs')">➕ Ajoute devwa</button>
+
+    <div class="quickActions">
+
+      <button
+        class="quickButton"
+        onclick="showSection('eleves')">
+        ➕<br>Ajoute elèv
+      </button>
+
+      <button
+        class="quickButton"
+        onclick="showSection('professeurs')">
+        ➕<br>Ajoute pwofesè
+      </button>
+
+      <button
+        class="quickButton"
+        onclick="showSection('classes')">
+        ➕<br>Ajoute klas
+      </button>
+
+      <button
+        class="quickButton"
+        onclick="showSection('devoirs')">
+        ➕<br>Ajoute devwa
+      </button>
+
+    </div>
+
   </div>
+
 </section>
 
+
+<!-- ELÈV -->
 <section id="eleves" class="section">
+
   <div class="card">
+
     <h2>👨‍🎓 Jesyon Elèv</h2>
-    <input id="nomEleve" type="text" placeholder="Non konplè elèv la">
-    <input id="ageEleve" type="number" placeholder="Laj">
+
+    <input
+      id="nomEleve"
+      type="text"
+      placeholder="Non konplè elèv la"
+    >
+
+    <input
+      id="ageEleve"
+      type="number"
+      placeholder="Laj"
+    >
+
     <select id="classeEleve">
-      <option value="">Chwazi klas</option>
+
+      <option value="">
+        Chwazi klas
+      </option>
+
     </select>
-    <input id="telephoneEleve" type="text" placeholder="Telefòn">
-    <button class="action" onclick="ajouterEleve()">➕ Ajoute elèv</button>
+
+    <input
+      id="telephoneEleve"
+      type="text"
+      placeholder="Telefòn"
+    >
+
+    <button
+      class="action"
+      onclick="ajouterEleve()">
+      ➕ Ajoute elèv
+    </button>
+
   </div>
 
+
   <div class="card">
+
     <h2>🔎 Rechèch elèv</h2>
-    <input id="rechercheEleve" type="text"
+
+    <input
+      id="rechercheEleve"
+      type="text"
       placeholder="Chèche pa non oswa klas..."
-      oninput="afficherEleves()">
+      oninput="afficherEleves()"
+    >
+
   </div>
 
+
   <div class="card">
+
     <h2>📋 Lis elèv</h2>
+
     <div id="listeEleves"></div>
+
   </div>
+
 </section>
 
+
+<!-- PWOFESÈ -->
 <section id="professeurs" class="section">
+
   <div class="card">
+
     <h2>👨‍🏫 Jesyon Pwofesè</h2>
-    <input id="nomProfesseur" type="text" placeholder="Non konplè pwofesè a">
-    <input id="telephoneProfesseur" type="text" placeholder="Telefòn">
-    <input id="matiereProfesseur" type="text" placeholder="Matyè li anseye">
-    <button class="action" onclick="ajouterProfesseur()">➕ Ajoute pwofesè</button>
+
+    <input
+      id="nomProfesseur"
+      type="text"
+      placeholder="Non konplè pwofesè a"
+    >
+
+    <input
+      id="telephoneProfesseur"
+      type="text"
+      placeholder="Telefòn"
+    >
+
+    <input
+      id="matiereProfesseur"
+      type="text"
+      placeholder="Matyè li anseye"
+    >
+
+    <button
+      class="action"
+      onclick="ajouterProfesseur()">
+      ➕ Ajoute pwofesè
+    </button>
+
   </div>
 
+
   <div class="card">
+
     <h2>📋 Lis pwofesè</h2>
+
     <div id="listeProfesseurs"></div>
+
   </div>
+
 </section>
 
+
+<!-- KLAS -->
 <section id="classes" class="section">
+
   <div class="card">
+
     <h2>🏫 Jesyon Klas</h2>
-    <input id="nomClasse" type="text" placeholder="Egzanp: 7e AF">
-    <input id="anneeClasse" type="text" placeholder="Egzanp: 2026-2027">
-    <button class="action" onclick="ajouterClasse()">➕ Ajoute klas</button>
+
+    <input
+      id="nomClasse"
+      type="text"
+      placeholder="Egzanp: 7e AF"
+    >
+
+    <input
+      id="anneeClasse"
+      type="text"
+      placeholder="Egzanp: 2026-2027"
+    >
+
+    <button
+      class="action"
+      onclick="ajouterClasse()">
+      ➕ Ajoute klas
+    </button>
+
   </div>
 
+
   <div class="card">
+
     <h2>📋 Lis klas</h2>
+
     <div id="listeClasses"></div>
+
   </div>
+
 </section>
 
+
+<!-- MATYÈ -->
 <section id="matieres" class="section">
-  <div class="card">
-    <h2>📚 Jesyon Matyè</h2>
-    <input id="nomMatiere" type="text" placeholder="Non matyè a">
-    <button class="action" onclick="ajouterMatiere()">➕ Ajoute matyè</button>
-  </div>
 
   <div class="card">
-    <h2>📋 Lis matyè</h2>
-    <div id="listeMatieres"></div>
+
+    <h2>📚 Jesyon Matyè</h2>
+
+    <input
+      id="nomMatiere"
+      type="text"
+      placeholder="Non matyè a"
+    >
+
+    <button
+      class="action"
+      onclick="ajouterMatiere()">
+      ➕ Ajoute matyè
+    </button>
+
   </div>
+
+
+  <div class="card">
+
+    <h2>📋 Lis matyè</h2>
+
+    <div id="listeMatieres"></div>
+
+  </div>
+
 </section>
 
+
+<!-- DEVWA -->
 <section id="devoirs" class="section">
+
   <div class="card">
+
     <h2>📝 Ajoute yon devwa</h2>
 
-    <input id="titreDevoir" type="text" placeholder="Tit devwa a">
+    <input
+      id="titreDevoir"
+      type="text"
+      placeholder="Tit devwa a"
+    >
 
     <select id="matiereDevoir">
-      <option value="">Chwazi matyè</option>
+
+      <option value="">
+        Chwazi matyè
+      </option>
+
     </select>
 
     <select id="classeDevoir">
-      <option value="">Chwazi klas</option>
+
+      <option value="">
+        Chwazi klas
+      </option>
+
     </select>
 
-    <input id="dateDevoir" type="date">
+    <input
+      id="dateDevoir"
+      type="date"
+    >
 
-    <textarea id="descriptionDevoir"
+    <textarea
+      id="descriptionDevoir"
       rows="5"
       placeholder="Deskripsyon devwa a"></textarea>
 
-    <button class="action" onclick="ajouterDevoir()">
+    <button
+      class="action"
+      onclick="ajouterDevoir()">
       ➕ Ajoute devwa
     </button>
+
   </div>
 
+
   <div class="card">
+
     <h2>🔎 Rechèch devwa</h2>
-    <input id="rechercheDevoir"
+
+    <input
+      id="rechercheDevoir"
       type="text"
       placeholder="Chèche devwa..."
-      oninput="afficherDevoirs()">
+      oninput="afficherDevoirs()"
+    >
+
   </div>
 
+
   <div class="card">
+
     <h2>📋 Lis devwa</h2>
+
     <div id="listeDevoirs"></div>
+
   </div>
+
 </section>
 
+
+<!-- REMÈT -->
 <section id="remises" class="section">
+
   <div class="card">
+
     <h2>📥 Suivi devwa</h2>
 
     <select id="eleveRemise">
-      <option value="">Chwazi elèv</option>
+
+      <option value="">
+        Chwazi elèv
+      </option>
+
     </select>
 
     <select id="devoirRemise">
-      <option value="">Chwazi devwa</option>
+
+      <option value="">
+        Chwazi devwa
+      </option>
+
     </select>
 
     <select id="statutRemise">
-      <option value="Remèt">✅ Remèt</option>
-      <option value="Pa remèt">❌ Pa remèt</option>
+
+      <option value="Remèt">
+        ✅ Remèt
+      </option>
+
+      <option value="Pa remèt">
+        ❌ Pa remèt
+      </option>
+
     </select>
 
-    <input id="noteRemise"
+    <input
+      id="noteRemise"
       type="number"
       min="0"
       max="100"
-      placeholder="Nòt /100">
+      placeholder="Nòt /100"
+    >
 
-    <button class="action" onclick="ajouterRemise()">
+    <button
+      class="action"
+      onclick="ajouterRemise()">
       💾 Anrejistre
     </button>
+
   </div>
 
+
   <div class="card">
+
     <h2>📋 Lis devwa elèv yo</h2>
+
     <div id="listeRemises"></div>
+
   </div>
+
 </section>
 
+
+<!-- REZILTA -->
 <section id="resultats" class="section">
+
   <div class="card">
+
     <h2>📊 Rezilta Elèv</h2>
 
-    <select id="eleveResultat"
+    <select
+      id="eleveResultat"
       onchange="afficherResultatEleve()">
-      <option value="">Chwazi elèv</option>
+
+      <option value="">
+        Chwazi elèv
+      </option>
+
     </select>
+
   </div>
 
+
   <div class="card">
-    <div id="resultatEleve"></div>
+
+    <div id="resultatEleve">
+
+      <p>
+        Chwazi yon elèv pou wè rezilta li.
+      </p>
+
+    </div>
+
   </div>
+
 </section>
 
+
+<!-- ESTATISTIK -->
 <section id="statistiques" class="section">
+
   <div class="card">
+
     <h2>📈 Estatistik</h2>
 
     <div class="stats">
+
       <div class="stat">
+
         <h3 id="totalElevesStat">0</h3>
+
         <p>Elèv</p>
+
       </div>
 
       <div class="stat">
+
         <h3 id="totalProfStat">0</h3>
+
         <p>Pwofesè</p>
+
       </div>
 
       <div class="stat">
+
         <h3 id="totalDevoirStat">0</h3>
+
         <p>Devwa</p>
+
       </div>
 
       <div class="stat">
-        <h3 id="moyenneStat">0</h3>
+
+        <h3 id="moyenneStat">0/100</h3>
+
         <p>Mwayèn</p>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
 
+
+<!-- SAUVEGARDE -->
 <section id="sauvegarde" class="section">
 
   <div class="card">
+
     <h2>💾 Sauvegarde done</h2>
+
     <p>
       Ou kapab telechaje tout done sistèm nan kòm yon fichye.
     </p>
+
     <br>
 
-    <button class="action success"
+    <button
+      class="action success"
       onclick="exporterDonnees()">
       📥 Telechaje sauvegarde
     </button>
+
   </div>
 
+
   <div class="card">
+
     <h2>📤 Récupérer done</h2>
+
     <p>
       Chwazi yon fichye sauvegarde ou te ekspòte avan.
     </p>
+
     <br>
 
-    <input type="file"
+    <input
+      type="file"
       id="importFile"
-      accept=".json">
+      accept=".json"
+    >
 
-    <button class="action"
+    <button
+      class="action"
       onclick="importerDonnees()">
       📤 Importer done
     </button>
+
   </div>
 
+
   <div class="card">
+
     <h2>⚠️ Zòn danje</h2>
+
     <p>
-      Bouton sa a ap efase tout done ki nan navigatè sa a.
+      Bouton sa a ap efase done ki nan navigatè sa a.
     </p>
+
     <br>
 
-    <button class="action danger"
+    <button
+      class="action danger"
       onclick="effacerTout()">
-      🗑️ Efase tout done
+      🗑️ Efase done lokal yo
     </button>
+
   </div>
 
 </section>
 
 </main>
+
 
 <footer>
   © 2026 - Sistèm Lekòl
@@ -336,13 +1077,23 @@ footer{text-align:center;padding:30px;color:#666}
 
 </div>
 
+
 <script>
 
-function showSection(id){
-  document.querySelectorAll(".section")
-    .forEach(s=>s.classList.remove("active"));
+/* ================================
+   NAVIGATION
+================================ */
 
-  const section=document.getElementById(id);
+function showSection(id){
+
+  document
+    .querySelectorAll(".section")
+    .forEach(s=>{
+      s.classList.remove("active");
+    });
+
+  const section=
+    document.getElementById(id);
 
   if(section){
     section.classList.add("active");
@@ -351,31 +1102,59 @@ function showSection(id){
   actualiserTout();
 }
 
+
+/* ================================
+   DATA
+================================ */
+
 function getData(key){
+
   try{
+
     return JSON.parse(
       localStorage.getItem(key)||"[]"
     );
+
   }catch(e){
+
     return [];
+
   }
+
 }
 
+
 function saveData(key,data){
+
   localStorage.setItem(
     key,
     JSON.stringify(data)
   );
 
   if(window.firebaseSaveData){
-    return window.firebaseSaveData(key,data);
+
+    return window.firebaseSaveData(
+      key,
+      data
+    );
+
   }
 
   return Promise.resolve();
+
 }
 
+
+/* ================================
+   SECURITY
+================================ */
+
 function escapeHTML(text){
-  if(text===undefined||text===null){
+
+  if(
+    text===undefined||
+    text===null
+  ){
     return "";
   }
 
@@ -385,7 +1164,13 @@ function escapeHTML(text){
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
+
 }
+
+
+/* ================================
+   KLAS
+================================ */
 
 async function ajouterClasse(){
 
@@ -398,41 +1183,65 @@ async function ajouterClasse(){
     .value.trim();
 
   if(!nom){
-    alert("Tanpri antre non klas la.");
+
+    alert(
+      "Tanpri antre non klas la."
+    );
+
     return;
   }
 
-  let classes=getData("classes");
+  let classes=
+    getData("classes");
 
   classes.push({
+
     id:Date.now(),
     nom,
     annee
+
   });
 
-  await saveData("classes",classes);
+  await saveData(
+    "classes",
+    classes
+  );
 
-  document.getElementById("nomClasse").value="";
-  document.getElementById("anneeClasse").value="";
+  document.getElementById(
+    "nomClasse"
+  ).value="";
+
+  document.getElementById(
+    "anneeClasse"
+  ).value="";
 
   afficherClasses();
   remplirSelects();
 
-  alert("Klas la ajoute avèk siksè.");
+  alert(
+    "Klas la ajoute avèk siksè."
+  );
+
 }
+
 
 function afficherClasses(){
 
   const liste=
-    document.getElementById("listeClasses");
+    document.getElementById(
+      "listeClasses"
+    );
 
   if(!liste)return;
 
-  const classes=getData("classes");
+  const classes=
+    getData("classes");
 
   if(!classes.length){
+
     liste.innerHTML=
       "<p>Pa gen klas anrejistre.</p>";
+
     return;
   }
 
@@ -441,12 +1250,18 @@ function afficherClasses(){
   classes.forEach(c=>{
 
     liste.innerHTML+=`
+
       <div class="item">
-        <h3>🏫 ${escapeHTML(c.nom)}</h3>
+
+        <h3>
+          🏫 ${escapeHTML(c.nom)}
+        </h3>
 
         <p>
-          Ane lekòl:
-          ${escapeHTML(c.annee||"Pa defini")}
+          <b>Ane lekòl:</b>
+          ${escapeHTML(
+            c.annee||"Pa defini"
+          )}
         </p>
 
         <button
@@ -454,11 +1269,15 @@ function afficherClasses(){
           onclick="supprimerClasse(${c.id})">
           🗑️ Efase
         </button>
+
       </div>
+
     `;
 
   });
+
 }
+
 
 async function supprimerClasse(id){
 
@@ -470,31 +1289,51 @@ async function supprimerClasse(id){
     getData("classes")
     .filter(c=>c.id!==id);
 
-  await saveData("classes",data);
+  await saveData(
+    "classes",
+    data
+  );
 
   afficherClasses();
   remplirSelects();
+
 }
+
+
+/* ================================
+   MATYÈ
+================================ */
 
 async function ajouterMatiere(){
 
   const nom=
-    document.getElementById("nomMatiere")
-    .value.trim();
+    document.getElementById(
+      "nomMatiere"
+    ).value.trim();
 
   if(!nom){
-    alert("Tanpri antre non matyè a.");
+
+    alert(
+      "Tanpri antre non matyè a."
+    );
+
     return;
   }
 
-  let data=getData("matieres");
+  let data=
+    getData("matieres");
 
   data.push({
+
     id:Date.now(),
     nom
+
   });
 
-  await saveData("matieres",data);
+  await saveData(
+    "matieres",
+    data
+  );
 
   document.getElementById(
     "nomMatiere"
@@ -503,21 +1342,30 @@ async function ajouterMatiere(){
   afficherMatieres();
   remplirSelects();
 
-  alert("Matyè a ajoute avèk siksè.");
+  alert(
+    "Matyè a ajoute avèk siksè."
+  );
+
 }
+
 
 function afficherMatieres(){
 
   const liste=
-    document.getElementById("listeMatieres");
+    document.getElementById(
+      "listeMatieres"
+    );
 
   if(!liste)return;
 
-  const data=getData("matieres");
+  const data=
+    getData("matieres");
 
   if(!data.length){
+
     liste.innerHTML=
       "<p>Pa gen matyè.</p>";
+
     return;
   }
 
@@ -526,7 +1374,9 @@ function afficherMatieres(){
   data.forEach(m=>{
 
     liste.innerHTML+=`
+
       <div class="item">
+
         <h3>
           📚 ${escapeHTML(m.nom)}
         </h3>
@@ -536,11 +1386,15 @@ function afficherMatieres(){
           onclick="supprimerMatiere(${m.id})">
           🗑️ Efase
         </button>
+
       </div>
+
     `;
 
   });
+
 }
+
 
 async function supprimerMatiere(id){
 
@@ -552,85 +1406,134 @@ async function supprimerMatiere(id){
     getData("matieres")
     .filter(m=>m.id!==id);
 
-  await saveData("matieres",data);
+  await saveData(
+    "matieres",
+    data
+  );
 
   afficherMatieres();
   remplirSelects();
+
 }
+
+
+/* ================================
+   ELÈV
+================================ */
 
 async function ajouterEleve(){
 
   const nom=
-    document.getElementById("nomEleve")
-    .value.trim();
+    document.getElementById(
+      "nomEleve"
+    ).value.trim();
 
   const age=
-    document.getElementById("ageEleve")
-    .value;
+    document.getElementById(
+      "ageEleve"
+    ).value;
 
   const classe=
-    document.getElementById("classeEleve")
-    .value;
+    document.getElementById(
+      "classeEleve"
+    ).value;
 
   const telephone=
-    document.getElementById("telephoneEleve")
-    .value.trim();
+    document.getElementById(
+      "telephoneEleve"
+    ).value.trim();
 
   if(!nom){
-    alert("Tanpri antre non elèv la.");
+
+    alert(
+      "Tanpri antre non elèv la."
+    );
+
     return;
   }
 
-  let eleves=getData("eleves");
+  let eleves=
+    getData("eleves");
 
   eleves.push({
+
     id:Date.now(),
     nom,
     age,
     classe,
     telephone
+
   });
 
-  await saveData("eleves",eleves);
+  await saveData(
+    "eleves",
+    eleves
+  );
 
-  document.getElementById("nomEleve").value="";
-  document.getElementById("ageEleve").value="";
-  document.getElementById("classeEleve").value="";
-  document.getElementById("telephoneEleve").value="";
+  document.getElementById(
+    "nomEleve"
+  ).value="";
+
+  document.getElementById(
+    "ageEleve"
+  ).value="";
+
+  document.getElementById(
+    "classeEleve"
+  ).value="";
+
+  document.getElementById(
+    "telephoneEleve"
+  ).value="";
 
   afficherEleves();
   remplirSelects();
   actualiserDashboard();
 
-  alert("Elèv la ajoute avèk siksè.");
+  alert(
+    "Elèv la ajoute avèk siksè."
+  );
+
 }
+
 
 function afficherEleves(){
 
   const liste=
-    document.getElementById("listeEleves");
+    document.getElementById(
+      "listeEleves"
+    );
 
   if(!liste)return;
 
   const recherche=
-    document.getElementById("rechercheEleve")
-    ?.value.toLowerCase().trim()||"";
+    document.getElementById(
+      "rechercheEleve"
+    )?.value
+      .toLowerCase()
+      .trim()||"";
 
   let data=
     getData("eleves")
     .filter(e=>
+
       String(e.nom||"")
         .toLowerCase()
         .includes(recherche)
+
       ||
+
       String(e.classe||"")
         .toLowerCase()
         .includes(recherche)
+
     );
 
   if(!data.length){
+
     liste.innerHTML=
       "<p>Pa gen elèv ki koresponn.</p>";
+
     return;
   }
 
@@ -639,6 +1542,7 @@ function afficherEleves(){
   data.forEach(e=>{
 
     liste.innerHTML+=`
+
       <div class="item">
 
         <h3>
@@ -647,17 +1551,23 @@ function afficherEleves(){
 
         <p>
           <b>Laj:</b>
-          ${escapeHTML(e.age||"Pa defini")}
+          ${escapeHTML(
+            e.age||"Pa defini"
+          )}
         </p>
 
         <p>
           <b>Klas:</b>
-          ${escapeHTML(e.classe||"Pa defini")}
+          ${escapeHTML(
+            e.classe||"Pa defini"
+          )}
         </p>
 
         <p>
           <b>Telefòn:</b>
-          ${escapeHTML(e.telephone||"Pa defini")}
+          ${escapeHTML(
+            e.telephone||"Pa defini"
+          )}
         </p>
 
         <button
@@ -667,10 +1577,13 @@ function afficherEleves(){
         </button>
 
       </div>
+
     `;
 
   });
+
 }
+
 
 async function supprimerEleve(id){
 
@@ -682,39 +1595,58 @@ async function supprimerEleve(id){
     getData("eleves")
     .filter(e=>e.id!==id);
 
-  await saveData("eleves",data);
+  await saveData(
+    "eleves",
+    data
+  );
 
   afficherEleves();
   remplirSelects();
   actualiserDashboard();
+
 }
+
+
+/* ================================
+   PWOFESÈ
+================================ */
 
 async function ajouterProfesseur(){
 
   const nom=
-    document.getElementById("nomProfesseur")
-    .value.trim();
+    document.getElementById(
+      "nomProfesseur"
+    ).value.trim();
 
   const telephone=
-    document.getElementById("telephoneProfesseur")
-    .value.trim();
+    document.getElementById(
+      "telephoneProfesseur"
+    ).value.trim();
 
   const matiere=
-    document.getElementById("matiereProfesseur")
-    .value.trim();
+    document.getElementById(
+      "matiereProfesseur"
+    ).value.trim();
 
   if(!nom){
-    alert("Tanpri antre non pwofesè a.");
+
+    alert(
+      "Tanpri antre non pwofesè a."
+    );
+
     return;
   }
 
-  let data=getData("professeurs");
+  let data=
+    getData("professeurs");
 
   data.push({
+
     id:Date.now(),
     nom,
     telephone,
     matiere
+
   });
 
   await saveData(
@@ -737,8 +1669,12 @@ async function ajouterProfesseur(){
   afficherProfesseurs();
   actualiserDashboard();
 
-  alert("Pwofesè a ajoute avèk siksè.");
+  alert(
+    "Pwofesè a ajoute avèk siksè."
+  );
+
 }
+
 
 function afficherProfesseurs(){
 
@@ -749,11 +1685,14 @@ function afficherProfesseurs(){
 
   if(!liste)return;
 
-  const data=getData("professeurs");
+  const data=
+    getData("professeurs");
 
   if(!data.length){
+
     liste.innerHTML=
       "<p>Pa gen pwofesè anrejistre.</p>";
+
     return;
   }
 
@@ -762,6 +1701,7 @@ function afficherProfesseurs(){
   data.forEach(p=>{
 
     liste.innerHTML+=`
+
       <div class="item">
 
         <h3>
@@ -770,12 +1710,16 @@ function afficherProfesseurs(){
 
         <p>
           <b>Matyè:</b>
-          ${escapeHTML(p.matiere||"Pa defini")}
+          ${escapeHTML(
+            p.matiere||"Pa defini"
+          )}
         </p>
 
         <p>
           <b>Telefòn:</b>
-          ${escapeHTML(p.telephone||"Pa defini")}
+          ${escapeHTML(
+            p.telephone||"Pa defini"
+          )}
         </p>
 
         <button
@@ -785,10 +1729,13 @@ function afficherProfesseurs(){
         </button>
 
       </div>
+
     `;
 
   });
+
 }
+
 
 async function supprimerProfesseur(id){
 
@@ -807,44 +1754,62 @@ async function supprimerProfesseur(id){
 
   afficherProfesseurs();
   actualiserDashboard();
+
 }
+
+
+/* ================================
+   DEVWA
+================================ */
 
 async function ajouterDevoir(){
 
   const titre=
-    document.getElementById("titreDevoir")
-    .value.trim();
+    document.getElementById(
+      "titreDevoir"
+    ).value.trim();
 
   const matiere=
-    document.getElementById("matiereDevoir")
-    .value;
+    document.getElementById(
+      "matiereDevoir"
+    ).value;
 
   const classe=
-    document.getElementById("classeDevoir")
-    .value;
+    document.getElementById(
+      "classeDevoir"
+    ).value;
 
   const date=
-    document.getElementById("dateDevoir")
-    .value;
+    document.getElementById(
+      "dateDevoir"
+    ).value;
 
   const description=
-    document.getElementById("descriptionDevoir")
-    .value.trim();
+    document.getElementById(
+      "descriptionDevoir"
+    ).value.trim();
 
   if(!titre){
-    alert("Tanpri antre tit devwa a.");
+
+    alert(
+      "Tanpri antre tit devwa a."
+    );
+
     return;
   }
 
-  let data=getData("devoirs");
+  let data=
+    getData("devoirs");
 
   data.push({
+
     id:Date.now(),
     titre,
     matiere,
     classe,
     date,
     description
+
   });
 
   await saveData(
@@ -868,8 +1833,12 @@ async function ajouterDevoir(){
   remplirSelects();
   actualiserDashboard();
 
-  alert("Devwa a ajoute avèk siksè.");
+  alert(
+    "Devwa a ajoute avèk siksè."
+  );
+
 }
+
 
 function afficherDevoirs(){
 
@@ -883,27 +1852,37 @@ function afficherDevoirs(){
   const recherche=
     document.getElementById(
       "rechercheDevoir"
-    )?.value.toLowerCase().trim()||"";
+    )?.value
+      .toLowerCase()
+      .trim()||"";
 
   let data=
     getData("devoirs")
     .filter(d=>
+
       String(d.titre||"")
         .toLowerCase()
         .includes(recherche)
+
       ||
+
       String(d.matiere||"")
         .toLowerCase()
         .includes(recherche)
+
       ||
+
       String(d.classe||"")
         .toLowerCase()
         .includes(recherche)
+
     );
 
   if(!data.length){
+
     liste.innerHTML=
       "<p>Pa gen devwa ki koresponn.</p>";
+
     return;
   }
 
@@ -921,13 +1900,17 @@ function afficherDevoirs(){
       statut=
         dat<new Date()
         ?
+
         '<span class="badge badge-red">Dat pase</span>'
+
         :
+
         '<span class="badge badge-green">A venir</span>';
 
     }
 
     liste.innerHTML+=`
+
       <div class="item">
 
         <h3>
@@ -936,22 +1919,32 @@ function afficherDevoirs(){
 
         <p>
           <b>Matyè:</b>
-          ${escapeHTML(d.matiere||"Pa defini")}
+          ${escapeHTML(
+            d.matiere||"Pa defini"
+          )}
         </p>
 
         <p>
           <b>Klas:</b>
-          ${escapeHTML(d.classe||"Tout klas")}
+          ${escapeHTML(
+            d.classe||"Tout klas"
+          )}
         </p>
 
         <p>
           <b>Dat:</b>
-          ${escapeHTML(d.date||"Pa defini")}
+          ${escapeHTML(
+            d.date||"Pa defini"
+          )}
+
           ${statut}
+
         </p>
 
         <p>
-          ${escapeHTML(d.description)}
+          ${escapeHTML(
+            d.description||""
+          )}
         </p>
 
         <br>
@@ -963,10 +1956,13 @@ function afficherDevoirs(){
         </button>
 
       </div>
+
     `;
 
   });
+
 }
+
 
 async function supprimerDevoir(id){
 
@@ -986,7 +1982,13 @@ async function supprimerDevoir(id){
   afficherDevoirs();
   remplirSelects();
   actualiserDashboard();
+
 }
+
+
+/* ================================
+   REMÈT
+================================ */
 
 async function ajouterRemise(){
 
@@ -1011,34 +2013,60 @@ async function ajouterRemise(){
     ).value;
 
   if(!eleveId||!devoirId){
+
     alert(
       "Tanpri chwazi elèv ak devwa."
     );
+
     return;
   }
 
-  let data=getData("remises");
+  if(
+    note!=="" &&
+    (
+      Number(note)<0 ||
+      Number(note)>100
+    )
+  ){
+
+    alert(
+      "Nòt la dwe ant 0 ak 100."
+    );
+
+    return;
+  }
+
+  let data=
+    getData("remises");
 
   const existant=
     data.find(r=>
+
       String(r.eleveId)===
       String(eleveId)
+
       &&
+
       String(r.devoirId)===
       String(devoirId)
+
     );
 
   if(existant){
+
     existant.statut=statut;
     existant.note=note;
+
   }else{
 
     data.push({
+
       id:Date.now(),
       eleveId,
       devoirId,
       statut,
       note
+
     });
 
   }
@@ -1049,6 +2077,7 @@ async function ajouterRemise(){
   );
 
   afficherRemises();
+  actualiserStatistiques();
 
   document.getElementById(
     "noteRemise"
@@ -1057,7 +2086,9 @@ async function ajouterRemise(){
   alert(
     "Suivi devwa a anrejistre."
   );
+
 }
+
 
 function afficherRemises(){
 
@@ -1068,13 +2099,20 @@ function afficherRemises(){
 
   if(!liste)return;
 
-  const remises=getData("remises");
-  const eleves=getData("eleves");
-  const devoirs=getData("devoirs");
+  const remises=
+    getData("remises");
+
+  const eleves=
+    getData("eleves");
+
+  const devoirs=
+    getData("devoirs");
 
   if(!remises.length){
+
     liste.innerHTML=
       "<p>Pa gen done sou remèt devwa.</p>";
+
     return;
   }
 
@@ -1103,7 +2141,23 @@ function afficherRemises(){
       :
       "badge-red";
 
+    const noteHTML=
+      r.note!=="" &&
+      r.note!==undefined
+      ?
+
+      `<span class="noteDisplay">
+        ${escapeHTML(r.note)}/100
+      </span>`
+
+      :
+
+      `<span>
+        Pa gen nòt
+      </span>`;
+
     liste.innerHTML+=`
+
       <div class="item">
 
         <h3>
@@ -1117,14 +2171,16 @@ function afficherRemises(){
 
         <p>
           <b>Estati:</b>
+
           <span class="badge ${badge}">
             ${escapeHTML(r.statut)}
           </span>
+
         </p>
 
         <p>
           <b>Nòt:</b>
-          ${escapeHTML(r.note||"Pa gen nòt")}
+          ${noteHTML}
         </p>
 
         <button
@@ -1134,10 +2190,13 @@ function afficherRemises(){
         </button>
 
       </div>
+
     `;
 
   });
+
 }
+
 
 async function supprimerRemise(id){
 
@@ -1155,7 +2214,14 @@ async function supprimerRemise(id){
   );
 
   afficherRemises();
+  actualiserStatistiques();
+
 }
+
+
+/* ================================
+   REZILTA ELÈV
+================================ */
 
 function afficherResultatEleve(){
 
@@ -1170,8 +2236,10 @@ function afficherResultatEleve(){
     );
 
   if(!id){
+
     resultat.innerHTML=
       "<p>Chwazi yon elèv.</p>";
+
     return;
   }
 
@@ -1182,7 +2250,13 @@ function afficherResultatEleve(){
       String(id)
     );
 
-  if(!eleve)return;
+  if(!eleve){
+
+    resultat.innerHTML=
+      "<p>Elèv la pa jwenn.</p>";
+
+    return;
+  }
 
   const devoirs=
     getData("devoirs");
@@ -1190,12 +2264,18 @@ function afficherResultatEleve(){
   const notes=
     getData("remises")
     .filter(r=>
+
       String(r.eleveId)===
       String(id)
+
       &&
+
       r.note!==""
+
       &&
+
       r.note!==undefined
+
     );
 
   const total=
@@ -1207,11 +2287,12 @@ function afficherResultatEleve(){
   const moyenne=
     notes.length
     ?
-    (total/notes.length).toFixed(2)
+    total/notes.length
     :
-    "0";
+    0;
 
   let html=`
+
     <h2>
       📊 Rezilta:
       ${escapeHTML(eleve.nom)}
@@ -1219,27 +2300,52 @@ function afficherResultatEleve(){
 
     <p>
       <b>Klas:</b>
-      ${escapeHTML(eleve.classe||"Pa defini")}
+      ${escapeHTML(
+        eleve.classe||"Pa defini"
+      )}
     </p>
 
-    <br>
+    <div class="averageBox">
 
-    <h3>
-      Mwayèn: ${moyenne}/100
-    </h3>
+      <p>Mwayèn jeneral</p>
 
-    <br>
+      <div class="averageNumber">
+        ${moyenne.toFixed(2)}/100
+      </div>
+
+    </div>
 
     <div class="table-container">
 
       <table>
 
         <tr>
+
           <th>Devwa</th>
+
           <th>Nòt</th>
+
           <th>Estati</th>
+
         </tr>
+
   `;
+
+  if(!notes.length){
+
+    html+=`
+
+      <tr>
+
+        <td colspan="3">
+          Pa gen nòt pou elèv sa a.
+        </td>
+
+      </tr>
+
+    `;
+
+  }
 
   notes.forEach(n=>{
 
@@ -1250,7 +2356,9 @@ function afficherResultatEleve(){
       );
 
     html+=`
+
       <tr>
+
         <td>
           ${escapeHTML(
             d?d.titre:"Devwa"
@@ -1258,21 +2366,37 @@ function afficherResultatEleve(){
         </td>
 
         <td>
-          ${escapeHTML(n.note)}/100
+          <span class="noteDisplay">
+            ${escapeHTML(n.note)}/100
+          </span>
         </td>
 
         <td>
           ${escapeHTML(n.statut)}
         </td>
+
       </tr>
+
     `;
 
   });
 
-  resultat.innerHTML=
-    html+
-    "</table></div>";
+  html+=`
+
+      </table>
+
+    </div>
+
+  `;
+
+  resultat.innerHTML=html;
+
 }
+
+
+/* ================================
+   SELECTS
+================================ */
 
 function remplirSelects(){
 
@@ -1288,9 +2412,16 @@ function remplirSelects(){
   const devoirs=
     getData("devoirs");
 
+
   [
-    document.getElementById("classeEleve"),
-    document.getElementById("classeDevoir")
+    document.getElementById(
+      "classeEleve"
+    ),
+
+    document.getElementById(
+      "classeDevoir"
+    )
+
   ].forEach(s=>{
 
     if(!s)return;
@@ -1300,17 +2431,24 @@ function remplirSelects(){
     s.innerHTML=
       '<option value="">Chwazi klas</option>';
 
-    classes.forEach(c=>
-      s.innerHTML+=`
-        <option value="${escapeHTML(c.nom)}">
-          ${escapeHTML(c.nom)}
-        </option>
-      `
-    );
+    classes.forEach(c=>{
+
+      const option=
+        document.createElement(
+          "option"
+        );
+
+      option.value=c.nom;
+      option.textContent=c.nom;
+
+      s.appendChild(option);
+
+    });
 
     s.value=v;
 
   });
+
 
   const ms=
     document.getElementById(
@@ -1324,20 +2462,34 @@ function remplirSelects(){
     ms.innerHTML=
       '<option value="">Chwazi matyè</option>';
 
-    matieres.forEach(m=>
-      ms.innerHTML+=`
-        <option value="${escapeHTML(m.nom)}">
-          ${escapeHTML(m.nom)}
-        </option>
-      `
-    );
+    matieres.forEach(m=>{
+
+      const option=
+        document.createElement(
+          "option"
+        );
+
+      option.value=m.nom;
+      option.textContent=m.nom;
+
+      ms.appendChild(option);
+
+    });
 
     ms.value=v;
+
   }
 
+
   [
-    document.getElementById("eleveRemise"),
-    document.getElementById("eleveResultat")
+    document.getElementById(
+      "eleveRemise"
+    ),
+
+    document.getElementById(
+      "eleveResultat"
+    )
+
   ].forEach(s=>{
 
     if(!s)return;
@@ -1347,16 +2499,24 @@ function remplirSelects(){
     s.innerHTML=
       '<option value="">Chwazi elèv</option>';
 
-    eleves.forEach(e=>
-      s.innerHTML+=`
-        <option value="${e.id}">
-          ${escapeHTML(e.nom)}
-        </option>
-      `
-    );
+    eleves.forEach(e=>{
+
+      const option=
+        document.createElement(
+          "option"
+        );
+
+      option.value=e.id;
+      option.textContent=e.nom;
+
+      s.appendChild(option);
+
+    });
 
     s.value=v;
+
   });
+
 
   const ds=
     document.getElementById(
@@ -1370,49 +2530,92 @@ function remplirSelects(){
     ds.innerHTML=
       '<option value="">Chwazi devwa</option>';
 
-    devoirs.forEach(d=>
-      ds.innerHTML+=`
-        <option value="${d.id}">
-          ${escapeHTML(d.titre)}
-        </option>
-      `
-    );
+    devoirs.forEach(d=>{
+
+      const option=
+        document.createElement(
+          "option"
+        );
+
+      option.value=d.id;
+      option.textContent=d.titre;
+
+      ds.appendChild(option);
+
+    });
 
     ds.value=v;
+
   }
+
 }
+
+
+/* ================================
+   DASHBOARD
+================================ */
 
 function actualiserDashboard(){
 
-  document.getElementById(
-    "statEleves"
-  ).textContent=
-    getData("eleves").length;
+  const eleves=
+    document.getElementById(
+      "statEleves"
+    );
 
-  document.getElementById(
-    "statProfesseurs"
-  ).textContent=
-    getData("professeurs").length;
+  const professeurs=
+    document.getElementById(
+      "statProfesseurs"
+    );
 
-  document.getElementById(
-    "statClasses"
-  ).textContent=
-    getData("classes").length;
+  const classes=
+    document.getElementById(
+      "statClasses"
+    );
 
-  document.getElementById(
-    "statDevoirs"
-  ).textContent=
-    getData("devoirs").length;
+  const devoirs=
+    document.getElementById(
+      "statDevoirs"
+    );
+
+  if(eleves)
+    eleves.textContent=
+      getData("eleves").length;
+
+  if(professeurs)
+    professeurs.textContent=
+      getData("professeurs").length;
+
+  if(classes)
+    classes.textContent=
+      getData("classes").length;
+
+  if(devoirs)
+    devoirs.textContent=
+      getData("devoirs").length;
+
 }
+
+
+/* ================================
+   ESTATISTIK
+================================ */
 
 function actualiserStatistiques(){
 
   const notes=
     getData("remises")
     .filter(r=>
+
       r.note!==""
+
       &&
+
       r.note!==undefined
+
+      &&
+
+      !isNaN(Number(r.note))
+
     )
     .map(r=>Number(r.note));
 
@@ -1426,40 +2629,76 @@ function actualiserStatistiques(){
     :
     0;
 
-  document.getElementById(
-    "totalElevesStat"
-  ).textContent=
-    getData("eleves").length;
+  const el=
+    document.getElementById(
+      "totalElevesStat"
+    );
 
-  document.getElementById(
-    "totalProfStat"
-  ).textContent=
-    getData("professeurs").length;
+  const prof=
+    document.getElementById(
+      "totalProfStat"
+    );
 
-  document.getElementById(
-    "totalDevoirStat"
-  ).textContent=
-    getData("devoirs").length;
+  const devoir=
+    document.getElementById(
+      "totalDevoirStat"
+    );
 
-  document.getElementById(
-    "moyenneStat"
-  ).textContent=
-    moyenne.toFixed(2);
+  const moy=
+    document.getElementById(
+      "moyenneStat"
+    );
+
+  if(el)
+    el.textContent=
+      getData("eleves").length;
+
+  if(prof)
+    prof.textContent=
+      getData("professeurs").length;
+
+  if(devoir)
+    devoir.textContent=
+      getData("devoirs").length;
+
+  if(moy)
+    moy.textContent=
+      moyenne.toFixed(2)+"/100";
+
 }
+
+
+/* ================================
+   SAUVEGARDE
+================================ */
 
 function exporterDonnees(){
 
   const donnees={
-    eleves:getData("eleves"),
-    professeurs:getData("professeurs"),
-    classes:getData("classes"),
-    matieres:getData("matieres"),
-    devoirs:getData("devoirs"),
-    remises:getData("remises")
+
+    eleves:
+      getData("eleves"),
+
+    professeurs:
+      getData("professeurs"),
+
+    classes:
+      getData("classes"),
+
+    matieres:
+      getData("matieres"),
+
+    devoirs:
+      getData("devoirs"),
+
+    remises:
+      getData("remises")
+
   };
 
   const fichier=
     new Blob(
+
       [
         JSON.stringify(
           donnees,
@@ -1467,26 +2706,42 @@ function exporterDonnees(){
           2
         )
       ],
+
       {
         type:"application/json"
       }
+
     );
 
   const url=
-    URL.createObjectURL(fichier);
+    URL.createObjectURL(
+      fichier
+    );
 
   const lien=
-    document.createElement("a");
+    document.createElement(
+      "a"
+    );
 
   lien.href=url;
 
   lien.download=
     "sauvegarde-systeme-lekol.json";
 
+  document.body.appendChild(lien);
+
   lien.click();
 
+  document.body.removeChild(lien);
+
   URL.revokeObjectURL(url);
+
 }
+
+
+/* ================================
+   IMPORT
+================================ */
 
 function importerDonnees(){
 
@@ -1496,9 +2751,11 @@ function importerDonnees(){
     ).files[0];
 
   if(!fichier){
+
     alert(
       "Chwazi yon fichye JSON an premye."
     );
+
     return;
   }
 
@@ -1516,27 +2773,33 @@ function importerDonnees(){
           );
 
         const cles=[
+
           "eleves",
           "professeurs",
           "classes",
           "matieres",
           "devoirs",
           "remises"
+
         ];
 
         for(
           const cle of cles
         ){
+
           if(
             Array.isArray(
               donnees[cle]
             )
           ){
+
             await saveData(
               cle,
               donnees[cle]
             );
+
           }
+
         }
 
         actualiserTout();
@@ -1547,6 +2810,8 @@ function importerDonnees(){
 
       }catch(error){
 
+        console.error(error);
+
         alert(
           "Fichye a pa valab."
         );
@@ -1555,26 +2820,37 @@ function importerDonnees(){
 
     };
 
-  lecteur.readAsText(fichier);
+  lecteur.readAsText(
+    fichier
+  );
+
 }
+
+
+/* ================================
+   EFASMAN LOCAL
+================================ */
 
 async function effacerTout(){
 
   if(!confirm(
-    "ATANSYON ! Sa ap efase tout done sistèm nan. Èske ou sèten?"
+    "ATANSYON ! Sa ap efase tout done lokal yo. Èske ou sèten?"
   ))return;
 
   const cles=[
+
     "eleves",
     "professeurs",
     "classes",
     "matieres",
     "devoirs",
     "remises"
+
   ];
 
   cles.forEach(
-    c=>localStorage.removeItem(c)
+    c=>
+      localStorage.removeItem(c)
   );
 
   initialiserDonnees();
@@ -1584,104 +2860,169 @@ async function effacerTout(){
   alert(
     "Done lokal yo efase. Dokiman Firestore yo pa efase nan vèsyon sa a."
   );
+
 }
+
+
+/* ================================
+   DONE DEFAULT
+================================ */
 
 function initialiserDonnees(){
 
-  if(!localStorage.getItem("classes"))
+  if(
+    !localStorage.getItem(
+      "classes"
+    )
+  ){
 
     localStorage.setItem(
+
       "classes",
+
       JSON.stringify([
+
         {
           id:1,
           nom:"7e AF",
           annee:"2026-2027"
         },
+
         {
           id:2,
           nom:"8e AF",
           annee:"2026-2027"
         },
+
         {
           id:3,
           nom:"9e AF",
           annee:"2026-2027"
         }
+
       ])
+
     );
 
-  if(!localStorage.getItem("matieres"))
+  }
+
+
+  if(
+    !localStorage.getItem(
+      "matieres"
+    )
+  ){
 
     localStorage.setItem(
+
       "matieres",
+
       JSON.stringify([
+
         {
           id:1,
           nom:"Matematik"
         },
+
         {
           id:2,
           nom:"Français"
         },
+
         {
           id:3,
           nom:"Syans sosyal"
         },
+
         {
           id:4,
           nom:"Fizik"
         },
+
         {
           id:5,
           nom:"Chimi"
         },
+
         {
           id:6,
           nom:"Biyoloji"
         }
+
       ])
+
     );
+
+  }
+
 }
+
+
+/* ================================
+   AKTUALIZASYON JENERAL
+================================ */
 
 function actualiserTout(){
 
   afficherEleves();
+
   afficherProfesseurs();
+
   afficherClasses();
+
   afficherMatieres();
+
   afficherDevoirs();
+
   afficherRemises();
+
   remplirSelects();
+
   actualiserDashboard();
+
   actualiserStatistiques();
+
 }
 
+
+/* ================================
+   DEMARAJ
+================================ */
+
 initialiserDonnees();
+
 actualiserTout();
 
 </script>
 
+
+<!-- FIREBASE -->
 <script type="module">
 
 import {
   initializeApp
 }
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
 
 import {
   getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged
 }
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
 
 import {
   getFirestore,
   doc,
   setDoc
 }
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
 
 const firebaseConfig={
 
@@ -1702,24 +3043,41 @@ const firebaseConfig={
 
   appId:
     "1:505464315297:web:3e45543cb121eaf7243fe0"
+
 };
 
-const app=
-  initializeApp(firebaseConfig);
+
+const firebaseApp=
+  initializeApp(
+    firebaseConfig
+  );
+
 
 const db=
-  getFirestore(app);
+  getFirestore(
+    firebaseApp
+  );
+
 
 const auth=
-  getAuth(app);
+  getAuth(
+    firebaseApp
+  );
+
+
+/* ================================
+   FIREBASE SAVE
+================================ */
 
 window.firebaseSaveData=
   async function(key,data){
 
     if(!auth.currentUser){
+
       throw new Error(
         "Ou pa konekte ak Firebase."
       );
+
     }
 
     for(
@@ -1727,17 +3085,24 @@ window.firebaseSaveData=
     ){
 
       if(!item.id){
-        item.id=Date.now();
+
+        item.id=
+          Date.now();
+
       }
 
       await setDoc(
+
         doc(
           db,
           key,
           String(item.id)
         ),
+
         item
+
       );
+
     }
 
     console.log(
@@ -1746,19 +3111,27 @@ window.firebaseSaveData=
       data.length,
       "documents"
     );
+
   };
+
+
+/* ================================
+   SYNCHRONISATION
+================================ */
 
 async function synchroniserToutVersFirebase(){
 
   if(!auth.currentUser)return;
 
   const cles=[
+
     "eleves",
     "professeurs",
     "classes",
     "matieres",
     "devoirs",
     "remises"
+
   ];
 
   for(
@@ -1776,8 +3149,15 @@ async function synchroniserToutVersFirebase(){
       );
 
     }
+
   }
+
 }
+
+
+/* ================================
+   LOGIN
+================================ */
 
 window.connecterUtilisateur=
   async function(){
@@ -1804,24 +3184,51 @@ window.connecterUtilisateur=
     try{
 
       await signInWithEmailAndPassword(
+
         auth,
         email,
         motDePasse
+
       );
 
     }catch(error){
 
+      console.error(
+        "Erreur login:",
+        error
+      );
+
+      let message=
+        error.message;
+
+      if(
+        error.code===
+        "auth/invalid-credential"
+      ){
+
+        message=
+          "E-mail oswa modpas la pa kòrèk.";
+
+      }
+
       alert(
-        "Erreur de connexion : "
-        +
-        error.message
+        "Erreur de connexion : "+
+        message
       );
 
     }
+
   };
 
+
+/* ================================
+   AUTH STATE
+================================ */
+
 onAuthStateChanged(
+
   auth,
+
   async function(user){
 
     const loginBox=
@@ -1834,10 +3241,15 @@ onAuthStateChanged(
         "app"
       );
 
+
     if(user){
 
-      loginBox.style.display="none";
-      appBox.style.display="block";
+      loginBox.style.display=
+        "none";
+
+      appBox.style.display=
+        "block";
+
 
       try{
 
@@ -1856,22 +3268,28 @@ onAuthStateChanged(
           error
         );
 
-        alert(
-          "Koneksyon mache, men Firebase pa resevwa tout done yo: "
-          +
-          error.message
-        );
+        /*
+          Pa kache aplikasyon an si Firebase
+          gen yon pwoblèm. Itilizatè a ka toujou
+          wè aplikasyon an.
+        */
+
+        actualiserTout();
 
       }
 
     }else{
 
-      loginBox.style.display="flex";
-      appBox.style.display="none";
+      loginBox.style.display=
+        "flex";
+
+      appBox.style.display=
+        "none";
 
     }
 
   }
+
 );
 
 </script>
