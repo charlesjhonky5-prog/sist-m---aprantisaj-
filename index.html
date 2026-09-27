@@ -8,7 +8,7 @@
 /* =========================
    AKÈY PROFESYONÈL
    ========================= */
-<t.homeHero{
+.homeHero{
   background:#2563eb !important;
   color:#ffffff !important;
   border-radius:22px;
@@ -1177,7 +1177,6 @@ footer{
 
 <div class="container">
 
-
 <!-- ================= AKÈY ================= -->
 
 <section
@@ -1185,46 +1184,357 @@ footer{
   class="section active"
 >
 
-  <div class="card">
+  <!-- HEADER AKÈY -->
+  <div
+    style="
+      background:linear-gradient(135deg,#2563eb,#1d4ed8);
+      color:white;
+      padding:28px;
+      border-radius:18px;
+      margin-bottom:25px;
+      box-shadow:0 8px 25px rgba(37,99,235,0.25);
+    "
+  >
 
-    <h2>👋 Byenveni</h2>
+    <div
+      style="
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:15px;
+        flex-wrap:wrap;
+      "
+    >
 
-    <p id="welcomeText"></p>
+      <div>
+
+        <div
+          style="
+            font-size:14px;
+            font-weight:bold;
+            letter-spacing:1px;
+            opacity:.9;
+            margin-bottom:6px;
+          "
+        >
+          📚 SISTÈM APRANTISAJ
+        </div>
+
+        <h1
+          style="
+            margin:0 0 8px 0;
+            font-size:28px;
+          "
+        >
+          👋 Byenveni!
+        </h1>
+
+        <p
+          id="welcomeText"
+          style="
+            margin:0;
+            font-size:16px;
+            opacity:.95;
+          "
+        >
+          Byenveni nan espas aprantisaj ou.
+        </p>
+
+      </div>
+
+
+      <div
+        style="
+          background:rgba(255,255,255,.15);
+          padding:10px 16px;
+          border-radius:30px;
+          font-weight:bold;
+          white-space:nowrap;
+        "
+      >
+        🟢 Sistèm aktif
+      </div>
+
+    </div>
 
   </div>
 
 
-  <div class="grid">
+  <!-- TIT ESTATISTIK -->
 
-    <div class="stat">
-      👨‍🎓 Elèv
-      <strong id="countEleves">0</strong>
+  <div
+    style="
+      margin-bottom:18px;
+    "
+  >
+
+    <h2
+      style="
+        margin:0 0 5px 0;
+        color:#1e3a8a;
+      "
+    >
+      📊 Rezime sistèm nan
+    </h2>
+
+    <p
+      style="
+        margin:0;
+        color:#64748b;
+      "
+    >
+      Men yon apèsi rapid sou aktivite sistèm nan.
+    </p>
+
+  </div>
+
+
+  <!-- ESTATISTIK -->
+
+  <div
+    class="grid"
+    style="
+      gap:18px;
+    "
+  >
+
+    <div
+      class="stat"
+      style="
+        background:white;
+        border-radius:16px;
+        padding:22px;
+        border-left:5px solid #2563eb;
+        box-shadow:0 5px 18px rgba(0,0,0,.08);
+      "
+    >
+
+      <div style="font-size:15px;color:#64748b;">
+        👨‍🎓 Elèv
+      </div>
+
+      <strong
+        id="countEleves"
+        style="
+          display:block;
+          font-size:30px;
+          color:#2563eb;
+          margin-top:8px;
+        "
+      >
+        0
+      </strong>
+
+      <small style="color:#94a3b8;">
+        Elèv ki anrejistre
+      </small>
+
     </div>
 
-    <div class="stat">
-      👨‍🏫 Pwofesè
-      <strong id="countProfesseurs">0</strong>
+
+    <div
+      class="stat"
+      style="
+        background:white;
+        border-radius:16px;
+        padding:22px;
+        border-left:5px solid #16a34a;
+        box-shadow:0 5px 18px rgba(0,0,0,.08);
+      "
+    >
+
+      <div style="font-size:15px;color:#64748b;">
+        👨‍🏫 Pwofesè
+      </div>
+
+      <strong
+        id="countProfesseurs"
+        style="
+          display:block;
+          font-size:30px;
+          color:#16a34a;
+          margin-top:8px;
+        "
+      >
+        0
+      </strong>
+
+      <small style="color:#94a3b8;">
+        Pwofesè ki anrejistre
+      </small>
+
     </div>
 
-    <div class="stat">
-      🏫 Klas
-      <strong id="countClasses">0</strong>
+
+    <div
+      class="stat"
+      style="
+        background:white;
+        border-radius:16px;
+        padding:22px;
+        border-left:5px solid #7c3aed;
+        box-shadow:0 5px 18px rgba(0,0,0,.08);
+      "
+    >
+
+      <div style="font-size:15px;color:#64748b;">
+        🏫 Klas
+      </div>
+
+      <strong
+        id="countClasses"
+        style="
+          display:block;
+          font-size:30px;
+          color:#7c3aed;
+          margin-top:8px;
+        "
+      >
+        0
+      </strong>
+
+      <small style="color:#94a3b8;">
+        Klas ki disponib
+      </small>
+
     </div>
 
-    <div class="stat">
-      📚 Matyè
-      <strong id="countMatieres">0</strong>
+
+    <div
+      class="stat"
+      style="
+        background:white;
+        border-radius:16px;
+        padding:22px;
+        border-left:5px solid #ea580c;
+        box-shadow:0 5px 18px rgba(0,0,0,.08);
+      "
+    >
+
+      <div style="font-size:15px;color:#64748b;">
+        📚 Matyè
+      </div>
+
+      <strong
+        id="countMatieres"
+        style="
+          display:block;
+          font-size:30px;
+          color:#ea580c;
+          margin-top:8px;
+        "
+      >
+        0
+      </strong>
+
+      <small style="color:#94a3b8;">
+        Matyè ki disponib
+      </small>
+
     </div>
 
-    <div class="stat">
-      📝 Devwa
-      <strong id="countDevoirs">0</strong>
+
+    <div
+      class="stat"
+      style="
+        background:white;
+        border-radius:16px;
+        padding:22px;
+        border-left:5px solid #0891b2;
+        box-shadow:0 5px 18px rgba(0,0,0,.08);
+      "
+    >
+
+      <div style="font-size:15px;color:#64748b;">
+        📝 Devwa
+      </div>
+
+      <strong
+        id="countDevoirs"
+        style="
+          display:block;
+          font-size:30px;
+          color:#0891b2;
+          margin-top:8px;
+        "
+      >
+        0
+      </strong>
+
+      <small style="color:#94a3b8;">
+        Devwa anrejistre
+      </small>
+
     </div>
 
-    <div class="stat">
-      📤 Remiz
-      <strong id="countRemises">0</strong>
+
+    <div
+      class="stat"
+      style="
+        background:white;
+        border-radius:16px;
+        padding:22px;
+        border-left:5px solid #db2777;
+        box-shadow:0 5px 18px rgba(0,0,0,.08);
+      "
+    >
+
+      <div style="font-size:15px;color:#64748b;">
+        📤 Remiz
+      </div>
+
+      <strong
+        id="countRemises"
+        style="
+          display:block;
+          font-size:30px;
+          color:#db2777;
+          margin-top:8px;
+        "
+      >
+        0
+      </strong>
+
+      <small style="color:#94a3b8;">
+        Travay remèt
+      </small>
+
     </div>
+
+  </div>
+
+
+  <!-- MESAJ AKTIVITE -->
+
+  <div
+    style="
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:16px;
+      padding:20px;
+      margin-top:25px;
+    "
+  >
+
+    <h3
+      style="
+        margin:0 0 8px 0;
+        color:#1d4ed8;
+      "
+    >
+      💡 Kontinye travay ou
+    </h3>
+
+    <p
+      style="
+        margin:0;
+        color:#475569;
+        line-height:1.6;
+      "
+    >
+      Jere elèv, pwofesè, klas, matyè,
+      devwa ak remiz yo depi nan meni an.
+    </p>
 
   </div>
 
