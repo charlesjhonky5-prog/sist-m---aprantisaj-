@@ -1,39 +1,51 @@
-const CACHE_NAME = "sistem-aprantisaj-v1";
+const CACHE = "sistem-aprantisaj-v1";
 
-const FILES_TO_CACHE = [
-  "./",
-  "./index.html",
-  "./manifest.json"
-];
+self.addEventListener(
+  "install",
+  event => {
+    self.skipWaiting();
 
-self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(FILES_TO_CACHE);
-    })
-  );
+    event.waitUntil(
+      caches
+        .open(CACHE)
+        .then(
+          cache =>
+            cache.add(
+              "./index_firebase_corrige.html"
+            )
+        )
+    );
+  }
+);
 
-  self.skipWaiting();
-});
-
-self.addEventListener("activate", event => {
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
-      )
+self.addEventListener(
+  "activate",
+  event =>
+    event.waitUntil(
+      self.clients.claim()
     )
-  );
+);
 
-  self.clients.claim();
-});
+self.addEventListener(
+  "fetch",
+  event => {
 
-self.addEventListener("fetch", event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
-  );
-});
+    if(
+      event.request.method !== "GET"
+    )
+      return;
+
+    event.respondWith(
+
+      fetch(event.request)
+        .catch(
+          () =>
+            caches.match(
+              event.request
+            )
+        )
+
+    );
+
+  }
+);
