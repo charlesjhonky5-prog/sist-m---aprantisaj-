@@ -1239,7 +1239,11 @@ footer{
         max="100"
         placeholder="Nòt / 100"
       >
-
+<textarea
+  id="remiseCorrection"
+  placeholder="✍️ Ekri koreksyon / kòmantè pwofesè a..."
+  rows="3"
+></textarea>
     </div>
 
     <button
@@ -2680,7 +2684,6 @@ window.ajouterDevoir = async function(){
 
 
 /* ================= REMIZ ================= */
-
 window.ajouterRemise = async function(){
 
   if(
@@ -2722,6 +2725,17 @@ window.ajouterRemise = async function(){
     ).value;
 
 
+  const correctionElement =
+    document.getElementById(
+      "remiseCorrection"
+    );
+
+  const correction =
+    correctionElement
+      ? correctionElement.value.trim()
+      : "";
+
+
   if(
     !eleveId ||
     !devoirId
@@ -2729,6 +2743,23 @@ window.ajouterRemise = async function(){
 
     alert(
       "Chwazi elèv ak devwa."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    note !== "" &&
+    (
+      Number(note) < 0 ||
+      Number(note) > 100
+    )
+  ){
+
+    alert(
+      "Nòt la dwe ant 0 ak 100."
     );
 
     return;
@@ -2747,7 +2778,11 @@ window.ajouterRemise = async function(){
     statut,
 
     note:
-      note==="" ? null : Number(note),
+      note===""
+        ? null
+        : Number(note),
+
+    correction,
 
     createdAt:
       new Date().toISOString()
@@ -2773,18 +2808,26 @@ window.ajouterRemise = async function(){
     ).value="";
 
 
+    if(correctionElement){
+
+      correctionElement.value="";
+
+    }
+
+
     actualiserTout();
 
 
     alert(
-      "Remiz la anrejistre avèk siksè."
+      "Remiz la ak koreksyon anrejistre avèk siksè."
     );
 
 
   }catch(error){
 
     alert(
-      "Erè:\n\n"+error.message
+      "Erè:\n\n"
+      +error.message
     );
 
   }
