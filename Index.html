@@ -1,3298 +1,3057 @@
-<!DOCTYPE html>
-<html lang="ht">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Sistèm Lekòl</title>
-
-<meta name="theme-color" content="#1769aa">
-<meta name="description" content="Sistèm jesyon lekòl pou elèv, pwofesè, klas, matyè, devwa ak rezilta">
-
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif
-}
-
-body{
-  background:#f4f6f9;
-  color:#222;
-  min-height:100vh
-}
-
-#app{
-  display:none
-}
-
-/* LOGIN */
-#loginBox{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  background:#f4f6f9;
-  z-index:99999;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  padding:20px
-}
-
-#loginBox h2{
-  margin-bottom:20px
-}
-
-#loginBox input{
-  width:90%;
-  max-width:350px;
-  padding:12px;
-  margin:6px 0;
-  border:1px solid #ccc;
-  border-radius:6px;
-  font-size:16px
-}
-
-#loginBox button{
-  padding:12px 25px;
-  margin-top:10px;
-  border:none;
-  border-radius:6px;
-  background:#1769aa;
-  color:white;
-  cursor:pointer;
-  font-size:16px
-}
-
-#loginBox button:hover{
-  background:#0d4f83
-}
-
-/* HEADER */
-header{
-  background:linear-gradient(135deg,#1769aa,#0d4f83);
-  color:white;
-  padding:30px 15px;
-  text-align:center;
-  box-shadow:0 3px 10px #bbb
-}
-
-header h1{
-  margin-bottom:8px;
-  font-size:30px
-}
-
-header p{
-  opacity:.95
-}
-
-/* NAV */
-nav{
-  background:white;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:8px;
-  padding:12px;
-  box-shadow:0 2px 6px #ccc;
-  position:sticky;
-  top:0;
-  z-index:10
-}
-
-nav button{
-  border:none;
-  background:#1769aa;
-  color:white;
-  padding:10px 14px;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:14px
-}
-
-nav button:hover{
-  background:#0d4f83
-}
-
-/* MAIN */
-main{
-  max-width:1100px;
-  margin:20px auto;
-  padding:15px
-}
-
-.section{
-  display:none
-}
-
-.section.active{
-  display:block
-}
-
-/* CARDS */
-.card{
-  background:white;
-  padding:20px;
-  margin-bottom:18px;
-  border-radius:12px;
-  box-shadow:0 2px 8px #ddd
-}
-
-.card h2{
-  margin-bottom:15px
-}
-
-/* AKÈY */
-.welcomeCard{
-  background:linear-gradient(135deg,#1769aa,#258bd1);
-  color:white;
-  padding:28px;
-  border-radius:14px;
-  margin-bottom:20px;
-  box-shadow:0 4px 12px #ccc
-}
-
-.welcomeCard h2{
-  font-size:25px;
-  margin-bottom:8px
-}
-
-.welcomeCard p{
-  line-height:1.6
-}
-
-.dashboardTitle{
-  margin:5px 0 15px;
-  font-size:20px
-}
-
-/* STATS */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  margin-bottom:20px
-}
-
-.stat{
-  background:white;
-  padding:22px;
-  text-align:center;
-  border-radius:12px;
-  box-shadow:0 2px 8px #ddd;
-  border-top:4px solid #1769aa
-}
-
-.stat h3{
-  font-size:30px;
-  color:#1769aa;
-  margin-bottom:8px
-}
-
-.stat p{
-  color:#555
-}
-
-.statIcon{
-  font-size:28px;
-  margin-bottom:5px
-}
-
-/* QUICK ACTIONS */
-.quickActions{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px
-}
-
-.quickButton{
-  border:none;
-  padding:16px 10px;
-  border-radius:10px;
-  background:#1769aa;
-  color:white;
-  cursor:pointer;
-  font-size:14px
-}
-
-.quickButton:hover{
-  background:#0d4f83
-}
-
-/* INPUTS */
-input,textarea,select{
-  width:100%;
-  padding:12px;
-  margin:8px 0 15px;
-  border:1px solid #ccc;
-  border-radius:6px;
-  font-size:15px;
-  background:white
-}
-
-textarea{
-  resize:vertical
-}
-
-/* BUTTONS */
-.action{
-  background:#1769aa;
-  color:white;
-  border:none;
-  padding:11px 17px;
-  border-radius:6px;
-  cursor:pointer;
-  margin:3px
-}
-
-.action:hover{
-  opacity:.9
-}
-
-.danger{
-  background:#c62828
-}
-
-.success{
-  background:#2e7d32
-}
-
-.warning{
-  background:#ef6c00
-}
-
-.gray{
-  background:#666
-}
-
-/* ITEMS */
-.item{
-  border:1px solid #ddd;
-  padding:15px;
-  margin:10px 0;
-  border-radius:8px;
-  background:#fafafa
-}
-
-.item h3{
-  margin-bottom:8px
-}
-
-.item p{
-  margin:5px 0
-}
-
-/* TABLE */
-.table-container{
-  overflow-x:auto
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:10px;
-  background:white
-}
-
-th,td{
-  border:1px solid #ddd;
-  padding:10px;
-  text-align:left
-}
-
-th{
-  background:#1769aa;
-  color:white
-}
-
-/* NÒT */
-.noteDisplay{
-  display:inline-block;
-  background:#e3f2fd;
-  color:#1769aa;
-  font-size:18px;
-  font-weight:bold;
-  padding:6px 12px;
-  border-radius:8px
-}
-
-.averageBox{
-  background:#f4f6f9;
-  padding:18px;
-  border-radius:10px;
-  margin:15px 0
-}
-
-.averageNumber{
-  font-size:28px;
-  font-weight:bold;
-  color:#1769aa
-}
-
-/* BADGES */
-.badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:15px;
-  font-size:12px;
-  color:white
-}
-
-.badge-green{
-  background:#2e7d32
-}
-
-.badge-red{
-  background:#c62828
-}
-
-.badge-orange{
-  background:#ef6c00
-}
-
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:30px;
-  color:#666
-}
-
-/* MOBILE */
-@media(max-width:800px){
-
-  .stats{
-    grid-template-columns:repeat(2,1fr)
-  }
-
-  nav{
-    position:static
-  }
-
-  nav button{
-    flex:1 1 30%
-  }
-
-  .quickActions{
-    grid-template-columns:repeat(2,1fr)
-  }
-}
-
-@media(max-width:500px){
-
-  header h1{
-    font-size:24px
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr
-  }
-
-  nav button{
-    flex:1 1 45%;
-    font-size:13px
-  }
-
-  .card{
-    padding:15px
-  }
-
-  .quickActions{
-    grid-template-columns:1fr 1fr
-  }
-}
-</style>
-</head>
-
-<body>
-
-<!-- LOGIN -->
-<div id="loginBox">
-
-  <h2>📚 Sistèm Lekòl</h2>
-
-  <p style="margin-bottom:12px;text-align:center">
-    Tanpri konekte pou antre nan sistèm nan.
-  </p>
-
-  <input
-    type="email"
-    id="emailLogin"
-    placeholder="E-mail"
-  >
-
-  <input
-    type="password"
-    id="passwordLogin"
-    placeholder="Mot de passe"
-  >
-
-  <button onclick="connecterUtilisateur()">
-    🔐 Se konekte
-  </button>
+<!DOCTYPE html>  <html lang="ht">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Sistèm Lekòl</title>  <meta name="theme-color" content="#1769aa">  
+<meta name="description" content="Sistèm jesyon lekòl pou elèv, pwofesè, klas, matyè, devwa ak rezilta">  <style>  
+*{  
+  box-sizing:border-box;  
+  margin:0;  
+  padding:0;  
+  font-family:Arial,sans-serif  
+}  
+  
+body{  
+  background:#f4f6f9;  
+  color:#222;  
+  min-height:100vh  
+}  
+  
+#app{  
+  display:none  
+}  
+  
+/* LOGIN */  
+#loginBox{  
+  position:fixed;  
+  inset:0;  
+  width:100%;  
+  height:100%;  
+  background:#f4f6f9;  
+  z-index:99999;  
+  display:flex;  
+  flex-direction:column;  
+  justify-content:center;  
+  align-items:center;  
+  padding:20px  
+}  
+  
+#loginBox h2{  
+  margin-bottom:20px  
+}  
+  
+#loginBox input{  
+  width:90%;  
+  max-width:350px;  
+  padding:12px;  
+  margin:6px 0;  
+  border:1px solid #ccc;  
+  border-radius:6px;  
+  font-size:16px  
+}  
+  
+#loginBox button{  
+  padding:12px 25px;  
+  margin-top:10px;  
+  border:none;  
+  border-radius:6px;  
+  background:#1769aa;  
+  color:white;  
+  cursor:pointer;  
+  font-size:16px  
+}  
+  
+#loginBox button:hover{  
+  background:#0d4f83  
+}  
+  
+/* HEADER */  
+header{  
+  background:linear-gradient(135deg,#1769aa,#0d4f83);  
+  color:white;  
+  padding:30px 15px;  
+  text-align:center;  
+  box-shadow:0 3px 10px #bbb  
+}  
+  
+header h1{  
+  margin-bottom:8px;  
+  font-size:30px  
+}  
+  
+header p{  
+  opacity:.95  
+}  
+  
+/* NAV */  
+nav{  
+  background:white;  
+  display:flex;  
+  flex-wrap:wrap;  
+  justify-content:center;  
+  gap:8px;  
+  padding:12px;  
+  box-shadow:0 2px 6px #ccc;  
+  position:sticky;  
+  top:0;  
+  z-index:10  
+}  
+  
+nav button{  
+  border:none;  
+  background:#1769aa;  
+  color:white;  
+  padding:10px 14px;  
+  border-radius:6px;  
+  cursor:pointer;  
+  font-size:14px  
+}  
+  
+nav button:hover{  
+  background:#0d4f83  
+}  
+  
+/* MAIN */  
+main{  
+  max-width:1100px;  
+  margin:20px auto;  
+  padding:15px  
+}  
+  
+.section{  
+  display:none  
+}  
+  
+.section.active{  
+  display:block  
+}  
+  
+/* CARDS */  
+.card{  
+  background:white;  
+  padding:20px;  
+  margin-bottom:18px;  
+  border-radius:12px;  
+  box-shadow:0 2px 8px #ddd  
+}  
+  
+.card h2{  
+  margin-bottom:15px  
+}  
+  
+/* AKÈY */  
+.welcomeCard{  
+  background:linear-gradient(135deg,#1769aa,#258bd1);  
+  color:white;  
+  padding:28px;  
+  border-radius:14px;  
+  margin-bottom:20px;  
+  box-shadow:0 4px 12px #ccc  
+}  
+  
+.welcomeCard h2{  
+  font-size:25px;  
+  margin-bottom:8px  
+}  
+  
+.welcomeCard p{  
+  line-height:1.6  
+}  
+  
+.dashboardTitle{  
+  margin:5px 0 15px;  
+  font-size:20px  
+}  
+  
+/* STATS */  
+.stats{  
+  display:grid;  
+  grid-template-columns:repeat(4,1fr);  
+  gap:15px;  
+  margin-bottom:20px  
+}  
+  
+.stat{  
+  background:white;  
+  padding:22px;  
+  text-align:center;  
+  border-radius:12px;  
+  box-shadow:0 2px 8px #ddd;  
+  border-top:4px solid #1769aa  
+}  
+  
+.stat h3{  
+  font-size:30px;  
+  color:#1769aa;  
+  margin-bottom:8px  
+}  
+  
+.stat p{  
+  color:#555  
+}  
+  
+.statIcon{  
+  font-size:28px;  
+  margin-bottom:5px  
+}  
+  
+/* QUICK ACTIONS */  
+.quickActions{  
+  display:grid;  
+  grid-template-columns:repeat(4,1fr);  
+  gap:10px  
+}  
+  
+.quickButton{  
+  border:none;  
+  padding:16px 10px;  
+  border-radius:10px;  
+  background:#1769aa;  
+  color:white;  
+  cursor:pointer;  
+  font-size:14px  
+}  
+  
+.quickButton:hover{  
+  background:#0d4f83  
+}  
+  
+/* INPUTS */  
+input,textarea,select{  
+  width:100%;  
+  padding:12px;  
+  margin:8px 0 15px;  
+  border:1px solid #ccc;  
+  border-radius:6px;  
+  font-size:15px;  
+  background:white  
+}  
+  
+textarea{  
+  resize:vertical  
+}  
+  
+/* BUTTONS */  
+.action{  
+  background:#1769aa;  
+  color:white;  
+  border:none;  
+  padding:11px 17px;  
+  border-radius:6px;  
+  cursor:pointer;  
+  margin:3px  
+}  
+  
+.action:hover{  
+  opacity:.9  
+}  
+  
+.danger{  
+  background:#c62828  
+}  
+  
+.success{  
+  background:#2e7d32  
+}  
+  
+.warning{  
+  background:#ef6c00  
+}  
+  
+.gray{  
+  background:#666  
+}  
+  
+/* ITEMS */  
+.item{  
+  border:1px solid #ddd;  
+  padding:15px;  
+  margin:10px 0;  
+  border-radius:8px;  
+  background:#fafafa  
+}  
+  
+.item h3{  
+  margin-bottom:8px  
+}  
+  
+.item p{  
+  margin:5px 0  
+}  
+  
+/* TABLE */  
+.table-container{  
+  overflow-x:auto  
+}  
+  
+table{  
+  width:100%;  
+  border-collapse:collapse;  
+  margin-top:10px;  
+  background:white  
+}  
+  
+th,td{  
+  border:1px solid #ddd;  
+  padding:10px;  
+  text-align:left  
+}  
+  
+th{  
+  background:#1769aa;  
+  color:white  
+}  
+  
+/* NÒT */  
+.noteDisplay{  
+  display:inline-block;  
+  background:#e3f2fd;  
+  color:#1769aa;  
+  font-size:18px;  
+  font-weight:bold;  
+  padding:6px 12px;  
+  border-radius:8px  
+}  
+  
+.averageBox{  
+  background:#f4f6f9;  
+  padding:18px;  
+  border-radius:10px;  
+  margin:15px 0  
+}  
+  
+.averageNumber{  
+  font-size:28px;  
+  font-weight:bold;  
+  color:#1769aa  
+}  
+  
+/* BADGES */  
+.badge{  
+  display:inline-block;  
+  padding:5px 9px;  
+  border-radius:15px;  
+  font-size:12px;  
+  color:white  
+}  
+  
+.badge-green{  
+  background:#2e7d32  
+}  
+  
+.badge-red{  
+  background:#c62828  
+}  
+  
+.badge-orange{  
+  background:#ef6c00  
+}  
+  
+/* FOOTER */  
+footer{  
+  text-align:center;  
+  padding:30px;  
+  color:#666  
+}  
+  
+/* MOBILE */  
+@media(max-width:800px){  
+  
+  .stats{  
+    grid-template-columns:repeat(2,1fr)  
+  }  
+  
+  nav{  
+    position:static  
+  }  
+  
+  nav button{  
+    flex:1 1 30%  
+  }  
+  
+  .quickActions{  
+    grid-template-columns:repeat(2,1fr)  
+  }  
+}  
+  
+@media(max-width:500px){  
+  
+  header h1{  
+    font-size:24px  
+  }  
+  
+  .stats{  
+    grid-template-columns:1fr 1fr  
+  }  
+  
+  nav button{  
+    flex:1 1 45%;  
+    font-size:13px  
+  }  
+  
+  .card{  
+    padding:15px  
+  }  
+  
+  .quickActions{  
+    grid-template-columns:1fr 1fr  
+  }  
+}  
+</style>  </head>  <body>  <!-- LOGIN -->  <div id="loginBox">    <h2>📚 Sistèm Lekòl</h2>    <p style="margin-bottom:12px;text-align:center">  
+    Tanpri konekte pou antre nan sistèm nan.  
+  </p>  <input
+type="email"
+id="emailLogin"
+placeholder="E-mail"
+
+> 
+
+<input
+type="password"
+id="passwordLogin"
+placeholder="Mot de passe"
+
+> 
+
+  <button onclick="connecterUtilisateur()">  
+    🔐 Se konekte  
+  </button>  </div>  <!-- APP -->  <div id="app">  <header>    <h1>📚 Sistèm Lekòl</h1>    <p>  
+    Platfòm pou jere elèv, pwofesè, klas, devwa ak rezilta  
+  </p>  </header>  <!-- NAVIGATION -->  <nav>    <button onclick="showSection('accueil')">  
+    🏠 Akèy  
+  </button>    <button onclick="showSection('eleves')">  
+    👨‍🎓 Elèv  
+  </button>    <button onclick="showSection('professeurs')">  
+    👨‍🏫 Pwofesè  
+  </button>    <button onclick="showSection('classes')">  
+    🏫 Klas  
+  </button>    <button onclick="showSection('matieres')">  
+    📚 Matyè  
+  </button>    <button onclick="showSection('devoirs')">  
+    📝 Devwa  
+  </button>    <button onclick="showSection('remises')">  
+    📥 Remèt  
+  </button>    <button onclick="showSection('resultats')">  
+    📊 Rezilta  
+  </button>    <button onclick="showSection('statistiques')">  
+    📈 Estatistik  
+  </button>    <button onclick="showSection('sauvegarde')">  
+    💾 Done  
+  </button>  </nav>  <main>  <!-- AKÈY -->  <section id="accueil" class="section active">    <div class="welcomeCard">  <h2>👋 Byenveni nan Sistèm Lekòl</h2>  
+
+<p>  
+  Soti isit la ou kapab jere enfòmasyon elèv,  
+  pwofesè, klas, matyè, devwa ak rezilta yo.  
+</p>
+
+  </div>    <h3 class="dashboardTitle">  
+    📊 Rezime sistèm nan  
+  </h3>    <div class="stats">  <div class="stat">  
+
+  <div class="statIcon">👨‍🎓</div>  
+
+  <h3 id="statEleves">0</h3>  
+
+  <p>Elèv</p>  
+
+</div>  
+
+<div class="stat">  
+
+  <div class="statIcon">👨‍🏫</div>  
+
+  <h3 id="statProfesseurs">0</h3>  
+
+  <p>Pwofesè</p>  
+
+</div>  
+
+<div class="stat">  
+
+  <div class="statIcon">🏫</div>  
+
+  <h3 id="statClasses">0</h3>  
+
+  <p>Klas</p>  
+
+</div>  
+
+<div class="stat">  
+
+  <div class="statIcon">📝</div>  
+
+  <h3 id="statDevoirs">0</h3>  
+
+  <p>Devwa</p>  
 
 </div>
 
-
-<!-- APP -->
-<div id="app">
-
-<header>
-
-  <h1>📚 Sistèm Lekòl</h1>
-
-  <p>
-    Platfòm pou jere elèv, pwofesè, klas, devwa ak rezilta
-  </p>
-
-</header>
-
-
-<!-- NAVIGATION -->
-<nav>
-
-  <button onclick="showSection('accueil')">
-    🏠 Akèy
-  </button>
-
-  <button onclick="showSection('eleves')">
-    👨‍🎓 Elèv
-  </button>
-
-  <button onclick="showSection('professeurs')">
-    👨‍🏫 Pwofesè
-  </button>
-
-  <button onclick="showSection('classes')">
-    🏫 Klas
-  </button>
-
-  <button onclick="showSection('matieres')">
-    📚 Matyè
-  </button>
-
-  <button onclick="showSection('devoirs')">
-    📝 Devwa
-  </button>
-
-  <button onclick="showSection('remises')">
-    📥 Remèt
-  </button>
-
-  <button onclick="showSection('resultats')">
-    📊 Rezilta
-  </button>
-
-  <button onclick="showSection('statistiques')">
-    📈 Estatistik
-  </button>
-
-  <button onclick="showSection('sauvegarde')">
-    💾 Done
-  </button>
-
-</nav>
-
-
-<main>
-
-<!-- AKÈY -->
-<section id="accueil" class="section active">
-
-  <div class="welcomeCard">
-
-    <h2>👋 Byenveni nan Sistèm Lekòl</h2>
-
-    <p>
-      Soti isit la ou kapab jere enfòmasyon elèv,
-      pwofesè, klas, matyè, devwa ak rezilta yo.
-    </p>
-
-  </div>
-
-  <h3 class="dashboardTitle">
-    📊 Rezime sistèm nan
-  </h3>
-
-  <div class="stats">
-
-    <div class="stat">
-
-      <div class="statIcon">👨‍🎓</div>
-
-      <h3 id="statEleves">0</h3>
-
-      <p>Elèv</p>
-
-    </div>
-
-    <div class="stat">
-
-      <div class="statIcon">👨‍🏫</div>
-
-      <h3 id="statProfesseurs">0</h3>
-
-      <p>Pwofesè</p>
-
-    </div>
-
-    <div class="stat">
-
-      <div class="statIcon">🏫</div>
-
-      <h3 id="statClasses">0</h3>
-
-      <p>Klas</p>
-
-    </div>
-
-    <div class="stat">
-
-      <div class="statIcon">📝</div>
-
-      <h3 id="statDevoirs">0</h3>
-
-      <p>Devwa</p>
-
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>⚡ Aksyon rapid</h2>
-
-    <div class="quickActions">
-
-      <button
-        class="quickButton"
-        onclick="showSection('eleves')">
-        ➕<br>Ajoute elèv
-      </button>
-
-      <button
-        class="quickButton"
-        onclick="showSection('professeurs')">
-        ➕<br>Ajoute pwofesè
-      </button>
-
-      <button
-        class="quickButton"
-        onclick="showSection('classes')">
-        ➕<br>Ajoute klas
-      </button>
-
-      <button
-        class="quickButton"
-        onclick="showSection('devoirs')">
-        ➕<br>Ajoute devwa
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ELÈV -->
-<section id="eleves" class="section">
-
-  <div class="card">
-
-    <h2>👨‍🎓 Jesyon Elèv</h2>
-
-    <input
-      id="nomEleve"
-      type="text"
-      placeholder="Non konplè elèv la"
-    >
-
-    <input
-      id="ageEleve"
-      type="number"
-      placeholder="Laj"
-    >
-
-    <select id="classeEleve">
-
-      <option value="">
-        Chwazi klas
-      </option>
-
-    </select>
-
-    <input
-      id="telephoneEleve"
-      type="text"
-      placeholder="Telefòn"
-    >
-
-    <button
-      class="action"
-      onclick="ajouterEleve()">
-      ➕ Ajoute elèv
-    </button>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>🔎 Rechèch elèv</h2>
-
-    <input
-      id="rechercheEleve"
-      type="text"
-      placeholder="Chèche pa non oswa klas..."
-      oninput="afficherEleves()"
-    >
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>📋 Lis elèv</h2>
-
-    <div id="listeEleves"></div>
-
-  </div>
-
-</section>
-
-
-<!-- PWOFESÈ -->
-<section id="professeurs" class="section">
-
-  <div class="card">
-
-    <h2>👨‍🏫 Jesyon Pwofesè</h2>
-
-    <input
-      id="nomProfesseur"
-      type="text"
-      placeholder="Non konplè pwofesè a"
-    >
-
-    <input
-      id="telephoneProfesseur"
-      type="text"
-      placeholder="Telefòn"
-    >
-
-    <input
-      id="matiereProfesseur"
-      type="text"
-      placeholder="Matyè li anseye"
-    >
-
-    <button
-      class="action"
-      onclick="ajouterProfesseur()">
-      ➕ Ajoute pwofesè
-    </button>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>📋 Lis pwofesè</h2>
-
-    <div id="listeProfesseurs"></div>
-
-  </div>
-
-</section>
-
-
-<!-- KLAS -->
-<section id="classes" class="section">
-
-  <div class="card">
-
-    <h2>🏫 Jesyon Klas</h2>
-
-    <input
-      id="nomClasse"
-      type="text"
-      placeholder="Egzanp: 7e AF"
-    >
-
-    <input
-      id="anneeClasse"
-      type="text"
-      placeholder="Egzanp: 2026-2027"
-    >
-
-    <button
-      class="action"
-      onclick="ajouterClasse()">
-      ➕ Ajoute klas
-    </button>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>📋 Lis klas</h2>
-
-    <div id="listeClasses"></div>
-
-  </div>
-
-</section>
-
-
-<!-- MATYÈ -->
-<section id="matieres" class="section">
-
-  <div class="card">
-
-    <h2>📚 Jesyon Matyè</h2>
-
-    <input
-      id="nomMatiere"
-      type="text"
-      placeholder="Non matyè a"
-    >
-
-    <button
-      class="action"
-      onclick="ajouterMatiere()">
-      ➕ Ajoute matyè
-    </button>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>📋 Lis matyè</h2>
-
-    <div id="listeMatieres"></div>
-
-  </div>
-
-</section>
-
-
-<!-- DEVWA -->
-<section id="devoirs" class="section">
-
-  <div class="card">
-
-    <h2>📝 Ajoute yon devwa</h2>
-
-    <input
-      id="titreDevoir"
-      type="text"
-      placeholder="Tit devwa a"
-    >
-
-    <select id="matiereDevoir">
-
-      <option value="">
-        Chwazi matyè
-      </option>
-
-    </select>
-
-    <select id="classeDevoir">
-
-      <option value="">
-        Chwazi klas
-      </option>
-
-    </select>
-
-    <input
-      id="dateDevoir"
-      type="date"
-    >
-
-    <textarea
-      id="descriptionDevoir"
-      rows="5"
-      placeholder="Deskripsyon devwa a"></textarea>
-
-    <button
-      class="action"
-      onclick="ajouterDevoir()">
-      ➕ Ajoute devwa
-    </button>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>🔎 Rechèch devwa</h2>
-
-    <input
-      id="rechercheDevoir"
-      type="text"
-      placeholder="Chèche devwa..."
-      oninput="afficherDevoirs()"
-    >
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>📋 Lis devwa</h2>
-
-    <div id="listeDevoirs"></div>
-
-  </div>
-
-</section>
-
-
-<!-- REMÈT -->
-<section id="remises" class="section">
-
-  <div class="card">
-
-    <h2>📥 Suivi devwa</h2>
-
-    <select id="eleveRemise">
-
-      <option value="">
-        Chwazi elèv
-      </option>
-
-    </select>
-
-    <select id="devoirRemise">
-
-      <option value="">
-        Chwazi devwa
-      </option>
-
-    </select>
-
-    <select id="statutRemise">
-
-      <option value="Remèt">
-        ✅ Remèt
-      </option>
-
-      <option value="Pa remèt">
-        ❌ Pa remèt
-      </option>
-
-    </select>
-
-    <input
-      id="noteRemise"
-      type="number"
-      min="0"
-      max="100"
-      placeholder="Nòt /100"
-    >
-
-    <button
-      class="action"
-      onclick="ajouterRemise()">
-      💾 Anrejistre
-    </button>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>📋 Lis devwa elèv yo</h2>
-
-    <div id="listeRemises"></div>
-
-  </div>
-
-</section>
-
-
-<!-- REZILTA -->
-<section id="resultats" class="section">
-
-  <div class="card">
-
-    <h2>📊 Rezilta Elèv</h2>
-
-    <select
-      id="eleveResultat"
-      onchange="afficherResultatEleve()">
-
-      <option value="">
-        Chwazi elèv
-      </option>
-
-    </select>
-
-  </div>
-
-
-  <div class="card">
-
-    <div id="resultatEleve">
-
-      <p>
-        Chwazi yon elèv pou wè rezilta li.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ESTATISTIK -->
-<section id="statistiques" class="section">
-
-  <div class="card">
-
-    <h2>📈 Estatistik</h2>
-
-    <div class="stats">
-
-      <div class="stat">
-
-        <h3 id="totalElevesStat">0</h3>
-
-        <p>Elèv</p>
-
-      </div>
-
-      <div class="stat">
-
-        <h3 id="totalProfStat">0</h3>
-
-        <p>Pwofesè</p>
-
-      </div>
-
-      <div class="stat">
-
-        <h3 id="totalDevoirStat">0</h3>
-
-        <p>Devwa</p>
-
-      </div>
-
-      <div class="stat">
-
-        <h3 id="moyenneStat">0/100</h3>
-
-        <p>Mwayèn</p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- SAUVEGARDE -->
-<section id="sauvegarde" class="section">
-
-  <div class="card">
-
-    <h2>💾 Sauvegarde done</h2>
-
-    <p>
-      Ou kapab telechaje tout done sistèm nan kòm yon fichye.
-    </p>
-
-    <br>
-
-    <button
-      class="action success"
-      onclick="exporterDonnees()">
-      📥 Telechaje sauvegarde
-    </button>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>📤 Récupérer done</h2>
-
-    <p>
-      Chwazi yon fichye sauvegarde ou te ekspòte avan.
-    </p>
-
-    <br>
-
-    <input
-      type="file"
-      id="importFile"
-      accept=".json"
-    >
-
-    <button
-      class="action"
-      onclick="importerDonnees()">
-      📤 Importer done
-    </button>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>⚠️ Zòn danje</h2>
-
-    <p>
-      Bouton sa a ap efase done ki nan navigatè sa a.
-    </p>
-
-    <br>
-
-    <button
-      class="action danger"
-      onclick="effacerTout()">
-      🗑️ Efase done lokal yo
-    </button>
-
-  </div>
-
-</section>
-
-</main>
-
-
-<footer>
-  © 2026 - Sistèm Lekòl
-</footer>
+  </div>    <div class="card">  <h2>⚡ Aksyon rapid</h2>  
+
+<div class="quickActions">  
+
+  <button  
+    class="quickButton"  
+    onclick="showSection('eleves')">  
+    ➕<br>Ajoute elèv  
+  </button>  
+
+  <button  
+    class="quickButton"  
+    onclick="showSection('professeurs')">  
+    ➕<br>Ajoute pwofesè  
+  </button>  
+
+  <button  
+    class="quickButton"  
+    onclick="showSection('classes')">  
+    ➕<br>Ajoute klas  
+  </button>  
+
+  <button  
+    class="quickButton"  
+    onclick="showSection('devoirs')">  
+    ➕<br>Ajoute devwa  
+  </button>  
 
 </div>
 
+  </div>  </section>  <!-- ELÈV -->  <section id="eleves" class="section">    <div class="card">  <h2>👨‍🎓 Jesyon Elèv</h2>  
+
+<input  
+  id="nomEleve"  
+  type="text"  
+  placeholder="Non konplè elèv la"  
+>  
+
+<input  
+  id="ageEleve"  
+  type="number"  
+  placeholder="Laj"  
+>  
+
+<select id="classeEleve">  
+
+  <option value="">  
+    Chwazi klas  
+  </option>  
 
-<script>
+</select>  
 
-/* ================================
-   NAVIGATION
-================================ */
+<input  
+  id="telephoneEleve"  
+  type="text"  
+  placeholder="Telefòn"  
+>  
 
-function showSection(id){
+<button  
+  class="action"  
+  onclick="ajouterEleve()">  
+  ➕ Ajoute elèv  
+</button>
 
-  document
-    .querySelectorAll(".section")
-    .forEach(s=>{
-      s.classList.remove("active");
-    });
+  </div>    <div class="card">  <h2>🔎 Rechèch elèv</h2>  
 
-  const section=
-    document.getElementById(id);
+<input  
+  id="rechercheEleve"  
+  type="text"  
+  placeholder="Chèche pa non oswa klas..."  
+  oninput="afficherEleves()"  
+>
 
-  if(section){
-    section.classList.add("active");
-  }
+  </div>    <div class="card">  <h2>📋 Lis elèv</h2>  
 
-  actualiserTout();
-}
+<div id="listeEleves"></div>
 
+  </div>  </section>  <!-- PWOFESÈ -->  <section id="professeurs" class="section">    <div class="card">  <h2>👨‍🏫 Jesyon Pwofesè</h2>  
 
-/* ================================
-   DATA
-================================ */
+<input  
+  id="nomProfesseur"  
+  type="text"  
+  placeholder="Non konplè pwofesè a"  
+>  
 
-function getData(key){
+<input  
+  id="telephoneProfesseur"  
+  type="text"  
+  placeholder="Telefòn"  
+>  
 
-  try{
+<input  
+  id="matiereProfesseur"  
+  type="text"  
+  placeholder="Matyè li anseye"  
+>  
 
-    return JSON.parse(
-      localStorage.getItem(key)||"[]"
-    );
+<button  
+  class="action"  
+  onclick="ajouterProfesseur()">  
+  ➕ Ajoute pwofesè  
+</button>
 
-  }catch(e){
+  </div>    <div class="card">  <h2>📋 Lis pwofesè</h2>  
 
-    return [];
+<div id="listeProfesseurs"></div>
 
-  }
+  </div>  </section>  <!-- KLAS -->  <section id="classes" class="section">    <div class="card">  <h2>🏫 Jesyon Klas</h2>  
 
-}
+<input  
+  id="nomClasse"  
+  type="text"  
+  placeholder="Egzanp: 7e AF"  
+>  
 
+<input  
+  id="anneeClasse"  
+  type="text"  
+  placeholder="Egzanp: 2026-2027"  
+>  
 
-function saveData(key,data){
+<button  
+  class="action"  
+  onclick="ajouterClasse()">  
+  ➕ Ajoute klas  
+</button>
 
-  localStorage.setItem(
-    key,
-    JSON.stringify(data)
-  );
+  </div>    <div class="card">  <h2>📋 Lis klas</h2>  
 
-  if(window.firebaseSaveData){
+<div id="listeClasses"></div>
 
-    return window.firebaseSaveData(
-      key,
-      data
-    );
+  </div>  </section>  <!-- MATYÈ -->  <section id="matieres" class="section">    <div class="card">  <h2>📚 Jesyon Matyè</h2>  
 
-  }
+<input  
+  id="nomMatiere"  
+  type="text"  
+  placeholder="Non matyè a"  
+>  
 
-  return Promise.resolve();
+<button  
+  class="action"  
+  onclick="ajouterMatiere()">  
+  ➕ Ajoute matyè  
+</button>
 
-}
+  </div>    <div class="card">  <h2>📋 Lis matyè</h2>  
 
+<div id="listeMatieres"></div>
 
-/* ================================
-   SECURITY
-================================ */
+  </div>  </section>  <!-- DEVWA -->  <section id="devoirs" class="section">    <div class="card">  <h2>📝 Ajoute yon devwa</h2>  
 
-function escapeHTML(text){
+<input  
+  id="titreDevoir"  
+  type="text"  
+  placeholder="Tit devwa a"  
+>  
 
-  if(
-    text===undefined||
-    text===null
-  ){
-    return "";
-  }
+<select id="matiereDevoir">  
 
-  return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  <option value="">  
+    Chwazi matyè  
+  </option>  
 
-}
+</select>  
 
+<select id="classeDevoir">  
 
-/* ================================
-   KLAS
-================================ */
+  <option value="">  
+    Chwazi klas  
+  </option>  
 
-async function ajouterClasse(){
+</select>  
 
-  const nom=
-    document.getElementById("nomClasse")
-    .value.trim();
+<input  
+  id="dateDevoir"  
+  type="date"  
+>  
 
-  const annee=
-    document.getElementById("anneeClasse")
-    .value.trim();
+<textarea  
+  id="descriptionDevoir"  
+  rows="5"  
+  placeholder="Deskripsyon devwa a"></textarea>  
 
-  if(!nom){
+<button  
+  class="action"  
+  onclick="ajouterDevoir()">  
+  ➕ Ajoute devwa  
+</button>
 
-    alert(
-      "Tanpri antre non klas la."
-    );
+  </div>    <div class="card">  <h2>🔎 Rechèch devwa</h2>  
 
-    return;
-  }
+<input  
+  id="rechercheDevoir"  
+  type="text"  
+  placeholder="Chèche devwa..."  
+  oninput="afficherDevoirs()"  
+>
 
-  let classes=
-    getData("classes");
+  </div>    <div class="card">  <h2>📋 Lis devwa</h2>  
 
-  classes.push({
+<div id="listeDevoirs"></div>
 
-    id:Date.now(),
-    nom,
-    annee
+  </div>  </section>  <!-- REMÈT -->  <section id="remises" class="section">    <div class="card">  <h2>📥 Suivi devwa</h2>  
 
-  });
+<select id="eleveRemise">  
 
-  await saveData(
-    "classes",
-    classes
-  );
+  <option value="">  
+    Chwazi elèv  
+  </option>  
 
-  document.getElementById(
-    "nomClasse"
-  ).value="";
+</select>  
 
-  document.getElementById(
-    "anneeClasse"
-  ).value="";
+<select id="devoirRemise">  
 
-  afficherClasses();
-  remplirSelects();
+  <option value="">  
+    Chwazi devwa  
+  </option>  
 
-  alert(
-    "Klas la ajoute avèk siksè."
-  );
+</select>  
 
-}
+<select id="statutRemise">  
 
+  <option value="Remèt">  
+    ✅ Remèt  
+  </option>  
 
-function afficherClasses(){
+  <option value="Pa remèt">  
+    ❌ Pa remèt  
+  </option>  
 
-  const liste=
-    document.getElementById(
-      "listeClasses"
-    );
+</select>  
 
-  if(!liste)return;
+<input  
+  id="noteRemise"  
+  type="number"  
+  min="0"  
+  max="100"  
+  placeholder="Nòt /100"  
+>  
 
-  const classes=
-    getData("classes");
+<button  
+  class="action"  
+  onclick="ajouterRemise()">  
+  💾 Anrejistre  
+</button>
 
-  if(!classes.length){
+  </div>    <div class="card">  <h2>📋 Lis devwa elèv yo</h2>  
 
-    liste.innerHTML=
-      "<p>Pa gen klas anrejistre.</p>";
+<div id="listeRemises"></div>
 
-    return;
-  }
+  </div>  </section>  <!-- REZILTA -->  <section id="resultats" class="section">    <div class="card">  <h2>📊 Rezilta Elèv</h2>  
 
-  liste.innerHTML="";
+<select  
+  id="eleveResultat"  
+  onchange="afficherResultatEleve()">  
 
-  classes.forEach(c=>{
+  <option value="">  
+    Chwazi elèv  
+  </option>  
 
-    liste.innerHTML+=`
+</select>
 
-      <div class="item">
+  </div>    <div class="card">  <div id="resultatEleve">  
 
-        <h3>
-          🏫 ${escapeHTML(c.nom)}
-        </h3>
+  <p>  
+    Chwazi yon elèv pou wè rezilta li.  
+  </p>  
 
-        <p>
-          <b>Ane lekòl:</b>
-          ${escapeHTML(
-            c.annee||"Pa defini"
-          )}
-        </p>
+</div>
 
-        <button
-          class="action danger"
-          onclick="supprimerClasse(${c.id})">
-          🗑️ Efase
-        </button>
+  </div>  </section>  <!-- ESTATISTIK -->  <section id="statistiques" class="section">    <div class="card">  <h2>📈 Estatistik</h2>  
 
-      </div>
+<div class="stats">  
 
-    `;
+  <div class="stat">  
 
-  });
+    <h3 id="totalElevesStat">0</h3>  
 
-}
+    <p>Elèv</p>  
 
+  </div>  
 
-async function supprimerClasse(id){
+  <div class="stat">  
 
-  if(!confirm(
-    "Èske ou vle efase klas sa a?"
-  ))return;
+    <h3 id="totalProfStat">0</h3>  
 
-  let data=
-    getData("classes")
-    .filter(c=>c.id!==id);
+    <p>Pwofesè</p>  
 
-  await saveData(
-    "classes",
-    data
-  );
+  </div>  
 
-  afficherClasses();
-  remplirSelects();
+  <div class="stat">  
 
-}
+    <h3 id="totalDevoirStat">0</h3>  
 
+    <p>Devwa</p>  
 
-/* ================================
-   MATYÈ
-================================ */
+  </div>  
 
-async function ajouterMatiere(){
+  <div class="stat">  
 
-  const nom=
-    document.getElementById(
-      "nomMatiere"
-    ).value.trim();
+    <h3 id="moyenneStat">0/100</h3>  
 
-  if(!nom){
+    <p>Mwayèn</p>  
 
-    alert(
-      "Tanpri antre non matyè a."
-    );
+  </div>  
 
-    return;
-  }
+</div>
 
-  let data=
-    getData("matieres");
+  </div>  </section>  <!-- SAUVEGARDE -->  <section id="sauvegarde" class="section">    <div class="card">  <h2>💾 Sauvegarde done</h2>  
 
-  data.push({
+<p>  
+  Ou kapab telechaje tout done sistèm nan kòm yon fichye.  
+</p>  
 
-    id:Date.now(),
-    nom
+<br>  
 
-  });
+<button  
+  class="action success"  
+  onclick="exporterDonnees()">  
+  📥 Telechaje sauvegarde  
+</button>
 
-  await saveData(
-    "matieres",
-    data
-  );
+  </div>    <div class="card">  <h2>📤 Récupérer done</h2>  
 
-  document.getElementById(
-    "nomMatiere"
-  ).value="";
+<p>  
+  Chwazi yon fichye sauvegarde ou te ekspòte avan.  
+</p>  
 
-  afficherMatieres();
-  remplirSelects();
+<br>  
 
-  alert(
-    "Matyè a ajoute avèk siksè."
-  );
-
-}
-
-
-function afficherMatieres(){
-
-  const liste=
-    document.getElementById(
-      "listeMatieres"
-    );
-
-  if(!liste)return;
-
-  const data=
-    getData("matieres");
-
-  if(!data.length){
-
-    liste.innerHTML=
-      "<p>Pa gen matyè.</p>";
-
-    return;
-  }
-
-  liste.innerHTML="";
-
-  data.forEach(m=>{
-
-    liste.innerHTML+=`
-
-      <div class="item">
-
-        <h3>
-          📚 ${escapeHTML(m.nom)}
-        </h3>
-
-        <button
-          class="action danger"
-          onclick="supprimerMatiere(${m.id})">
-          🗑️ Efase
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-async function supprimerMatiere(id){
-
-  if(!confirm(
-    "Èske ou vle efase matyè sa a?"
-  ))return;
-
-  let data=
-    getData("matieres")
-    .filter(m=>m.id!==id);
-
-  await saveData(
-    "matieres",
-    data
-  );
-
-  afficherMatieres();
-  remplirSelects();
-
-}
-
-
-/* ================================
-   ELÈV
-================================ */
-
-async function ajouterEleve(){
-
-  const nom=
-    document.getElementById(
-      "nomEleve"
-    ).value.trim();
-
-  const age=
-    document.getElementById(
-      "ageEleve"
-    ).value;
-
-  const classe=
-    document.getElementById(
-      "classeEleve"
-    ).value;
-
-  const telephone=
-    document.getElementById(
-      "telephoneEleve"
-    ).value.trim();
-
-  if(!nom){
-
-    alert(
-      "Tanpri antre non elèv la."
-    );
-
-    return;
-  }
-
-  let eleves=
-    getData("eleves");
-
-  eleves.push({
-
-    id:Date.now(),
-    nom,
-    age,
-    classe,
-    telephone
-
-  });
-
-  await saveData(
-    "eleves",
-    eleves
-  );
-
-  document.getElementById(
-    "nomEleve"
-  ).value="";
-
-  document.getElementById(
-    "ageEleve"
-  ).value="";
-
-  document.getElementById(
-    "classeEleve"
-  ).value="";
-
-  document.getElementById(
-    "telephoneEleve"
-  ).value="";
-
-  afficherEleves();
-  remplirSelects();
-  actualiserDashboard();
-
-  alert(
-    "Elèv la ajoute avèk siksè."
-  );
-
-}
-
-
-function afficherEleves(){
-
-  const liste=
-    document.getElementById(
-      "listeEleves"
-    );
-
-  if(!liste)return;
-
-  const recherche=
-    document.getElementById(
-      "rechercheEleve"
-    )?.value
-      .toLowerCase()
-      .trim()||"";
-
-  let data=
-    getData("eleves")
-    .filter(e=>
-
-      String(e.nom||"")
-        .toLowerCase()
-        .includes(recherche)
-
-      ||
-
-      String(e.classe||"")
-        .toLowerCase()
-        .includes(recherche)
-
-    );
-
-  if(!data.length){
-
-    liste.innerHTML=
-      "<p>Pa gen elèv ki koresponn.</p>";
-
-    return;
-  }
-
-  liste.innerHTML="";
-
-  data.forEach(e=>{
-
-    liste.innerHTML+=`
-
-      <div class="item">
-
-        <h3>
-          👨‍🎓 ${escapeHTML(e.nom)}
-        </h3>
-
-        <p>
-          <b>Laj:</b>
-          ${escapeHTML(
-            e.age||"Pa defini"
-          )}
-        </p>
-
-        <p>
-          <b>Klas:</b>
-          ${escapeHTML(
-            e.classe||"Pa defini"
-          )}
-        </p>
-
-        <p>
-          <b>Telefòn:</b>
-          ${escapeHTML(
-            e.telephone||"Pa defini"
-          )}
-        </p>
-
-        <button
-          class="action danger"
-          onclick="supprimerEleve(${e.id})">
-          🗑️ Efase
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-async function supprimerEleve(id){
-
-  if(!confirm(
-    "Èske ou vle efase elèv sa a?"
-  ))return;
-
-  let data=
-    getData("eleves")
-    .filter(e=>e.id!==id);
-
-  await saveData(
-    "eleves",
-    data
-  );
-
-  afficherEleves();
-  remplirSelects();
-  actualiserDashboard();
-
-}
-
-
-/* ================================
-   PWOFESÈ
-================================ */
-
-async function ajouterProfesseur(){
-
-  const nom=
-    document.getElementById(
-      "nomProfesseur"
-    ).value.trim();
-
-  const telephone=
-    document.getElementById(
-      "telephoneProfesseur"
-    ).value.trim();
-
-  const matiere=
-    document.getElementById(
-      "matiereProfesseur"
-    ).value.trim();
-
-  if(!nom){
-
-    alert(
-      "Tanpri antre non pwofesè a."
-    );
-
-    return;
-  }
-
-  let data=
-    getData("professeurs");
-
-  data.push({
-
-    id:Date.now(),
-    nom,
-    telephone,
-    matiere
-
-  });
-
-  await saveData(
-    "professeurs",
-    data
-  );
-
-  document.getElementById(
-    "nomProfesseur"
-  ).value="";
-
-  document.getElementById(
-    "telephoneProfesseur"
-  ).value="";
-
-  document.getElementById(
-    "matiereProfesseur"
-  ).value="";
-
-  afficherProfesseurs();
-  actualiserDashboard();
-
-  alert(
-    "Pwofesè a ajoute avèk siksè."
-  );
-
-}
-
-
-function afficherProfesseurs(){
-
-  const liste=
-    document.getElementById(
-      "listeProfesseurs"
-    );
-
-  if(!liste)return;
-
-  const data=
-    getData("professeurs");
-
-  if(!data.length){
-
-    liste.innerHTML=
-      "<p>Pa gen pwofesè anrejistre.</p>";
-
-    return;
-  }
-
-  liste.innerHTML="";
-
-  data.forEach(p=>{
-
-    liste.innerHTML+=`
-
-      <div class="item">
-
-        <h3>
-          👨‍🏫 ${escapeHTML(p.nom)}
-        </h3>
-
-        <p>
-          <b>Matyè:</b>
-          ${escapeHTML(
-            p.matiere||"Pa defini"
-          )}
-        </p>
-
-        <p>
-          <b>Telefòn:</b>
-          ${escapeHTML(
-            p.telephone||"Pa defini"
-          )}
-        </p>
-
-        <button
-          class="action danger"
-          onclick="supprimerProfesseur(${p.id})">
-          🗑️ Efase
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-async function supprimerProfesseur(id){
-
-  if(!confirm(
-    "Èske ou vle efase pwofesè sa a?"
-  ))return;
-
-  let data=
-    getData("professeurs")
-    .filter(p=>p.id!==id);
-
-  await saveData(
-    "professeurs",
-    data
-  );
-
-  afficherProfesseurs();
-  actualiserDashboard();
-
-}
-
-
-/* ================================
-   DEVWA
-================================ */
-
-async function ajouterDevoir(){
-
-  const titre=
-    document.getElementById(
-      "titreDevoir"
-    ).value.trim();
-
-  const matiere=
-    document.getElementById(
-      "matiereDevoir"
-    ).value;
-
-  const classe=
-    document.getElementById(
-      "classeDevoir"
-    ).value;
-
-  const date=
-    document.getElementById(
-      "dateDevoir"
-    ).value;
-
-  const description=
-    document.getElementById(
-      "descriptionDevoir"
-    ).value.trim();
-
-  if(!titre){
-
-    alert(
-      "Tanpri antre tit devwa a."
-    );
-
-    return;
-  }
-
-  let data=
-    getData("devoirs");
-
-  data.push({
-
-    id:Date.now(),
-    titre,
-    matiere,
-    classe,
-    date,
-    description
-
-  });
-
-  await saveData(
-    "devoirs",
-    data
-  );
-
-  document.getElementById(
-    "titreDevoir"
-  ).value="";
-
-  document.getElementById(
-    "dateDevoir"
-  ).value="";
-
-  document.getElementById(
-    "descriptionDevoir"
-  ).value="";
-
-  afficherDevoirs();
-  remplirSelects();
-  actualiserDashboard();
-
-  alert(
-    "Devwa a ajoute avèk siksè."
-  );
-
-}
-
-
-function afficherDevoirs(){
-
-  const liste=
-    document.getElementById(
-      "listeDevoirs"
-    );
-
-  if(!liste)return;
-
-  const recherche=
-    document.getElementById(
-      "rechercheDevoir"
-    )?.value
-      .toLowerCase()
-      .trim()||"";
-
-  let data=
-    getData("devoirs")
-    .filter(d=>
-
-      String(d.titre||"")
-        .toLowerCase()
-        .includes(recherche)
-
-      ||
-
-      String(d.matiere||"")
-        .toLowerCase()
-        .includes(recherche)
-
-      ||
-
-      String(d.classe||"")
-        .toLowerCase()
-        .includes(recherche)
-
-    );
-
-  if(!data.length){
-
-    liste.innerHTML=
-      "<p>Pa gen devwa ki koresponn.</p>";
-
-    return;
-  }
-
-  liste.innerHTML="";
-
-  data.forEach(d=>{
-
-    let statut="";
-
-    if(d.date){
-
-      const dat=
-        new Date(d.date);
-
-      statut=
-        dat<new Date()
-        ?
-
-        '<span class="badge badge-red">Dat pase</span>'
-
-        :
-
-        '<span class="badge badge-green">A venir</span>';
-
-    }
-
-    liste.innerHTML+=`
-
-      <div class="item">
-
-        <h3>
-          📝 ${escapeHTML(d.titre)}
-        </h3>
-
-        <p>
-          <b>Matyè:</b>
-          ${escapeHTML(
-            d.matiere||"Pa defini"
-          )}
-        </p>
-
-        <p>
-          <b>Klas:</b>
-          ${escapeHTML(
-            d.classe||"Tout klas"
-          )}
-        </p>
-
-        <p>
-          <b>Dat:</b>
-          ${escapeHTML(
-            d.date||"Pa defini"
-          )}
-
-          ${statut}
-
-        </p>
-
-        <p>
-          ${escapeHTML(
-            d.description||""
-          )}
-        </p>
-
-        <br>
-
-        <button
-          class="action danger"
-          onclick="supprimerDevoir(${d.id})">
-          🗑️ Efase
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-async function supprimerDevoir(id){
-
-  if(!confirm(
-    "Èske ou vle efase devwa sa a?"
-  ))return;
-
-  let data=
-    getData("devoirs")
-    .filter(d=>d.id!==id);
-
-  await saveData(
-    "devoirs",
-    data
-  );
-
-  afficherDevoirs();
-  remplirSelects();
-  actualiserDashboard();
-
-}
-
-
-/* ================================
-   REMÈT
-================================ */
-
-async function ajouterRemise(){
-
-  const eleveId=
-    document.getElementById(
-      "eleveRemise"
-    ).value;
-
-  const devoirId=
-    document.getElementById(
-      "devoirRemise"
-    ).value;
-
-  const statut=
-    document.getElementById(
-      "statutRemise"
-    ).value;
-
-  const note=
-    document.getElementById(
-      "noteRemise"
-    ).value;
-
-  if(!eleveId||!devoirId){
-
-    alert(
-      "Tanpri chwazi elèv ak devwa."
-    );
-
-    return;
-  }
-
-  if(
-    note!=="" &&
-    (
-      Number(note)<0 ||
-      Number(note)>100
-    )
-  ){
-
-    alert(
-      "Nòt la dwe ant 0 ak 100."
-    );
-
-    return;
-  }
-
-  let data=
-    getData("remises");
-
-  const existant=
-    data.find(r=>
-
-      String(r.eleveId)===
-      String(eleveId)
-
-      &&
-
-      String(r.devoirId)===
-      String(devoirId)
-
-    );
-
-  if(existant){
-
-    existant.statut=statut;
-    existant.note=note;
-
-  }else{
-
-    data.push({
-
-      id:Date.now(),
-      eleveId,
-      devoirId,
-      statut,
-      note
-
-    });
-
-  }
-
-  await saveData(
-    "remises",
-    data
-  );
-
-  afficherRemises();
-  actualiserStatistiques();
-
-  document.getElementById(
-    "noteRemise"
-  ).value="";
-
-  alert(
-    "Suivi devwa a anrejistre."
-  );
-
-}
-
-
-function afficherRemises(){
-
-  const liste=
-    document.getElementById(
-      "listeRemises"
-    );
-
-  if(!liste)return;
-
-  const remises=
-    getData("remises");
-
-  const eleves=
-    getData("eleves");
-
-  const devoirs=
-    getData("devoirs");
-
-  if(!remises.length){
-
-    liste.innerHTML=
-      "<p>Pa gen done sou remèt devwa.</p>";
-
-    return;
-  }
-
-  liste.innerHTML="";
-
-  remises.forEach(r=>{
-
-    const e=
-      eleves.find(x=>
-        String(x.id)===
-        String(r.eleveId)
-      );
-
-    const d=
-      devoirs.find(x=>
-        String(x.id)===
-        String(r.devoirId)
-      );
-
-    if(!e||!d)return;
-
-    const badge=
-      r.statut==="Remèt"
-      ?
-      "badge-green"
-      :
-      "badge-red";
-
-    const noteHTML=
-      r.note!=="" &&
-      r.note!==undefined
-      ?
-
-      `<span class="noteDisplay">
-        ${escapeHTML(r.note)}/100
-      </span>`
-
-      :
-
-      `<span>
-        Pa gen nòt
-      </span>`;
-
-    liste.innerHTML+=`
-
-      <div class="item">
-
-        <h3>
-          👨‍🎓 ${escapeHTML(e.nom)}
-        </h3>
-
-        <p>
-          <b>Devwa:</b>
-          ${escapeHTML(d.titre)}
-        </p>
-
-        <p>
-          <b>Estati:</b>
-
-          <span class="badge ${badge}">
-            ${escapeHTML(r.statut)}
-          </span>
-
-        </p>
-
-        <p>
-          <b>Nòt:</b>
-          ${noteHTML}
-        </p>
-
-        <button
-          class="action danger"
-          onclick="supprimerRemise(${r.id})">
-          🗑️ Efase
-        </button>
-
-      </div>
-
-    `;
-
-  });
-
-}
-
-
-async function supprimerRemise(id){
-
-  if(!confirm(
-    "Efase anrejistreman sa a?"
-  ))return;
-
-  let data=
-    getData("remises")
-    .filter(r=>r.id!==id);
-
-  await saveData(
-    "remises",
-    data
-  );
-
-  afficherRemises();
-  actualiserStatistiques();
-
-}
-
-
-/* ================================
-   REZILTA ELÈV
-================================ */
-
-function afficherResultatEleve(){
-
-  const id=
-    document.getElementById(
-      "eleveResultat"
-    ).value;
-
-  const resultat=
-    document.getElementById(
-      "resultatEleve"
-    );
-
-  if(!id){
-
-    resultat.innerHTML=
-      "<p>Chwazi yon elèv.</p>";
-
-    return;
-  }
-
-  const eleve=
-    getData("eleves")
-    .find(e=>
-      String(e.id)===
-      String(id)
-    );
-
-  if(!eleve){
-
-    resultat.innerHTML=
-      "<p>Elèv la pa jwenn.</p>";
-
-    return;
-  }
-
-  const devoirs=
-    getData("devoirs");
-
-  const notes=
-    getData("remises")
-    .filter(r=>
-
-      String(r.eleveId)===
-      String(id)
-
-      &&
-
-      r.note!==""
-
-      &&
-
-      r.note!==undefined
-
-    );
-
-  const total=
-    notes.reduce(
-      (a,n)=>a+Number(n.note),
-      0
-    );
-
-  const moyenne=
-    notes.length
-    ?
-    total/notes.length
-    :
-    0;
-
-  let html=`
-
-    <h2>
-      📊 Rezilta:
-      ${escapeHTML(eleve.nom)}
-    </h2>
-
-    <p>
-      <b>Klas:</b>
-      ${escapeHTML(
-        eleve.classe||"Pa defini"
-      )}
-    </p>
-
-    <div class="averageBox">
-
-      <p>Mwayèn jeneral</p>
-
-      <div class="averageNumber">
-        ${moyenne.toFixed(2)}/100
-      </div>
-
-    </div>
-
-    <div class="table-container">
-
-      <table>
-
-        <tr>
-
-          <th>Devwa</th>
-
-          <th>Nòt</th>
-
-          <th>Estati</th>
-
-        </tr>
-
-  `;
-
-  if(!notes.length){
-
-    html+=`
-
-      <tr>
-
-        <td colspan="3">
-          Pa gen nòt pou elèv sa a.
-        </td>
-
-      </tr>
-
-    `;
-
-  }
-
-  notes.forEach(n=>{
-
-    const d=
-      devoirs.find(x=>
-        String(x.id)===
-        String(n.devoirId)
-      );
-
-    html+=`
-
-      <tr>
-
-        <td>
-          ${escapeHTML(
-            d?d.titre:"Devwa"
-          )}
-        </td>
-
-        <td>
-          <span class="noteDisplay">
-            ${escapeHTML(n.note)}/100
-          </span>
-        </td>
-
-        <td>
-          ${escapeHTML(n.statut)}
-        </td>
-
-      </tr>
-
-    `;
-
-  });
-
-  html+=`
-
-      </table>
-
-    </div>
-
-  `;
-
-  resultat.innerHTML=html;
-
-}
-
-
-/* ================================
-   SELECTS
-================================ */
-
-function remplirSelects(){
-
-  const eleves=
-    getData("eleves");
-
-  const classes=
-    getData("classes");
-
-  const matieres=
-    getData("matieres");
-
-  const devoirs=
-    getData("devoirs");
-
-
-  [
-    document.getElementById(
-      "classeEleve"
-    ),
-
-    document.getElementById(
-      "classeDevoir"
-    )
-
-  ].forEach(s=>{
-
-    if(!s)return;
-
-    const v=s.value;
-
-    s.innerHTML=
-      '<option value="">Chwazi klas</option>';
-
-    classes.forEach(c=>{
-
-      const option=
-        document.createElement(
-          "option"
-        );
-
-      option.value=c.nom;
-      option.textContent=c.nom;
-
-      s.appendChild(option);
-
-    });
-
-    s.value=v;
-
-  });
-
-
-  const ms=
-    document.getElementById(
-      "matiereDevoir"
-    );
-
-  if(ms){
-
-    const v=ms.value;
-
-    ms.innerHTML=
-      '<option value="">Chwazi matyè</option>';
-
-    matieres.forEach(m=>{
-
-      const option=
-        document.createElement(
-          "option"
-        );
-
-      option.value=m.nom;
-      option.textContent=m.nom;
-
-      ms.appendChild(option);
-
-    });
-
-    ms.value=v;
-
-  }
-
-
-  [
-    document.getElementById(
-      "eleveRemise"
-    ),
-
-    document.getElementById(
-      "eleveResultat"
-    )
-
-  ].forEach(s=>{
-
-    if(!s)return;
-
-    const v=s.value;
-
-    s.innerHTML=
-      '<option value="">Chwazi elèv</option>';
-
-    eleves.forEach(e=>{
-
-      const option=
-        document.createElement(
-          "option"
-        );
-
-      option.value=e.id;
-      option.textContent=e.nom;
-
-      s.appendChild(option);
-
-    });
-
-    s.value=v;
-
-  });
-
-
-  const ds=
-    document.getElementById(
-      "devoirRemise"
-    );
-
-  if(ds){
-
-    const v=ds.value;
-
-    ds.innerHTML=
-      '<option value="">Chwazi devwa</option>';
-
-    devoirs.forEach(d=>{
-
-      const option=
-        document.createElement(
-          "option"
-        );
-
-      option.value=d.id;
-      option.textContent=d.titre;
-
-      ds.appendChild(option);
-
-    });
-
-    ds.value=v;
-
-  }
-
-}
-
-
-/* ================================
-   DASHBOARD
-================================ */
-
-function actualiserDashboard(){
-
-  const eleves=
-    document.getElementById(
-      "statEleves"
-    );
-
-  const professeurs=
-    document.getElementById(
-      "statProfesseurs"
-    );
-
-  const classes=
-    document.getElementById(
-      "statClasses"
-    );
-
-  const devoirs=
-    document.getElementById(
-      "statDevoirs"
-    );
-
-  if(eleves)
-    eleves.textContent=
-      getData("eleves").length;
-
-  if(professeurs)
-    professeurs.textContent=
-      getData("professeurs").length;
-
-  if(classes)
-    classes.textContent=
-      getData("classes").length;
-
-  if(devoirs)
-    devoirs.textContent=
-      getData("devoirs").length;
-
-}
-
-
-/* ================================
-   ESTATISTIK
-================================ */
-
-function actualiserStatistiques(){
-
-  const notes=
-    getData("remises")
-    .filter(r=>
-
-      r.note!==""
-
-      &&
-
-      r.note!==undefined
-
-      &&
-
-      !isNaN(Number(r.note))
-
-    )
-    .map(r=>Number(r.note));
-
-  const moyenne=
-    notes.length
-    ?
-    notes.reduce(
-      (a,b)=>a+b,
-      0
-    )/notes.length
-    :
-    0;
-
-  const el=
-    document.getElementById(
-      "totalElevesStat"
-    );
-
-  const prof=
-    document.getElementById(
-      "totalProfStat"
-    );
-
-  const devoir=
-    document.getElementById(
-      "totalDevoirStat"
-    );
-
-  const moy=
-    document.getElementById(
-      "moyenneStat"
-    );
-
-  if(el)
-    el.textContent=
-      getData("eleves").length;
-
-  if(prof)
-    prof.textContent=
-      getData("professeurs").length;
-
-  if(devoir)
-    devoir.textContent=
-      getData("devoirs").length;
-
-  if(moy)
-    moy.textContent=
-      moyenne.toFixed(2)+"/100";
-
-}
-
-
-/* ================================
-   SAUVEGARDE
-================================ */
-
-function exporterDonnees(){
-
-  const donnees={
-
-    eleves:
-      getData("eleves"),
-
-    professeurs:
-      getData("professeurs"),
-
-    classes:
-      getData("classes"),
-
-    matieres:
-      getData("matieres"),
-
-    devoirs:
-      getData("devoirs"),
-
-    remises:
-      getData("remises")
-
-  };
-
-  const fichier=
-    new Blob(
-
-      [
-        JSON.stringify(
-          donnees,
-          null,
-          2
-        )
-      ],
-
-      {
-        type:"application/json"
-      }
-
-    );
-
-  const url=
-    URL.createObjectURL(
-      fichier
-    );
-
-  const lien=
-    document.createElement(
-      "a"
-    );
-
-  lien.href=url;
-
-  lien.download=
-    "sauvegarde-systeme-lekol.json";
-
-  document.body.appendChild(lien);
-
-  lien.click();
-
-  document.body.removeChild(lien);
-
-  URL.revokeObjectURL(url);
-
-}
-
-
-/* ================================
-   IMPORT
-================================ */
-
-function importerDonnees(){
-
-  const fichier=
-    document.getElementById(
-      "importFile"
-    ).files[0];
-
-  if(!fichier){
-
-    alert(
-      "Chwazi yon fichye JSON an premye."
-    );
-
-    return;
-  }
-
-  const lecteur=
-    new FileReader();
-
-  lecteur.onload=
-    async function(e){
-
-      try{
-
-        const donnees=
-          JSON.parse(
-            e.target.result
-          );
-
-        const cles=[
-
-          "eleves",
-          "professeurs",
-          "classes",
-          "matieres",
-          "devoirs",
-          "remises"
-
-        ];
-
-        for(
-          const cle of cles
-        ){
-
-          if(
-            Array.isArray(
-              donnees[cle]
-            )
-          ){
-
-            await saveData(
-              cle,
-              donnees[cle]
-            );
-
-          }
-
-        }
-
-        actualiserTout();
-
-        alert(
-          "Done yo restore avèk siksè."
-        );
-
-      }catch(error){
-
-        console.error(error);
-
-        alert(
-          "Fichye a pa valab."
-        );
-
-      }
-
-    };
-
-  lecteur.readAsText(
-    fichier
-  );
-
-}
-
-
-/* ================================
-   EFASMAN LOCAL
-================================ */
-
-async function effacerTout(){
-
-  if(!confirm(
-    "ATANSYON ! Sa ap efase tout done lokal yo. Èske ou sèten?"
-  ))return;
-
-  const cles=[
-
-    "eleves",
-    "professeurs",
-    "classes",
-    "matieres",
-    "devoirs",
-    "remises"
-
-  ];
-
-  cles.forEach(
-    c=>
-      localStorage.removeItem(c)
-  );
-
-  initialiserDonnees();
-
-  actualiserTout();
-
-  alert(
-    "Done lokal yo efase. Dokiman Firestore yo pa efase nan vèsyon sa a."
-  );
-
-}
-
-
-/* ================================
-   DONE DEFAULT
-================================ */
-
-function initialiserDonnees(){
-
-  if(
-    !localStorage.getItem(
-      "classes"
-    )
-  ){
-
-    localStorage.setItem(
-
-      "classes",
-
-      JSON.stringify([
-
-        {
-          id:1,
-          nom:"7e AF",
-          annee:"2026-2027"
-        },
-
-        {
-          id:2,
-          nom:"8e AF",
-          annee:"2026-2027"
-        },
-
-        {
-          id:3,
-          nom:"9e AF",
-          annee:"2026-2027"
-        }
-
-      ])
-
-    );
-
-  }
-
-
-  if(
-    !localStorage.getItem(
-      "matieres"
-    )
-  ){
-
-    localStorage.setItem(
-
-      "matieres",
-
-      JSON.stringify([
-
-        {
-          id:1,
-          nom:"Matematik"
-        },
-
-        {
-          id:2,
-          nom:"Français"
-        },
-
-        {
-          id:3,
-          nom:"Syans sosyal"
-        },
-
-        {
-          id:4,
-          nom:"Fizik"
-        },
-
-        {
-          id:5,
-          nom:"Chimi"
-        },
-
-        {
-          id:6,
-          nom:"Biyoloji"
-        }
-
-      ])
-
-    );
-
-  }
-
-}
-
-
-/* ================================
-   AKTUALIZASYON JENERAL
-================================ */
-
-function actualiserTout(){
-
-  afficherEleves();
-
-  afficherProfesseurs();
-
-  afficherClasses();
-
-  afficherMatieres();
-
-  afficherDevoirs();
-
-  afficherRemises();
-
-  remplirSelects();
-
-  actualiserDashboard();
-
-  actualiserStatistiques();
-
-}
-
-
-/* ================================
-   DEMARAJ
-================================ */
-
-initialiserDonnees();
-
-actualiserTout();
-
-</script>
-
-
-<!-- FIREBASE -->
-<script type="module">
-
-import {
-  initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-
-
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged
-}
-from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
-
-import {
-  getFirestore,
-  doc,
-  setDoc
-}
-from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-
-const firebaseConfig={
-
-  apiKey:
-    "AIzaSyDAp0p5YyL4MbZKdcXwtO-Q6IDRaHc2VMw",
-
-  authDomain:
-    "sis-f-a.firebaseapp.com",
-
-  projectId:
-    "sis-f-a",
-
-  storageBucket:
-    "sis-f-a.firebasestorage.app",
-
-  messagingSenderId:
-    "505464315297",
-
-  appId:
-    "1:505464315297:web:3e45543cb121eaf7243fe0"
-
-};
-
-
-const firebaseApp=
-  initializeApp(
-    firebaseConfig
-  );
-
-
-const db=
-  getFirestore(
-    firebaseApp
-  );
-
-
-const auth=
-  getAuth(
-    firebaseApp
-  );
-
-
-/* ================================
-   FIREBASE SAVE
-================================ */
-
-window.firebaseSaveData=
-  async function(key,data){
-
-    if(!auth.currentUser){
-
-      throw new Error(
-        "Ou pa konekte ak Firebase."
-      );
-
-    }
-
-    for(
-      const item of data
-    ){
-
-      if(!item.id){
-
-        item.id=
-          Date.now();
-
-      }
-
-      await setDoc(
-
-        doc(
-          db,
-          key,
-          String(item.id)
-        ),
-
-        item
-
-      );
-
-    }
-
-    console.log(
-      "Firebase OK:",
-      key,
-      data.length,
-      "documents"
-    );
-
-  };
-
-
-/* ================================
-   SYNCHRONISATION
-================================ */
-
-async function synchroniserToutVersFirebase(){
-
-  if(!auth.currentUser)return;
-
-  const cles=[
-
-    "eleves",
-    "professeurs",
-    "classes",
-    "matieres",
-    "devoirs",
-    "remises"
-
-  ];
-
-  for(
-    const cle of cles
-  ){
-
-    const data=
-      getData(cle);
-
-    if(data.length){
-
-      await window.firebaseSaveData(
-        cle,
-        data
-      );
-
-    }
-
-  }
-
-}
-
-
-/* ================================
-   LOGIN
-================================ */
-
-window.connecterUtilisateur=
-  async function(){
-
-    const email=
-      document.getElementById(
-        "emailLogin"
-      ).value.trim();
-
-    const motDePasse=
-      document.getElementById(
-        "passwordLogin"
-      ).value;
-
-    if(!email||!motDePasse){
-
-      alert(
-        "Tanpri antre e-mail ak modpas la."
-      );
-
-      return;
-    }
-
-    try{
-
-      await signInWithEmailAndPassword(
-
-        auth,
-        email,
-        motDePasse
-
-      );
-
-    }catch(error){
-
-      console.error(
-        "Erreur login:",
-        error
-      );
-
-      let message=
-        error.message;
-
-      if(
-        error.code===
-        "auth/invalid-credential"
-      ){
-
-        message=
-          "E-mail oswa modpas la pa kòrèk.";
-
-      }
-
-      alert(
-        "Erreur de connexion : "+
-        message
-      );
-
-    }
-
-  };
-
-
-/* ================================
-   AUTH STATE
-================================ */
-
-onAuthStateChanged(
-
-  auth,
-
-  async function(user){
-
-    const loginBox=
-      document.getElementById(
-        "loginBox"
-      );
-
-    const appBox=
-      document.getElementById(
-        "app"
-      );
-
-
-    if(user){
-
-      loginBox.style.display=
-        "none";
-
-      appBox.style.display=
-        "block";
-
-
-      try{
-
-        await synchroniserToutVersFirebase();
-
-        actualiserTout();
-
-        console.log(
-          "SYNCHRONISATION FIREBASE FINI"
-        );
-
-      }catch(error){
-
-        console.error(
-          "Erreur synchronisation:",
-          error
-        );
-
-        /*
-          Pa kache aplikasyon an si Firebase
-          gen yon pwoblèm. Itilizatè a ka toujou
-          wè aplikasyon an.
-        */
-
-        actualiserTout();
-
-      }
-
-    }else{
-
-      loginBox.style.display=
-        "flex";
-
-      appBox.style.display=
-        "none";
-
-    }
-
-  }
-
-);
-
-</script>
-
-</body>
+<input  
+  type="file"  
+  id="importFile"  
+  accept=".json"  
+>  
+
+<button  
+  class="action"  
+  onclick="importerDonnees()">  
+  📤 Importer done  
+</button>
+
+  </div>    <div class="card">  <h2>⚠️ Zòn danje</h2>  
+
+<p>  
+  Bouton sa a ap efase done ki nan navigatè sa a.  
+</p>  
+
+<br>  
+
+<button  
+  class="action danger"  
+  onclick="effacerTout()">  
+  🗑️ Efase done lokal yo  
+</button>
+
+  </div>  </section>  </main>  <footer>  
+  © 2026 - Sistèm Lekòl  
+</footer>  </div>  <script>  
+  
+/* ================================  
+   NAVIGATION  
+================================ */  
+  
+function showSection(id){  
+  
+  document  
+    .querySelectorAll(".section")  
+    .forEach(s=>{  
+      s.classList.remove("active");  
+    });  
+  
+  const section=  
+    document.getElementById(id);  
+  
+  if(section){  
+    section.classList.add("active");  
+  }  
+  
+  actualiserTout();  
+}  
+  
+  
+/* ================================  
+   DATA  
+================================ */  
+  
+function getData(key){  
+  
+  try{  
+  
+    return JSON.parse(  
+      localStorage.getItem(key)||"[]"  
+    );  
+  
+  }catch(e){  
+  
+    return [];  
+  
+  }  
+  
+}  
+  
+  
+function saveData(key,data){  
+  
+  localStorage.setItem(  
+    key,  
+    JSON.stringify(data)  
+  );  
+  
+  if(window.firebaseSaveData){  
+  
+    return window.firebaseSaveData(  
+      key,  
+      data  
+    );  
+  
+  }  
+  
+  return Promise.resolve();  
+  
+}  
+  
+  
+/* ================================  
+   SECURITY  
+================================ */  
+  
+function escapeHTML(text){  
+  
+  if(  
+    text===undefined||  
+    text===null  
+  ){  
+    return "";  
+  }  
+  
+  return String(text)  
+    .replace(/&/g,"&amp;")  
+    .replace(/</g,"&lt;")  
+    .replace(/>/g,"&gt;")  
+    .replace(/"/g,"&quot;")  
+    .replace(/'/g,"&#039;");  
+  
+}  
+  
+  
+/* ================================  
+   KLAS  
+================================ */  
+  
+async function ajouterClasse(){  
+  
+  const nom=  
+    document.getElementById("nomClasse")  
+    .value.trim();  
+  
+  const annee=  
+    document.getElementById("anneeClasse")  
+    .value.trim();  
+  
+  if(!nom){  
+  
+    alert(  
+      "Tanpri antre non klas la."  
+    );  
+  
+    return;  
+  }  
+  
+  let classes=  
+    getData("classes");  
+  
+  classes.push({  
+  
+    id:Date.now(),  
+    nom,  
+    annee  
+  
+  });  
+  
+  await saveData(  
+    "classes",  
+    classes  
+  );  
+  
+  document.getElementById(  
+    "nomClasse"  
+  ).value="";  
+  
+  document.getElementById(  
+    "anneeClasse"  
+  ).value="";  
+  
+  afficherClasses();  
+  remplirSelects();  
+  
+  alert(  
+    "Klas la ajoute avèk siksè."  
+  );  
+  
+}  
+  
+  
+function afficherClasses(){  
+  
+  const liste=  
+    document.getElementById(  
+      "listeClasses"  
+    );  
+  
+  if(!liste)return;  
+  
+  const classes=  
+    getData("classes");  
+  
+  if(!classes.length){  
+  
+    liste.innerHTML=  
+      "<p>Pa gen klas anrejistre.</p>";  
+  
+    return;  
+  }  
+  
+  liste.innerHTML="";  
+  
+  classes.forEach(c=>{  
+  
+    liste.innerHTML+=`  
+  
+      <div class="item">  
+  
+        <h3>  
+          🏫 ${escapeHTML(c.nom)}  
+        </h3>  
+  
+        <p>  
+          <b>Ane lekòl:</b>  
+          ${escapeHTML(  
+            c.annee||"Pa defini"  
+          )}  
+        </p>  
+  
+        <button  
+          class="action danger"  
+          onclick="supprimerClasse(${c.id})">  
+          🗑️ Efase  
+        </button>  
+  
+      </div>  
+  
+    `;  
+  
+  });  
+  
+}  
+  
+  
+async function supprimerClasse(id){  
+  
+  if(!confirm(  
+    "Èske ou vle efase klas sa a?"  
+  ))return;  
+  
+  let data=  
+    getData("classes")  
+    .filter(c=>c.id!==id);  
+  
+  await saveData(  
+    "classes",  
+    data  
+  );  
+  
+  afficherClasses();  
+  remplirSelects();  
+  
+}  
+  
+  
+/* ================================  
+   MATYÈ  
+================================ */  
+  
+async function ajouterMatiere(){  
+  
+  const nom=  
+    document.getElementById(  
+      "nomMatiere"  
+    ).value.trim();  
+  
+  if(!nom){  
+  
+    alert(  
+      "Tanpri antre non matyè a."  
+    );  
+  
+    return;  
+  }  
+  
+  let data=  
+    getData("matieres");  
+  
+  data.push({  
+  
+    id:Date.now(),  
+    nom  
+  
+  });  
+  
+  await saveData(  
+    "matieres",  
+    data  
+  );  
+  
+  document.getElementById(  
+    "nomMatiere"  
+  ).value="";  
+  
+  afficherMatieres();  
+  remplirSelects();  
+  
+  alert(  
+    "Matyè a ajoute avèk siksè."  
+  );  
+  
+}  
+  
+  
+function afficherMatieres(){  
+  
+  const liste=  
+    document.getElementById(  
+      "listeMatieres"  
+    );  
+  
+  if(!liste)return;  
+  
+  const data=  
+    getData("matieres");  
+  
+  if(!data.length){  
+  
+    liste.innerHTML=  
+      "<p>Pa gen matyè.</p>";  
+  
+    return;  
+  }  
+  
+  liste.innerHTML="";  
+  
+  data.forEach(m=>{  
+  
+    liste.innerHTML+=`  
+  
+      <div class="item">  
+  
+        <h3>  
+          📚 ${escapeHTML(m.nom)}  
+        </h3>  
+  
+        <button  
+          class="action danger"  
+          onclick="supprimerMatiere(${m.id})">  
+          🗑️ Efase  
+        </button>  
+  
+      </div>  
+  
+    `;  
+  
+  });  
+  
+}  
+  
+  
+async function supprimerMatiere(id){  
+  
+  if(!confirm(  
+    "Èske ou vle efase matyè sa a?"  
+  ))return;  
+  
+  let data=  
+    getData("matieres")  
+    .filter(m=>m.id!==id);  
+  
+  await saveData(  
+    "matieres",  
+    data  
+  );  
+  
+  afficherMatieres();  
+  remplirSelects();  
+  
+}  
+  
+  
+/* ================================  
+   ELÈV  
+================================ */  
+  
+async function ajouterEleve(){  
+  
+  const nom=  
+    document.getElementById(  
+      "nomEleve"  
+    ).value.trim();  
+  
+  const age=  
+    document.getElementById(  
+      "ageEleve"  
+    ).value;  
+  
+  const classe=  
+    document.getElementById(  
+      "classeEleve"  
+    ).value;  
+  
+  const telephone=  
+    document.getElementById(  
+      "telephoneEleve"  
+    ).value.trim();  
+  
+  if(!nom){  
+  
+    alert(  
+      "Tanpri antre non elèv la."  
+    );  
+  
+    return;  
+  }  
+  
+  let eleves=  
+    getData("eleves");  
+  
+  eleves.push({  
+  
+    id:Date.now(),  
+    nom,  
+    age,  
+    classe,  
+    telephone  
+  
+  });  
+  
+  await saveData(  
+    "eleves",  
+    eleves  
+  );  
+  
+  document.getElementById(  
+    "nomEleve"  
+  ).value="";  
+  
+  document.getElementById(  
+    "ageEleve"  
+  ).value="";  
+  
+  document.getElementById(  
+    "classeEleve"  
+  ).value="";  
+  
+  document.getElementById(  
+    "telephoneEleve"  
+  ).value="";  
+  
+  afficherEleves();  
+  remplirSelects();  
+  actualiserDashboard();  
+  
+  alert(  
+    "Elèv la ajoute avèk siksè."  
+  );  
+  
+}  
+  
+  
+function afficherEleves(){  
+  
+  const liste=  
+    document.getElementById(  
+      "listeEleves"  
+    );  
+  
+  if(!liste)return;  
+  
+  const recherche=  
+    document.getElementById(  
+      "rechercheEleve"  
+    )?.value  
+      .toLowerCase()  
+      .trim()||"";  
+  
+  let data=  
+    getData("eleves")  
+    .filter(e=>  
+  
+      String(e.nom||"")  
+        .toLowerCase()  
+        .includes(recherche)  
+  
+      ||  
+  
+      String(e.classe||"")  
+        .toLowerCase()  
+        .includes(recherche)  
+  
+    );  
+  
+  if(!data.length){  
+  
+    liste.innerHTML=  
+      "<p>Pa gen elèv ki koresponn.</p>";  
+  
+    return;  
+  }  
+  
+  liste.innerHTML="";  
+  
+  data.forEach(e=>{  
+  
+    liste.innerHTML+=`  
+  
+      <div class="item">  
+  
+        <h3>  
+          👨‍🎓 ${escapeHTML(e.nom)}  
+        </h3>  
+  
+        <p>  
+          <b>Laj:</b>  
+          ${escapeHTML(  
+            e.age||"Pa defini"  
+          )}  
+        </p>  
+  
+        <p>  
+          <b>Klas:</b>  
+          ${escapeHTML(  
+            e.classe||"Pa defini"  
+          )}  
+        </p>  
+  
+        <p>  
+          <b>Telefòn:</b>  
+          ${escapeHTML(  
+            e.telephone||"Pa defini"  
+          )}  
+        </p>  
+  
+        <button  
+          class="action danger"  
+          onclick="supprimerEleve(${e.id})">  
+          🗑️ Efase  
+        </button>  
+  
+      </div>  
+  
+    `;  
+  
+  });  
+  
+}  
+  
+  
+async function supprimerEleve(id){  
+  
+  if(!confirm(  
+    "Èske ou vle efase elèv sa a?"  
+  ))return;  
+  
+  let data=  
+    getData("eleves")  
+    .filter(e=>e.id!==id);  
+  
+  await saveData(  
+    "eleves",  
+    data  
+  );  
+  
+  afficherEleves();  
+  remplirSelects();  
+  actualiserDashboard();  
+  
+}  
+  
+  
+/* ================================  
+   PWOFESÈ  
+================================ */  
+  
+async function ajouterProfesseur(){  
+  
+  const nom=  
+    document.getElementById(  
+      "nomProfesseur"  
+    ).value.trim();  
+  
+  const telephone=  
+    document.getElementById(  
+      "telephoneProfesseur"  
+    ).value.trim();  
+  
+  const matiere=  
+    document.getElementById(  
+      "matiereProfesseur"  
+    ).value.trim();  
+  
+  if(!nom){  
+  
+    alert(  
+      "Tanpri antre non pwofesè a."  
+    );  
+  
+    return;  
+  }  
+  
+  let data=  
+    getData("professeurs");  
+  
+  data.push({  
+  
+    id:Date.now(),  
+    nom,  
+    telephone,  
+    matiere  
+  
+  });  
+  
+  await saveData(  
+    "professeurs",  
+    data  
+  );  
+  
+  document.getElementById(  
+    "nomProfesseur"  
+  ).value="";  
+  
+  document.getElementById(  
+    "telephoneProfesseur"  
+  ).value="";  
+  
+  document.getElementById(  
+    "matiereProfesseur"  
+  ).value="";  
+  
+  afficherProfesseurs();  
+  actualiserDashboard();  
+  
+  alert(  
+    "Pwofesè a ajoute avèk siksè."  
+  );  
+  
+}  
+  
+  
+function afficherProfesseurs(){  
+  
+  const liste=  
+    document.getElementById(  
+      "listeProfesseurs"  
+    );  
+  
+  if(!liste)return;  
+  
+  const data=  
+    getData("professeurs");  
+  
+  if(!data.length){  
+  
+    liste.innerHTML=  
+      "<p>Pa gen pwofesè anrejistre.</p>";  
+  
+    return;  
+  }  
+  
+  liste.innerHTML="";  
+  
+  data.forEach(p=>{  
+  
+    liste.innerHTML+=`  
+  
+      <div class="item">  
+  
+        <h3>  
+          👨‍🏫 ${escapeHTML(p.nom)}  
+        </h3>  
+  
+        <p>  
+          <b>Matyè:</b>  
+          ${escapeHTML(  
+            p.matiere||"Pa defini"  
+          )}  
+        </p>  
+  
+        <p>  
+          <b>Telefòn:</b>  
+          ${escapeHTML(  
+            p.telephone||"Pa defini"  
+          )}  
+        </p>  
+  
+        <button  
+          class="action danger"  
+          onclick="supprimerProfesseur(${p.id})">  
+          🗑️ Efase  
+        </button>  
+  
+      </div>  
+  
+    `;  
+  
+  });  
+  
+}  
+  
+  
+async function supprimerProfesseur(id){  
+  
+  if(!confirm(  
+    "Èske ou vle efase pwofesè sa a?"  
+  ))return;  
+  
+  let data=  
+    getData("professeurs")  
+    .filter(p=>p.id!==id);  
+  
+  await saveData(  
+    "professeurs",  
+    data  
+  );  
+  
+  afficherProfesseurs();  
+  actualiserDashboard();  
+  
+}  
+  
+  
+/* ================================  
+   DEVWA  
+================================ */  
+  
+async function ajouterDevoir(){  
+  
+  const titre=  
+    document.getElementById(  
+      "titreDevoir"  
+    ).value.trim();  
+  
+  const matiere=  
+    document.getElementById(  
+      "matiereDevoir"  
+    ).value;  
+  
+  const classe=  
+    document.getElementById(  
+      "classeDevoir"  
+    ).value;  
+  
+  const date=  
+    document.getElementById(  
+      "dateDevoir"  
+    ).value;  
+  
+  const description=  
+    document.getElementById(  
+      "descriptionDevoir"  
+    ).value.trim();  
+  
+  if(!titre){  
+  
+    alert(  
+      "Tanpri antre tit devwa a."  
+    );  
+  
+    return;  
+  }  
+  
+  let data=  
+    getData("devoirs");  
+  
+  data.push({  
+  
+    id:Date.now(),  
+    titre,  
+    matiere,  
+    classe,  
+    date,  
+    description  
+  
+  });  
+  
+  await saveData(  
+    "devoirs",  
+    data  
+  );  
+  
+  document.getElementById(  
+    "titreDevoir"  
+  ).value="";  
+  
+  document.getElementById(  
+    "dateDevoir"  
+  ).value="";  
+  
+  document.getElementById(  
+    "descriptionDevoir"  
+  ).value="";  
+  
+  afficherDevoirs();  
+  remplirSelects();  
+  actualiserDashboard();  
+  
+  alert(  
+    "Devwa a ajoute avèk siksè."  
+  );  
+  
+}  
+  
+  
+function afficherDevoirs(){  
+  
+  const liste=  
+    document.getElementById(  
+      "listeDevoirs"  
+    );  
+  
+  if(!liste)return;  
+  
+  const recherche=  
+    document.getElementById(  
+      "rechercheDevoir"  
+    )?.value  
+      .toLowerCase()  
+      .trim()||"";  
+  
+  let data=  
+    getData("devoirs")  
+    .filter(d=>  
+  
+      String(d.titre||"")  
+        .toLowerCase()  
+        .includes(recherche)  
+  
+      ||  
+  
+      String(d.matiere||"")  
+        .toLowerCase()  
+        .includes(recherche)  
+  
+      ||  
+  
+      String(d.classe||"")  
+        .toLowerCase()  
+        .includes(recherche)  
+  
+    );  
+  
+  if(!data.length){  
+  
+    liste.innerHTML=  
+      "<p>Pa gen devwa ki koresponn.</p>";  
+  
+    return;  
+  }  
+  
+  liste.innerHTML="";  
+  
+  data.forEach(d=>{  
+  
+    let statut="";  
+  
+    if(d.date){  
+  
+      const dat=  
+        new Date(d.date);  
+  
+      statut=  
+        dat<new Date()  
+        ?  
+  
+        '<span class="badge badge-red">Dat pase</span>'  
+  
+        :  
+  
+        '<span class="badge badge-green">A venir</span>';  
+  
+    }  
+  
+    liste.innerHTML+=`  
+  
+      <div class="item">  
+  
+        <h3>  
+          📝 ${escapeHTML(d.titre)}  
+        </h3>  
+  
+        <p>  
+          <b>Matyè:</b>  
+          ${escapeHTML(  
+            d.matiere||"Pa defini"  
+          )}  
+        </p>  
+  
+        <p>  
+          <b>Klas:</b>  
+          ${escapeHTML(  
+            d.classe||"Tout klas"  
+          )}  
+        </p>  
+  
+        <p>  
+          <b>Dat:</b>  
+          ${escapeHTML(  
+            d.date||"Pa defini"  
+          )}  
+  
+          ${statut}  
+  
+        </p>  
+  
+        <p>  
+          ${escapeHTML(  
+            d.description||""  
+          )}  
+        </p>  
+  
+        <br>  
+  
+        <button  
+          class="action danger"  
+          onclick="supprimerDevoir(${d.id})">  
+          🗑️ Efase  
+        </button>  
+  
+      </div>  
+  
+    `;  
+  
+  });  
+  
+}  
+  
+  
+async function supprimerDevoir(id){  
+  
+  if(!confirm(  
+    "Èske ou vle efase devwa sa a?"  
+  ))return;  
+  
+  let data=  
+    getData("devoirs")  
+    .filter(d=>d.id!==id);  
+  
+  await saveData(  
+    "devoirs",  
+    data  
+  );  
+  
+  afficherDevoirs();  
+  remplirSelects();  
+  actualiserDashboard();  
+  
+}  
+  
+  
+/* ================================  
+   REMÈT  
+================================ */  
+  
+async function ajouterRemise(){  
+  
+  const eleveId=  
+    document.getElementById(  
+      "eleveRemise"  
+    ).value;  
+  
+  const devoirId=  
+    document.getElementById(  
+      "devoirRemise"  
+    ).value;  
+  
+  const statut=  
+    document.getElementById(  
+      "statutRemise"  
+    ).value;  
+  
+  const note=  
+    document.getElementById(  
+      "noteRemise"  
+    ).value;  
+  
+  if(!eleveId||!devoirId){  
+  
+    alert(  
+      "Tanpri chwazi elèv ak devwa."  
+    );  
+  
+    return;  
+  }  
+  
+  if(  
+    note!=="" &&  
+    (  
+      Number(note)<0 ||  
+      Number(note)>100  
+    )  
+  ){  
+  
+    alert(  
+      "Nòt la dwe ant 0 ak 100."  
+    );  
+  
+    return;  
+  }  
+  
+  let data=  
+    getData("remises");  
+  
+  const existant=  
+    data.find(r=>  
+  
+      String(r.eleveId)===  
+      String(eleveId)  
+  
+      &&  
+  
+      String(r.devoirId)===  
+      String(devoirId)  
+  
+    );  
+  
+  if(existant){  
+  
+    existant.statut=statut;  
+    existant.note=note;  
+  
+  }else{  
+  
+    data.push({  
+  
+      id:Date.now(),  
+      eleveId,  
+      devoirId,  
+      statut,  
+      note  
+  
+    });  
+  
+  }  
+  
+  await saveData(  
+    "remises",  
+    data  
+  );  
+  
+  afficherRemises();  
+  actualiserStatistiques();  
+  
+  document.getElementById(  
+    "noteRemise"  
+  ).value="";  
+  
+  alert(  
+    "Suivi devwa a anrejistre."  
+  );  
+  
+}  
+  
+  
+function afficherRemises(){  
+  
+  const liste=  
+    document.getElementById(  
+      "listeRemises"  
+    );  
+  
+  if(!liste)return;  
+  
+  const remises=  
+    getData("remises");  
+  
+  const eleves=  
+    getData("eleves");  
+  
+  const devoirs=  
+    getData("devoirs");  
+  
+  if(!remises.length){  
+  
+    liste.innerHTML=  
+      "<p>Pa gen done sou remèt devwa.</p>";  
+  
+    return;  
+  }  
+  
+  liste.innerHTML="";  
+  
+  remises.forEach(r=>{  
+  
+    const e=  
+      eleves.find(x=>  
+        String(x.id)===  
+        String(r.eleveId)  
+      );  
+  
+    const d=  
+      devoirs.find(x=>  
+        String(x.id)===  
+        String(r.devoirId)  
+      );  
+  
+    if(!e||!d)return;  
+  
+    const badge=  
+      r.statut==="Remèt"  
+      ?  
+      "badge-green"  
+      :  
+      "badge-red";  
+  
+    const noteHTML=  
+      r.note!=="" &&  
+      r.note!==undefined  
+      ?  
+  
+      `<span class="noteDisplay">  
+        ${escapeHTML(r.note)}/100  
+      </span>`  
+  
+      :  
+  
+      `<span>  
+        Pa gen nòt  
+      </span>`;  
+  
+    liste.innerHTML+=`  
+  
+      <div class="item">  
+  
+        <h3>  
+          👨‍🎓 ${escapeHTML(e.nom)}  
+        </h3>  
+  
+        <p>  
+          <b>Devwa:</b>  
+          ${escapeHTML(d.titre)}  
+        </p>  
+  
+        <p>  
+          <b>Estati:</b>  
+  
+          <span class="badge ${badge}">  
+            ${escapeHTML(r.statut)}  
+          </span>  
+  
+        </p>  
+  
+        <p>  
+          <b>Nòt:</b>  
+          ${noteHTML}  
+        </p>  
+  
+        <button  
+          class="action danger"  
+          onclick="supprimerRemise(${r.id})">  
+          🗑️ Efase  
+        </button>  
+  
+      </div>  
+  
+    `;  
+  
+  });  
+  
+}  
+  
+  
+async function supprimerRemise(id){  
+  
+  if(!confirm(  
+    "Efase anrejistreman sa a?"  
+  ))return;  
+  
+  let data=  
+    getData("remises")  
+    .filter(r=>r.id!==id);  
+  
+  await saveData(  
+    "remises",  
+    data  
+  );  
+  
+  afficherRemises();  
+  actualiserStatistiques();  
+  
+}  
+  
+  
+/* ================================  
+   REZILTA ELÈV  
+================================ */  
+  
+function afficherResultatEleve(){  
+  
+  const id=  
+    document.getElementById(  
+      "eleveResultat"  
+    ).value;  
+  
+  const resultat=  
+    document.getElementById(  
+      "resultatEleve"  
+    );  
+  
+  if(!id){  
+  
+    resultat.innerHTML=  
+      "<p>Chwazi yon elèv.</p>";  
+  
+    return;  
+  }  
+  
+  const eleve=  
+    getData("eleves")  
+    .find(e=>  
+      String(e.id)===  
+      String(id)  
+    );  
+  
+  if(!eleve){  
+  
+    resultat.innerHTML=  
+      "<p>Elèv la pa jwenn.</p>";  
+  
+    return;  
+  }  
+  
+  const devoirs=  
+    getData("devoirs");  
+  
+  const notes=  
+    getData("remises")  
+    .filter(r=>  
+  
+      String(r.eleveId)===  
+      String(id)  
+  
+      &&  
+  
+      r.note!==""  
+  
+      &&  
+  
+      r.note!==undefined  
+  
+    );  
+  
+  const total=  
+    notes.reduce(  
+      (a,n)=>a+Number(n.note),  
+      0  
+    );  
+  
+  const moyenne=  
+    notes.length  
+    ?  
+    total/notes.length  
+    :  
+    0;  
+  
+  let html=`  
+  
+    <h2>  
+      📊 Rezilta:  
+      ${escapeHTML(eleve.nom)}  
+    </h2>  
+  
+    <p>  
+      <b>Klas:</b>  
+      ${escapeHTML(  
+        eleve.classe||"Pa defini"  
+      )}  
+    </p>  
+  
+    <div class="averageBox">  
+  
+      <p>Mwayèn jeneral</p>  
+  
+      <div class="averageNumber">  
+        ${moyenne.toFixed(2)}/100  
+      </div>  
+  
+    </div>  
+  
+    <div class="table-container">  
+  
+      <table>  
+  
+        <tr>  
+  
+          <th>Devwa</th>  
+  
+          <th>Nòt</th>  
+  
+          <th>Estati</th>  
+  
+        </tr>  
+  
+  `;  
+  
+  if(!notes.length){  
+  
+    html+=`  
+  
+      <tr>  
+  
+        <td colspan="3">  
+          Pa gen nòt pou elèv sa a.  
+        </td>  
+  
+      </tr>  
+  
+    `;  
+  
+  }  
+  
+  notes.forEach(n=>{  
+  
+    const d=  
+      devoirs.find(x=>  
+        String(x.id)===  
+        String(n.devoirId)  
+      );  
+  
+    html+=`  
+  
+      <tr>  
+  
+        <td>  
+          ${escapeHTML(  
+            d?d.titre:"Devwa"  
+          )}  
+        </td>  
+  
+        <td>  
+          <span class="noteDisplay">  
+            ${escapeHTML(n.note)}/100  
+          </span>  
+        </td>  
+  
+        <td>  
+          ${escapeHTML(n.statut)}  
+        </td>  
+  
+      </tr>  
+  
+    `;  
+  
+  });  
+  
+  html+=`  
+  
+      </table>  
+  
+    </div>  
+  
+  `;  
+  
+  resultat.innerHTML=html;  
+  
+}  
+  
+  
+/* ================================  
+   SELECTS  
+================================ */  
+  
+function remplirSelects(){  
+  
+  const eleves=  
+    getData("eleves");  
+  
+  const classes=  
+    getData("classes");  
+  
+  const matieres=  
+    getData("matieres");  
+  
+  const devoirs=  
+    getData("devoirs");  
+  
+  
+  [  
+    document.getElementById(  
+      "classeEleve"  
+    ),  
+  
+    document.getElementById(  
+      "classeDevoir"  
+    )  
+  
+  ].forEach(s=>{  
+  
+    if(!s)return;  
+  
+    const v=s.value;  
+  
+    s.innerHTML=  
+      '<option value="">Chwazi klas</option>';  
+  
+    classes.forEach(c=>{  
+  
+      const option=  
+        document.createElement(  
+          "option"  
+        );  
+  
+      option.value=c.nom;  
+      option.textContent=c.nom;  
+  
+      s.appendChild(option);  
+  
+    });  
+  
+    s.value=v;  
+  
+  });  
+  
+  
+  const ms=  
+    document.getElementById(  
+      "matiereDevoir"  
+    );  
+  
+  if(ms){  
+  
+    const v=ms.value;  
+  
+    ms.innerHTML=  
+      '<option value="">Chwazi matyè</option>';  
+  
+    matieres.forEach(m=>{  
+  
+      const option=  
+        document.createElement(  
+          "option"  
+        );  
+  
+      option.value=m.nom;  
+      option.textContent=m.nom;  
+  
+      ms.appendChild(option);  
+  
+    });  
+  
+    ms.value=v;  
+  
+  }  
+  
+  
+  [  
+    document.getElementById(  
+      "eleveRemise"  
+    ),  
+  
+    document.getElementById(  
+      "eleveResultat"  
+    )  
+  
+  ].forEach(s=>{  
+  
+    if(!s)return;  
+  
+    const v=s.value;  
+  
+    s.innerHTML=  
+      '<option value="">Chwazi elèv</option>';  
+  
+    eleves.forEach(e=>{  
+  
+      const option=  
+        document.createElement(  
+          "option"  
+        );  
+  
+      option.value=e.id;  
+      option.textContent=e.nom;  
+  
+      s.appendChild(option);  
+  
+    });  
+  
+    s.value=v;  
+  
+  });  
+  
+  
+  const ds=  
+    document.getElementById(  
+      "devoirRemise"  
+    );  
+  
+  if(ds){  
+  
+    const v=ds.value;  
+  
+    ds.innerHTML=  
+      '<option value="">Chwazi devwa</option>';  
+  
+    devoirs.forEach(d=>{  
+  
+      const option=  
+        document.createElement(  
+          "option"  
+        );  
+  
+      option.value=d.id;  
+      option.textContent=d.titre;  
+  
+      ds.appendChild(option);  
+  
+    });  
+  
+    ds.value=v;  
+  
+  }  
+  
+}  
+  
+  
+/* ================================  
+   DASHBOARD  
+================================ */  
+  
+function actualiserDashboard(){  
+  
+  const eleves=  
+    document.getElementById(  
+      "statEleves"  
+    );  
+  
+  const professeurs=  
+    document.getElementById(  
+      "statProfesseurs"  
+    );  
+  
+  const classes=  
+    document.getElementById(  
+      "statClasses"  
+    );  
+  
+  const devoirs=  
+    document.getElementById(  
+      "statDevoirs"  
+    );  
+  
+  if(eleves)  
+    eleves.textContent=  
+      getData("eleves").length;  
+  
+  if(professeurs)  
+    professeurs.textContent=  
+      getData("professeurs").length;  
+  
+  if(classes)  
+    classes.textContent=  
+      getData("classes").length;  
+  
+  if(devoirs)  
+    devoirs.textContent=  
+      getData("devoirs").length;  
+  
+}  
+  
+  
+/* ================================  
+   ESTATISTIK  
+================================ */  
+  
+function actualiserStatistiques(){  
+  
+  const notes=  
+    getData("remises")  
+    .filter(r=>  
+  
+      r.note!==""  
+  
+      &&  
+  
+      r.note!==undefined  
+  
+      &&  
+  
+      !isNaN(Number(r.note))  
+  
+    )  
+    .map(r=>Number(r.note));  
+  
+  const moyenne=  
+    notes.length  
+    ?  
+    notes.reduce(  
+      (a,b)=>a+b,  
+      0  
+    )/notes.length  
+    :  
+    0;  
+  
+  const el=  
+    document.getElementById(  
+      "totalElevesStat"  
+    );  
+  
+  const prof=  
+    document.getElementById(  
+      "totalProfStat"  
+    );  
+  
+  const devoir=  
+    document.getElementById(  
+      "totalDevoirStat"  
+    );  
+  
+  const moy=  
+    document.getElementById(  
+      "moyenneStat"  
+    );  
+  
+  if(el)  
+    el.textContent=  
+      getData("eleves").length;  
+  
+  if(prof)  
+    prof.textContent=  
+      getData("professeurs").length;  
+  
+  if(devoir)  
+    devoir.textContent=  
+      getData("devoirs").length;  
+  
+  if(moy)  
+    moy.textContent=  
+      moyenne.toFixed(2)+"/100";  
+  
+}  
+  
+  
+/* ================================  
+   SAUVEGARDE  
+================================ */  
+  
+function exporterDonnees(){  
+  
+  const donnees={  
+  
+    eleves:  
+      getData("eleves"),  
+  
+    professeurs:  
+      getData("professeurs"),  
+  
+    classes:  
+      getData("classes"),  
+  
+    matieres:  
+      getData("matieres"),  
+  
+    devoirs:  
+      getData("devoirs"),  
+  
+    remises:  
+      getData("remises")  
+  
+  };  
+  
+  const fichier=  
+    new Blob(  
+  
+      [  
+        JSON.stringify(  
+          donnees,  
+          null,  
+          2  
+        )  
+      ],  
+  
+      {  
+        type:"application/json"  
+      }  
+  
+    );  
+  
+  const url=  
+    URL.createObjectURL(  
+      fichier  
+    );  
+  
+  const lien=  
+    document.createElement(  
+      "a"  
+    );  
+  
+  lien.href=url;  
+  
+  lien.download=  
+    "sauvegarde-systeme-lekol.json";  
+  
+  document.body.appendChild(lien);  
+  
+  lien.click();  
+  
+  document.body.removeChild(lien);  
+  
+  URL.revokeObjectURL(url);  
+  
+}  
+  
+  
+/* ================================  
+   IMPORT  
+================================ */  
+  
+function importerDonnees(){  
+  
+  const fichier=  
+    document.getElementById(  
+      "importFile"  
+    ).files[0];  
+  
+  if(!fichier){  
+  
+    alert(  
+      "Chwazi yon fichye JSON an premye."  
+    );  
+  
+    return;  
+  }  
+  
+  const lecteur=  
+    new FileReader();  
+  
+  lecteur.onload=  
+    async function(e){  
+  
+      try{  
+  
+        const donnees=  
+          JSON.parse(  
+            e.target.result  
+          );  
+  
+        const cles=[  
+  
+          "eleves",  
+          "professeurs",  
+          "classes",  
+          "matieres",  
+          "devoirs",  
+          "remises"  
+  
+        ];  
+  
+        for(  
+          const cle of cles  
+        ){  
+  
+          if(  
+            Array.isArray(  
+              donnees[cle]  
+            )  
+          ){  
+  
+            await saveData(  
+              cle,  
+              donnees[cle]  
+            );  
+  
+          }  
+  
+        }  
+  
+        actualiserTout();  
+  
+        alert(  
+          "Done yo restore avèk siksè."  
+        );  
+  
+      }catch(error){  
+  
+        console.error(error);  
+  
+        alert(  
+          "Fichye a pa valab."  
+        );  
+  
+      }  
+  
+    };  
+  
+  lecteur.readAsText(  
+    fichier  
+  );  
+  
+}  
+  
+  
+/* ================================  
+   EFASMAN LOCAL  
+================================ */  
+  
+async function effacerTout(){  
+  
+  if(!confirm(  
+    "ATANSYON ! Sa ap efase tout done lokal yo. Èske ou sèten?"  
+  ))return;  
+  
+  const cles=[  
+  
+    "eleves",  
+    "professeurs",  
+    "classes",  
+    "matieres",  
+    "devoirs",  
+    "remises"  
+  
+  ];  
+  
+  cles.forEach(  
+    c=>  
+      localStorage.removeItem(c)  
+  );  
+  
+  initialiserDonnees();  
+  
+  actualiserTout();  
+  
+  alert(  
+    "Done lokal yo efase. Dokiman Firestore yo pa efase nan vèsyon sa a."  
+  );  
+  
+}  
+  
+  
+/* ================================  
+   DONE DEFAULT  
+================================ */  
+  
+function initialiserDonnees(){  
+  
+  if(  
+    !localStorage.getItem(  
+      "classes"  
+    )  
+  ){  
+  
+    localStorage.setItem(  
+  
+      "classes",  
+  
+      JSON.stringify([  
+  
+        {  
+          id:1,  
+          nom:"7e AF",  
+          annee:"2026-2027"  
+        },  
+  
+        {  
+          id:2,  
+          nom:"8e AF",  
+          annee:"2026-2027"  
+        },  
+  
+        {  
+          id:3,  
+          nom:"9e AF",  
+          annee:"2026-2027"  
+        }  
+  
+      ])  
+  
+    );  
+  
+  }  
+  
+  
+  if(  
+    !localStorage.getItem(  
+      "matieres"  
+    )  
+  ){  
+  
+    localStorage.setItem(  
+  
+      "matieres",  
+  
+      JSON.stringify([  
+  
+        {  
+          id:1,  
+          nom:"Matematik"  
+        },  
+  
+        {  
+          id:2,  
+          nom:"Français"  
+        },  
+  
+        {  
+          id:3,  
+          nom:"Syans sosyal"  
+        },  
+  
+        {  
+          id:4,  
+          nom:"Fizik"  
+        },  
+  
+        {  
+          id:5,  
+          nom:"Chimi"  
+        },  
+  
+        {  
+          id:6,  
+          nom:"Biyoloji"  
+        }  
+  
+      ])  
+  
+    );  
+  
+  }  
+  
+}  
+  
+  
+/* ================================  
+   AKTUALIZASYON JENERAL  
+================================ */  
+  
+function actualiserTout(){  
+  
+  afficherEleves();  
+  
+  afficherProfesseurs();  
+  
+  afficherClasses();  
+  
+  afficherMatieres();  
+  
+  afficherDevoirs();  
+  
+  afficherRemises();  
+  
+  remplirSelects();  
+  
+  actualiserDashboard();  
+  
+  actualiserStatistiques();  
+  
+}  
+  
+  
+/* ================================  
+   DEMARAJ  
+================================ */  
+  
+initialiserDonnees();  
+  
+actualiserTout();  
+  
+</script>  <!-- FIREBASE -->  <script type="module">  
+  
+import {  
+  initializeApp  
+}  
+from  
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";  
+  
+  
+import {  
+  getAuth,  
+  signInWithEmailAndPassword,  
+  onAuthStateChanged  
+}  
+from  
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";  
+  
+  
+import {  
+  getFirestore,  
+  doc,  
+  setDoc  
+}  
+from  
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";  
+  
+  
+const firebaseConfig={  
+  
+  apiKey:  
+    "AIzaSyDAp0p5YyL4MbZKdcXwtO-Q6IDRaHc2VMw",  
+  
+  authDomain:  
+    "sis-f-a.firebaseapp.com",  
+  
+  projectId:  
+    "sis-f-a",  
+  
+  storageBucket:  
+    "sis-f-a.firebasestorage.app",  
+  
+  messagingSenderId:  
+    "505464315297",  
+  
+  appId:  
+    "1:505464315297:web:3e45543cb121eaf7243fe0"  
+  
+};  
+  
+  
+const firebaseApp=  
+  initializeApp(  
+    firebaseConfig  
+  );  
+  
+  
+const db=  
+  getFirestore(  
+    firebaseApp  
+  );  
+  
+  
+const auth=  
+  getAuth(  
+    firebaseApp  
+  );  
+  
+  
+/* ================================  
+   FIREBASE SAVE  
+================================ */  
+  
+window.firebaseSaveData=  
+  async function(key,data){  
+  
+    if(!auth.currentUser){  
+  
+      throw new Error(  
+        "Ou pa konekte ak Firebase."  
+      );  
+  
+    }  
+  
+    for(  
+      const item of data  
+    ){  
+  
+      if(!item.id){  
+  
+        item.id=  
+          Date.now();  
+  
+      }  
+  
+      await setDoc(  
+  
+        doc(  
+          db,  
+          key,  
+          String(item.id)  
+        ),  
+  
+        item  
+  
+      );  
+  
+    }  
+  
+    console.log(  
+      "Firebase OK:",  
+      key,  
+      data.length,  
+      "documents"  
+    );  
+  
+  };  
+  
+  
+/* ================================  
+   SYNCHRONISATION  
+================================ */  
+  
+async function synchroniserToutVersFirebase(){  
+  
+  if(!auth.currentUser)return;  
+  
+  const cles=[  
+  
+    "eleves",  
+    "professeurs",  
+    "classes",  
+    "matieres",  
+    "devoirs",  
+    "remises"  
+  
+  ];  
+  
+  for(  
+    const cle of cles  
+  ){  
+  
+    const data=  
+      getData(cle);  
+  
+    if(data.length){  
+  
+      await window.firebaseSaveData(  
+        cle,  
+        data  
+      );  
+  
+    }  
+  
+  }  
+  
+}  
+  
+  
+/* ================================  
+   LOGIN  
+================================ */  
+  
+window.connecterUtilisateur=  
+  async function(){  
+  
+    const email=  
+      document.getElementById(  
+        "emailLogin"  
+      ).value.trim();  
+  
+    const motDePasse=  
+      document.getElementById(  
+        "passwordLogin"  
+      ).value;  
+  
+    if(!email||!motDePasse){  
+  
+      alert(  
+        "Tanpri antre e-mail ak modpas la."  
+      );  
+  
+      return;  
+    }  
+  
+    try{  
+  
+      await signInWithEmailAndPassword(  
+  
+        auth,  
+        email,  
+        motDePasse  
+  
+      );  
+  
+    }catch(error){  
+  
+      console.error(  
+        "Erreur login:",  
+        error  
+      );  
+  
+      let message=  
+        error.message;  
+  
+      if(  
+        error.code===  
+        "auth/invalid-credential"  
+      ){  
+  
+        message=  
+          "E-mail oswa modpas la pa kòrèk.";  
+  
+      }  
+  
+      alert(  
+        "Erreur de connexion : "+  
+        message  
+      );  
+  
+    }  
+  
+  };  
+  
+  
+/* ================================  
+   AUTH STATE  
+================================ */  
+  
+onAuthStateChanged(  
+  
+  auth,  
+  
+  async function(user){  
+  
+    const loginBox=  
+      document.getElementById(  
+        "loginBox"  
+      );  
+  
+    const appBox=  
+      document.getElementById(  
+        "app"  
+      );  
+  
+  
+    if(user){  
+  
+      loginBox.style.display=  
+        "none";  
+  
+      appBox.style.display=  
+        "block";  
+  
+  
+      try{  
+  
+        await synchroniserToutVersFirebase();  
+  
+        actualiserTout();  
+  
+        console.log(  
+          "SYNCHRONISATION FIREBASE FINI"  
+        );  
+  
+      }catch(error){  
+  
+        console.error(  
+          "Erreur synchronisation:",  
+          error  
+        );  
+  
+        /*  
+          Pa kache aplikasyon an si Firebase  
+          gen yon pwoblèm. Itilizatè a ka toujou  
+          wè aplikasyon an.  
+        */  
+  
+        actualiserTout();  
+  
+      }  
+  
+    }else{  
+  
+      loginBox.style.display=  
+        "flex";  
+  
+      appBox.style.display=  
+        "none";  
+  
+    }  
+  
+  }  
+  
+);  
+  
+</script>  </body>  
 </html>
