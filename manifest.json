@@ -1,23 +1,9 @@
 {
   "name": "Sistèm Aprantisaj",
   "short_name": "Aprantisaj",
-  "description": "Sistèm Aprantisaj pou jere elèv, pwofesè, klas, matyè, devwa ak rezilta.",
-  "start_url": "./index.html",
+  "start_url": "./index_firebase_corrige.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2563eb",
-  "orientation": "portrait",
-  "lang": "ht",
-  "icons": [
-    {
-      "src": "file_00000000ddd881f58e1e3e0afeb3b9c3.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "file_00000000ddd881f58e1e3e0afeb3b9c3.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+  "background_color": "#f4f6f9",
+  "theme_color": "#1769aa",
+  "icons": []
 }
