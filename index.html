@@ -3,17 +3,229 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Sistèm Aprantisaj</title>
 
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#2563eb">
 
+<link rel="icon" type="image/png"
+href="file_00000000ddd881f58e1e3e1e8.png">
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#f4f6f9;color:#172033}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer;border:0}
-.hidden{display:none!important}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f4f6f8;
+  color:#222;
+}
+
+button{
+  cursor:pointer;
+}
+
+header{
+  background:#2563eb;
+  color:white;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+header h1{
+  font-size:22px;
+}
+
+.userBox{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.userBox img{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  object-fit:cover;
+  background:white;
+}
+
+.userInfo{
+  font-size:13px;
+}
+
+.userInfo strong{
+  display:block;
+}
+
+nav{
+  background:white;
+  display:flex;
+  gap:5px;
+  padding:10px;
+  overflow-x:auto;
+  box-shadow:0 2px 5px rgba(0,0,0,.1);
+}
+
+nav button{
+  border:0;
+  background:#eef2ff;
+  color:#1e40af;
+  padding:10px 14px;
+  border-radius:8px;
+  white-space:nowrap;
+}
+
+nav button:hover{
+  background:#dbeafe;
+}
+
+main{
+  padding:15px;
+  max-width:1400px;
+  margin:auto;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.card{
+  background:white;
+  border-radius:12px;
+  padding:18px;
+  margin-bottom:15px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.card h2,
+.card h3{
+  margin-bottom:12px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+}
+
+.statCard{
+  background:white;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.statCard h3{
+  color:#555;
+  margin-bottom:8px;
+}
+
+.statCard strong{
+  font-size:28px;
+  color:#2563eb;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:11px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  margin-bottom:10px;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.btn{
+  border:0;
+  padding:10px 15px;
+  border-radius:8px;
+  color:white;
+  background:#2563eb;
+}
+
+.btn:hover{
+  opacity:.9;
+}
+
+.btnDanger{
+  background:#dc2626;
+}
+
+.btnSuccess{
+  background:#16a34a;
+}
+
+.btnWarning{
+  background:#f59e0b;
+}
+
+.tableWrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+}
+
+th,
+td{
+  padding:10px;
+  border-bottom:1px solid #eee;
+  text-align:left;
+}
+
+th{
+  background:#f1f5f9;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+}
+
+.badgeAdmin{
+  background:#ede9fe;
+  color:#6d28d9;
+}
+
+.badgeProf{
+  background:#dcfce7;
+  color:#15803d;
+}
+
+.badgeEleve{
+  background:#fff3e0;
+  color:#ef6c00;
+}
+
+.badgeAttente{
+  background:#ffebee;
+  color:#c62828;
+}
+
+/* LOGIN */
 
 #loginBox{
   min-height:100vh;
@@ -21,1213 +233,24 @@ button{cursor:pointer;border:0}
   align-items:center;
   justify-content:center;
   padding:20px;
-  background:linear-gradient(135deg,#2563eb,#4f46e5)
+  background:linear-gradient(135deg,#2563eb,#1d4ed8);
 }
 
-.authCard{
+.loginCard{
   width:100%;
-  max-width:460px;
-  background:#fff;
-  border-radius:22px;
-  padding:25px;
-  box-shadow:0 15px 45px rgba(0,0,0,.25)
-}
-
-.authCard h1{
-  text-align:center;
-  margin-bottom:8px;
-  color:#1d4ed8
-}
-
-.authSub{
-  text-align:center;
-  color:#64748b;
-  margin-bottom:20px
-}
-
-.authTabs{
-  display:flex;
-  gap:8px;
-  margin-bottom:18px
-}
-
-.authTabs button{
-  flex:1;
-  padding:11px;
-  border-radius:10px;
-  background:#e5e7eb;
-  color:#374151
-}
-
-.authTabs button.active{
-  background:#2563eb;
-  color:white
-}
-
-.formGroup{margin-bottom:12px}
-
-.formGroup label{
-  display:block;
-  margin-bottom:5px;
-  font-weight:bold;
-  font-size:14px
-}
-
-.formGroup input,
-.formGroup select,
-.formGroup textarea{
-  width:100%;
-  padding:11px;
-  border:1px solid #cbd5e1;
-  border-radius:10px;
-  outline:none;
-  background:white
-}
-
-.formGroup textarea{
-  min-height:90px;
-  resize:vertical
-}
-
-.formGroup input:focus,
-.formGroup select:focus,
-.formGroup textarea:focus{
-  border-color:#2563eb
-}
-
-.primaryBtn{
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  background:#2563eb;
-  color:white;
-  font-weight:bold
-}
-
-.googleBtn{
-  width:100%;
-  padding:12px;
-  border-radius:10px;
+  max-width:430px;
   background:white;
-  color:#111827;
-  border:1px solid #cbd5e1;
-  font-weight:bold;
-  margin-top:10px
-}
-
-.divider{
-  text-align:center;
-  margin:14px 0;
-  color:#94a3b8
-}
-
-.authMsg{
-  padding:10px;
-  border-radius:9px;
-  margin-bottom:12px;
-  font-size:14px;
-  display:none
-}
-
-.authMsg.error{
-  display:block;
-  background:#fee2e2;
-  color:#991b1b
-}
-
-.authMsg.success{
-  display:block;
-  background:#dcfce7;
-  color:#166534
-}
-
-.pendingBox{
-  padding:12px;
-  background:#fff7ed;
-  color:#9a3412;
-  border-radius:10px;
-  margin-top:12px;
-  font-size:14px
-}
-
-#app{min-height:100vh}
-
-header{
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:#fff;
-  border-bottom:1px solid #e2e8f0;
-  padding:12px 16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px
-}
-
-.brand{
-  font-size:20px;
-  font-weight:bold;
-  color:#2563eb
-}
-
-.userArea{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  flex-wrap:wrap;
-  justify-content:flex-end
-}
-
-#userPhoto{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  object-fit:cover;
-  background:#e2e8f0
-}
-
-.userText{font-size:12px}
-
-.userText strong{
-  display:block;
-  font-size:14px
-}
-
-.roleBadge{
-  display:inline-block;
-  padding:3px 8px;
-  border-radius:999px;
-  background:#dbeafe;
-  color:#1d4ed8;
-  font-weight:bold;
-  margin-top:3px
-}
-
-.headerBtn{
-  padding:9px 11px;
-  border-radius:9px;
-  background:#eef2ff;
-  color:#3730a3
-}
-
-.logoutBtn{
-  background:#fee2e2;
-  color:#b91c1c
-}
-
-nav{
-  display:flex;
-  gap:7px;
-  overflow-x:auto;
-  padding:10px 12px;
-  background:#fff;
-  border-bottom:1px solid #e2e8f0
-}
-
-nav button{
-  white-space:nowrap;
-  padding:9px 12px;
-  border-radius:9px;
-  background:#f1f5f9;
-  color:#334155
-}
-
-nav button.active{
-  background:#2563eb;
-  color:white
-}
-
-main{
-  max-width:1250px;
-  margin:auto;
-  padding:18px
-}
-
-.section{display:none}
-
-.section.active{display:block}
-
-.pageTitle{margin-bottom:15px}
-
-.pageTitle h2{margin-bottom:4px}
-
-.pageTitle p{color:#64748b}
-
-.statsGrid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:12px;
-  margin-bottom:18px
-}
-
-.statCard{
-  background:white;
-  border-radius:15px;
-  padding:17px;
-  box-shadow:0 2px 10px rgba(0,0,0,.06)
-}
-
-.statCard span{
-  color:#64748b;
-  font-size:13px
-}
-
-.statCard strong{
-  display:block;
-  font-size:28px;
-  margin-top:5px;
-  color:#2563eb
-}
-
-.card{
-  background:white;
-  border-radius:15px;
-  padding:18px;
-  margin-bottom:16px;
-  box-shadow:0 2px 10px rgba(0,0,0,.06)
-}
-
-.card h3{margin-bottom:14px}
-
-.formGrid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:10px
-}
-
-.formGrid .full{grid-column:1/-1}
-
-.actionRow{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:10px
-}
-
-.smallBtn{
-  padding:8px 11px;
-  border-radius:8px;
-  background:#2563eb;
-  color:white
-}
-
-.dangerBtn{background:#dc2626}
-
-.successBtn{background:#16a34a}
-
-.warningBtn{
-  background:#f59e0b;
-  color:#111827
-}
-
-.tableWrap{overflow-x:auto}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  background:#fff
-}
-
-th,td{
-  padding:10px;
-  border-bottom:1px solid #e2e8f0;
-  text-align:left;
-  vertical-align:middle
-}
-
-th{background:#f8fafc}
-
-.badge{
-  display:inline-block;
-  padding:4px 8px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:bold
-}
-
-.badgePending{
-  background:#fef3c7;
-  color:#92400e
-}
-
-.badgeAccepted{
-  background:#dcfce7;
-  color:#166534
-}
-
-.badgeRejected{
-  background:#fee2e2;
-  color:#991b1b
-}
-
-.badgeAdmin{
-  background:#ede9fe;
-  color:#6d28d9
-}
-
-.badgeProf{
-  background:#dbeafe;
-  color:#1d4ed8
-}
-
-.badgeEleve{
-  background:#ffedd5;
-  color:#c2410c
-}
-
-.empty{
-  text-align:center;
-  padding:25px;
-  color:#64748b
-}
-
-.note20{
-  font-weight:bold;
-  color:#2563eb
-}
-
-.note100{
-  color:#64748b;
-  font-size:12px
-}
-
-.installBtn{display:none}
-
-.toast{
-  position:fixed;
-  right:15px;
-  bottom:15px;
-  z-index:100;
-  background:#111827;
-  color:white;
-  padding:12px 16px;
-  border-radius:10px;
-  display:none;
-  max-width:320px
-}
-
-.loading{
-  position:fixed;
-  inset:0;
-  background:rgba(255,255,255,.92);
-  z-index:200;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  color:#2563eb
-}
-
-footer{
-  text-align:center;
-  padding:25px;
-  color:#64748b
-}
-
-@media(max-width:650px){
-  header{align-items:flex-start}
-  .brand{font-size:17px}
-  .userText{max-width:150px}
-  main{padding:12px}
-  .card{padding:13px}
-  th,td{font-size:13px}
-}
-</style>
-</head>
-
-<body>
-
-<div id="loading" class="loading">
-  Chaje Sistèm Aprantisaj...
-</div>
-
-<!-- ================= LOGIN ================= -->
-
-<div id="loginBox">
-
-  <div class="authCard">
-
-    <h1>📚 Sistèm Aprantisaj</h1>
-
-    <div class="authSub">
-      Konekte pou antre nan sistèm nan
-    </div>
-
-    <div class="authTabs">
-
-      <button
-        id="tabLogin"
-        class="active"
-        onclick="showAuthTab('login')">
-        Konekte
-      </button>
-
-      <button
-        id="tabRegister"
-        onclick="showAuthTab('register')">
-        Kreye kont
-      </button>
-
-    </div>
-
-    <div id="authMsg" class="authMsg"></div>
-
-    <!-- LOGIN -->
-
-    <div id="loginForm">
-
-      <div class="formGroup">
-        <label>E-mail</label>
-        <input
-          id="loginEmail"
-          type="email"
-          placeholder="E-mail">
-      </div>
-
-      <div class="formGroup">
-        <label>Mot de passe</label>
-        <input
-          id="loginPassword"
-          type="password"
-          placeholder="Mot de passe">
-      </div>
-
-      <!-- KOREKSYON: connecter(), PA connexionEmail() -->
-
-      <button
-        class="primaryBtn"
-        onclick="connecter()">
-        Konekte
-      </button>
-
-      <div class="divider">
-        — oswa —
-      </div>
-
-      <button
-        class="googleBtn"
-        onclick="connecterAvecGoogle()">
-        🔵 Konekte ak Google
-      </button>
-
-    </div>
-
-    <!-- REGISTER -->
-
-    <div id="registerForm" class="hidden">
-
-      <div class="formGrid">
-
-        <div class="formGroup">
-          <label>Nom</label>
-          <input id="regNom" type="text">
-        </div>
-
-        <div class="formGroup">
-          <label>Prénom</label>
-          <input id="regPrenom" type="text">
-        </div>
-
-      </div>
-
-      <div class="formGroup">
-        <label>E-mail</label>
-        <input id="regEmail" type="email">
-      </div>
-
-      <div class="formGroup">
-        <label>Mot de passe</label>
-        <input id="regPassword" type="password">
-      </div>
-
-      <div class="formGroup">
-        <label>Confirmation mot de passe</label>
-        <input id="regPassword2" type="password">
-      </div>
-
-      <button
-        class="primaryBtn"
-        onclick="creerCompte()">
-        Kreye kont
-      </button>
-
-      <div class="pendingBox">
-        ⚠️ Nouvo kont yo rete an attente jiskaske yon administratè valide yo.
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-<!-- ================= APPLICATION ================= -->
-
-<div id="app" style="display:none;">
-
-<header>
-
-  <div class="brand">
-    📚 Sistèm Aprantisaj
-  </div>
-
-  <div class="userArea">
-
-    <select
-      id="languageSelect"
-      class="headerBtn"
-      onchange="changerLangue(this.value)">
-      <option value="ht">🇭🇹 Kreyòl</option>
-      <option value="fr">🇫🇷 Français</option>
-    </select>
-
-    <button
-      id="installButton"
-      class="headerBtn installBtn"
-      onclick="installerApp()">
-      📲 Installer
-    </button>
-
-    <img id="userPhoto" src="" alt="Photo">
-
-    <div class="userText">
-      <strong id="userName">Utilisateur</strong>
-      <span id="userEmail"></span><br>
-      <span id="userRole" class="roleBadge"></span>
-    </div>
-
-    <button
-      class="headerBtn logoutBtn"
-      onclick="deconnecter()">
-      Déconnexion
-    </button>
-
-  </div>
-
-</header>
-
-<nav id="mainNav">
-
-  <button data-section="accueil" onclick="showSection('accueil')">
-    🏠 Akèy
-  </button>
-
-  <button data-section="eleves" onclick="showSection('eleves')">
-    👨‍🎓 Elèv
-  </button>
-
-  <button data-section="professeurs" onclick="showSection('professeurs')">
-    👨‍🏫 Pwofesè
-  </button>
-
-  <button data-section="classes" onclick="showSection('classes')">
-    🏫 Klas
-  </button>
-
-  <button data-section="matieres" onclick="showSection('matieres')">
-    📚 Matyè
-  </button>
-
-  <button data-section="devoirs" onclick="showSection('devoirs')">
-    📝 Devwa
-  </button>
-
-  <button data-section="remises" onclick="showSection('remises')">
-    📤 Remèt
-  </button>
-
-  <button data-section="resultats" onclick="showSection('resultats')">
-    📊 Rezilta
-  </button>
-
-  <button data-section="statistiques" onclick="showSection('statistiques')">
-    📈 Estatistik
-  </button>
-
-  <button data-section="utilisateurs" onclick="showSection('utilisateurs')">
-    👥 Itilizatè
-  </button>
-
-  <button data-section="sauvegarde" onclick="showSection('sauvegarde')">
-    💾 Done
-  </button>
-
-</nav>
-
-<main>
-
-<!-- ================= ACCUEIL ================= -->
-
-<section id="accueil" class="section">
-
-  <div class="pageTitle">
-    <h2>Akèy</h2>
-    <p>Rezime sistèm nan</p>
-  </div>
-
-  <div class="statsGrid">
-
-    <div class="statCard">
-      <span>Elèv</span>
-      <strong id="statEleves">0</strong>
-    </div>
-
-    <div class="statCard">
-      <span>Pwofesè</span>
-      <strong id="statProfesseurs">0</strong>
-    </div>
-
-    <div class="statCard">
-      <span>Klas</span>
-      <strong id="statClasses">0</strong>
-    </div>
-
-    <div class="statCard">
-      <span>Devwa</span>
-      <strong id="statDevoirs">0</strong>
-    </div>
-
-  </div>
-
-  <div class="card">
-    <h3>Byenveni nan Sistèm Aprantisaj</h3>
-    <p>
-      Sistèm nan konekte ak Firebase pou jere done lekòl la.
-    </p>
-  </div>
-
-</section>
-
-<!-- ================= ELEVES ================= -->
-
-<section id="eleves" class="section">
-
-  <div class="pageTitle">
-    <h2>Elèv</h2>
-  </div>
-
-  <div class="card">
-
-    <h3>Ajoute yon elèv</h3>
-
-    <div class="formGrid">
-
-      <div class="formGroup">
-        <label>Nom</label>
-        <input id="eleveNom">
-      </div>
-
-      <div class="formGroup">
-        <label>Prénom</label>
-        <input id="elevePrenom">
-      </div>
-
-      <div class="formGroup">
-        <label>E-mail</label>
-        <input id="eleveEmail" type="email">
-      </div>
-
-      <div class="formGroup">
-        <label>Klas</label>
-        <select id="eleveClasse"></select>
-      </div>
-
-    </div>
-
-    <button class="smallBtn" onclick="ajouterEleve()">
-      Ajoute
-    </button>
-
-  </div>
-
-  <div class="card">
-
-    <div class="tableWrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Prénom</th>
-            <th>Nom</th>
-            <th>E-mail</th>
-            <th>Klas</th>
-            <th>Aksyon</th>
-          </tr>
-        </thead>
-
-        <tbody id="listeEleves"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- ================= PROFESSEURS ================= -->
-
-<section id="professeurs" class="section">
-
-  <div class="pageTitle">
-    <h2>Pwofesè</h2>
-  </div>
-
-  <div class="card">
-
-    <h3>Ajoute yon pwofesè</h3>
-
-    <div class="formGrid">
-
-      <div class="formGroup">
-        <label>Nom</label>
-        <input id="profNom">
-      </div>
-
-      <div class="formGroup">
-        <label>Prénom</label>
-        <input id="profPrenom">
-      </div>
-
-      <div class="formGroup">
-        <label>Matyè</label>
-        <select id="profMatiere"></select>
-      </div>
-
-    </div>
-
-    <button class="smallBtn" onclick="ajouterProfesseur()">
-      Ajoute
-    </button>
-
-  </div>
-
-  <div class="card">
-
-    <div class="tableWrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Prénom</th>
-            <th>Nom</th>
-            <th>Matyè</th>
-            <th>Aksyon</th>
-          </tr>
-        </thead>
-
-        <tbody id="listeProfesseurs"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- ================= KLAS ================= -->
-
-<section id="classes" class="section">
-
-  <div class="pageTitle">
-    <h2>Klas</h2>
-  </div>
-
-  <div class="card">
-
-    <h3>Ajoute yon klas</h3>
-
-    <div class="formGrid">
-
-      <div class="formGroup">
-        <label>Non klas</label>
-        <input id="classeNom">
-      </div>
-
-      <div class="formGroup">
-        <label>Nivo</label>
-        <input id="classeNiveau">
-      </div>
-
-    </div>
-
-    <button class="smallBtn" onclick="ajouterClasse()">
-      Ajoute
-    </button>
-
-  </div>
-
-  <div class="card">
-
-    <div class="tableWrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Non</th>
-            <th>Nivo</th>
-            <th>Aksyon</th>
-          </tr>
-        </thead>
-
-        <tbody id="listeClasses"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- ================= MATIERES ================= -->
-
-<section id="matieres" class="section">
-
-  <div class="pageTitle">
-    <h2>Matyè</h2>
-  </div>
-
-  <div class="card">
-
-    <h3>Ajoute yon matyè</h3>
-
-    <div class="formGroup">
-      <label>Non matyè</label>
-      <input id="matiereNom">
-    </div>
-
-    <button class="smallBtn" onclick="ajouterMatiere()">
-      Ajoute
-    </button>
-
-  </div>
-
-  <div class="card">
-
-    <div class="tableWrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Matyè</th>
-            <th>Aksyon</th>
-          </tr>
-        </thead>
-
-        <tbody id="listeMatieres"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- ================= DEVOIRS ================= -->
-
-<section id="devoirs" class="section">
-
-  <div class="pageTitle">
-    <h2>Devwa</h2>
-  </div>
-
-  <div class="card">
-
-    <h3>Ajoute yon devwa</h3>
-
-    <div class="formGrid">
-
-      <div class="formGroup">
-        <label>Tit</label>
-        <input id="devoirTitre">
-      </div>
-
-      <div class="formGroup">
-        <label>Dat</label>
-        <input id="devoirDate" type="date">
-      </div>
-
-      <div class="formGroup">
-        <label>Matyè</label>
-        <select id="devoirMatiere"></select>
-      </div>
-
-      <div class="formGroup">
-        <label>Klas</label>
-        <select id="devoirClasse"></select>
-      </div>
-
-      <div class="formGroup full">
-        <label>Deskripsyon</label>
-        <textarea id="devoirDescription"></textarea>
-      </div>
-
-    </div>
-
-    <button class="smallBtn" onclick="ajouterDevoir()">
-      Ajoute
-    </button>
-
-  </div>
-
-  <div class="card">
-
-    <div class="tableWrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Tit</th>
-            <th>Matyè</th>
-            <th>Klas</th>
-            <th>Dat</th>
-            <th>Aksyon</th>
-          </tr>
-        </thead>
-
-        <tbody id="listeDevoirs"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- ================= REMISES ================= -->
-
-<section id="remises" class="section">
-
-  <div class="pageTitle">
-    <h2>Remèt devwa</h2>
-  </div>
-
-  <div class="card">
-
-    <h3>Ajoute yon remèt</h3>
-
-    <div class="formGrid">
-
-      <div class="formGroup">
-        <label>Elèv</label>
-        <select id="remiseEleve"></select>
-      </div>
-
-      <div class="formGroup">
-        <label>Devwa</label>
-        <select id="remiseDevoir"></select>
-      </div>
-
-      <div class="formGroup">
-        <label>Nòt /20</label>
-        <input
-          id="remiseNote"
-          type="number"
-          min="0"
-          max="20"
-          step="0.01">
-      </div>
-
-      <div class="formGroup">
-        <label>Kòmantè</label>
-        <input id="remiseCommentaire">
-      </div>
-
-    </div>
-
-    <button class="smallBtn" onclick="ajouterRemise()">
-      Ajoute
-    </button>
-
-  </div>
-
-  <div class="card">
-
-    <div class="tableWrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Elèv</th>
-            <th>Devwa</th>
-            <th>Nòt /20</th>
-            <th>/100</th>
-            <th>Kòmantè</th>
-            <th>Aksyon</th>
-          </tr>
-        </thead>
-
-        <tbody id="listeRemises"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- ================= RESULTATS ================= -->
-
-<section id="resultats" class="section">
-
-  <div class="pageTitle">
-    <h2>Rezilta</h2>
-  </div>
-
-  <div class="card">
-
-    <div class="formGroup">
-
-      <label>Chwazi elèv</label>
-
-      <select
-        id="resultatEleve"
-        onchange="afficherResultatEleve()">
-      </select>
-
-    </div>
-
-  </div>
-
-  <div id="resultatEleveDetails"></div>
-
-</section>
-
-<!-- ================= STATISTIQUES ================= -->
-
-<section id="statistiques" class="section">
-
-  <div class="pageTitle">
-    <h2>Estatistik</h2>
-  </div>
-
-  <div class="statsGrid">
-
-    <div class="statCard">
-      <span>Total Elèv</span>
-      <strong id="totalElevesStat">0</strong>
-    </div>
-
-    <div class="statCard">
-      <span>Total Pwofesè</span>
-      <strong id="totalProfStat">0</strong>
-    </div>
-
-    <div class="statCard">
-      <span>Total Devwa</span>
-      <strong id="totalDevoirStat">0</strong>
-    </div>
-
-    <div class="statCard">
-      <span>Mwayèn /20</span>
-      <strong id="moyenneStat">0</strong>
-    </div>
-
-  </div>
-
-</section>
-
-<!-- ================= UTILISATEURS ================= -->
-
-<section id="utilisateurs" class="section">
-
-  <div class="pageTitle">
-    <h2>Itilizatè</h2>
-    <p>Administratè a valide nouvo kont yo.</p>
-  </div>
-
-  <div class="card">
-
-    <div class="tableWrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Non</th>
-            <th>E-mail</th>
-            <th>Wòl</th>
-            <th>Estati</th>
-            <th>Aksyon</th>
-          </tr>
-        </thead>
-
-        <tbody id="listeUtilisateurs"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- ================= SAUVEGARDE ================= -->
-
-<section id="sauvegarde" class="section">
-
-  <div class="pageTitle">
-    <h2>Done / Sauvegarde</h2>
-  </div>
-
-  <div class="card">
-
-    <button
-      class="smallBtn"
-      onclick="exporterDonnees()">
-      📤 Ekspòte done
-    </button>
-
-    <br><br>
-
-    <input
-      id="importFile"
-      type="file"
-      accept=".json"
-      onchange="importerDonnees(event)">
-
-    <br><br>
-
-    <button
-      class="smallBtn dangerBtn"
-      onclick="effacerTout()">
-      🗑️ Efase done lokal
-    </button>
-
-  </div>
-
-</section>
-
-</main>
-
-<footer>
-  © 2026 - Sistèm Aprantisaj
-</footer>
-
-</div>
-
-<div id="toast" class="toast"></div>
-
-<!-- ======================================================
-     FIREBASE + JAVASCRIPT
-====================================================== -->
-
-<script type="module">
-
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  padding:30px;
+  border-radius:18px;
+  box-shadow:0 10px 
+  <script type="module">
+
+/* =====================================================
+   FIREBASE
+===================================================== */
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
 import {
   getAuth,
@@ -1242,8 +265,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile
-} from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import {
   getFirestore,
@@ -1254,13 +277,13 @@ import {
   getDocs,
   deleteDoc,
   serverTimestamp
-} from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
-/* ======================================================
-   FIREBASE
-====================================================== */
+/* =====================================================
+   CONFIGURATION FIREBASE
+===================================================== */
 
 const firebaseConfig = {
   apiKey:"AIzaSyDAp0p5YyL4MbZKdcXwtO-Q6IDRaHc2VMw",
@@ -1271,451 +294,453 @@ const firebaseConfig = {
   appId:"1:505464315297:web:3e45543cb121eaf7243fe0"
 };
 
-const appFirebase = initializeApp(firebaseConfig);
+const firebaseApp =
+  initializeApp(firebaseConfig);
 
-const auth = getAuth(appFirebase);
+const auth =
+  getAuth(firebaseApp);
 
-const db = getFirestore(appFirebase);
+const db =
+  getFirestore(firebaseApp);
 
-const provider = new GoogleAuthProvider();
+const provider =
+  new GoogleAuthProvider();
 
 provider.setCustomParameters({
   prompt:"select_account"
 });
 
 
-let currentUser=null;
-let currentUserProfile=null;
-let deferredPrompt=null;
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let currentUser = null;
+let currentUserProfile = null;
+
+let handlingUserUid = null;
+
+const DATA_KEYS = [
+  "eleves",
+  "professeurs",
+  "classes",
+  "matieres",
+  "devoirs",
+  "remises"
+];
 
 
-/* ======================================================
-   OUTILS
-====================================================== */
-
-function uid(){
-  return Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,9);
-}
-
-function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g,m=>({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#039;"
-  }[m]));
-}
-
-function getData(key){
-  try{
-    return JSON.parse(localStorage.getItem(key)||"[]");
-  }catch{
-    return [];
-  }
-}
-
-function saveData(key,data){
-
-  localStorage.setItem(
-    key,
-    JSON.stringify(data)
-  );
-
-  if(window.firebaseSaveData){
-    window.firebaseSaveData(key,data);
-  }
-}
-
-function showToast(msg){
-
-  const el=document.getElementById("toast");
-
-  el.textContent=msg;
-
-  el.style.display="block";
-
-  setTimeout(()=>{
-    el.style.display="none";
-  },3000);
-}
-
-function showAuthMsg(msg,type="error"){
-
-  const el=document.getElementById("authMsg");
-
-  el.textContent=msg;
-
-  el.className="authMsg "+type;
-}
+/* =====================================================
+   LOADING
+===================================================== */
 
 function hideLoading(){
 
-  const el=document.getElementById("loading");
+  const loading =
+    document.getElementById("loadingOverlay");
 
-  if(el){
-    el.style.display="none";
+  if(loading){
+    loading.style.display="none";
   }
 }
+
+
+/* =====================================================
+   AUTH MESSAGE
+===================================================== */
+
+function showAuthMsg(message,type="error"){
+
+  const box =
+    document.getElementById("authMsg");
+
+  if(!box) return;
+
+  box.textContent=message;
+
+  box.className=
+    "authMsg "+type;
+}
+
+
+/* =====================================================
+   FIREBASE PERSISTENCE
+===================================================== */
+
+await setPersistence(
+  auth,
+  browserLocalPersistence
+);
+
+
+/* =====================================================
+   ROLE LABEL
+===================================================== */
 
 function roleLabel(role){
 
-  if(role==="administrateur") return "Administratè";
+  switch(role){
 
-  if(role==="professeur") return "Pwofesè";
+    case "administrateur":
+      return "Administratè";
 
-  if(role==="eleve") return "Elèv";
+    case "professeur":
+      return "Pwofesè";
 
-  return "Pa ankò";
-}
+    case "eleve":
+      return "Elèv";
 
-function roleClass(role){
+    default:
+      return "Utilisateur";
 
-  if(role==="administrateur") return "badgeAdmin";
-
-  if(role==="professeur") return "badgeProf";
-
-  if(role==="eleve") return "badgeEleve";
-
-  return "badgePending";
-}
-
-function statusBadge(status){
-
-  if(status==="accepted") return "Aksepte";
-
-  if(status==="rejected") return "Refize";
-
-  return "An attente";
+  }
 }
 
 
-/* ======================================================
-   AUTH TAB
-====================================================== */
+/* =====================================================
+   GOOGLE LOGIN
+===================================================== */
 
-window.showAuthTab=function(tab){
-
-  document
-    .getElementById("loginForm")
-    .classList.toggle("hidden",tab!=="login");
-
-  document
-    .getElementById("registerForm")
-    .classList.toggle("hidden",tab!=="register");
-
-  document
-    .getElementById("tabLogin")
-    .classList.toggle("active",tab==="login");
-
-  document
-    .getElementById("tabRegister")
-    .classList.toggle("active",tab==="register");
-
-  document
-    .getElementById("authMsg")
-    .className="authMsg";
-};
-
-
-/* ======================================================
-   CREER COMPTE
-====================================================== */
-
-window.creerCompte=async function(){
-
-  const nom=
-    document.getElementById("regNom").value.trim();
-
-  const prenom=
-    document.getElementById("regPrenom").value.trim();
-
-  const email=
-    document.getElementById("regEmail").value.trim();
-
-  const password=
-    document.getElementById("regPassword").value;
-
-  const password2=
-    document.getElementById("regPassword2").value;
-
-
-  if(!nom||!prenom||!email||!password||!password2){
-
-    showAuthMsg(
-      "Tanpri ranpli tout chan yo."
-    );
-
-    return;
-  }
-
-
-  if(password!==password2){
-
-    showAuthMsg(
-      "De mot de passe yo pa menm."
-    );
-
-    return;
-  }
-
-
-  if(password.length<6){
-
-    showAuthMsg(
-      "Mot de passe a dwe gen omwen 6 karaktè."
-    );
-
-    return;
-  }
-
+window.connecterAvecGoogle =
+async function(){
 
   try{
 
-    const cred=
+    showAuthMsg(
+      "Koneksyon Google an ap fèt...",
+      "success"
+    );
+
+    try{
+
+      const result =
+        await signInWithPopup(
+          auth,
+          provider
+        );
+
+      if(result && result.user){
+        await handleUser(result.user);
+      }
+
+    }catch(popupError){
+
+      console.warn(
+        "Popup Google pa mache:",
+        popupError
+      );
+
+      /*
+       Sou kèk telefòn/Chrome,
+       popup ka bloke.
+       Nou itilize redirect.
+      */
+
+      if(
+        popupError.code ===
+        "auth/popup-blocked" ||
+
+        popupError.code ===
+        "auth/popup-closed-by-user" ||
+
+        popupError.code ===
+        "auth/cancelled-popup-request"
+      ){
+
+        await signInWithRedirect(
+          auth,
+          provider
+        );
+
+      }else{
+
+        throw popupError;
+
+      }
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "ERÈ GOOGLE:",
+      error
+    );
+
+    showAuthMsg(
+      "Erè Google: "+error.message,
+      "error"
+    );
+
+    hideLoading();
+
+  }
+
+};
+
+
+/* =====================================================
+   EMAIL / PASSWORD LOGIN
+===================================================== */
+
+window.loginEmailPassword =
+async function(){
+
+  const email =
+    document
+      .getElementById("loginEmail")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("loginPassword")
+      .value;
+
+  if(!email || !password){
+
+    showAuthMsg(
+      "Tanpri antre imèl ak modpas ou.",
+      "error"
+    );
+
+    return;
+  }
+
+  try{
+
+    showAuthMsg(
+      "Koneksyon an ap fèt...",
+      "success"
+    );
+
+    const result =
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+    await handleUser(result.user);
+
+  }catch(error){
+
+    console.error(
+      "LOGIN ERROR:",
+      error
+    );
+
+    showAuthMsg(
+      "Erè koneksyon: "+error.message,
+      "error"
+    );
+
+    hideLoading();
+
+  }
+
+};
+
+
+/* =====================================================
+   REGISTER
+===================================================== */
+
+window.showRegister =
+function(){
+
+  const box =
+    document.getElementById("registerBox");
+
+  if(!box) return;
+
+  box.style.display =
+    box.style.display === "none"
+      ? "block"
+      : "none";
+};
+
+
+window.registerAccount =
+async function(){
+
+  const prenom =
+    document
+      .getElementById("registerPrenom")
+      .value
+      .trim();
+
+  const nom =
+    document
+      .getElementById("registerNom")
+      .value
+      .trim();
+
+  const email =
+    document
+      .getElementById("registerEmail")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("registerPassword")
+      .value;
+
+  if(!prenom || !nom || !email || !password){
+
+    showAuthMsg(
+      "Tanpri ranpli tout chan yo.",
+      "error"
+    );
+
+    return;
+  }
+
+  try{
+
+    showAuthMsg(
+      "Kreyasyon kont lan...",
+      "success"
+    );
+
+    const result =
       await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
 
-    const user=cred.user;
-
-    const displayName=
-      `${prenom} ${nom}`;
-
+    const user =
+      result.user;
 
     await updateProfile(
       user,
-      {displayName}
+      {
+        displayName:
+          prenom+" "+nom
+      }
     );
 
+    const profile={
+
+      uid:user.uid,
+
+      nom:nom,
+
+      prenom:prenom,
+
+      displayName:
+        prenom+" "+nom,
+
+      email:user.email || email,
+
+      role:"",
+
+      status:"pending",
+
+      provider:"password",
+
+      createdAt:
+        serverTimestamp()
+
+    };
 
     await setDoc(
       doc(db,"users",user.uid),
-      {
-        uid:user.uid,
-        nom,
-        prenom,
-        displayName,
-        email:user.email,
-        role:"",
-        status:"pending",
-        provider:"password",
-        createdAt:serverTimestamp()
-      },
-      {merge:true}
+      profile
     );
 
-
-    await signOut(auth);
-
-
-    /*
-      IMPORTANT:
-      Nou chanje tab la anvan mesaj la.
-      Sinon showAuthTab() ta efase mesaj la.
-    */
-
-    showAuthTab("login");
-
     showAuthMsg(
-      "Kont lan kreye. Li rete an attente jiskaske administratè a valide li.",
+      "Kont lan kreye. Administratè a dwe valide li.",
       "success"
     );
 
-
-  }catch(error){
-
-    console.error(
-      "ERÈ CREATION:",
-      error
-    );
-
-    showAuthMsg(
-      "Erè: "+error.message
-    );
-  }
-};
-
-
-/* ======================================================
-   LOGIN EMAIL
-====================================================== */
-
-window.connecter=async function(){
-
-  const email=
-    document.getElementById("loginEmail").value.trim();
-
-  const password=
-    document.getElementById("loginPassword").value;
-
-
-  if(!email||!password){
-
-    showAuthMsg(
-      "Tanpri antre e-mail ak mot de passe."
-    );
-
-    return;
-  }
-
-
-  try{
-
-    await setPersistence(
-      auth,
-      browserLocalPersistence
-    );
-
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "ERÈ LOGIN:",
-      error
-    );
-
-    showAuthMsg(
-      "Erè koneksyon: "+error.message
-    );
-  }
-};
-
-
-/* ======================================================
-   GOOGLE
-====================================================== */
-
-window.connecterAvecGoogle=async function(){
-
-  try{
-
-    await setPersistence(
-      auth,
-      browserLocalPersistence
-    );
-
-
-    try{
-
-      await signInWithPopup(
-        auth,
-        provider
-      );
-
-    }catch(popupError){
-
-      console.log(
-        "Popup Google pa mache. Redirect ap eseye.",
-        popupError
-      );
-
-      await signInWithRedirect(
-        auth,
-        provider
-      );
-    }
-
-
-  }catch(error){
-
-    console.error(
-      "GOOGLE ERÈ:",
-      error
-    );
-
-    showAuthMsg(
-      "Google pa kapab konekte: "+error.message
-    );
-  }
-};
-
-
-/* ======================================================
-   DECONNEXION
-====================================================== */
-
-window.deconnecter=async function(){
-
-  try{
-
     await signOut(auth);
 
-    currentUser=null;
-
-    currentUserProfile=null;
-
-    document.getElementById("app")
-      .style.display="none";
-
-    document.getElementById("loginBox")
-      .style.display="flex";
-
-
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "REGISTER ERROR:",
+      error
+    );
+
+    showAuthMsg(
+      "Erè kreyasyon kont: "+error.message,
+      "error"
+    );
+
   }
+
 };
 
 
-/* ======================================================
-   HANDLE USER
+/* =====================================================
    KOREKSYON PRINCIPAL ADMIN
-====================================================== */
+===================================================== */
 
 async function handleUser(user){
 
   if(!user) return;
 
+  /*
+    Evite menm itilizatè a trete
+    plizyè fwa an menm tan.
+  */
 
-  currentUser=user;
+  if(handlingUserUid === user.uid){
+    return;
+  }
 
+  handlingUserUid =
+    user.uid;
+
+  currentUser =
+    user;
 
   try{
 
-    const ref=
-      doc(db,"users",user.uid);
+    const ref =
+      doc(
+        db,
+        "users",
+        user.uid
+      );
 
-    const snap=
+    const snap =
       await getDoc(ref);
 
 
-    /*
-      Si pwofil la pa egziste,
-      sèlman kreye l pou Google.
-    */
+    /* =================================================
+       NOUVO ITILIZATÈ
+    ================================================= */
 
     if(!snap.exists()){
+
+      const nameParts =
+        (user.displayName || "")
+          .trim()
+          .split(/\s+/);
 
       const profile={
 
         uid:user.uid,
 
         nom:
-          user.displayName
-            ?.split(" ")
+          nameParts
             .slice(1)
             .join(" ") || "",
 
         prenom:
-          user.displayName
-            ?.split(" ")[0] || "",
+          nameParts[0] || "",
 
         displayName:
           user.displayName ||
           user.email?.split("@")[0] ||
           "Utilisateur",
 
-        email:user.email || "",
+        email:
+          user.email || "",
 
         role:"",
 
@@ -1723,9 +748,10 @@ async function handleUser(user){
 
         provider:"google",
 
-        createdAt:serverTimestamp()
-      };
+        createdAt:
+          serverTimestamp()
 
+      };
 
       await setDoc(
         ref,
@@ -1733,14 +759,15 @@ async function handleUser(user){
         {merge:true}
       );
 
+      currentUserProfile =
+        profile;
 
-      currentUserProfile=profile;
-
-
-      document.getElementById("app")
+      document
+        .getElementById("app")
         .style.display="none";
 
-      document.getElementById("loginBox")
+      document
+        .getElementById("loginBox")
         .style.display="flex";
 
       showAuthMsg(
@@ -1750,38 +777,69 @@ async function handleUser(user){
 
       await signOut(auth);
 
+      hideLoading();
+
       return;
     }
 
 
-    /*
-      Li dokiman ki deja egziste a.
-    */
+    /* =================================================
+       LI USER LA
+    ================================================= */
 
-    const data=snap.data();
+    const data =
+      snap.data();
 
 
-    /*
-      NORMALIZATION:
-      retire espas epi mete an miniskil.
-    */
-
-    const role=
-      String(data.role || "")
+    const role =
+      String(
+        data.role || ""
+      )
       .trim()
       .toLowerCase();
 
-    const status=
-      String(data.status || "")
+
+    const status =
+      String(
+        data.status || ""
+      )
+      .trim()
+      .toLowerCase();
+
+
+    const firestoreUid =
+      String(
+        data.uid || ""
+      )
+      .trim();
+
+
+    const firestoreEmail =
+      String(
+        data.email || ""
+      )
+      .trim()
+      .toLowerCase();
+
+
+    const firebaseEmail =
+      String(
+        user.email || ""
+      )
       .trim()
       .toLowerCase();
 
 
     currentUserProfile={
+
       uid:user.uid,
+
       ...data,
+
       role,
+
       status
+
     };
 
 
@@ -1790,22 +848,32 @@ async function handleUser(user){
     );
 
     console.log(
-      "AUTH UID:",
+      "Firebase UID:",
       user.uid
     );
 
     console.log(
-      "FIRESTORE UID:",
-      data.uid
+      "Firestore UID:",
+      firestoreUid
     );
 
     console.log(
-      "ROLE:",
+      "Firebase Email:",
+      firebaseEmail
+    );
+
+    console.log(
+      "Firestore Email:",
+      firestoreEmail
+    );
+
+    console.log(
+      "Role:",
       role
     );
 
     console.log(
-      "STATUS:",
+      "Status:",
       status
     );
 
@@ -1814,41 +882,72 @@ async function handleUser(user){
     );
 
 
-    /*
-      ADMINISTRATÈ:
-      Si role la se administrateur,
-      li antre.
-    */
+    /* =================================================
+       ADMINISTRATÈ
+       
+       ADMIN PA ANTRE SOU ROLE SELMAN.
+       4 bagay dwe egzak:
+       1. UID
+       2. role
+       3. status
+       4. email
+    ================================================= */
 
-    if(role==="administrateur"){
+    const adminOK =
 
-      document.getElementById("loginBox")
+      firestoreUid === user.uid &&
+
+      role === "administrateur" &&
+
+      status === "accepted" &&
+
+      firestoreEmail === firebaseEmail;
+
+
+    if(adminOK){
+
+      console.log(
+        "✅ ADMIN OK - AKSEPTE"
+      );
+
+
+      document
+        .getElementById("loginBox")
         .style.display="none";
 
-      document.getElementById("app")
+      document
+        .getElementById("app")
         .style.display="block";
 
 
-      document.getElementById("userEmail")
-        .textContent=user.email || data.email || "";
+      document
+        .getElementById("userEmail")
+        .textContent =
+          user.email ||
+          data.email ||
+          "";
 
 
-      document.getElementById("userName")
-        .textContent=
+      document
+        .getElementById("userName")
+        .textContent =
           data.displayName ||
           user.displayName ||
           "Administratè";
 
 
-      document.getElementById("userRole")
-        .textContent=
+      document
+        .getElementById("userRole")
+        .textContent =
           "Administratè";
 
 
       if(user.photoURL){
 
-        document.getElementById("userPhoto")
-          .src=user.photoURL;
+        document
+          .getElementById("userPhoto")
+          .src =
+            user.photoURL;
 
       }
 
@@ -1861,20 +960,31 @@ async function handleUser(user){
 
       appliquerPermissions();
 
+
+      hideLoading();
+
       return;
     }
 
 
-    /*
-      Lòt wòl yo dwe accepted.
-    */
+    /* =================================================
+       SI KONT PA AKSEPTE
+    ================================================= */
 
-    if(status!=="accepted"){
+    if(status !== "accepted"){
 
-      document.getElementById("app")
+      console.log(
+        "⛔ KONT PA AKSEPTE"
+      );
+
+
+      document
+        .getElementById("app")
         .style.display="none";
 
-      document.getElementById("loginBox")
+
+      document
+        .getElementById("loginBox")
         .style.display="flex";
 
 
@@ -1886,41 +996,54 @@ async function handleUser(user){
 
       await signOut(auth);
 
+      hideLoading();
+
       return;
     }
 
 
-    /*
-      Kont ki accepted.
-    */
+    /* =================================================
+       ITILIZATÈ AKSEPTE
+    ================================================= */
 
-    document.getElementById("loginBox")
+    document
+      .getElementById("loginBox")
       .style.display="none";
 
-    document.getElementById("app")
+    document
+      .getElementById("app")
       .style.display="block";
 
 
-    document.getElementById("userEmail")
-      .textContent=user.email || data.email || "";
+    document
+      .getElementById("userEmail")
+      .textContent =
+        user.email ||
+        data.email ||
+        "";
 
 
-    document.getElementById("userName")
-      .textContent=
+    document
+      .getElementById("userName")
+      .textContent =
         data.displayName ||
         user.displayName ||
         "Utilisateur";
 
 
-    document.getElementById("userRole")
-      .textContent=
+    document
+      .getElementById("userRole")
+      .textContent =
         roleLabel(role);
 
 
     if(user.photoURL){
 
-      document.getElementById("userPhoto")
-        .src=user.photoURL;
+      document
+        .getElementById("userPhoto")
+        .src =
+          user.photoURL;
+
     }
 
 
@@ -1932,249 +1055,162 @@ async function handleUser(user){
 
     appliquerPermissions();
 
+    hideLoading();
+
 
   }catch(error){
 
     console.error(
-      "ERÈ HANDLE USER:",
+      "❌ ERÈ HANDLE USER:",
       error
     );
 
-    /*
-      Nou pa voye kont lan nan pending
-      lè se yon erè Firestore.
-    */
 
-    document.getElementById("app")
+    document
+      .getElementById("app")
       .style.display="none";
 
-    document.getElementById("loginBox")
+
+    document
+      .getElementById("loginBox")
       .style.display="flex";
 
+
     showAuthMsg(
-      "Erè pandan chajman kont lan: "+error.message,
+      "Erè pandan verifikasyon kont lan: "+
+      error.message,
       "error"
     );
+
+
+    hideLoading();
+
+  }finally{
+
+    handlingUserUid=null;
+
   }
+
 }
 
 
-/* ======================================================
-   AUTH STATE
-====================================================== */
+/* =====================================================
+   REDIRECT GOOGLE
+===================================================== */
 
-getRedirectResult(auth)
-.then(result=>{
+try{
 
-  if(result?.user){
+  const redirectResult =
+    await getRedirectResult(auth);
 
-    handleUser(result.user);
+  if(
+    redirectResult &&
+    redirectResult.user
+  ){
+
+    await handleUser(
+      redirectResult.user
+    );
+
   }
 
-})
-.catch(error=>{
+}catch(error){
 
   console.error(
-    "Redirect Google:",
+    "REDIRECT ERROR:",
     error
   );
-});
 
+}
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
 
 onAuthStateChanged(
   auth,
-  user=>{
+  async(user)=>{
 
     if(user){
 
-      handleUser(user);
+      await handleUser(user);
 
     }else{
 
       currentUser=null;
 
-      currentUserProfile=null;
-
-      document.getElementById("app")
+      document
+        .getElementById("app")
         .style.display="none";
 
-      document.getElementById("loginBox")
+      document
+        .getElementById("loginBox")
         .style.display="flex";
+
+      hideLoading();
+
     }
+
   }
 );
 
 
-/* ======================================================
-   PERMISSIONS
-====================================================== */
+/* =====================================================
+   DECONNEXION
+===================================================== */
 
-function canAccess(section){
-
-  const role=
-    currentUserProfile?.role;
-
-
-  if(role==="administrateur"){
-    return true;
-  }
-
-
-  const permissions={
-
-    professeur:[
-      "accueil",
-      "eleves",
-      "classes",
-      "matieres",
-      "devoirs",
-      "remises",
-      "resultats",
-      "statistiques"
-    ],
-
-    eleve:[
-      "accueil",
-      "devoirs",
-      "remises",
-      "resultats"
-    ]
-  };
-
-
-  return permissions[role]
-    ?.includes(section) || false;
-}
-
-
-function requireRole(roles){
-
-  if(
-    !currentUserProfile ||
-    !roles.includes(
-      currentUserProfile.role
-    )
-  ){
-
-    showToast(
-      "⛔ Aksyon sa a rezève pou wòl ki otorize a."
-    );
-
-    return false;
-  }
-
-  return true;
-}
-
-
-/* ======================================================
-   NAVIGATION
-====================================================== */
-
-window.showSection=function(id){
-
-  if(!canAccess(id)){
-
-    showToast(
-      "⛔ Ou pa gen aksè ak seksyon sa a."
-    );
-
-    return;
-  }
-
-
-  document
-    .querySelectorAll(".section")
-    .forEach(section=>{
-      section.classList.remove("active");
-    });
-
-
-  const section=
-    document.getElementById(id);
-
-
-  if(section){
-
-    section.classList.add("active");
-  }
-
-
-  document
-    .querySelectorAll("#mainNav button")
-    .forEach(btn=>{
-      btn.classList.remove("active");
-    });
-
-
-  const btn=
-    document.querySelector(
-      `[data-section="${id}"]`
-    );
-
-
-  if(btn){
-
-    btn.classList.add("active");
-  }
-};
-
-
-function appliquerPermissions(){
-
-  const role=
-    currentUserProfile?.role;
-
-
-  document
-    .querySelectorAll("#mainNav button")
-    .forEach(btn=>{
-
-      const section=
-        btn.getAttribute("data-section");
-
-      btn.style.display=
-        canAccess(section)
-          ? ""
-          : "none";
-    });
-
-
-  const firstAllowed="accueil";
-
-
-  if(canAccess(firstAllowed)){
-
-    showSection(firstAllowed);
-  }
-}
-
-
-/* ======================================================
-   FIREBASE DATA
-====================================================== */
-
-const collections=[
-  "eleves",
-  "professeurs",
-  "classes",
-  "matieres",
-  "devoirs",
-  "remises"
-];
-
-
-window.firebaseSaveData=async function(
-  key,
-  data
-){
+window.deconnecter =
+async function(){
 
   try{
 
-    for(const item of data){
+    await signOut(auth);
 
-      if(!item.id) continue;
+    currentUser=null;
 
+    currentUserProfile=null;
+
+    document
+      .getElementById("app")
+      .style.display="none";
+
+    document
+      .getElementById("loginBox")
+      .style.display="flex";
+
+  }catch(error){
+
+    console.error(
+      "LOGOUT ERROR:",
+      error
+    );
+
+  }
+
+};
+
+
+/* =====================================================
+   FIRESTORE SAVE
+===================================================== */
+
+window.firebaseSaveData =
+async function(key,data){
+
+  try{
+
+    for(
+      const item of data
+    ){
+
+      if(
+        !item ||
+        item.id === undefined ||
+        item.id === null
+      ){
+        continue;
+      }
 
       await setDoc(
         doc(
@@ -2185,1132 +1221,1236 @@ window.firebaseSaveData=async function(
         item,
         {merge:true}
       );
-    }
 
+    }
 
     console.log(
       "Firebase OK:",
       key
     );
 
-
   }catch(error){
 
     console.error(
-      "Firebase save error:",
+      "Firebase SAVE ERROR:",
       key,
       error
     );
+
+    throw error;
+
   }
+
 };
 
 
-async function chargerCollection(key){
+/* =====================================================
+   GET DATA LOCAL
+===================================================== */
+
+function getData(key){
 
   try{
 
-    const snap=
-      await getDocs(
-        collection(db,key)
-      );
-
-
-    const data=[];
-
-
-    snap.forEach(d=>{
-
-      data.push({
-        id:d.id,
-        ...d.data()
-      });
-    });
-
-
-    localStorage.setItem(
-      key,
-      JSON.stringify(data)
+    return JSON.parse(
+      localStorage.getItem(key) || "[]"
     );
 
+  }catch(error){
 
-    return data;
+    return [];
 
+  }
+
+}
+
+
+/* =====================================================
+   SAVE DATA LOCAL + FIREBASE
+===================================================== */
+
+async function saveData(key,data){
+
+  localStorage.setItem(
+    key,
+    JSON.stringify(data)
+  );
+
+  try{
+
+    await window.firebaseSaveData(
+      key,
+      data
+    );
 
   }catch(error){
 
     console.error(
-      "Firebase read error:",
-      key,
+      "Sync Firebase:",
       error
     );
 
-
-    return getData(key);
   }
+
 }
 
+
+/* =====================================================
+   CHARGE DONE FIREBASE
+===================================================== */
 
 async function chargerToutFirebase(){
 
-  for(const key of collections){
+  for(
+    const key of DATA_KEYS
+  ){
 
-    await chargerCollection(key);
+    try{
+
+      const snapshot =
+        await getDocs(
+          collection(db,key)
+        );
+
+      const data=[];
+
+      snapshot.forEach(
+        item=>{
+
+          data.push(
+            item.data()
+          );
+
+        }
+      );
+
+      if(data.length > 0){
+
+        localStorage.setItem(
+          key,
+          JSON.stringify(data)
+        );
+
+      }
+
+    }catch(error){
+
+      console.warn(
+        "Pa ka chaje:",
+        key,
+        error
+      );
+
+    }
+
   }
+
 }
 
 
-/* ======================================================
-   CLASSES
-====================================================== */
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
-window.ajouterClasse=function(){
+window.showSection =
+function(id){
 
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  ) return;
+  document
+    .querySelectorAll(".section")
+    .forEach(section=>{
 
+      section.classList.remove(
+        "active"
+      );
 
-  const nom=
-    document.getElementById("classeNom")
-    .value.trim();
-
-  const niveau=
-    document.getElementById("classeNiveau")
-    .value.trim();
+    });
 
 
-  if(!nom){
+  const section =
+    document.getElementById(id);
 
-    showToast(
-      "Tanpri antre non klas la."
+  if(section){
+
+    section.classList.add(
+      "active"
     );
 
-    return;
   }
 
-
-  const data=
-    getData("classes");
+};
 
 
-  data.push({
-    id:uid(),
-    nom,
-    niveau
-  });
+/* =====================================================
+   ACTUALIZE TOUT
+===================================================== */
 
+function actualiserTout(){
 
-  saveData(
-    "classes",
-    data
-  );
+  afficherEleves();
 
-
-  document.getElementById("classeNom")
-    .value="";
-
-  document.getElementById("classeNiveau")
-    .value="";
-
+  afficherProfesseurs();
 
   afficherClasses();
 
-  remplirSelects();
+  afficherMatieres();
 
-  actualiserDashboard();
-};
+  afficherDevoirs();
 
+  afficherRemises();
 
-function afficherClasses(){
+  chargerUtilisateurs();
 
-  const tbody=
-    document.getElementById(
-      "listeClasses"
-    );
+  afficherStatistiques();
 
-  if(!tbody) return;
-
-
-  const data=
-    getData("classes");
-
-
-  tbody.innerHTML=
-    data.length
-
-      ? data.map(x=>`
-
-        <tr>
-
-          <td>
-            ${escapeHTML(x.nom)}
-          </td>
-
-          <td>
-            ${escapeHTML(x.niveau)}
-          </td>
-
-          <td>
-
-            <button
-              class="smallBtn dangerBtn"
-              onclick="supprimerClasse('${x.id}')">
-              🗑️
-            </button>
-
-          </td>
-
-        </tr>
-
-      `).join("")
-
-      : `
-        <tr>
-          <td colspan="3" class="empty">
-            Pa gen klas.
-          </td>
-        </tr>
-      `;
 }
 
 
-window.supprimerClasse=function(id){
+/* =====================================================
+   ELEV
+===================================================== */
 
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  ) return;
+window.ajouterEleve =
+async function(){
 
+  const prenom =
+    document
+      .getElementById("elevePrenom")
+      .value
+      .trim();
 
-  saveData(
-    "classes",
-    getData("classes")
-      .filter(
-        x=>String(x.id)!==String(id)
-      )
-  );
+  const nom =
+    document
+      .getElementById("eleveNom")
+      .value
+      .trim();
 
+  const classe =
+    document
+      .getElementById("eleveClasse")
+      .value
+      .trim();
 
-  afficherClasses();
-
-  remplirSelects();
-
-  actualiserDashboard();
-};
-
-
-/* ======================================================
-   MATIERES
-====================================================== */
-
-window.ajouterMatiere=function(){
-
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  ) return;
+  const email =
+    document
+      .getElementById("eleveEmail")
+      .value
+      .trim();
 
 
-  const nom=
-    document.getElementById("matiereNom")
-    .value.trim();
+  if(!prenom || !nom){
 
-
-  if(!nom){
-
-    showToast(
-      "Tanpri antre non matyè a."
+    alert(
+      "Tanpri antre prenon ak non elèv la."
     );
 
     return;
+
   }
 
 
-  const data=
-    getData("matieres");
-
-
-  data.push({
-    id:uid(),
-    nom
-  });
-
-
-  saveData(
-    "matieres",
-    data
-  );
-
-
-  document.getElementById("matiereNom")
-    .value="";
-
-
-  afficherMatieres();
-
-  remplirSelects();
-};
-
-
-function afficherMatieres(){
-
-  const tbody=
-    document.getElementById(
-      "listeMatieres"
-    );
-
-  if(!tbody) return;
-
-
-  const data=
-    getData("matieres");
-
-
-  tbody.innerHTML=
-    data.length
-
-      ? data.map(x=>`
-
-        <tr>
-
-          <td>
-            ${escapeHTML(x.nom)}
-          </td>
-
-          <td>
-
-            <button
-              class="smallBtn dangerBtn"
-              onclick="supprimerMatiere('${x.id}')">
-              🗑️
-            </button>
-
-          </td>
-
-        </tr>
-
-      `).join("")
-
-      : `
-        <tr>
-          <td colspan="2" class="empty">
-            Pa gen matyè.
-          </td>
-        </tr>
-      `;
-}
-
-
-window.supprimerMatiere=function(id){
-
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  ) return;
-
-
-  saveData(
-    "matieres",
-    getData("matieres")
-      .filter(
-        x=>String(x.id)!==String(id)
-      )
-  );
-
-
-  afficherMatieres();
-
-  remplirSelects();
-};
-
-
-/* ======================================================
-   ELEVES
-====================================================== */
-
-window.ajouterEleve=function(){
-
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  ) return;
-
-
-  const prenom=
-    document.getElementById(
-      "elevePrenom"
-    ).value.trim();
-
-
-  const nom=
-    document.getElementById(
-      "eleveNom"
-    ).value.trim();
-
-
-  const email=
-    document.getElementById(
-      "eleveEmail"
-    ).value.trim();
-
-
-  const classe=
-    document.getElementById(
-      "eleveClasse"
-    ).value;
-
-
-  if(!prenom||!nom||!classe){
-
-    showToast(
-      "Tanpri ranpli enfòmasyon elèv la."
-    );
-
-    return;
-  }
-
-
-  const data=
+  const data =
     getData("eleves");
 
 
   data.push({
-    id:uid(),
+
+    id:Date.now(),
+
     prenom,
+
     nom,
-    email,
-    classe
+
+    classe,
+
+    email
+
   });
 
 
-  saveData(
+  await saveData(
     "eleves",
     data
   );
 
 
-  document.getElementById(
-    "elevePrenom"
-  ).value="";
+  document
+    .getElementById("elevePrenom")
+    .value="";
 
+  document
+    .getElementById("eleveNom")
+    .value="";
 
-  document.getElementById(
-    "eleveNom"
-  ).value="";
+  document
+    .getElementById("eleveClasse")
+    .value="";
 
-
-  document.getElementById(
-    "eleveEmail"
-  ).value="";
+  document
+    .getElementById("eleveEmail")
+    .value="";
 
 
   afficherEleves();
 
-  remplirSelects();
+  afficherStatistiques();
 
-  actualiserDashboard();
-
-  actualiserStatistiques();
 };
 
 
 function afficherEleves(){
 
-  const tbody=
-    document.getElementById(
-      "listeEleves"
-    );
+  const tbody =
+    document
+      .getElementById("listeEleves");
 
   if(!tbody) return;
 
-
-  const classes=
-    getData("classes");
-
-  const data=
+  const data =
     getData("eleves");
 
 
-  const className=id=>
+  tbody.innerHTML =
+    data.map(
+      e=>`
 
-    classes.find(
-      x=>String(x.id)===String(id)
-    )?.nom || id || "";
+      <tr>
 
+        <td>${e.prenom || ""}</td>
 
-  tbody.innerHTML=
-    data.length
+        <td>${e.nom || ""}</td>
 
-      ? data.map(x=>`
+        <td>${e.classe || ""}</td>
 
-        <tr>
+        <td>${e.email || ""}</td>
 
-          <td>
-            ${escapeHTML(x.prenom)}
-          </td>
+      </tr>
 
-          <td>
-            ${escapeHTML(x.nom)}
-          </td>
+      `
+    ).join("");
 
-          <td>
-            ${escapeHTML(x.email||"")}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              className(x.classe)
-            )}
-          </td>
-
-          <td>
-
-            <button
-              class="smallBtn dangerBtn"
-              onclick="supprimerEleve('${x.id}')">
-              🗑️
-            </button>
-
-          </td>
-
-        </tr>
-
-      `).join("")
-
-      : `
-        <tr>
-          <td colspan="5" class="empty">
-            Pa gen elèv.
-          </td>
-        </tr>
-      `;
 }
 
 
-window.supprimerEleve=function(id){
+/* =====================================================
+   PROFESSE
+===================================================== */
 
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  ) return;
+window.ajouterProfesseur =
+async function(){
 
+  const prenom =
+    document
+      .getElementById("profPrenom")
+      .value
+      .trim();
 
-  saveData(
-    "eleves",
-    getData("eleves")
-      .filter(
-        x=>String(x.id)!==String(id)
-      )
-  );
+  const nom =
+    document
+      .getElementById("profNom")
+      .value
+      .trim();
 
+  const matiere =
+    document
+      .getElementById("profMatiere")
+      .value
+      .trim();
 
-  afficherEleves();
-
-  remplirSelects();
-
-  actualiserDashboard();
-
-  actualiserStatistiques();
-};
-
-
-/* ======================================================
-   PROFESSEURS
-====================================================== */
-
-window.ajouterProfesseur=function(){
-
-  if(
-    !requireRole([
-      "administrateur"
-    ])
-  ) return;
+  const email =
+    document
+      .getElementById("profEmail")
+      .value
+      .trim();
 
 
-  const prenom=
-    document.getElementById(
-      "profPrenom"
-    ).value.trim();
+  if(!prenom || !nom){
 
-
-  const nom=
-    document.getElementById(
-      "profNom"
-    ).value.trim();
-
-
-  const matiere=
-    document.getElementById(
-      "profMatiere"
-    ).value;
-
-
-  if(!prenom||!nom||!matiere){
-
-    showToast(
-      "Tanpri ranpli enfòmasyon pwofesè a."
+    alert(
+      "Tanpri antre prenon ak non pwofesè a."
     );
 
     return;
+
   }
 
 
-  const data=
+  const data =
     getData("professeurs");
 
 
   data.push({
-    id:uid(),
+
+    id:Date.now(),
+
     prenom,
+
     nom,
-    matiere
+
+    matiere,
+
+    email
+
   });
 
 
-  saveData(
+  await saveData(
     "professeurs",
     data
   );
 
 
-  document.getElementById(
-    "profPrenom"
-  ).value="";
+  document
+    .getElementById("profPrenom")
+    .value="";
 
+  document
+    .getElementById("profNom")
+    .value="";
 
-  document.getElementById(
-    "profNom"
-  ).value="";
+  document
+    .getElementById("profMatiere")
+    .value="";
+
+  document
+    .getElementById("profEmail")
+    .value="";
 
 
   afficherProfesseurs();
 
-  actualiserDashboard();
+  afficherStatistiques();
 
-  actualiserStatistiques();
 };
 
 
 function afficherProfesseurs(){
 
-  const tbody=
-    document.getElementById(
-      "listeProfesseurs"
-    );
+  const tbody =
+    document
+      .getElementById("listeProfesseurs");
 
   if(!tbody) return;
 
-
-  const matieres=
-    getData("matieres");
-
-  const data=
+  const data =
     getData("professeurs");
 
 
-  const matName=id=>
+  tbody.innerHTML =
+    data.map(
+      p=>`
 
-    matieres.find(
-      x=>String(x.id)===String(id)
-    )?.nom || id || "";
+      <tr>
 
+        <td>${p.prenom || ""}</td>
 
-  tbody.innerHTML=
-    data.length
+        <td>${p.nom || ""}</td>
 
-      ? data.map(x=>`
+        <td>${p.matiere || ""}</td>
 
-        <tr>
+        <td>${p.email || ""}</td>
 
-          <td>
-            ${escapeHTML(x.prenom)}
-          </td>
+      </tr>
 
-          <td>
-            ${escapeHTML(x.nom)}
-          </td>
+      `
+    ).join("");
 
-          <td>
-            ${escapeHTML(
-              matName(x.matiere)
-            )}
-          </td>
-
-          <td>
-
-            <button
-              class="smallBtn dangerBtn"
-              onclick="supprimerProfesseur('${x.id}')">
-              🗑️
-            </button>
-
-          </td>
-
-        </tr>
-
-      `).join("")
-
-      : `
-        <tr>
-          <td colspan="4" class="empty">
-            Pa gen pwofesè.
-          </td>
-        </tr>
-      `;
 }
 
 
-window.supprimerProfesseur=function(id){
+/* =====================================================
+   KLAS
+===================================================== */
 
-  if(
-    !requireRole([
-      "administrateur"
-    ])
-  ) return;
+window.ajouterClasse =
+async function(){
 
+  const nom =
+    document
+      .getElementById("classeNom")
+      .value
+      .trim();
 
-  saveData(
-    "professeurs",
-    getData("professeurs")
-      .filter(
-        x=>String(x.id)!==String(id)
-      )
-  );
-
-
-  afficherProfesseurs();
-
-  actualiserDashboard();
-
-  actualiserStatistiques();
-};
+  const niveau =
+    document
+      .getElementById("classeNiveau")
+      .value
+      .trim();
 
 
-/* ======================================================
-   DEVOIRS
-====================================================== */
+  if(!nom){
 
-window.ajouterDevoir=function(){
-
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  ) return;
-
-
-  const titre=
-    document.getElementById(
-      "devoirTitre"
-    ).value.trim();
-
-
-  const date=
-    document.getElementById(
-      "devoirDate"
-    ).value;
-
-
-  const description=
-    document.getElementById(
-      "devoirDescription"
-    ).value.trim();
-
-
-  const matiere=
-    document.getElementById(
-      "devoirMatiere"
-    ).value;
-
-
-  const classe=
-    document.getElementById(
-      "devoirClasse"
-    ).value;
-
-
-  if(!titre||!date||!matiere||!classe){
-
-    showToast(
-      "Tanpri ranpli enfòmasyon devwa a."
+    alert(
+      "Tanpri antre non klas la."
     );
 
     return;
+
   }
 
 
-  const data=
+  const data =
+    getData("classes");
+
+
+  data.push({
+
+    id:Date.now(),
+
+    nom,
+
+    niveau
+
+  });
+
+
+  await saveData(
+    "classes",
+    data
+  );
+
+
+  document
+    .getElementById("classeNom")
+    .value="";
+
+  document
+    .getElementById("classeNiveau")
+    .value="";
+
+
+  afficherClasses();
+
+};
+
+
+function afficherClasses(){
+
+  const tbody =
+    document
+      .getElementById("listeClasses");
+
+  if(!tbody) return;
+
+  const data =
+    getData("classes");
+
+
+  tbody.innerHTML =
+    data.map(
+      c=>`
+
+      <tr>
+
+        <td>${c.nom || ""}</td>
+
+        <td>${c.niveau || ""}</td>
+
+      </tr>
+
+      `
+    ).join("");
+
+}
+
+
+/* =====================================================
+   MATYÈ
+===================================================== */
+
+window.ajouterMatiere =
+async function(){
+
+  const nom =
+    document
+      .getElementById("matiereNom")
+      .value
+      .trim();
+
+  const code =
+    document
+      .getElementById("matiereCode")
+      .value
+      .trim();
+
+
+  if(!nom){
+
+    alert(
+      "Tanpri antre non matyè a."
+    );
+
+    return;
+
+  }
+
+
+  const data =
+    getData("matieres");
+
+
+  data.push({
+
+    id:Date.now(),
+
+    nom,
+
+    code
+
+  });
+
+
+  await saveData(
+    "matieres",
+    data
+  );
+
+
+  document
+    .getElementById("matiereNom")
+    .value="";
+
+  document
+    .getElementById("matiereCode")
+    .value="";
+
+
+  afficherMatieres();
+
+};
+
+
+function afficherMatieres(){
+
+  const tbody =
+    document
+      .getElementById("listeMatieres");
+
+  if(!tbody) return;
+
+  const data =
+    getData("matieres");
+
+
+  tbody.innerHTML =
+    data.map(
+      m=>`
+
+      <tr>
+
+        <td>${m.nom || ""}</td>
+
+        <td>${m.code || ""}</td>
+
+      </tr>
+
+      `
+    ).join("");
+
+}
+
+
+/* =====================================================
+   DEVWA
+===================================================== */
+
+window.ajouterDevoir =
+async function(){
+
+  const titre =
+    document
+      .getElementById("devoirTitre")
+      .value
+      .trim();
+
+  const matiere =
+    document
+      .getElementById("devoirMatiere")
+      .value
+      .trim();
+
+  const classe =
+    document
+      .getElementById("devoirClasse")
+      .value
+      .trim();
+
+  const date =
+    document
+      .getElementById("devoirDate")
+      .value;
+
+  const description =
+    document
+      .getElementById("devoirDescription")
+      .value
+      .trim();
+
+
+  if(!titre){
+
+    alert(
+      "Tanpri antre tit devwa a."
+    );
+
+    return;
+
+  }
+
+
+  const data =
     getData("devoirs");
 
 
   data.push({
-    id:uid(),
+
+    id:Date.now(),
+
     titre,
+
     matiere,
+
     classe,
+
     date,
+
     description
+
   });
 
 
-  saveData(
+  await saveData(
     "devoirs",
     data
   );
 
 
-  document.getElementById(
-    "devoirTitre"
-  ).value="";
+  document
+    .getElementById("devoirTitre")
+    .value="";
 
+  document
+    .getElementById("devoirMatiere")
+    .value="";
 
-  document.getElementById(
-    "devoirDate"
-  ).value="";
+  document
+    .getElementById("devoirClasse")
+    .value="";
 
+  document
+    .getElementById("devoirDate")
+    .value="";
 
-  document.getElementById(
-    "devoirDescription"
-  ).value="";
+  document
+    .getElementById("devoirDescription")
+    .value="";
 
 
   afficherDevoirs();
 
-  actualiserDashboard();
+  afficherStatistiques();
 
-  remplirSelects();
 };
 
 
 function afficherDevoirs(){
 
-  const tbody=
-    document.getElementById(
-      "listeDevoirs"
-    );
+  const tbody =
+    document
+      .getElementById("listeDevoirs");
 
   if(!tbody) return;
 
-
-  const mat=
-    getData("matieres");
-
-  const cls=
-    getData("classes");
-
-  const data=
+  const data =
     getData("devoirs");
 
 
-  const matName=id=>
+  tbody.innerHTML =
+    data.map(
+      d=>`
 
-    mat.find(
-      x=>String(x.id)===String(id)
-    )?.nom || id || "";
+      <tr>
 
+        <td>${d.titre || ""}</td>
 
-  const clsName=id=>
+        <td>${d.matiere || ""}</td>
 
-    cls.find(
-      x=>String(x.id)===String(id)
-    )?.nom || id || "";
+        <td>${d.classe || ""}</td>
 
+        <td>${d.date || ""}</td>
 
-  tbody.innerHTML=
-    data.length
+      </tr>
 
-      ? data.map(x=>`
+      `
+    ).join("");
 
-        <tr>
-
-          <td>
-            ${escapeHTML(x.titre)}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              matName(x.matiere)
-            )}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              clsName(x.classe)
-            )}
-          </td>
-
-          <td>
-            ${escapeHTML(x.date)}
-          </td>
-
-          <td>
-
-            <button
-              class="smallBtn dangerBtn"
-              onclick="supprimerDevoir('${x.id}')">
-              🗑️
-            </button>
-
-          </td>
-
-        </tr>
-
-      `).join("")
-
-      : `
-        <tr>
-          <td colspan="5" class="empty">
-            Pa gen devwa.
-          </td>
-        </tr>
-      `;
 }
 
 
-window.supprimerDevoir=function(id){
+/* =====================================================
+   REMISE
+===================================================== */
 
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  ) return;
+window.ajouterRemise =
+async function(){
 
+  const eleve =
+    document
+      .getElementById("remiseEleve")
+      .value
+      .trim();
 
-  saveData(
-    "devoirs",
-    getData("devoirs")
-      .filter(
-        x=>String(x.id)!==String(id)
-      )
-  );
+  const devoir =
+    document
+      .getElementById("remiseDevoir")
+      .value
+      .trim();
 
+  const date =
+    document
+      .getElementById("remiseDate")
+      .value;
 
-  afficherDevoirs();
-
-  remplirSelects();
-
-  actualiserDashboard();
-};
-
-
-/* ======================================================
-   REMISES
-====================================================== */
-
-window.ajouterRemise=function(){
-
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  ) return;
+  const commentaire =
+    document
+      .getElementById("remiseCommentaire")
+      .value
+      .trim();
 
 
-  const eleve=
-    document.getElementById(
-      "remiseEleve"
-    ).value;
+  if(!eleve || !devoir){
 
-
-  const devoir=
-    document.getElementById(
-      "remiseDevoir"
-    ).value;
-
-
-  const note=
-    Number(
-      document.getElementById(
-        "remiseNote"
-      ).value
-    );
-
-
-  const commentaire=
-    document.getElementById(
-      "remiseCommentaire"
-    ).value.trim();
-
-
-  if(
-    !eleve ||
-    !devoir ||
-    Number.isNaN(note) ||
-    note<0 ||
-    note>20
-  ){
-
-    showToast(
-      "Nòt la dwe ant 0 ak 20."
+    alert(
+      "Tanpri antre elèv ak devwa a."
     );
 
     return;
+
   }
 
 
-  const data=
+  const data =
     getData("remises");
 
 
   data.push({
 
-    id:uid(),
+    id:Date.now(),
 
     eleve,
 
     devoir,
 
-    note20:
-      Number(note.toFixed(2)),
-
-    note:
-      Number(note.toFixed(2)),
+    date,
 
     commentaire
+
   });
 
 
-  saveData(
+  await saveData(
     "remises",
     data
   );
 
 
-  document.getElementById(
-    "remiseNote"
-  ).value="";
+  document
+    .getElementById("remiseEleve")
+    .value="";
 
+  document
+    .getElementById("remiseDevoir")
+    .value="";
 
-  document.getElementById(
-    "remiseCommentaire"
-  ).value="";
+  document
+    .getElementById("remiseDate")
+    .value="";
+
+  document
+    .getElementById("remiseCommentaire")
+    .value="";
 
 
   afficherRemises();
 
-  afficherResultatEleve();
-
-  actualiserStatistiques();
 };
 
 
 function afficherRemises(){
 
-  const tbody=
+  const tbody =
+    document
+      .getElementById("listeRemises");
+
+  if(!tbody) return;
+
+  const data =
+    getData("remises");
+
+
+  tbody.innerHTML =
+    data.map(
+      r=>`
+
+      <tr>
+
+        <td>${r.eleve || ""}</td>
+
+        <td>${r.devoir || ""}</td>
+
+        <td>${r.date || ""}</td>
+
+        <td>${r.commentaire || ""}</td>
+
+      </tr>
+
+      `
+    ).join("");
+
+}
+
+
+/* =====================================================
+   STATISTIK
+===================================================== */
+
+function afficherStatistiques(){
+
+  const eleves =
+    getData("eleves");
+
+  const profs =
+    getData("professeurs");
+
+  const devoirs =
+    getData("devoirs");
+
+
+  const statEleves =
     document.getElementById(
-      "listeRemises"
+      "statEleves"
+    );
+
+  const statProf =
+    document.getElementById(
+      "statProfesseurs"
+    );
+
+  const statClasses =
+    document.getElementById(
+      "statClasses"
+    );
+
+  const statDevoirs =
+    document.getElementById(
+      "statDevoirs"
+    );
+
+
+  if(statEleves)
+    statEleves.textContent =
+      eleves.length;
+
+  if(statProf)
+    statProf.textContent =
+      profs.length;
+
+  if(statClasses)
+    statClasses.textContent =
+      getData("classes").length;
+
+  if(statDevoirs)
+    statDevoirs.textContent =
+      devoirs.length;
+
+
+  const totalElevesStat =
+    document.getElementById(
+      "totalElevesStat"
+    );
+
+  const totalProfStat =
+    document.getElementById(
+      "totalProfStat"
+    );
+
+  const totalDevoirStat =
+    document.getElementById(
+      "totalDevoirStat"
+    );
+
+  if(totalElevesStat)
+    totalElevesStat.textContent =
+      eleves.length;
+
+  if(totalProfStat)
+    totalProfStat.textContent =
+      profs.length;
+
+  if(totalDevoirStat)
+    totalDevoirStat.textContent =
+      devoirs.length;
+
+}
+
+
+/* =====================================================
+   RESULTA
+===================================================== */
+
+window.afficherResultat =
+function(){
+
+  const value =
+    document
+      .getElementById("resultatEleve")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const container =
+    document.getElementById(
+      "resultatContainer"
+    );
+
+  if(!container) return;
+
+  if(!value){
+
+    container.innerHTML="";
+
+    return;
+
+  }
+
+
+  const eleves =
+    getData("eleves");
+
+
+  const found =
+    eleves.filter(
+      e=>
+        (
+          (e.prenom || "")+
+          " "+
+          (e.nom || "")
+        )
+        .toLowerCase()
+        .includes(value)
+    );
+
+
+  container.innerHTML =
+    found.length
+
+      ? found.map(
+          e=>`
+
+          <div class="card">
+
+            <strong>
+              ${e.prenom || ""} ${e.nom || ""}
+            </strong>
+
+            <p>
+              Klas: ${e.classe || "-"}
+            </p>
+
+          </div>
+
+          `
+        ).join("")
+
+      : "<p>Pa gen rezilta.</p>";
+
+};
+
+
+/* =====================================================
+   KONVÈTI ANSYEN DONE
+===================================================== */
+
+function convertirNotesAnciennes(){
+
+  /*
+    Fonksyon sa a rete pou ansyen
+    done aplikasyon an.
+  */
+
+}
+
+
+/* =====================================================
+   PERMISSIONS
+===================================================== */
+
+function appliquerPermissions(){
+
+  const role =
+    currentUserProfile?.role || "";
+
+
+  const utilisateurs =
+    document.getElementById(
+      "utilisateurs"
+    );
+
+  if(
+    utilisateurs &&
+    role !== "administrateur"
+  ){
+
+    utilisateurs.style.display="none";
+
+  }
+
+
+  if(
+    role === "administrateur"
+  ){
+
+    if(utilisateurs){
+
+      utilisateurs.style.display="block";
+
+    }
+
+  }
+
+}
+
+
+/* =====================================================
+   UTILIZATÈ
+===================================================== */
+
+async function chargerUtilisateurs(){
+
+  const tbody =
+    document.getElementById(
+      "listeUtilisateurs"
     );
 
   if(!tbody) return;
 
 
-  const eleves=
-    getData("eleves");
+  if(
+    currentUserProfile?.role !==
+    "administrateur"
+  ){
 
-  const devoirs=
-    getData("devoirs");
+    tbody.innerHTML="";
 
-  const data=
-    getData("remises");
+    return;
+
+  }
 
 
-  const eName=id=>{
+  try{
 
-    const e=
-      eleves.find(
-        x=>String(x.id)===String(id)
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "users"
+        )
       );
 
-    return e
-      ? `${e.prenom} ${e.nom}`
-      : id || "";
-  };
+
+    tbody.innerHTML="";
 
 
-  const dName=id=>
+    snapshot.forEach(
+      item=>{
 
-    devoirs.find(
-      x=>String(x.id)===String(id)
-    )?.titre || id || "";
-
-
-  tbody.innerHTML=
-    data.length
-
-      ? data.map(x=>{
-
-        const n=
-          Number(
-            x.note20 ??
-            x.note ??
-            0
-          );
+        const u =
+          item.data();
 
 
-        const n20=
-          Math.min(
-            20,
-            Math.max(0,n)
-          );
+        const role =
+          String(
+            u.role || ""
+          )
+          .trim()
+          .toLowerCase();
 
 
-        const n100=
-          n20*5;
+        const status =
+          String(
+            u.status || ""
+          )
+          .trim()
+          .toLowerCase();
 
 
-        return `
+        let badge =
+          `<span class="badge badgeAttente">
+             ${status || "pending"}
+           </span>`;
+
+
+        if(status === "accepted"){
+
+          badge =
+            `<span class="badge badgeProf">
+              accepted
+            </span>`;
+
+        }
+
+
+        tbody.innerHTML += `
 
           <tr>
 
             <td>
-              ${escapeHTML(
-                eName(x.eleve)
-              )}
+              ${u.displayName || ""}
             </td>
 
             <td>
-              ${escapeHTML(
-                dName(x.devoir)
-              )}
-            </td>
-
-            <td class="note20">
-              ${n20.toFixed(2)}/20
-            </td>
-
-            <td class="note100">
-              ${n100.toFixed(2)}/100
+              ${u.email || ""}
             </td>
 
             <td>
-              ${escapeHTML(
-                x.commentaire
-              )}
+              ${roleLabel(role)}
+            </td>
+
+            <td>
+              ${badge}
             </td>
 
             <td>
 
-              <button
-                class="smallBtn dangerBtn"
-                onclick="supprimerRemise('${x.id}')">
-                🗑️
-              </button>
+              ${
+                status !== "accepted"
+
+                ? `
+                  <button
+                    class="btn btnSuccess"
+                    onclick="accepterUtilisateur('${item.id}')"
+                  >
+                    ✅ Aksepte
+                  </button>
+                `
+
+                : ""
+              }
+
+              ${
+                status === "accepted" &&
+                item.id !== currentUser?.uid
+
+                ? `
+                  <button
+                    class="btn btnDanger"
+                    onclick="refuserUtilisateur('${item.id}')"
+                  >
+                    ❌ Retire
+                  </button>
+                `
+
+                : ""
+              }
 
             </td>
 
@@ -3318,924 +2458,173 @@ function afficherRemises(){
 
         `;
 
-      }).join("")
-
-      : `
-        <tr>
-          <td colspan="6" class="empty">
-            Pa gen remèt devwa.
-          </td>
-        </tr>
-      `;
-}
-
-
-window.supprimerRemise=function(id){
-
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  ) return;
-
-
-  saveData(
-    "remises",
-    getData("remises")
-      .filter(
-        x=>String(x.id)!==String(id)
-      )
-  );
-
-
-  afficherRemises();
-
-  actualiserStatistiques();
-};
-
-
-function convertirNotesAnciennes(){
-
-  const data=
-    getData("remises");
-
-  let changed=false;
-
-
-  const converted=
-    data.map(x=>{
-
-      let n=
-        Number(
-          x.note20 ??
-          x.note
-        );
-
-
-      if(Number.isNaN(n)){
-        return x;
       }
-
-
-      if(n>20){
-
-        n=n/5;
-
-        changed=true;
-      }
-
-
-      const y={
-        ...x,
-        note20:
-          Number(n.toFixed(2)),
-        note:
-          Number(n.toFixed(2))
-      };
-
-
-      if(
-        x.note20 !==
-        y.note20
-      ){
-        changed=true;
-      }
-
-
-      return y;
-    });
-
-
-  if(changed){
-
-    localStorage.setItem(
-      "remises",
-      JSON.stringify(converted)
     );
 
+  }catch(error){
 
-    if(currentUser){
-
-      window.firebaseSaveData(
-        "remises",
-        converted
-      );
-    }
-  }
-}
-
-
-/* ======================================================
-   RESULTATS
-====================================================== */
-
-window.afficherResultatEleve=function(){
-
-  const id=
-    document.getElementById(
-      "resultatEleve"
-    ).value;
-
-
-  const box=
-    document.getElementById(
-      "resultatEleveDetails"
+    console.error(
+      "UTILISATEURS ERROR:",
+      error
     );
 
-
-  if(!id){
-
-    box.innerHTML="";
-
-    return;
   }
 
+}
 
-  const eleves=
-    getData("eleves");
 
+window.chargerUtilisateurs =
+chargerUtilisateurs;
 
-  const e=
-    eleves.find(
-      x=>String(x.id)===String(id)
-    );
 
+/* =====================================================
+   AKSEPTE ITILIZATÈ
+===================================================== */
 
-  const remises=
-    getData("remises")
-      .filter(
-        x=>String(x.eleve)===String(id)
-      );
-
-
-  if(!e){
-
-    box.innerHTML="";
-
-    return;
-  }
-
-
-  const notes=
-    remises
-      .map(
-        x=>Number(
-          x.note20 ??
-          x.note
-        )
-      )
-      .filter(
-        n=>!Number.isNaN(n)
-      );
-
-
-  const moyenne=
-    notes.length
-      ? notes.reduce(
-          (a,b)=>a+b,
-          0
-        )/notes.length
-      : 0;
-
-
-  box.innerHTML=`
-
-    <div class="card">
-
-      <h3>
-        ${escapeHTML(e.prenom)}
-        ${escapeHTML(e.nom)}
-      </h3>
-
-      <p>
-
-        <strong>Mwayèn:</strong>
-
-        ${moyenne.toFixed(2)}/20
-
-        —
-
-        ${(moyenne*5).toFixed(2)}/100
-
-      </p>
-
-      <br>
-
-      <div class="tableWrap">
-
-        <table>
-
-          <thead>
-
-            <tr>
-              <th>Devwa</th>
-              <th>Nòt /20</th>
-              <th>/100</th>
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            ${
-              remises.length
-
-              ? remises.map(r=>{
-
-                  const n=
-                    Number(
-                      r.note20 ??
-                      r.note ??
-                      0
-                    );
-
-
-                  const devoir=
-                    getData("devoirs")
-                      .find(
-                        d=>String(d.id)===
-                          String(r.devoir)
-                      );
-
-
-                  return `
-
-                    <tr>
-
-                      <td>
-                        ${escapeHTML(
-                          devoir?.titre || ""
-                        )}
-                      </td>
-
-                      <td>
-                        ${n.toFixed(2)}/20
-                      </td>
-
-                      <td>
-                        ${(n*5).toFixed(2)}/100
-                      </td>
-
-                    </tr>
-
-                  `;
-
-                }).join("")
-
-              : `
-
-                <tr>
-
-                  <td
-                    colspan="3"
-                    class="empty">
-
-                    Pa gen nòt.
-
-                  </td>
-
-                </tr>
-
-              `
-            }
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </div>
-  `;
-};
-
-
-/* ======================================================
-   SELECTS
-====================================================== */
-
-function setSelect(
-  id,
-  items,
-  labelFn,
-  empty="Chwazi..."
-){
-
-  const el=
-    document.getElementById(id);
-
-  if(!el) return;
-
-
-  const old=
-    el.value;
-
-
-  el.innerHTML=
-    `<option value="">
-      ${empty}
-    </option>`+
-
-    items.map(x=>
-
-      `<option value="${escapeHTML(x.id)}">
-        ${escapeHTML(
-          labelFn(x)
-        )}
-      </option>`
-
-    ).join("");
-
+window.accepterUtilisateur =
+async function(uid){
 
   if(
-    items.some(
-      x=>String(x.id)===
-        String(old)
-    )
-  ){
-
-    el.value=old;
-  }
-}
-
-
-function remplirSelects(){
-
-  const classes=
-    getData("classes");
-
-  const matieres=
-    getData("matieres");
-
-  const eleves=
-    getData("eleves");
-
-  const devoirs=
-    getData("devoirs");
-
-
-  setSelect(
-    "eleveClasse",
-    classes,
-    x=>x.nom,
-    "Chwazi klas"
-  );
-
-
-  setSelect(
-    "devoirClasse",
-    classes,
-    x=>x.nom,
-    "Chwazi klas"
-  );
-
-
-  setSelect(
-    "profMatiere",
-    matieres,
-    x=>x.nom,
-    "Chwazi matyè"
-  );
-
-
-  setSelect(
-    "devoirMatiere",
-    matieres,
-    x=>x.nom,
-    "Chwazi matyè"
-  );
-
-
-  setSelect(
-    "remiseEleve",
-    eleves,
-    x=>`${x.prenom} ${x.nom}`,
-    "Chwazi elèv"
-  );
-
-
-  setSelect(
-    "remiseDevoir",
-    devoirs,
-    x=>x.titre,
-    "Chwazi devwa"
-  );
-
-
-  setSelect(
-    "resultatEleve",
-    eleves,
-    x=>`${x.prenom} ${x.nom}`,
-    "Chwazi elèv"
-  );
-}
-
-
-/* ======================================================
-   DASHBOARD
-====================================================== */
-
-function actualiserDashboard(){
-
-  document.getElementById(
-    "statEleves"
-  ).textContent=
-    getData("eleves").length;
-
-
-  document.getElementById(
-    "statProfesseurs"
-  ).textContent=
-    getData("professeurs").length;
-
-
-  document.getElementById(
-    "statClasses"
-  ).textContent=
-    getData("classes").length;
-
-
-  document.getElementById(
-    "statDevoirs"
-  ).textContent=
-    getData("devoirs").length;
-}
-
-
-/* ======================================================
-   STATISTIQUES
-====================================================== */
-
-function actualiserStatistiques(){
-
-  const remises=
-    getData("remises");
-
-
-  const notes=
-    remises
-      .map(
-        x=>Number(
-          x.note20 ??
-          x.note
-        )
-      )
-      .filter(
-        n=>!Number.isNaN(n)
-      );
-
-
-  const avg=
-    notes.length
-
-      ? notes.reduce(
-          (a,b)=>a+b,
-          0
-        )/notes.length
-
-      : 0;
-
-
-  document.getElementById(
-    "totalElevesStat"
-  ).textContent=
-    getData("eleves").length;
-
-
-  document.getElementById(
-    "totalProfStat"
-  ).textContent=
-    getData("professeurs").length;
-
-
-  document.getElementById(
-    "totalDevoirStat"
-  ).textContent=
-    getData("devoirs").length;
-
-
-  document.getElementById(
-    "moyenneStat"
-  ).textContent=
-    avg.toFixed(2);
-}
-
-
-/* ======================================================
-   ACTUALISER TOUT
-====================================================== */
-
-function actualiserTout(){
-
-  afficherClasses();
-
-  afficherMatieres();
-
-  afficherEleves();
-
-  afficherProfesseurs();
-
-  afficherDevoirs();
-
-  afficherRemises();
-
-  remplirSelects();
-
-  actualiserDashboard();
-
-  actualiserStatistiques();
-
-
-  if(
-    currentUserProfile?.role===
+    currentUserProfile?.role !==
     "administrateur"
   ){
 
-    chargerUtilisateurs();
-  }
-}
-
-
-/* ======================================================
-   UTILISATEURS ADMIN
-====================================================== */
-
-async function chargerUtilisateurs(){
-
-  if(
-    !requireRole([
-      "administrateur"
-    ])
-  ) return;
-
-
-  const tbody=
-    document.getElementById(
-      "listeUtilisateurs"
-    );
-
-
-  if(!tbody) return;
-
-
-  try{
-
-    const snap=
-      await getDocs(
-        collection(db,"users")
-      );
-
-
-    const users=[];
-
-
-    snap.forEach(d=>{
-
-      users.push({
-        id:d.id,
-        ...d.data()
-      });
-    });
-
-
-    users.sort((a,b)=>{
-
-      const sa=
-        a.status==="pending"
-          ? 0
-          : 1;
-
-
-      const sb=
-        b.status==="pending"
-          ? 0
-          : 1;
-
-
-      return sa-sb;
-    });
-
-
-    tbody.innerHTML=
-
-      users.length
-
-      ? users.map(d=>{
-
-          const pending=
-            d.status!=="accepted" &&
-            d.status!=="rejected";
-
-
-          return `
-
-            <tr>
-
-              <td>
-                ${escapeHTML(
-                  d.displayName ||
-                  `${d.prenom||""} ${d.nom||""}`
-                )}
-              </td>
-
-              <td>
-                ${escapeHTML(
-                  d.email||""
-                )}
-              </td>
-
-              <td>
-
-                <span
-                  class="${roleClass(d.role)}">
-
-                  ${escapeHTML(
-                    roleLabel(d.role)
-                  )}
-
-                </span>
-
-              </td>
-
-              <td>
-
-                <span
-                  class="${
-                    d.status==="accepted"
-                      ? "badge badgeAccepted"
-                      :
-                    d.status==="rejected"
-                      ? "badge badgeRejected"
-                      :
-                        "badge badgePending"
-                  }">
-
-                  ${escapeHTML(
-                    statusBadge(d.status)
-                  )}
-
-                </span>
-
-              </td>
-
-              <td>
-
-                ${
-                  pending
-
-                  ? `
-
-                    <select
-                      id="role_${d.id}"
-                      style="
-                        padding:8px;
-                        border-radius:8px;
-                        border:1px solid #ddd;
-                      ">
-
-                      <option value="">
-                        Chwazi wòl
-                      </option>
-
-                      <option value="eleve">
-                        Elèv
-                      </option>
-
-                      <option value="professeur">
-                        Pwofesè
-                      </option>
-
-                      <option value="administrateur">
-                        Administratè
-                      </option>
-
-                    </select>
-
-
-                    <button
-                      class="smallBtn successBtn"
-                      onclick="accepterDemande('${d.id}')">
-
-                      ✅ Aksepte
-
-                    </button>
-
-
-                    <button
-                      class="smallBtn dangerBtn"
-                      onclick="refuserDemande('${d.id}')">
-
-                      ❌ Refize
-
-                    </button>
-
-                  `
-
-                  : ""
-                }
-
-              </td>
-
-            </tr>
-
-          `;
-
-        }).join("")
-
-      : `
-
-        <tr>
-
-          <td
-            colspan="5"
-            class="empty">
-
-            Pa gen itilizatè.
-
-          </td>
-
-        </tr>
-
-      `;
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showToast(
-      "Erè pandan chajman itilizatè yo."
-    );
-  }
-}
-
-
-/* ======================================================
-   AKSEPTE
-====================================================== */
-
-window.accepterDemande=
-async function(uidUser){
-
-  if(
-    !currentUser ||
-    currentUserProfile?.role!==
-      "administrateur"
-  ){
-
-    showToast(
-      "⛔ Se administratè a ki ka aksepte demann."
+    alert(
+      "Se administratè a ki ka fè sa."
     );
 
     return;
-  }
 
-
-  const roleSelect=
-    document.getElementById(
-      "role_"+uidUser
-    );
-
-
-  const role=
-    roleSelect
-      ? roleSelect.value
-      : "";
-
-
-  if(
-    ![
-      "eleve",
-      "professeur",
-      "administrateur"
-    ].includes(role)
-  ){
-
-    showToast(
-      "⚠️ Tanpri chwazi wòl itilizatè a."
-    );
-
-    return;
   }
 
 
   try{
 
     await setDoc(
+
       doc(
         db,
         "users",
-        uidUser
+        uid
       ),
+
       {
-        role,
-        status:"accepted",
-        approvedBy:currentUser.uid,
-        approvedAt:serverTimestamp()
+        status:"accepted"
       },
-      {merge:true}
+
+      {
+        merge:true
+      }
+
     );
 
 
-    showToast(
-      "✅ Kont lan aksepte."
+    alert(
+      "Kont lan aksepte."
     );
 
 
     await chargerUtilisateurs();
 
-
   }catch(error){
 
     console.error(error);
 
-    showToast(
-      "Erè pandan akseptasyon an: "+
-      error.message
+    alert(
+      "Erè: "+error.message
     );
+
   }
+
 };
 
 
-/* ======================================================
-   REFIZE
-====================================================== */
+/* =====================================================
+   REFIZE ITILIZATÈ
+===================================================== */
 
-window.refuserDemande=
-async function(uidUser){
+window.refuserUtilisateur =
+async function(uid){
 
   if(
-    !currentUser ||
-    currentUserProfile?.role!==
-      "administrateur"
+    currentUserProfile?.role !==
+    "administrateur"
   ){
 
-    showToast(
-      "⛔ Se administratè a ki ka refize demann."
+    alert(
+      "Se administratè a ki ka fè sa."
     );
 
     return;
+
   }
 
 
   try{
 
     await setDoc(
+
       doc(
         db,
         "users",
-        uidUser
+        uid
       ),
+
       {
-        status:"rejected",
-        approvedBy:currentUser.uid,
-        approvedAt:serverTimestamp()
+        status:"pending"
       },
-      {merge:true}
+
+      {
+        merge:true
+      }
+
     );
 
 
-    showToast(
-      "❌ Demann lan refize."
+    alert(
+      "Kont lan retounen an atant."
     );
 
 
     await chargerUtilisateurs();
 
-
   }catch(error){
 
     console.error(error);
 
-    showToast(
-      "Erè pandan refi a: "+
-      error.message
+    alert(
+      "Erè: "+error.message
     );
+
   }
+
 };
 
 
-/* ======================================================
-   SAUVEGARDE
-====================================================== */
+/* =====================================================
+   EXPORT DONE
+===================================================== */
 
-window.exporterDonnees=function(){
+window.exporterDonnees =
+function(){
 
-  const obj={};
+  const data={};
+
+  DATA_KEYS.forEach(
+    key=>{
+
+      data[key]=
+        getData(key);
+
+    }
+  );
 
 
-  collections.forEach(k=>{
-
-    obj[k]=getData(k);
-  });
-
-
-  const blob=
+  const blob =
     new Blob(
       [
         JSON.stringify(
-          obj,
+          data,
           null,
           2
         )
@@ -4246,236 +2635,172 @@ window.exporterDonnees=function(){
     );
 
 
-  const a=
-    document.createElement("a");
-
-
-  a.href=
+  const url =
     URL.createObjectURL(blob);
 
+
+  const a =
+    document.createElement("a");
+
+  a.href=url;
 
   a.download=
     "sistem-aprantisaj-done.json";
 
-
   a.click();
 
 
-  URL.revokeObjectURL(
-    a.href
-  );
+  URL.revokeObjectURL(url);
+
 };
 
 
-window.importerDonnees=
-function(event){
+/* =====================================================
+   IMPORT DONE
+===================================================== */
 
-  if(
-    !requireRole([
-      "administrateur"
-    ])
-  ) return;
+window.importerDonnees =
+async function(event){
 
-
-  const file=
+  const file =
     event.target.files[0];
-
 
   if(!file) return;
 
 
-  const reader=
-    new FileReader();
+  try{
+
+    const text =
+      await file.text();
+
+    const data =
+      JSON.parse(text);
 
 
-  reader.onload=e=>{
+    for(
+      const key of DATA_KEYS
+    ){
 
-    try{
+      if(
+        Array.isArray(data[key])
+      ){
 
-      const obj=
-        JSON.parse(
-          e.target.result
+        await saveData(
+          key,
+          data[key]
         );
 
+      }
 
-      collections.forEach(k=>{
-
-        if(
-          Array.isArray(obj[k])
-        ){
-
-          localStorage.setItem(
-            k,
-            JSON.stringify(obj[k])
-          );
-        }
-      });
-
-
-      actualiserTout();
-
-
-      showToast(
-        "Done yo enpòte."
-      );
-
-
-    }catch{
-
-      showToast(
-        "Fichye a pa valab."
-      );
     }
-  };
 
 
-  reader.readAsText(file);
+    actualiserTout();
+
+
+    alert(
+      "Done yo enpòte avèk siksè."
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Fichye a pa valab."
+    );
+
+  }
+
 };
 
 
-window.effacerTout=function(){
+/* =====================================================
+   EFASE DONE LOKAL
+===================================================== */
 
-  if(
-    !requireRole([
-      "administrateur"
-    ])
-  ) return;
-
+window.effacerTout =
+function(){
 
   if(
     !confirm(
       "Èske ou sèten ou vle efase done lokal yo?"
     )
-  ) return;
+  ){
+
+    return;
+
+  }
 
 
-  collections.forEach(k=>{
+  DATA_KEYS.forEach(
+    key=>{
 
-    localStorage.removeItem(k);
-  });
+      localStorage.removeItem(
+        key
+      );
+
+    }
+  );
 
 
   actualiserTout();
-};
 
 
-/* ======================================================
-   LANGUAGE
-====================================================== */
-
-const translations={
-
-  ht:{
-    logout:"Déconnexion"
-  },
-
-  fr:{
-    logout:"Déconnexion"
-  }
-};
-
-
-window.changerLangue=function(lang){
-
-  localStorage.setItem(
-    "appLanguage",
-    lang
+  alert(
+    "Done lokal yo efase."
   );
 
-  const select=
-    document.getElementById(
-      "languageSelect"
-    );
-
-  if(select){
-
-    select.value=lang;
-  }
 };
 
 
-/* ======================================================
-   PWA
-====================================================== */
-
-window.addEventListener(
-  "beforeinstallprompt",
-  e=>{
-
-    e.preventDefault();
-
-    deferredPrompt=e;
-
-
-    const btn=
-      document.getElementById(
-        "installButton"
-      );
-
-
-    if(btn){
-
-      btn.style.display="block";
-    }
-  }
-);
-
-
-window.installerApp=
-async function(){
-
-  if(!deferredPrompt) return;
-
-
-  deferredPrompt.prompt();
-
-
-  await deferredPrompt.userChoice;
-
-
-  deferredPrompt=null;
-
-
-  document.getElementById(
-    "installButton"
-  ).style.display="none";
-};
-
-
-/* ======================================================
+/* =====================================================
    SERVICE WORKER
-====================================================== */
+===================================================== */
 
-if("serviceWorker" in navigator){
+if(
+  "serviceWorker" in navigator
+){
 
   window.addEventListener(
     "load",
     ()=>{
 
       navigator.serviceWorker
-        .register("./sw.js")
+        .register(
+          "./service-worker.js"
+        )
+        .then(
+          registration=>{
+
+            console.log(
+              "Service Worker OK:",
+              registration.scope
+            );
+
+          }
+        )
         .catch(
-          e=>console.log(
-            "SW:",
-            e
-          )
+          error=>{
+
+            console.warn(
+              "Service Worker:",
+              error
+            );
+
+          }
         );
+
     }
   );
+
 }
 
 
-/* ======================================================
-   INITIALISATION
-====================================================== */
-
-document.getElementById(
-  "languageSelect"
-).value=
-  localStorage.getItem(
-    "appLanguage"
-  ) || "ht";
-
+/* =====================================================
+   FIN
+===================================================== */
 
 hideLoading();
 
