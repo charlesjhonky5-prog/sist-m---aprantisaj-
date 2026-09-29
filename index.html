@@ -1831,3 +1831,2655 @@ async function handleUser(user){
 
       document.getElementById("userEmail")
         .textContent=user.email || data.email || "";
+
+
+      document.getElementById("userName")
+        .textContent=
+          data.displayName ||
+          user.displayName ||
+          "Administratè";
+
+
+      document.getElementById("userRole")
+        .textContent=
+          "Administratè";
+
+
+      if(user.photoURL){
+
+        document.getElementById("userPhoto")
+          .src=user.photoURL;
+
+      }
+
+
+      await chargerToutFirebase();
+
+      convertirNotesAnciennes();
+
+      actualiserTout();
+
+      appliquerPermissions();
+
+      return;
+    }
+
+
+    /*
+      Lòt wòl yo dwe accepted.
+    */
+
+    if(status!=="accepted"){
+
+      document.getElementById("app")
+        .style.display="none";
+
+      document.getElementById("loginBox")
+        .style.display="flex";
+
+
+      showAuthMsg(
+        "Kont ou poko valide. Administratè a dwe aksepte kont lan.",
+        "error"
+      );
+
+
+      await signOut(auth);
+
+      return;
+    }
+
+
+    /*
+      Kont ki accepted.
+    */
+
+    document.getElementById("loginBox")
+      .style.display="none";
+
+    document.getElementById("app")
+      .style.display="block";
+
+
+    document.getElementById("userEmail")
+      .textContent=user.email || data.email || "";
+
+
+    document.getElementById("userName")
+      .textContent=
+        data.displayName ||
+        user.displayName ||
+        "Utilisateur";
+
+
+    document.getElementById("userRole")
+      .textContent=
+        roleLabel(role);
+
+
+    if(user.photoURL){
+
+      document.getElementById("userPhoto")
+        .src=user.photoURL;
+    }
+
+
+    await chargerToutFirebase();
+
+    convertirNotesAnciennes();
+
+    actualiserTout();
+
+    appliquerPermissions();
+
+
+  }catch(error){
+
+    console.error(
+      "ERÈ HANDLE USER:",
+      error
+    );
+
+    /*
+      Nou pa voye kont lan nan pending
+      lè se yon erè Firestore.
+    */
+
+    document.getElementById("app")
+      .style.display="none";
+
+    document.getElementById("loginBox")
+      .style.display="flex";
+
+    showAuthMsg(
+      "Erè pandan chajman kont lan: "+error.message,
+      "error"
+    );
+  }
+}
+
+
+/* ======================================================
+   AUTH STATE
+====================================================== */
+
+getRedirectResult(auth)
+.then(result=>{
+
+  if(result?.user){
+
+    handleUser(result.user);
+  }
+
+})
+.catch(error=>{
+
+  console.error(
+    "Redirect Google:",
+    error
+  );
+});
+
+
+onAuthStateChanged(
+  auth,
+  user=>{
+
+    if(user){
+
+      handleUser(user);
+
+    }else{
+
+      currentUser=null;
+
+      currentUserProfile=null;
+
+      document.getElementById("app")
+        .style.display="none";
+
+      document.getElementById("loginBox")
+        .style.display="flex";
+    }
+  }
+);
+
+
+/* ======================================================
+   PERMISSIONS
+====================================================== */
+
+function canAccess(section){
+
+  const role=
+    currentUserProfile?.role;
+
+
+  if(role==="administrateur"){
+    return true;
+  }
+
+
+  const permissions={
+
+    professeur:[
+      "accueil",
+      "eleves",
+      "classes",
+      "matieres",
+      "devoirs",
+      "remises",
+      "resultats",
+      "statistiques"
+    ],
+
+    eleve:[
+      "accueil",
+      "devoirs",
+      "remises",
+      "resultats"
+    ]
+  };
+
+
+  return permissions[role]
+    ?.includes(section) || false;
+}
+
+
+function requireRole(roles){
+
+  if(
+    !currentUserProfile ||
+    !roles.includes(
+      currentUserProfile.role
+    )
+  ){
+
+    showToast(
+      "⛔ Aksyon sa a rezève pou wòl ki otorize a."
+    );
+
+    return false;
+  }
+
+  return true;
+}
+
+
+/* ======================================================
+   NAVIGATION
+====================================================== */
+
+window.showSection=function(id){
+
+  if(!canAccess(id)){
+
+    showToast(
+      "⛔ Ou pa gen aksè ak seksyon sa a."
+    );
+
+    return;
+  }
+
+
+  document
+    .querySelectorAll(".section")
+    .forEach(section=>{
+      section.classList.remove("active");
+    });
+
+
+  const section=
+    document.getElementById(id);
+
+
+  if(section){
+
+    section.classList.add("active");
+  }
+
+
+  document
+    .querySelectorAll("#mainNav button")
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
+
+  const btn=
+    document.querySelector(
+      `[data-section="${id}"]`
+    );
+
+
+  if(btn){
+
+    btn.classList.add("active");
+  }
+};
+
+
+function appliquerPermissions(){
+
+  const role=
+    currentUserProfile?.role;
+
+
+  document
+    .querySelectorAll("#mainNav button")
+    .forEach(btn=>{
+
+      const section=
+        btn.getAttribute("data-section");
+
+      btn.style.display=
+        canAccess(section)
+          ? ""
+          : "none";
+    });
+
+
+  const firstAllowed="accueil";
+
+
+  if(canAccess(firstAllowed)){
+
+    showSection(firstAllowed);
+  }
+}
+
+
+/* ======================================================
+   FIREBASE DATA
+====================================================== */
+
+const collections=[
+  "eleves",
+  "professeurs",
+  "classes",
+  "matieres",
+  "devoirs",
+  "remises"
+];
+
+
+window.firebaseSaveData=async function(
+  key,
+  data
+){
+
+  try{
+
+    for(const item of data){
+
+      if(!item.id) continue;
+
+
+      await setDoc(
+        doc(
+          db,
+          key,
+          String(item.id)
+        ),
+        item,
+        {merge:true}
+      );
+    }
+
+
+    console.log(
+      "Firebase OK:",
+      key
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Firebase save error:",
+      key,
+      error
+    );
+  }
+};
+
+
+async function chargerCollection(key){
+
+  try{
+
+    const snap=
+      await getDocs(
+        collection(db,key)
+      );
+
+
+    const data=[];
+
+
+    snap.forEach(d=>{
+
+      data.push({
+        id:d.id,
+        ...d.data()
+      });
+    });
+
+
+    localStorage.setItem(
+      key,
+      JSON.stringify(data)
+    );
+
+
+    return data;
+
+
+  }catch(error){
+
+    console.error(
+      "Firebase read error:",
+      key,
+      error
+    );
+
+
+    return getData(key);
+  }
+}
+
+
+async function chargerToutFirebase(){
+
+  for(const key of collections){
+
+    await chargerCollection(key);
+  }
+}
+
+
+/* ======================================================
+   CLASSES
+====================================================== */
+
+window.ajouterClasse=function(){
+
+  if(
+    !requireRole([
+      "administrateur",
+      "professeur"
+    ])
+  ) return;
+
+
+  const nom=
+    document.getElementById("classeNom")
+    .value.trim();
+
+  const niveau=
+    document.getElementById("classeNiveau")
+    .value.trim();
+
+
+  if(!nom){
+
+    showToast(
+      "Tanpri antre non klas la."
+    );
+
+    return;
+  }
+
+
+  const data=
+    getData("classes");
+
+
+  data.push({
+    id:uid(),
+    nom,
+    niveau
+  });
+
+
+  saveData(
+    "classes",
+    data
+  );
+
+
+  document.getElementById("classeNom")
+    .value="";
+
+  document.getElementById("classeNiveau")
+    .value="";
+
+
+  afficherClasses();
+
+  remplirSelects();
+
+  actualiserDashboard();
+};
+
+
+function afficherClasses(){
+
+  const tbody=
+    document.getElementById(
+      "listeClasses"
+    );
+
+  if(!tbody) return;
+
+
+  const data=
+    getData("classes");
+
+
+  tbody.innerHTML=
+    data.length
+
+      ? data.map(x=>`
+
+        <tr>
+
+          <td>
+            ${escapeHTML(x.nom)}
+          </td>
+
+          <td>
+            ${escapeHTML(x.niveau)}
+          </td>
+
+          <td>
+
+            <button
+              class="smallBtn dangerBtn"
+              onclick="supprimerClasse('${x.id}')">
+              🗑️
+            </button>
+
+          </td>
+
+        </tr>
+
+      `).join("")
+
+      : `
+        <tr>
+          <td colspan="3" class="empty">
+            Pa gen klas.
+          </td>
+        </tr>
+      `;
+}
+
+
+window.supprimerClasse=function(id){
+
+  if(
+    !requireRole([
+      "administrateur",
+      "professeur"
+    ])
+  ) return;
+
+
+  saveData(
+    "classes",
+    getData("classes")
+      .filter(
+        x=>String(x.id)!==String(id)
+      )
+  );
+
+
+  afficherClasses();
+
+  remplirSelects();
+
+  actualiserDashboard();
+};
+
+
+/* ======================================================
+   MATIERES
+====================================================== */
+
+window.ajouterMatiere=function(){
+
+  if(
+    !requireRole([
+      "administrateur",
+      "professeur"
+    ])
+  ) return;
+
+
+  const nom=
+    document.getElementById("matiereNom")
+    .value.trim();
+
+
+  if(!nom){
+
+    showToast(
+      "Tanpri antre non matyè a."
+    );
+
+    return;
+  }
+
+
+  const data=
+    getData("matieres");
+
+
+  data.push({
+    id:uid(),
+    nom
+  });
+
+
+  saveData(
+    "matieres",
+    data
+  );
+
+
+  document.getElementById("matiereNom")
+    .value="";
+
+
+  afficherMatieres();
+
+  remplirSelects();
+};
+
+
+function afficherMatieres(){
+
+  const tbody=
+    document.getElementById(
+      "listeMatieres"
+    );
+
+  if(!tbody) return;
+
+
+  const data=
+    getData("matieres");
+
+
+  tbody.innerHTML=
+    data.length
+
+      ? data.map(x=>`
+
+        <tr>
+
+          <td>
+            ${escapeHTML(x.nom)}
+          </td>
+
+          <td>
+
+            <button
+              class="smallBtn dangerBtn"
+              onclick="supprimerMatiere('${x.id}')">
+              🗑️
+            </button>
+
+          </td>
+
+        </tr>
+
+      `).join("")
+
+      : `
+        <tr>
+          <td colspan="2" class="empty">
+            Pa gen matyè.
+          </td>
+        </tr>
+      `;
+}
+
+
+window.supprimerMatiere=function(id){
+
+  if(
+    !requireRole([
+      "administrateur",
+      "professeur"
+    ])
+  ) return;
+
+
+  saveData(
+    "matieres",
+    getData("matieres")
+      .filter(
+        x=>String(x.id)!==String(id)
+      )
+  );
+
+
+  afficherMatieres();
+
+  remplirSelects();
+};
+
+
+/* ======================================================
+   ELEVES
+====================================================== */
+
+window.ajouterEleve=function(){
+
+  if(
+    !requireRole([
+      "administrateur",
+      "professeur"
+    ])
+  ) return;
+
+
+  const prenom=
+    document.getElementById(
+      "elevePrenom"
+    ).value.trim();
+
+
+  const nom=
+    document.getElementById(
+      "eleveNom"
+    ).value.trim();
+
+
+  const email=
+    document.getElementById(
+      "eleveEmail"
+    ).value.trim();
+
+
+  const classe=
+    document.getElementById(
+      "eleveClasse"
+    ).value;
+
+
+  if(!prenom||!nom||!classe){
+
+    showToast(
+      "Tanpri ranpli enfòmasyon elèv la."
+    );
+
+    return;
+  }
+
+
+  const data=
+    getData("eleves");
+
+
+  data.push({
+    id:uid(),
+    prenom,
+    nom,
+    email,
+    classe
+  });
+
+
+  saveData(
+    "eleves",
+    data
+  );
+
+
+  document.getElementById(
+    "elevePrenom"
+  ).value="";
+
+
+  document.getElementById(
+    "eleveNom"
+  ).value="";
+
+
+  document.getElementById(
+    "eleveEmail"
+  ).value="";
+
+
+  afficherEleves();
+
+  remplirSelects();
+
+  actualiserDashboard();
+
+  actualiserStatistiques();
+};
+
+
+function afficherEleves(){
+
+  const tbody=
+    document.getElementById(
+      "listeEleves"
+    );
+
+  if(!tbody) return;
+
+
+  const classes=
+    getData("classes");
+
+  const data=
+    getData("eleves");
+
+
+  const className=id=>
+
+    classes.find(
+      x=>String(x.id)===String(id)
+    )?.nom || id || "";
+
+
+  tbody.innerHTML=
+    data.length
+
+      ? data.map(x=>`
+
+        <tr>
+
+          <td>
+            ${escapeHTML(x.prenom)}
+          </td>
+
+          <td>
+            ${escapeHTML(x.nom)}
+          </td>
+
+          <td>
+            ${escapeHTML(x.email||"")}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              className(x.classe)
+            )}
+          </td>
+
+          <td>
+
+            <button
+              class="smallBtn dangerBtn"
+              onclick="supprimerEleve('${x.id}')">
+              🗑️
+            </button>
+
+          </td>
+
+        </tr>
+
+      `).join("")
+
+      : `
+        <tr>
+          <td colspan="5" class="empty">
+            Pa gen elèv.
+          </td>
+        </tr>
+      `;
+}
+
+
+window.supprimerEleve=function(id){
+
+  if(
+    !requireRole([
+      "administrateur",
+      "professeur"
+    ])
+  ) return;
+
+
+  saveData(
+    "eleves",
+    getData("eleves")
+      .filter(
+        x=>String(x.id)!==String(id)
+      )
+  );
+
+
+  afficherEleves();
+
+  remplirSelects();
+
+  actualiserDashboard();
+
+  actualiserStatistiques();
+};
+
+
+/* ======================================================
+   PROFESSEURS
+====================================================== */
+
+window.ajouterProfesseur=function(){
+
+  if(
+    !requireRole([
+      "administrateur"
+    ])
+  ) return;
+
+
+  const prenom=
+    document.getElementById(
+      "profPrenom"
+    ).value.trim();
+
+
+  const nom=
+    document.getElementById(
+      "profNom"
+    ).value.trim();
+
+
+  const matiere=
+    document.getElementById(
+      "profMatiere"
+    ).value;
+
+
+  if(!prenom||!nom||!matiere){
+
+    showToast(
+      "Tanpri ranpli enfòmasyon pwofesè a."
+    );
+
+    return;
+  }
+
+
+  const data=
+    getData("professeurs");
+
+
+  data.push({
+    id:uid(),
+    prenom,
+    nom,
+    matiere
+  });
+
+
+  saveData(
+    "professeurs",
+    data
+  );
+
+
+  document.getElementById(
+    "profPrenom"
+  ).value="";
+
+
+  document.getElementById(
+    "profNom"
+  ).value="";
+
+
+  afficherProfesseurs();
+
+  actualiserDashboard();
+
+  actualiserStatistiques();
+};
+
+
+function afficherProfesseurs(){
+
+  const tbody=
+    document.getElementById(
+      "listeProfesseurs"
+    );
+
+  if(!tbody) return;
+
+
+  const matieres=
+    getData("matieres");
+
+  const data=
+    getData("professeurs");
+
+
+  const matName=id=>
+
+    matieres.find(
+      x=>String(x.id)===String(id)
+    )?.nom || id || "";
+
+
+  tbody.innerHTML=
+    data.length
+
+      ? data.map(x=>`
+
+        <tr>
+
+          <td>
+            ${escapeHTML(x.prenom)}
+          </td>
+
+          <td>
+            ${escapeHTML(x.nom)}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              matName(x.matiere)
+            )}
+          </td>
+
+          <td>
+
+            <button
+              class="smallBtn dangerBtn"
+              onclick="supprimerProfesseur('${x.id}')">
+              🗑️
+            </button>
+
+          </td>
+
+        </tr>
+
+      `).join("")
+
+      : `
+        <tr>
+          <td colspan="4" class="empty">
+            Pa gen pwofesè.
+          </td>
+        </tr>
+      `;
+}
+
+
+window.supprimerProfesseur=function(id){
+
+  if(
+    !requireRole([
+      "administrateur"
+    ])
+  ) return;
+
+
+  saveData(
+    "professeurs",
+    getData("professeurs")
+      .filter(
+        x=>String(x.id)!==String(id)
+      )
+  );
+
+
+  afficherProfesseurs();
+
+  actualiserDashboard();
+
+  actualiserStatistiques();
+};
+
+
+/* ======================================================
+   DEVOIRS
+====================================================== */
+
+window.ajouterDevoir=function(){
+
+  if(
+    !requireRole([
+      "administrateur",
+      "professeur"
+    ])
+  ) return;
+
+
+  const titre=
+    document.getElementById(
+      "devoirTitre"
+    ).value.trim();
+
+
+  const date=
+    document.getElementById(
+      "devoirDate"
+    ).value;
+
+
+  const description=
+    document.getElementById(
+      "devoirDescription"
+    ).value.trim();
+
+
+  const matiere=
+    document.getElementById(
+      "devoirMatiere"
+    ).value;
+
+
+  const classe=
+    document.getElementById(
+      "devoirClasse"
+    ).value;
+
+
+  if(!titre||!date||!matiere||!classe){
+
+    showToast(
+      "Tanpri ranpli enfòmasyon devwa a."
+    );
+
+    return;
+  }
+
+
+  const data=
+    getData("devoirs");
+
+
+  data.push({
+    id:uid(),
+    titre,
+    matiere,
+    classe,
+    date,
+    description
+  });
+
+
+  saveData(
+    "devoirs",
+    data
+  );
+
+
+  document.getElementById(
+    "devoirTitre"
+  ).value="";
+
+
+  document.getElementById(
+    "devoirDate"
+  ).value="";
+
+
+  document.getElementById(
+    "devoirDescription"
+  ).value="";
+
+
+  afficherDevoirs();
+
+  actualiserDashboard();
+
+  remplirSelects();
+};
+
+
+function afficherDevoirs(){
+
+  const tbody=
+    document.getElementById(
+      "listeDevoirs"
+    );
+
+  if(!tbody) return;
+
+
+  const mat=
+    getData("matieres");
+
+  const cls=
+    getData("classes");
+
+  const data=
+    getData("devoirs");
+
+
+  const matName=id=>
+
+    mat.find(
+      x=>String(x.id)===String(id)
+    )?.nom || id || "";
+
+
+  const clsName=id=>
+
+    cls.find(
+      x=>String(x.id)===String(id)
+    )?.nom || id || "";
+
+
+  tbody.innerHTML=
+    data.length
+
+      ? data.map(x=>`
+
+        <tr>
+
+          <td>
+            ${escapeHTML(x.titre)}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              matName(x.matiere)
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(
+              clsName(x.classe)
+            )}
+          </td>
+
+          <td>
+            ${escapeHTML(x.date)}
+          </td>
+
+          <td>
+
+            <button
+              class="smallBtn dangerBtn"
+              onclick="supprimerDevoir('${x.id}')">
+              🗑️
+            </button>
+
+          </td>
+
+        </tr>
+
+      `).join("")
+
+      : `
+        <tr>
+          <td colspan="5" class="empty">
+            Pa gen devwa.
+          </td>
+        </tr>
+      `;
+}
+
+
+window.supprimerDevoir=function(id){
+
+  if(
+    !requireRole([
+      "administrateur",
+      "professeur"
+    ])
+  ) return;
+
+
+  saveData(
+    "devoirs",
+    getData("devoirs")
+      .filter(
+        x=>String(x.id)!==String(id)
+      )
+  );
+
+
+  afficherDevoirs();
+
+  remplirSelects();
+
+  actualiserDashboard();
+};
+
+
+/* ======================================================
+   REMISES
+====================================================== */
+
+window.ajouterRemise=function(){
+
+  if(
+    !requireRole([
+      "administrateur",
+      "professeur"
+    ])
+  ) return;
+
+
+  const eleve=
+    document.getElementById(
+      "remiseEleve"
+    ).value;
+
+
+  const devoir=
+    document.getElementById(
+      "remiseDevoir"
+    ).value;
+
+
+  const note=
+    Number(
+      document.getElementById(
+        "remiseNote"
+      ).value
+    );
+
+
+  const commentaire=
+    document.getElementById(
+      "remiseCommentaire"
+    ).value.trim();
+
+
+  if(
+    !eleve ||
+    !devoir ||
+    Number.isNaN(note) ||
+    note<0 ||
+    note>20
+  ){
+
+    showToast(
+      "Nòt la dwe ant 0 ak 20."
+    );
+
+    return;
+  }
+
+
+  const data=
+    getData("remises");
+
+
+  data.push({
+
+    id:uid(),
+
+    eleve,
+
+    devoir,
+
+    note20:
+      Number(note.toFixed(2)),
+
+    note:
+      Number(note.toFixed(2)),
+
+    commentaire
+  });
+
+
+  saveData(
+    "remises",
+    data
+  );
+
+
+  document.getElementById(
+    "remiseNote"
+  ).value="";
+
+
+  document.getElementById(
+    "remiseCommentaire"
+  ).value="";
+
+
+  afficherRemises();
+
+  afficherResultatEleve();
+
+  actualiserStatistiques();
+};
+
+
+function afficherRemises(){
+
+  const tbody=
+    document.getElementById(
+      "listeRemises"
+    );
+
+  if(!tbody) return;
+
+
+  const eleves=
+    getData("eleves");
+
+  const devoirs=
+    getData("devoirs");
+
+  const data=
+    getData("remises");
+
+
+  const eName=id=>{
+
+    const e=
+      eleves.find(
+        x=>String(x.id)===String(id)
+      );
+
+    return e
+      ? `${e.prenom} ${e.nom}`
+      : id || "";
+  };
+
+
+  const dName=id=>
+
+    devoirs.find(
+      x=>String(x.id)===String(id)
+    )?.titre || id || "";
+
+
+  tbody.innerHTML=
+    data.length
+
+      ? data.map(x=>{
+
+        const n=
+          Number(
+            x.note20 ??
+            x.note ??
+            0
+          );
+
+
+        const n20=
+          Math.min(
+            20,
+            Math.max(0,n)
+          );
+
+
+        const n100=
+          n20*5;
+
+
+        return `
+
+          <tr>
+
+            <td>
+              ${escapeHTML(
+                eName(x.eleve)
+              )}
+            </td>
+
+            <td>
+              ${escapeHTML(
+                dName(x.devoir)
+              )}
+            </td>
+
+            <td class="note20">
+              ${n20.toFixed(2)}/20
+            </td>
+
+            <td class="note100">
+              ${n100.toFixed(2)}/100
+            </td>
+
+            <td>
+              ${escapeHTML(
+                x.commentaire
+              )}
+            </td>
+
+            <td>
+
+              <button
+                class="smallBtn dangerBtn"
+                onclick="supprimerRemise('${x.id}')">
+                🗑️
+              </button>
+
+            </td>
+
+          </tr>
+
+        `;
+
+      }).join("")
+
+      : `
+        <tr>
+          <td colspan="6" class="empty">
+            Pa gen remèt devwa.
+          </td>
+        </tr>
+      `;
+}
+
+
+window.supprimerRemise=function(id){
+
+  if(
+    !requireRole([
+      "administrateur",
+      "professeur"
+    ])
+  ) return;
+
+
+  saveData(
+    "remises",
+    getData("remises")
+      .filter(
+        x=>String(x.id)!==String(id)
+      )
+  );
+
+
+  afficherRemises();
+
+  actualiserStatistiques();
+};
+
+
+function convertirNotesAnciennes(){
+
+  const data=
+    getData("remises");
+
+  let changed=false;
+
+
+  const converted=
+    data.map(x=>{
+
+      let n=
+        Number(
+          x.note20 ??
+          x.note
+        );
+
+
+      if(Number.isNaN(n)){
+        return x;
+      }
+
+
+      if(n>20){
+
+        n=n/5;
+
+        changed=true;
+      }
+
+
+      const y={
+        ...x,
+        note20:
+          Number(n.toFixed(2)),
+        note:
+          Number(n.toFixed(2))
+      };
+
+
+      if(
+        x.note20 !==
+        y.note20
+      ){
+        changed=true;
+      }
+
+
+      return y;
+    });
+
+
+  if(changed){
+
+    localStorage.setItem(
+      "remises",
+      JSON.stringify(converted)
+    );
+
+
+    if(currentUser){
+
+      window.firebaseSaveData(
+        "remises",
+        converted
+      );
+    }
+  }
+}
+
+
+/* ======================================================
+   RESULTATS
+====================================================== */
+
+window.afficherResultatEleve=function(){
+
+  const id=
+    document.getElementById(
+      "resultatEleve"
+    ).value;
+
+
+  const box=
+    document.getElementById(
+      "resultatEleveDetails"
+    );
+
+
+  if(!id){
+
+    box.innerHTML="";
+
+    return;
+  }
+
+
+  const eleves=
+    getData("eleves");
+
+
+  const e=
+    eleves.find(
+      x=>String(x.id)===String(id)
+    );
+
+
+  const remises=
+    getData("remises")
+      .filter(
+        x=>String(x.eleve)===String(id)
+      );
+
+
+  if(!e){
+
+    box.innerHTML="";
+
+    return;
+  }
+
+
+  const notes=
+    remises
+      .map(
+        x=>Number(
+          x.note20 ??
+          x.note
+        )
+      )
+      .filter(
+        n=>!Number.isNaN(n)
+      );
+
+
+  const moyenne=
+    notes.length
+      ? notes.reduce(
+          (a,b)=>a+b,
+          0
+        )/notes.length
+      : 0;
+
+
+  box.innerHTML=`
+
+    <div class="card">
+
+      <h3>
+        ${escapeHTML(e.prenom)}
+        ${escapeHTML(e.nom)}
+      </h3>
+
+      <p>
+
+        <strong>Mwayèn:</strong>
+
+        ${moyenne.toFixed(2)}/20
+
+        —
+
+        ${(moyenne*5).toFixed(2)}/100
+
+      </p>
+
+      <br>
+
+      <div class="tableWrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Devwa</th>
+              <th>Nòt /20</th>
+              <th>/100</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            ${
+              remises.length
+
+              ? remises.map(r=>{
+
+                  const n=
+                    Number(
+                      r.note20 ??
+                      r.note ??
+                      0
+                    );
+
+
+                  const devoir=
+                    getData("devoirs")
+                      .find(
+                        d=>String(d.id)===
+                          String(r.devoir)
+                      );
+
+
+                  return `
+
+                    <tr>
+
+                      <td>
+                        ${escapeHTML(
+                          devoir?.titre || ""
+                        )}
+                      </td>
+
+                      <td>
+                        ${n.toFixed(2)}/20
+                      </td>
+
+                      <td>
+                        ${(n*5).toFixed(2)}/100
+                      </td>
+
+                    </tr>
+
+                  `;
+
+                }).join("")
+
+              : `
+
+                <tr>
+
+                  <td
+                    colspan="3"
+                    class="empty">
+
+                    Pa gen nòt.
+
+                  </td>
+
+                </tr>
+
+              `
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  `;
+};
+
+
+/* ======================================================
+   SELECTS
+====================================================== */
+
+function setSelect(
+  id,
+  items,
+  labelFn,
+  empty="Chwazi..."
+){
+
+  const el=
+    document.getElementById(id);
+
+  if(!el) return;
+
+
+  const old=
+    el.value;
+
+
+  el.innerHTML=
+    `<option value="">
+      ${empty}
+    </option>`+
+
+    items.map(x=>
+
+      `<option value="${escapeHTML(x.id)}">
+        ${escapeHTML(
+          labelFn(x)
+        )}
+      </option>`
+
+    ).join("");
+
+
+  if(
+    items.some(
+      x=>String(x.id)===
+        String(old)
+    )
+  ){
+
+    el.value=old;
+  }
+}
+
+
+function remplirSelects(){
+
+  const classes=
+    getData("classes");
+
+  const matieres=
+    getData("matieres");
+
+  const eleves=
+    getData("eleves");
+
+  const devoirs=
+    getData("devoirs");
+
+
+  setSelect(
+    "eleveClasse",
+    classes,
+    x=>x.nom,
+    "Chwazi klas"
+  );
+
+
+  setSelect(
+    "devoirClasse",
+    classes,
+    x=>x.nom,
+    "Chwazi klas"
+  );
+
+
+  setSelect(
+    "profMatiere",
+    matieres,
+    x=>x.nom,
+    "Chwazi matyè"
+  );
+
+
+  setSelect(
+    "devoirMatiere",
+    matieres,
+    x=>x.nom,
+    "Chwazi matyè"
+  );
+
+
+  setSelect(
+    "remiseEleve",
+    eleves,
+    x=>`${x.prenom} ${x.nom}`,
+    "Chwazi elèv"
+  );
+
+
+  setSelect(
+    "remiseDevoir",
+    devoirs,
+    x=>x.titre,
+    "Chwazi devwa"
+  );
+
+
+  setSelect(
+    "resultatEleve",
+    eleves,
+    x=>`${x.prenom} ${x.nom}`,
+    "Chwazi elèv"
+  );
+}
+
+
+/* ======================================================
+   DASHBOARD
+====================================================== */
+
+function actualiserDashboard(){
+
+  document.getElementById(
+    "statEleves"
+  ).textContent=
+    getData("eleves").length;
+
+
+  document.getElementById(
+    "statProfesseurs"
+  ).textContent=
+    getData("professeurs").length;
+
+
+  document.getElementById(
+    "statClasses"
+  ).textContent=
+    getData("classes").length;
+
+
+  document.getElementById(
+    "statDevoirs"
+  ).textContent=
+    getData("devoirs").length;
+}
+
+
+/* ======================================================
+   STATISTIQUES
+====================================================== */
+
+function actualiserStatistiques(){
+
+  const remises=
+    getData("remises");
+
+
+  const notes=
+    remises
+      .map(
+        x=>Number(
+          x.note20 ??
+          x.note
+        )
+      )
+      .filter(
+        n=>!Number.isNaN(n)
+      );
+
+
+  const avg=
+    notes.length
+
+      ? notes.reduce(
+          (a,b)=>a+b,
+          0
+        )/notes.length
+
+      : 0;
+
+
+  document.getElementById(
+    "totalElevesStat"
+  ).textContent=
+    getData("eleves").length;
+
+
+  document.getElementById(
+    "totalProfStat"
+  ).textContent=
+    getData("professeurs").length;
+
+
+  document.getElementById(
+    "totalDevoirStat"
+  ).textContent=
+    getData("devoirs").length;
+
+
+  document.getElementById(
+    "moyenneStat"
+  ).textContent=
+    avg.toFixed(2);
+}
+
+
+/* ======================================================
+   ACTUALISER TOUT
+====================================================== */
+
+function actualiserTout(){
+
+  afficherClasses();
+
+  afficherMatieres();
+
+  afficherEleves();
+
+  afficherProfesseurs();
+
+  afficherDevoirs();
+
+  afficherRemises();
+
+  remplirSelects();
+
+  actualiserDashboard();
+
+  actualiserStatistiques();
+
+
+  if(
+    currentUserProfile?.role===
+    "administrateur"
+  ){
+
+    chargerUtilisateurs();
+  }
+}
+
+
+/* ======================================================
+   UTILISATEURS ADMIN
+====================================================== */
+
+async function chargerUtilisateurs(){
+
+  if(
+    !requireRole([
+      "administrateur"
+    ])
+  ) return;
+
+
+  const tbody=
+    document.getElementById(
+      "listeUtilisateurs"
+    );
+
+
+  if(!tbody) return;
+
+
+  try{
+
+    const snap=
+      await getDocs(
+        collection(db,"users")
+      );
+
+
+    const users=[];
+
+
+    snap.forEach(d=>{
+
+      users.push({
+        id:d.id,
+        ...d.data()
+      });
+    });
+
+
+    users.sort((a,b)=>{
+
+      const sa=
+        a.status==="pending"
+          ? 0
+          : 1;
+
+
+      const sb=
+        b.status==="pending"
+          ? 0
+          : 1;
+
+
+      return sa-sb;
+    });
+
+
+    tbody.innerHTML=
+
+      users.length
+
+      ? users.map(d=>{
+
+          const pending=
+            d.status!=="accepted" &&
+            d.status!=="rejected";
+
+
+          return `
+
+            <tr>
+
+              <td>
+                ${escapeHTML(
+                  d.displayName ||
+                  `${d.prenom||""} ${d.nom||""}`
+                )}
+              </td>
+
+              <td>
+                ${escapeHTML(
+                  d.email||""
+                )}
+              </td>
+
+              <td>
+
+                <span
+                  class="${roleClass(d.role)}">
+
+                  ${escapeHTML(
+                    roleLabel(d.role)
+                  )}
+
+                </span>
+
+              </td>
+
+              <td>
+
+                <span
+                  class="${
+                    d.status==="accepted"
+                      ? "badge badgeAccepted"
+                      :
+                    d.status==="rejected"
+                      ? "badge badgeRejected"
+                      :
+                        "badge badgePending"
+                  }">
+
+                  ${escapeHTML(
+                    statusBadge(d.status)
+                  )}
+
+                </span>
+
+              </td>
+
+              <td>
+
+                ${
+                  pending
+
+                  ? `
+
+                    <select
+                      id="role_${d.id}"
+                      style="
+                        padding:8px;
+                        border-radius:8px;
+                        border:1px solid #ddd;
+                      ">
+
+                      <option value="">
+                        Chwazi wòl
+                      </option>
+
+                      <option value="eleve">
+                        Elèv
+                      </option>
+
+                      <option value="professeur">
+                        Pwofesè
+                      </option>
+
+                      <option value="administrateur">
+                        Administratè
+                      </option>
+
+                    </select>
+
+
+                    <button
+                      class="smallBtn successBtn"
+                      onclick="accepterDemande('${d.id}')">
+
+                      ✅ Aksepte
+
+                    </button>
+
+
+                    <button
+                      class="smallBtn dangerBtn"
+                      onclick="refuserDemande('${d.id}')">
+
+                      ❌ Refize
+
+                    </button>
+
+                  `
+
+                  : ""
+                }
+
+              </td>
+
+            </tr>
+
+          `;
+
+        }).join("")
+
+      : `
+
+        <tr>
+
+          <td
+            colspan="5"
+            class="empty">
+
+            Pa gen itilizatè.
+
+          </td>
+
+        </tr>
+
+      `;
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "Erè pandan chajman itilizatè yo."
+    );
+  }
+}
+
+
+/* ======================================================
+   AKSEPTE
+====================================================== */
+
+window.accepterDemande=
+async function(uidUser){
+
+  if(
+    !currentUser ||
+    currentUserProfile?.role!==
+      "administrateur"
+  ){
+
+    showToast(
+      "⛔ Se administratè a ki ka aksepte demann."
+    );
+
+    return;
+  }
+
+
+  const roleSelect=
+    document.getElementById(
+      "role_"+uidUser
+    );
+
+
+  const role=
+    roleSelect
+      ? roleSelect.value
+      : "";
+
+
+  if(
+    ![
+      "eleve",
+      "professeur",
+      "administrateur"
+    ].includes(role)
+  ){
+
+    showToast(
+      "⚠️ Tanpri chwazi wòl itilizatè a."
+    );
+
+    return;
+  }
+
+
+  try{
+
+    await setDoc(
+      doc(
+        db,
+        "users",
+        uidUser
+      ),
+      {
+        role,
+        status:"accepted",
+        approvedBy:currentUser.uid,
+        approvedAt:serverTimestamp()
+      },
+      {merge:true}
+    );
+
+
+    showToast(
+      "✅ Kont lan aksepte."
+    );
+
+
+    await chargerUtilisateurs();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "Erè pandan akseptasyon an: "+
+      error.message
+    );
+  }
+};
+
+
+/* ======================================================
+   REFIZE
+====================================================== */
+
+window.refuserDemande=
+async function(uidUser){
+
+  if(
+    !currentUser ||
+    currentUserProfile?.role!==
+      "administrateur"
+  ){
+
+    showToast(
+      "⛔ Se administratè a ki ka refize demann."
+    );
+
+    return;
+  }
+
+
+  try{
+
+    await setDoc(
+      doc(
+        db,
+        "users",
+        uidUser
+      ),
+      {
+        status:"rejected",
+        approvedBy:currentUser.uid,
+        approvedAt:serverTimestamp()
+      },
+      {merge:true}
+    );
+
+
+    showToast(
+      "❌ Demann lan refize."
+    );
+
+
+    await chargerUtilisateurs();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "Erè pandan refi a: "+
+      error.message
+    );
+  }
+};
+
+
+/* ======================================================
+   SAUVEGARDE
+====================================================== */
+
+window.exporterDonnees=function(){
+
+  const obj={};
+
+
+  collections.forEach(k=>{
+
+    obj[k]=getData(k);
+  });
+
+
+  const blob=
+    new Blob(
+      [
+        JSON.stringify(
+          obj,
+          null,
+          2
+        )
+      ],
+      {
+        type:"application/json"
+      }
+    );
+
+
+  const a=
+    document.createElement("a");
+
+
+  a.href=
+    URL.createObjectURL(blob);
+
+
+  a.download=
+    "sistem-aprantisaj-done.json";
+
+
+  a.click();
+
+
+  URL.revokeObjectURL(
+    a.href
+  );
+};
+
+
+window.importerDonnees=
+function(event){
+
+  if(
+    !requireRole([
+      "administrateur"
+    ])
+  ) return;
+
+
+  const file=
+    event.target.files[0];
+
+
+  if(!file) return;
+
+
+  const reader=
+    new FileReader();
+
+
+  reader.onload=e=>{
+
+    try{
+
+      const obj=
+        JSON.parse(
+          e.target.result
+        );
+
+
+      collections.forEach(k=>{
+
+        if(
+          Array.isArray(obj[k])
+        ){
+
+          localStorage.setItem(
+            k,
+            JSON.stringify(obj[k])
+          );
+        }
+      });
+
+
+      actualiserTout();
+
+
+      showToast(
+        "Done yo enpòte."
+      );
+
+
+    }catch{
+
+      showToast(
+        "Fichye a pa valab."
+      );
+    }
+  };
+
+
+  reader.readAsText(file);
+};
+
+
+window.effacerTout=function(){
+
+  if(
+    !requireRole([
+      "administrateur"
+    ])
+  ) return;
+
+
+  if(
+    !confirm(
+      "Èske ou sèten ou vle efase done lokal yo?"
+    )
+  ) return;
+
+
+  collections.forEach(k=>{
+
+    localStorage.removeItem(k);
+  });
+
+
+  actualiserTout();
+};
+
+
+/* ======================================================
+   LANGUAGE
+====================================================== */
+
+const translations={
+
+  ht:{
+    logout:"Déconnexion"
+  },
+
+  fr:{
+    logout:"Déconnexion"
+  }
+};
+
+
+window.changerLangue=function(lang){
+
+  localStorage.setItem(
+    "appLanguage",
+    lang
+  );
+
+  const select=
+    document.getElementById(
+      "languageSelect"
+    );
+
+  if(select){
+
+    select.value=lang;
+  }
+};
+
+
+/* ======================================================
+   PWA
+====================================================== */
+
+window.addEventListener(
+  "beforeinstallprompt",
+  e=>{
+
+    e.preventDefault();
+
+    deferredPrompt=e;
+
+
+    const btn=
+      document.getElementById(
+        "installButton"
+      );
+
+
+    if(btn){
+
+      btn.style.display="block";
+    }
+  }
+);
+
+
+window.installerApp=
+async function(){
+
+  if(!deferredPrompt) return;
+
+
+  deferredPrompt.prompt();
+
+
+  await deferredPrompt.userChoice;
+
+
+  deferredPrompt=null;
+
+
+  document.getElementById(
+    "installButton"
+  ).style.display="none";
+};
+
+
+/* ======================================================
+   SERVICE WORKER
+====================================================== */
+
+if("serviceWorker" in navigator){
+
+  window.addEventListener(
+    "load",
+    ()=>{
+
+      navigator.serviceWorker
+        .register("./sw.js")
+        .catch(
+          e=>console.log(
+            "SW:",
+            e
+          )
+        );
+    }
+  );
+}
+
+
+/* ======================================================
+   INITIALISATION
+====================================================== */
+
+document.getElementById(
+  "languageSelect"
+).value=
+  localStorage.getItem(
+    "appLanguage"
+  ) || "ht";
+
+
+hideLoading();
+
+</script>
+
+</body>
+</html>
