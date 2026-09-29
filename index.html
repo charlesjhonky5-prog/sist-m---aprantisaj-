@@ -3,609 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistèm Lekòl</title>
+<title>Sistèm Aprantisaj</title>
 
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#2563eb">
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
-}
-
-body{
-  background:#f4f6f9;
-  color:#172033;
-}
-
-button,input,select{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-  border:0;
-}
-
-.hidden{
-  display:none!important;
-}
-
-/* ==============================
-   LOGIN
-   ============================== */
-
-#loginBox{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:linear-gradient(135deg,#2563eb,#4f46e5);
-}
-
-.authCard{
-  width:100%;
-  max-width:460px;
-  background:#fff;
-  border-radius:22px;
-  padding:25px;
-  box-shadow:0 15px 45px rgba(0,0,0,.25);
-}
-
-.authCard h1{
-  text-align:center;
-  margin-bottom:8px;
-  color:#1d4ed8;
-}
-
-.authSub{
-  text-align:center;
-  color:#64748b;
-  margin-bottom:20px;
-}
-
-.authTabs{
-  display:flex;
-  gap:8px;
-  margin-bottom:18px;
-}
-
-.authTabs button{
-  flex:1;
-  padding:11px;
-  border-radius:10px;
-  background:#e5e7eb;
-  color:#374151;
-}
-
-.authTabs button.active{
-  background:#2563eb;
-  color:white;
-}
-
-.formGroup{
-  margin-bottom:12px;
-}
-
-.formGroup label{
-  display:block;
-  margin-bottom:5px;
-  font-weight:bold;
-  font-size:14px;
-}
-
-.formGroup input,
-.formGroup select{
-  width:100%;
-  padding:11px;
-  border:1px solid #cbd5e1;
-  border-radius:10px;
-  outline:none;
-  background:white;
-}
-
-.formGroup input:focus,
-.formGroup select:focus{
-  border-color:#2563eb;
-}
-
-.primaryBtn{
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  background:#2563eb;
-  color:white;
-  font-weight:bold;
-}
-
-.googleBtn{
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  background:white;
-  color:#111827;
-  border:1px solid #cbd5e1;
-  font-weight:bold;
-  margin-top:10px;
-}
-
-.divider{
-  text-align:center;
-  margin:14px 0;
-  color:#94a3b8;
-}
-
-.authMsg{
-  padding:10px;
-  border-radius:9px;
-  margin-bottom:12px;
-  font-size:14px;
-  display:none;
-}
-
-.authMsg.error{
-  display:block;
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-.authMsg.success{
-  display:block;
-  background:#dcfce7;
-  color:#166534;
-}
-
-.pendingBox{
-  padding:12px;
-  background:#fff7ed;
-  color:#9a3412;
-  border-radius:10px;
-  margin-top:12px;
-  font-size:14px;
-}
-
-/* ==============================
-   HEADER
-   ============================== */
-
-#app{
-  min-height:100vh;
-}
-
-header{
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:#fff;
-  border-bottom:1px solid #e2e8f0;
-  padding:12px 16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.brand{
-  font-size:20px;
-  font-weight:bold;
-  color:#2563eb;
-}
-
-.userArea{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
-}
-
-#userPhoto{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  object-fit:cover;
-  background:#e2e8f0;
-}
-
-.userText{
-  font-size:12px;
-}
-
-.userText strong{
-  display:block;
-  font-size:14px;
-}
-
-.roleBadge{
-  display:inline-block;
-  padding:3px 8px;
-  border-radius:999px;
-  background:#dbeafe;
-  color:#1d4ed8;
-  font-weight:bold;
-  margin-top:3px;
-}
-
-.headerBtn{
-  padding:9px 11px;
-  border-radius:9px;
-  background:#eef2ff;
-  color:#3730a3;
-}
-
-.logoutBtn{
-  background:#fee2e2;
-  color:#b91c1c;
-}
-
-/* ==============================
-   NAVIGATION
-   ============================== */
-
-nav{
-  display:flex;
-  gap:7px;
-  overflow-x:auto;
-  padding:10px 12px;
-  background:#fff;
-  border-bottom:1px solid #e2e8f0;
-}
-
-nav button{
-  white-space:nowrap;
-  padding:9px 12px;
-  border-radius:9px;
-  background:#f1f5f9;
-  color:#334155;
-}
-
-nav button.active{
-  background:#2563eb;
-  color:white;
-}
-
-/* ==============================
-   CONTENU
-   ============================== */
-
-main{
-  max-width:1250px;
-  margin:auto;
-  padding:18px;
-}
-
-.section{
-  display:none;
-}
-
-.section.active{
-  display:block;
-}
-
-.pageTitle{
-  margin-bottom:15px;
-}
-
-.pageTitle h2{
-  margin-bottom:4px;
-}
-
-.pageTitle p{
-  color:#64748b;
-}
-
-.statsGrid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:12px;
-  margin-bottom:18px;
-}
-
-.statCard{
-  background:white;
-  border-radius:15px;
-  padding:17px;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
-}
-
-.statCard span{
-  color:#64748b;
-  font-size:13px;
-}
-
-.statCard strong{
-  display:block;
-  font-size:28px;
-  margin-top:5px;
-  color:#2563eb;
-}
-
-.card{
-  background:white;
-  border-radius:15px;
-  padding:18px;
-  margin-bottom:16px;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
-}
-
-.card h3{
-  margin-bottom:14px;
-}
-
-.formGrid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:10px;
-}
-
-.formGrid .full{
-  grid-column:1/-1;
-}
-
-.actionRow{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
-
-.smallBtn{
-  padding:8px 11px;
-  border-radius:8px;
-  background:#2563eb;
-  color:white;
-}
-
-.dangerBtn{
-  background:#dc2626;
-}
-
-.successBtn{
-  background:#16a34a;
-}
-
-.warningBtn{
-  background:#f59e0b;
-  color:#111827;
-}
-
-.tableWrap{
-  overflow-x:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  background:white;
-}
-
-th,td{
-  padding:10px;
-  border-bottom:1px solid #e2e8f0;
-  text-align:left;
-  vertical-align:middle;
-}
-
-th{
-  background:#f8fafc;
-}
-
-.badge{
-  display:inline-block;
-  padding:4px 8px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:bold;
-}
-
-.badgePending{
-  background:#fef3c7;
-  color:#92400e;
-}
-
-.badgeAccepted{
-  background:#dcfce7;
-  color:#166534;
-}
-
-.badgeRejected{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-.badgeAdmin{
-  background:#ede9fe;
-  color:#6d28d9;
-}
-
-.badgeProf{
-  background:#dbeafe;
-  color:#1d4ed8;
-}
-
-.badgeEleve{
-  background:#ffedd5;
-  color:#c2410c;
-}
-
-.empty{
-  text-align:center;
-  padding:25px;
-  color:#64748b;
-}
-
-.noteInput{
-  width:95px;
-  padding:7px;
-  border:1px solid #cbd5e1;
-  border-radius:7px;
-}
-
-.note20{
-  font-weight:bold;
-  color:#2563eb;
-}
-
-.note100{
-  color:#64748b;
-  font-size:12px;
-}
-
-.installBtn{
-  display:none;
-}
-
-.toast{
-  position:fixed;
-  right:15px;
-  bottom:15px;
-  z-index:100;
-  background:#111827;
-  color:white;
-  padding:12px 16px;
-  border-radius:10px;
-  display:none;
-  max-width:320px;
-}
-
-.loading{
-  position:fixed;
-  inset:0;
-  background:rgba(255,255,255,.92);
-  z-index:200;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  color:#2563eb;
-}
-
-footer{
-  text-align:center;
-  padding:25px;
-  color:#64748b;
-}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f4f6f9;color:#172033}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0}
+.hidden{display:none!important}
+
+#loginBox{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#2563eb,#4f46e5)}
+.authCard{width:100%;max-width:460px;background:#fff;border-radius:22px;padding:25px;box-shadow:0 15px 45px rgba(0,0,0,.25)}
+.authCard h1{text-align:center;margin-bottom:8px;color:#1d4ed8}
+.authSub{text-align:center;color:#64748b;margin-bottom:20px}
+.authTabs{display:flex;gap:8px;margin-bottom:18px}
+.authTabs button{flex:1;padding:11px;border-radius:10px;background:#e5e7eb;color:#374151}
+.authTabs button.active{background:#2563eb;color:white}
+.formGroup{margin-bottom:12px}
+.formGroup label{display:block;margin-bottom:5px;font-weight:bold;font-size:14px}
+.formGroup input,.formGroup select{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:10px;outline:none;background:white}
+.formGroup input:focus,.formGroup select:focus{border-color:#2563eb}
+.primaryBtn{width:100%;padding:12px;border-radius:10px;background:#2563eb;color:white;font-weight:bold}
+.googleBtn{width:100%;padding:12px;border-radius:10px;background:white;color:#111827;border:1px solid #cbd5e1;font-weight:bold;margin-top:10px}
+.divider{text-align:center;margin:14px 0;color:#94a3b8}
+.authMsg{padding:10px;border-radius:9px;margin-bottom:12px;font-size:14px;display:none}
+.authMsg.error{display:block;background:#fee2e2;color:#991b1b}
+.authMsg.success{display:block;background:#dcfce7;color:#166534}
+.pendingBox{padding:12px;background:#fff7ed;color:#9a3412;border-radius:10px;margin-top:12px;font-size:14px}
+
+#app{min-height:100vh}
+header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{font-size:20px;font-weight:bold;color:#2563eb}
+.userArea{display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:flex-end}
+#userPhoto{width:38px;height:38px;border-radius:50%;object-fit:cover;background:#e2e8f0}
+.userText{font-size:12px}
+.userText strong{display:block;font-size:14px}
+.roleBadge{display:inline-block;padding:3px 8px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-weight:bold;margin-top:3px}
+.headerBtn{padding:9px 11px;border-radius:9px;background:#eef2ff;color:#3730a3}
+.logoutBtn{background:#fee2e2;color:#b91c1c}
+
+nav{display:flex;gap:7px;overflow-x:auto;padding:10px 12px;background:#fff;border-bottom:1px solid #e2e8f0}
+nav button{white-space:nowrap;padding:9px 12px;border-radius:9px;background:#f1f5f9;color:#334155}
+nav button.active{background:#2563eb;color:white}
+
+main{max-width:1250px;margin:auto;padding:18px}
+.section{display:none}
+.section.active{display:block}
+.pageTitle{margin-bottom:15px}
+.pageTitle h2{margin-bottom:4px}
+.pageTitle p{color:#64748b}
+
+.statsGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:18px}
+.statCard{background:white;border-radius:15px;padding:17px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.statCard span{color:#64748b;font-size:13px}
+.statCard strong{display:block;font-size:28px;margin-top:5px;color:#2563eb}
+
+.card{background:white;border-radius:15px;padding:18px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.card h3{margin-bottom:14px}
+.formGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.formGrid .full{grid-column:1/-1}
+.actionRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.smallBtn{padding:8px 11px;border-radius:8px;background:#2563eb;color:white}
+.dangerBtn{background:#dc2626}
+.successBtn{background:#16a34a}
+.warningBtn{background:#f59e0b;color:#111827}
+
+.tableWrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:#fff}
+th,td{padding:10px;border-bottom:1px solid #e2e8f0;text-align:left;vertical-align:middle}
+th{background:#f8fafc}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:12px;font-weight:bold}
+.badgePending{background:#fef3c7;color:#92400e}
+.badgeAccepted{background:#dcfce7;color:#166534}
+.badgeRejected{background:#fee2e2;color:#991b1b}
+.badgeAdmin{background:#ede9fe;color:#6d28d9}
+.badgeProf{background:#dbeafe;color:#1d4ed8}
+.badgeEleve{background:#ffedd5;color:#c2410c}
+
+.empty{text-align:center;padding:25px;color:#64748b}
+.noteInput{width:95px;padding:7px;border:1px solid #cbd5e1;border-radius:7px}
+.note20{font-weight:bold;color:#2563eb}
+.note100{color:#64748b;font-size:12px}
+
+.installBtn{display:none}
+.toast{position:fixed;right:15px;bottom:15px;z-index:100;background:#111827;color:white;padding:12px 16px;border-radius:10px;display:none;max-width:320px}
+.loading{position:fixed;inset:0;background:rgba(255,255,255,.92);z-index:200;display:flex;align-items:center;justify-content:center;font-weight:bold;color:#2563eb}
+footer{text-align:center;padding:25px;color:#64748b}
 
 @media(max-width:650px){
-  header{
-    align-items:flex-start;
-  }
-
-  .brand{
-    font-size:17px;
-  }
-
-  .userArea{
-    font-size:11px;
-  }
-
-  .userText{
-    max-width:150px;
-  }
-
-  main{
-    padding:12px;
-  }
-
-  .card{
-    padding:13px;
-  }
-
-  th,td{
-    font-size:13px;
-  }
+ header{align-items:flex-start}
+ .brand{font-size:17px}
+ .userArea{font-size:11px}
+ .userText{max-width:150px}
+ main{padding:12px}
+ .card{padding:13px}
+ th,td{font-size:13px}
 }
 </style>
 </head>
 
 <body>
 
-<div id="loading" class="loading">
-  Chaje Sistèm Lekòl...
-</div>
-
-<!-- ======================================================
-     LOGIN / INSCRIPTION
-     ====================================================== -->
+<div id="loading" class="loading">Chaje Sistèm Aprantisaj...</div>
 
 <div id="loginBox">
-
   <div class="authCard">
-
-    <h1>📚 Sistèm Lekòl</h1>
-
-    <div class="authSub" data-i18n="authSub">
-      Konekte pou antre nan sistèm nan
-    </div>
+    <h1>📚 Sistèm Aprantisaj</h1>
+    <div class="authSub" data-i18n="authSub">Konekte pou antre nan sistèm nan</div>
 
     <div class="authTabs">
-      <button
-        id="tabLogin"
-        class="active"
-        onclick="showAuthTab('login')"
-        data-i18n="loginTab">
-        Konekte
-      </button>
-
-      <button
-        id="tabRegister"
-        onclick="showAuthTab('register')"
-        data-i18n="registerTab">
-        Kreye kont
-      </button>
+      <button id="tabLogin" class="active" onclick="showAuthTab('login')" data-i18n="loginTab">Konekte</button>
+      <button id="tabRegister" onclick="showAuthTab('register')" data-i18n="registerTab">Kreye kont</button>
     </div>
 
     <div id="authMsg" class="authMsg"></div>
 
-    <!-- LOGIN -->
-
     <div id="loginForm">
-
       <div class="formGroup">
         <label data-i18n="email">E-mail</label>
-        <input
-          id="loginEmail"
-          type="email"
-          placeholder="E-mail">
+        <input id="loginEmail" type="email" placeholder="E-mail">
       </div>
 
       <div class="formGroup">
         <label data-i18n="password">Mot de passe</label>
-        <input
-          id="loginPassword"
-          type="password"
-          placeholder="Mot de passe">
+        <input id="loginPassword" type="password" placeholder="Mot de passe">
       </div>
 
-      <button
-        class="primaryBtn"
-        onclick="connexionEmail()"
-        data-i18n="login">
-        Konekte
-      </button>
+      <button class="primaryBtn" onclick="connexionEmail()" data-i18n="login">Konekte</button>
 
-      <div class="divider">
-        — oswa —
-      </div>
+      <div class="divider">— oswa —</div>
 
-      <button
-        class="googleBtn"
-        onclick="connecterAvecGoogle()">
-        🔵 Konekte ak Google
-      </button>
-
+      <button class="googleBtn" onclick="connecterAvecGoogle()">🔵 Konekte ak Google</button>
     </div>
 
-    <!-- INSCRIPTION -->
-
     <div id="registerForm" class="hidden">
-
       <div class="formGrid">
-
         <div class="formGroup">
           <label data-i18n="lastName">Nom</label>
           <input id="regNom" type="text" placeholder="Nom">
@@ -615,7 +150,6 @@ footer{
           <label data-i18n="firstName">Prénom</label>
           <input id="regPrenom" type="text" placeholder="Prénom">
         </div>
-
       </div>
 
       <div class="formGroup">
@@ -629,364 +163,105 @@ footer{
       </div>
 
       <div class="formGroup">
-        <label data-i18n="confirmPassword">
-          Confirmation mot de passe
-        </label>
-
-        <input
-          id="regPassword2"
-          type="password"
-          placeholder="Confirmation mot de passe">
+        <label data-i18n="confirmPassword">Confirmation mot de passe</label>
+        <input id="regPassword2" type="password" placeholder="Confirmation mot de passe">
       </div>
 
-      <div class="formGroup">
+      <!-- WÒL LA RETIRE NAN ENSKRIPSYON AN -->
 
-        <label data-i18n="role">
-          Wòl
-        </label>
-
-        <select id="regRole">
-
-          <option value="eleve">
-            Elèv
-          </option>
-
-          <option value="professeur">
-            Pwofesè
-          </option>
-
-          <option value="administrateur">
-            Administratè
-          </option>
-
-        </select>
-
-      </div>
-
-      <button
-        class="primaryBtn"
-        onclick="creerCompte()"
-        data-i18n="createAccount">
-        Kreye kont
-      </button>
+      <button class="primaryBtn" onclick="creerCompte()" data-i18n="createAccount">Kreye kont</button>
 
       <div class="pendingBox">
-
-        ⚠️
-
-        <span data-i18n="pendingInfo">
+        ⚠️ <span data-i18n="pendingInfo">
           Nouvo kont yo rete an attente jiskaske yon administratè valide demann lan.
         </span>
-
       </div>
-
     </div>
-
   </div>
-
 </div>
-
-
-<!-- ======================================================
-     APPLICATION
-     ====================================================== -->
 
 <div id="app" style="display:none;">
 
 <header>
-
-  <div class="brand">
-    📚 Sistèm Lekòl
-  </div>
+  <div class="brand">📚 Sistèm Aprantisaj</div>
 
   <div class="userArea">
-
-    <select
-      id="languageSelect"
-      class="headerBtn"
-      onchange="changerLangue(this.value)">
-
-      <option value="ht">
-        🇭🇹 Kreyòl
-      </option>
-
-      <option value="fr">
-        🇫🇷 Français
-      </option>
-
+    <select id="languageSelect" class="headerBtn" onchange="changerLangue(this.value)">
+      <option value="ht">🇭🇹 Kreyòl</option>
+      <option value="fr">🇫🇷 Français</option>
     </select>
 
-    <button
-      id="installButton"
-      class="headerBtn installBtn"
-      onclick="installerApp()">
-      📲 Installer
-    </button>
+    <button id="installButton" class="headerBtn installBtn" onclick="installerApp()">📲 Installer</button>
 
-    <img
-      id="userPhoto"
-      src=""
-      alt="Photo">
+    <img id="userPhoto" src="" alt="Photo">
 
     <div class="userText">
-
-      <strong id="userName">
-        Utilisateur
-      </strong>
-
-      <span id="userEmail"></span>
-
-      <br>
-
-      <span
-        id="userRole"
-        class="roleBadge">
-      </span>
-
+      <strong id="userName">Utilisateur</strong>
+      <span id="userEmail"></span><br>
+      <span id="userRole" class="roleBadge"></span>
     </div>
 
-    <button
-      class="headerBtn logoutBtn"
-      onclick="deconnecter()"
-      data-i18n="logout">
+    <button class="headerBtn logoutBtn" onclick="deconnecter()" data-i18n="logout">
       Déconnexion
     </button>
-
   </div>
-
 </header>
 
-
 <nav id="mainNav">
-
-  <button
-    data-section="accueil"
-    onclick="showSection('accueil')"
-    data-i18n="navHome">
-    🏠 Akèy
-  </button>
-
-  <button
-    data-section="eleves"
-    onclick="showSection('eleves')"
-    data-i18n="navStudents">
-    👨‍🎓 Elèv
-  </button>
-
-  <button
-    data-section="professeurs"
-    onclick="showSection('professeurs')"
-    data-i18n="navTeachers">
-    👨‍🏫 Pwofesè
-  </button>
-
-  <button
-    data-section="classes"
-    onclick="showSection('classes')"
-    data-i18n="navClasses">
-    🏫 Klas
-  </button>
-
-  <button
-    data-section="matieres"
-    onclick="showSection('matieres')"
-    data-i18n="navSubjects">
-    📚 Matyè
-  </button>
-
-  <button
-    data-section="devoirs"
-    onclick="showSection('devoirs')"
-    data-i18n="navHomework">
-    📝 Devwa
-  </button>
-
-  <button
-    data-section="remises"
-    onclick="showSection('remises')"
-    data-i18n="navSubmissions">
-    📤 Remèt
-  </button>
-
-  <button
-    data-section="resultats"
-    onclick="showSection('resultats')"
-    data-i18n="navResults">
-    📊 Rezilta
-  </button>
-
-  <button
-    data-section="statistiques"
-    onclick="showSection('statistiques')"
-    data-i18n="navStats">
-    📈 Estatistik
-  </button>
-
-  <button
-    data-section="utilisateurs"
-    onclick="showSection('utilisateurs')"
-    data-i18n="navUsers">
-    👥 Itilizatè
-  </button>
-
-  <button
-    data-section="sauvegarde"
-    onclick="showSection('sauvegarde')"
-    data-i18n="navBackup">
-    💾 Done
-  </button>
-
+  <button data-section="accueil" onclick="showSection('accueil')" data-i18n="navHome">🏠 Akèy</button>
+  <button data-section="eleves" onclick="showSection('eleves')" data-i18n="navStudents">👨‍🎓 Elèv</button>
+  <button data-section="professeurs" onclick="showSection('professeurs')" data-i18n="navTeachers">👨‍🏫 Pwofesè</button>
+  <button data-section="classes" onclick="showSection('classes')" data-i18n="navClasses">🏫 Klas</button>
+  <button data-section="matieres" onclick="showSection('matieres')" data-i18n="navSubjects">📚 Matyè</button>
+  <button data-section="devoirs" onclick="showSection('devoirs')" data-i18n="navHomework">📝 Devwa</button>
+  <button data-section="remises" onclick="showSection('remises')" data-i18n="navSubmissions">📤 Remèt</button>
+  <button data-section="resultats" onclick="showSection('resultats')" data-i18n="navResults">📊 Rezilta</button>
+  <button data-section="statistiques" onclick="showSection('statistiques')" data-i18n="navStats">📈 Estatistik</button>
+  <button data-section="utilisateurs" onclick="showSection('utilisateurs')" data-i18n="navUsers">👥 Itilizatè</button>
+  <button data-section="sauvegarde" onclick="showSection('sauvegarde')" data-i18n="navBackup">💾 Done</button>
 </nav>
-
 
 <main>
 
-<!-- ================= AKÈY ================= -->
-
 <section id="accueil" class="section">
-
   <div class="pageTitle">
-
-    <h2 data-i18n="dashboardTitle">
-      Akèy
-    </h2>
-
-    <p data-i18n="dashboardSub">
-      Rezime sistèm nan
-    </p>
-
+    <h2 data-i18n="dashboardTitle">Akèy</h2>
+    <p data-i18n="dashboardSub">Rezime sistèm nan</p>
   </div>
 
   <div class="statsGrid">
-
-    <div class="statCard">
-      <span data-i18n="students">
-        Elèv
-      </span>
-
-      <strong id="statEleves">
-        0
-      </strong>
-    </div>
-
-    <div class="statCard">
-      <span data-i18n="teachers">
-        Pwofesè
-      </span>
-
-      <strong id="statProfesseurs">
-        0
-      </strong>
-    </div>
-
-    <div class="statCard">
-      <span data-i18n="classes">
-        Klas
-      </span>
-
-      <strong id="statClasses">
-        0
-      </strong>
-    </div>
-
-    <div class="statCard">
-      <span data-i18n="homework">
-        Devwa
-      </span>
-
-      <strong id="statDevoirs">
-        0
-      </strong>
-    </div>
-
+    <div class="statCard"><span data-i18n="students">Elèv</span><strong id="statEleves">0</strong></div>
+    <div class="statCard"><span data-i18n="teachers">Pwofesè</span><strong id="statProfesseurs">0</strong></div>
+    <div class="statCard"><span data-i18n="classes">Klas</span><strong id="statClasses">0</strong></div>
+    <div class="statCard"><span data-i18n="homework">Devwa</span><strong id="statDevoirs">0</strong></div>
   </div>
 
   <div class="card">
-
-    <h3 data-i18n="welcome">
-      Byenveni nan Sistèm Lekòl
-    </h3>
-
-    <p data-i18n="welcomeText">
-      Sistèm nan konekte ak Firebase pou jere done lekòl la.
-    </p>
-
+    <h3 data-i18n="welcome">Byenveni nan Sistèm Aprantisaj</h3>
+    <p data-i18n="welcomeText">Sistèm nan konekte ak Firebase pou jere done lekòl la.</p>
   </div>
-
 </section>
-
-
-<!-- ================= ELÈV ================= -->
 
 <section id="eleves" class="section">
+  <div class="pageTitle"><h2 data-i18n="students">Elèv</h2></div>
 
-  <div class="pageTitle">
-    <h2 data-i18n="students">
-      Elèv
-    </h2>
-  </div>
-
-  <div class="card">
-
-    <h3 data-i18n="addStudent">
-      Ajoute yon elèv
-    </h3>
+  <div class="card" id="studentFormCard">
+    <h3 data-i18n="addStudent">Ajoute yon elèv</h3>
 
     <div class="formGrid">
-
-      <div class="formGroup">
-        <label data-i18n="lastName">
-          Nom
-        </label>
-
-        <input id="eleveNom">
-      </div>
-
-      <div class="formGroup">
-        <label data-i18n="firstName">
-          Prénom
-        </label>
-
-        <input id="elevePrenom">
-      </div>
-
-      <div class="formGroup">
-        <label data-i18n="email">
-          E-mail
-        </label>
-
-        <input
-          id="eleveEmail"
-          type="email">
-      </div>
-
-      <div class="formGroup">
-        <label data-i18n="class">
-          Klas
-        </label>
-
-        <select id="eleveClasse"></select>
-      </div>
-
+      <div class="formGroup"><label data-i18n="lastName">Nom</label><input id="eleveNom"></div>
+      <div class="formGroup"><label data-i18n="firstName">Prénom</label><input id="elevePrenom"></div>
+      <div class="formGroup"><label data-i18n="email">E-mail</label><input id="eleveEmail" type="email"></div>
+      <div class="formGroup"><label data-i18n="class">Klas</label><select id="eleveClasse"></select></div>
     </div>
 
-    <button
-      class="smallBtn"
-      onclick="ajouterEleve()"
-      data-i18n="add">
-      Ajoute
-    </button>
-
+    <button class="smallBtn" onclick="ajouterEleve()" data-i18n="add">Ajoute</button>
   </div>
 
   <div class="card">
-
     <div class="tableWrap">
-
       <table>
-
         <thead>
-
           <tr>
             <th data-i18n="lastName">Nom</th>
             <th data-i18n="firstName">Prénom</th>
@@ -994,706 +269,26 @@ footer{
             <th data-i18n="class">Klas</th>
             <th data-i18n="actions">Aksyon</th>
           </tr>
-
         </thead>
-
         <tbody id="listeEleves"></tbody>
-
       </table>
-
     </div>
-
   </div>
-
 </section>
-
-
-<!-- ================= PROFESSEURS ================= -->
 
 <section id="professeurs" class="section">
+  <div class="pageTitle"><h2 data-i18n="teachers">Pwofesè</h2></div>
 
-  <div class="pageTitle">
-    <h2 data-i18n="teachers">
-      Pwofesè
-    </h2>
-  </div>
-
-  <div class="card">
-
-    <h3 data-i18n="addTeacher">
-      Ajoute yon pwofesè
-    </h3>
+  <div class="card" id="teacherFormCard">
+    <h3 data-i18n="addTeacher">Ajoute yon pwofesè</h3>
 
     <div class="formGrid">
-
-      <div class="formGroup">
-        <label data-i18n="lastName">
-          Nom
-        </label>
-
-        <input id="profNom">
-      </div>
-
-      <div class="formGroup">
-        <label data-i18n="firstName">
-          Prénom
-        </label>
-
-        <input id="profPrenom">
-      </div>
-
-      <div class="formGroup">
-        <label data-i18n="email">
-          E-mail
-        </label>
-
-        <input
-          id="profEmail"
-          type="email">
-      </div>
-
-      <div class="formGroup">
-        <label data-i18n="subject">
-          Matyè
-        </label>
-
-        <select id="profMatiere"></select>
-      </div>
-
-    </div>
-
-    <button
-      class="smallBtn"
-      onclick="ajouterProfesseur()"
-      data-i18n="add">
-      Ajoute
-    </button>
-
-  </div>
-
-  <div class="card">
-
-    <div class="tableWrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th data-i18n="lastName">Nom</th>
-            <th data-i18n="firstName">Prénom</th>
-            <th data-i18n="email">E-mail</th>
-            <th data-i18n="subject">Matyè</th>
-            <th data-i18n="actions">Aksyon</th>
-          </tr>
-
-        </thead>
-
-        <tbody id="listeProfesseurs"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= KLAS ================= -->
-
-<section id="classes" class="section">
-
-  <div class="pageTitle">
-    <h2 data-i18n="classes">
-      Klas
-    </h2>
-  </div>
-
-  <div class="card">
-
-    <h3 data-i18n="addClass">
-      Ajoute yon klas
-    </h3>
-
-    <div class="formGrid">
-
-      <div class="formGroup">
-        <label data-i18n="className">
-          Non klas
-        </label>
-
-        <input id="classeNom">
-      </div>
-
-      <div class="formGroup">
-        <label data-i18n="level">
-          Nivo
-        </label>
-
-        <input id="classeNiveau">
-      </div>
-
-    </div>
-
-    <button
-      class="smallBtn"
-      onclick="ajouterClasse()"
-      data-i18n="add">
-      Ajoute
-    </button>
-
-  </div>
-
-  <div class="card">
-
-    <div class="tableWrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th data-i18n="className">Non</th>
-            <th data-i18n="level">Nivo</th>
-            <th data-i18n="actions">Aksyon</th>
-          </tr>
-
-        </thead>
-
-        <tbody id="listeClasses"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= MATYÈ ================= -->
-
-<section id="matieres" class="section">
-
-  <div class="pageTitle">
-    <h2 data-i18n="subjects">
-      Matyè
-    </h2>
-  </div>
-
-  <div class="card">
-
-    <h3 data-i18n="addSubject">
-      Ajoute yon matyè
-    </h3>
-
-    <div class="formGroup">
-
-      <label data-i18n="subjectName">
-        Non matyè
-      </label>
-
-      <input id="matiereNom">
-
-    </div>
-
-    <button
-      class="smallBtn"
-      onclick="ajouterMatiere()"
-      data-i18n="add">
-      Ajoute
-    </button>
-
-  </div>
-
-  <div class="card">
-
-    <div class="tableWrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th data-i18n="subjectName">
-              Non matyè
-            </th>
-
-            <th data-i18n="actions">
-              Aksyon
-            </th>
-          </tr>
-
-        </thead>
-
-        <tbody id="listeMatieres"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= DEVWA ================= -->
-
-<section id="devoirs" class="section">
-
-  <div class="pageTitle">
-    <h2 data-i18n="homework">
-      Devwa
-    </h2>
-  </div>
-
-  <div class="card">
-
-    <h3 data-i18n="addHomework">
-      Ajoute yon devwa
-    </h3>
-
-    <div class="formGrid">
-
-      <div class="formGroup">
-        <label data-i18n="title">
-          Tit
-        </label>
-
-        <input id="devoirTitre">
-      </div>
-
-      <div class="formGroup">
-        <label data-i18n="subject">
-          Matyè
-        </label>
-
-        <select id="devoirMatiere"></select>
-      </div>
-
-      <div class="formGroup">
-        <label data-i18n="class">
-          Klas
-        </label>
-
-        <select id="devoirClasse"></select>
-      </div>
-
-      <div class="formGroup">
-        <label data-i18n="date">
-          Dat
-        </label>
-
-        <input
-          id="devoirDate"
-          type="date">
-      </div>
-
-      <div class="formGroup full">
-
-        <label data-i18n="description">
-          Deskripsyon
-        </label>
-
-        <input id="devoirDescription">
-
-      </div>
-
-    </div>
-
-    <button
-      class="smallBtn"
-      onclick="ajouterDevoir()"
-      data-i18n="add">
-      Ajoute
-    </button>
-
-  </div>
-
-  <div class="card">
-
-    <div class="tableWrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th data-i18n="title">Tit</th>
-            <th data-i18n="subject">Matyè</th>
-            <th data-i18n="class">Klas</th>
-            <th data-i18n="date">Dat</th>
-            <th data-i18n="actions">Aksyon</th>
-          </tr>
-
-        </thead>
-
-        <tbody id="listeDevoirs"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= REMÈT / NÒT ================= -->
-
-<section id="remises" class="section">
-
-  <div class="pageTitle">
-
-    <h2 data-i18n="submissions">
-      Remèt devwa
-    </h2>
-
-    <p data-i18n="noteInfo">
-      Nòt yo antre sou 20/100.
-    </p>
-
-  </div>
-
-  <div class="card">
-
-    <h3 data-i18n="addSubmission">
-      Ajoute yon remèt
-    </h3>
-
-    <div class="formGrid">
-
-      <div class="formGroup">
-
-        <label data-i18n="student">
-          Elèv
-        </label>
-
-        <select id="remiseEleve"></select>
-
-      </div>
-
-      <div class="formGroup">
-
-        <label data-i18n="homework">
-          Devwa
-        </label>
-
-        <select id="remiseDevoir"></select>
-
-      </div>
-
-      <div class="formGroup">
-
-        <label data-i18n="note20">
-          Nòt /20
-        </label>
-
-        <input
-          id="remiseNote"
-          type="number"
-          min="0"
-          max="20"
-          step="0.01"
-          placeholder="0 - 20">
-
-      </div>
-
-      <div class="formGroup">
-
-        <label data-i18n="comment">
-          Kòmantè
-        </label>
-
-        <input id="remiseCommentaire">
-
-      </div>
-
-    </div>
-
-    <button
-      class="smallBtn"
-      onclick="ajouterRemise()"
-      data-i18n="add">
-      Ajoute
-    </button>
-
-  </div>
-
-  <div class="card">
-
-    <div class="tableWrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th data-i18n="student">Elèv</th>
-            <th data-i18n="homework">Devwa</th>
-            <th data-i18n="note20">Nòt /20</th>
-            <th data-i18n="note100">Ekivalan /100</th>
-            <th data-i18n="comment">Kòmantè</th>
-            <th data-i18n="actions">Aksyon</th>
-          </tr>
-
-        </thead>
-
-        <tbody id="listeRemises"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= REZILTA ================= -->
-
-<section id="resultats" class="section">
-
-  <div class="pageTitle">
-
-    <h2 data-i18n="results">
-      Rezilta
-    </h2>
-
-  </div>
-
-  <div class="card">
-
-    <div class="formGroup">
-
-      <label data-i18n="student">
-        Elèv
-      </label>
-
-      <select
-        id="resultatEleve"
-        onchange="afficherResultatEleve()">
-      </select>
-
-    </div>
-
-    <div id="resultatEleveDetails"></div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= ESTATISTIK ================= -->
-
-<section id="statistiques" class="section">
-
-  <div class="pageTitle">
-
-    <h2 data-i18n="statistics">
-      Estatistik
-    </h2>
-
-  </div>
-
-  <div class="statsGrid">
-
-    <div class="statCard">
-      <span data-i18n="students">
-        Elèv
-      </span>
-
-      <strong id="totalElevesStat">
-        0
-      </strong>
-    </div>
-
-    <div class="statCard">
-      <span data-i18n="teachers">
-        Pwofesè
-      </span>
-
-      <strong id="totalProfStat">
-        0
-      </strong>
-    </div>
-
-    <div class="statCard">
-      <span data-i18n="homework">
-        Devwa
-      </span>
-
-      <strong id="totalDevoirStat">
-        0
-      </strong>
-    </div>
-
-    <div class="statCard">
-      <span data-i18n="average">
-        Mwayèn /20
-      </span>
-
-      <strong id="moyenneStat">
-        0
-      </strong>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= ITILIZATÈ ================= -->
-
-<section id="utilisateurs" class="section">
-
-  <div class="pageTitle">
-
-    <h2 data-i18n="users">
-      Itilizatè
-    </h2>
-
-    <p data-i18n="adminOnly">
-      Se administratè sèlman ki ka aksepte oswa refize yon demann.
-    </p>
-
-  </div>
-
-  <div class="card">
-
-    <h3 data-i18n="pendingRequests">
-      Demann an attente
-    </h3>
-
-    <div class="tableWrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th data-i18n="name">Non</th>
-            <th data-i18n="email">E-mail</th>
-            <th data-i18n="role">Wòl</th>
-            <th data-i18n="status">Estati</th>
-            <th data-i18n="actions">Aksyon</th>
-          </tr>
-
-        </thead>
-
-        <tbody id="listeDemandes"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <h3 data-i18n="allUsers">
-      Tout itilizatè
-    </h3>
-
-    <div class="tableWrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th data-i18n="name">Non</th>
-            <th data-i18n="email">E-mail</th>
-            <th data-i18n="role">Wòl</th>
-            <th data-i18n="status">Estati</th>
-          </tr>
-
-        </thead>
-
-        <tbody id="listeUtilisateurs"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= SAUVEGARDE ================= -->
-
-<section id="sauvegarde" class="section">
-
-  <div class="pageTitle">
-
-    <h2 data-i18n="backup">
-      Done / Sauvegarde
-    </h2>
-
-  </div>
-
-  <div class="card">
-
-    <div class="actionRow">
-
-      <button
-        class="smallBtn"
-        onclick="exporterDonnees()"
-        data-i18n="export">
-        Ekspòte done
-      </button>
-
-      <label
-        class="smallBtn"
-        style="display:inline-block">
-
-        <span data-i18n="import">
-          Enpòte done
-        </span>
-
-        <input
-          id="importFile"
-          type="file"
-          accept=".json"
-          onchange="importerDonnees(event)"
-          style="display:none">
-
-      </label>
-
-      <button
-        class="smallBtn dangerBtn"
-        onclick="effacerTout()"
-        data-i18n="deleteAll">
-        Efase done lokal
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-</main>
-
-<footer>
-  © 2026 - Sistèm Lekòl
-</footer>
-
-</div>
-
-<div id="toast" class="toast"></div>
-
-<script type="module">
-
+      <div class="formGroup"><label data-i18n="lastName">Nom</label><input id="profNom"></div>
+     <script type="module">
 /* ==========================================================
    FIREBASE
    ========================================================== */
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -1707,8 +302,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile
-}
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import {
   getFirestore,
@@ -1717,10 +311,9 @@ import {
   getDoc,
   collection,
   getDocs,
+  deleteDoc,
   serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey:"AIzaSyDAp0p5YyL4MbZKdcXwtO-Q6IDRaHc2VMw",
@@ -1731,1060 +324,299 @@ const firebaseConfig = {
   appId:"1:505464315297:web:3e45543cb121eaf7243fe0"
 };
 
+const appFirebase = initializeApp(firebaseConfig);
+const auth = getAuth(appFirebase);
+const db = getFirestore(appFirebase);
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({prompt:"select_account"});
 
-const appFirebase =
-  initializeApp(firebaseConfig);
+window.auth = auth;
+window.db = db;
 
-const auth =
-  getAuth(appFirebase);
-
-const db =
-  getFirestore(appFirebase);
-
-const provider =
-  new GoogleAuthProvider();
-
-provider.setCustomParameters({
-  prompt:"select_account"
-});
-
-
-window.auth=auth;
-window.db=db;
-
-let currentUser=null;
-let currentUserProfile=null;
-let deferredPrompt=null;
-
+let currentUser = null;
+let currentUserProfile = null;
+let deferredPrompt = null;
 
 /* ==========================================================
    TRADUCTION / LANGUAGE
    ========================================================== */
-
-const translations={
-
-ht:{
-  authSub:"Konekte pou antre nan sistèm nan",
-  loginTab:"Konekte",
-  registerTab:"Kreye kont",
-  email:"E-mail",
-  password:"Mot de passe",
-  confirmPassword:"Confirmation mot de passe",
-  firstName:"Prénom",
-  lastName:"Nom",
-  role:"Wòl",
-  createAccount:"Kreye kont",
-  login:"Konekte",
-  logout:"Déconnexion",
-
-  navHome:"🏠 Akèy",
-  navStudents:"👨‍🎓 Elèv",
-  navTeachers:"👨‍🏫 Pwofesè",
-  navClasses:"🏫 Klas",
-  navSubjects:"📚 Matyè",
-  navHomework:"📝 Devwa",
-  navSubmissions:"📤 Remèt",
-  navResults:"📊 Rezilta",
-  navStats:"📈 Estatistik",
-  navUsers:"👥 Itilizatè",
-  navBackup:"💾 Done",
-
-  dashboardTitle:"Akèy",
-  dashboardSub:"Rezime sistèm nan",
-
-  students:"Elèv",
-  teachers:"Pwofesè",
-  classes:"Klas",
-  homework:"Devwa",
-
-  welcome:"Byenveni nan Sistèm Lekòl",
-  welcomeText:
-    "Sistèm nan konekte ak Firebase pou jere done lekòl la.",
-
-  addStudent:"Ajoute yon elèv",
-  addTeacher:"Ajoute yon pwofesè",
-  addClass:"Ajoute yon klas",
-  addSubject:"Ajoute yon matyè",
-  addHomework:"Ajoute yon devwa",
-  addSubmission:"Ajoute yon remèt",
-
-  add:"Ajoute",
-  actions:"Aksyon",
-  class:"Klas",
-  subject:"Matyè",
-  className:"Non klas",
-  level:"Nivo",
-  subjectName:"Non matyè",
-  title:"Tit",
-  date:"Dat",
-  description:"Deskripsyon",
-  student:"Elèv",
-
-  note20:"Nòt /20",
-  note100:"Ekivalan /100",
-  comment:"Kòmantè",
-
-  submissions:"Remèt devwa",
-  noteInfo:
-    "Nòt yo antre sou 20 epi sistèm nan kalkile ekivalan sou 100.",
-
-  results:"Rezilta",
-  statistics:"Estatistik",
-  average:"Mwayèn /20",
-
-  users:"Itilizatè",
-
-  adminOnly:
-    "Se administratè sèlman ki ka aksepte oswa refize yon demann.",
-
-  pendingRequests:"Demann an attente",
-  allUsers:"Tout itilizatè",
-
-  name:"Non",
-  status:"Estati",
-
-  backup:"Done / Sauvegarde",
-  export:"Ekspòte done",
-  import:"Enpòte done",
-  deleteAll:"Efase done lokal",
-
-  pendingInfo:
-    "Nouvo kont yo rete an attente jiskaske yon administratè valide demann lan."
-},
-
-fr:{
-  authSub:"Connectez-vous pour entrer dans le système",
-  loginTab:"Connexion",
-  registerTab:"Créer un compte",
-  email:"E-mail",
-  password:"Mot de passe",
-  confirmPassword:"Confirmation du mot de passe",
-  firstName:"Prénom",
-  lastName:"Nom",
-  role:"Rôle",
-  createAccount:"Créer le compte",
-  login:"Connexion",
-  logout:"Déconnexion",
-
-  navHome:"🏠 Accueil",
-  navStudents:"👨‍🎓 Élèves",
-  navTeachers:"👨‍🏫 Professeurs",
-  navClasses:"🏫 Classes",
-  navSubjects:"📚 Matières",
-  navHomework:"📝 Devoirs",
-  navSubmissions:"📤 Remises",
-  navResults:"📊 Résultats",
-  navStats:"📈 Statistiques",
-  navUsers:"👥 Utilisateurs",
-  navBackup:"💾 Données",
-
-  dashboardTitle:"Accueil",
-  dashboardSub:"Résumé du système",
-
-  students:"Élèves",
-  teachers:"Professeurs",
-  classes:"Classes",
-  homework:"Devoirs",
-
-  welcome:"Bienvenue dans le Système Scolaire",
-  welcomeText:
-    "Le système est connecté à Firebase pour gérer les données scolaires.",
-
-  addStudent:"Ajouter un élève",
-  addTeacher:"Ajouter un professeur",
-  addClass:"Ajouter une classe",
-  addSubject:"Ajouter une matière",
-  addHomework:"Ajouter un devoir",
-  addSubmission:"Ajouter une remise",
-
-  add:"Ajouter",
-  actions:"Actions",
-  class:"Classe",
-  subject:"Matière",
-  className:"Nom de la classe",
-  level:"Niveau",
-  subjectName:"Nom de la matière",
-  title:"Titre",
-  date:"Date",
-  description:"Description",
-  student:"Élève",
-
-  note20:"Note /20",
-  note100:"Équivalent /100",
-  comment:"Commentaire",
-
-  submissions:"Remises de devoirs",
-  noteInfo:
-    "Les notes sont saisies sur 20 et leur équivalent sur 100 est calculé.",
-
-  results:"Résultats",
-  statistics:"Statistiques",
-  average:"Moyenne /20",
-
-  users:"Utilisateurs",
-
-  adminOnly:
-    "Seul l'administrateur peut accepter ou refuser une demande.",
-
-  pendingRequests:"Demandes en attente",
-  allUsers:"Tous les utilisateurs",
-
-  name:"Nom",
-  status:"Statut",
-
-  backup:"Données / Sauvegarde",
-  export:"Exporter les données",
-  import:"Importer les données",
-  deleteAll:"Effacer les données locales",
-
-  pendingInfo:
-    "Les nouveaux comptes restent en attente jusqu'à leur validation par un administrateur."
-}
-
+const translations = {
+  ht:{
+    authSub:"Konekte pou antre nan sistèm nan",
+    loginTab:"Konekte",registerTab:"Kreye kont",email:"E-mail",
+    password:"Mot de passe",confirmPassword:"Confirmation mot de passe",
+    firstName:"Prénom",lastName:"Nom",role:"Wòl",
+    createAccount:"Kreye kont",login:"Konekte",logout:"Déconnexion",
+    navHome:"🏠 Akèy",navStudents:"👨‍🎓 Elèv",navTeachers:"👨‍🏫 Pwofesè",
+    navClasses:"🏫 Klas",navSubjects:"📚 Matyè",navHomework:"📝 Devwa",
+    navSubmissions:"📤 Remèt",navResults:"📊 Rezilta",navStats:"📈 Estatistik",
+    navUsers:"👥 Itilizatè",navBackup:"💾 Done",
+    dashboardTitle:"Akèy",dashboardSub:"Rezime sistèm nan",
+    students:"Elèv",teachers:"Pwofesè",classes:"Klas",homework:"Devwa",
+    welcome:"Byenveni nan Sistèm Aprantisaj",
+    welcomeText:"Sistèm nan konekte ak Firebase pou jere done lekòl la.",
+    addStudent:"Ajoute yon elèv",addTeacher:"Ajoute yon pwofesè",
+    addClass:"Ajoute yon klas",addSubject:"Ajoute yon matyè",
+    addHomework:"Ajoute yon devwa",addSubmission:"Ajoute yon remèt",
+    add:"Ajoute",actions:"Aksyon",class:"Klas",subject:"Matyè",
+    className:"Non klas",level:"Nivo",subjectName:"Non matyè",
+    title:"Tit",date:"Dat",description:"Deskripsyon",student:"Elèv",
+    note20:"Nòt /20",note100:"Ekivalan /100",comment:"Kòmantè",
+    submissions:"Remèt devwa",noteInfo:"Nòt yo antre sou 20/100.",
+    results:"Rezilta",statistics:"Estatistik",average:"Mwayèn /20",
+    users:"Itilizatè",adminOnly:"Se administratè sèlman ki ka aksepte oswa refize yon demann.",
+    pendingRequests:"Demann an attente",allUsers:"Tout itilizatè",
+    name:"Non",status:"Estati",backup:"Done / Sauvegarde",
+    export:"Ekspòte done",import:"Enpòte done",deleteAll:"Efase done lokal",
+    pendingInfo:"Nouvo kont yo rete an attente jiskaske yon administratè valide demann lan."
+  },
+  fr:{
+    authSub:"Connectez-vous pour entrer dans le système",
+    loginTab:"Connexion",registerTab:"Créer un compte",email:"E-mail",
+    password:"Mot de passe",confirmPassword:"Confirmation du mot de passe",
+    firstName:"Prénom",lastName:"Nom",role:"Rôle",
+    createAccount:"Créer le compte",login:"Connexion",logout:"Déconnexion",
+    navHome:"🏠 Accueil",navStudents:"👨‍🎓 Élèves",navTeachers:"👨‍🏫 Professeurs",
+    navClasses:"🏫 Classes",navSubjects:"📚 Matières",navHomework:"📝 Devoirs",
+    navSubmissions:"📤 Remises",navResults:"📊 Résultats",navStats:"📈 Statistiques",
+    navUsers:"👥 Utilisateurs",navBackup:"💾 Données",
+    dashboardTitle:"Accueil",dashboardSub:"Résumé du système",
+    students:"Élèves",teachers:"Professeurs",classes:"Classes",homework:"Devoirs",
+    welcome:"Bienvenue dans le Système Scolaire",
+    welcomeText:"Le système est connecté à Firebase pour gérer les données scolaires.",
+    addStudent:"Ajouter un élève",addTeacher:"Ajouter un professeur",
+    addClass:"Ajouter une classe",addSubject:"Ajouter une matière",
+    addHomework:"Ajouter un devoir",addSubmission:"Ajouter une remise",
+    add:"Ajouter",actions:"Actions",class:"Classe",subject:"Matière",
+    className:"Nom de la classe",level:"Niveau",subjectName:"Nom de la matière",
+    title:"Titre",date:"Date",description:"Description",student:"Élève",
+    note20:"Note /20",note100:"Équivalent /100",comment:"Commentaire",
+    submissions:"Remises de devoirs",noteInfo:"Les notes sont saisies sur 20 et affichées aussi sur 100.",
+    results:"Résultats",statistics:"Statistiques",average:"Moyenne /20",
+    users:"Utilisateurs",adminOnly:"Seul l'administrateur peut accepter ou refuser une demande.",
+    pendingRequests:"Demandes en attente",allUsers:"Tous les utilisateurs",
+    name:"Nom",status:"Statut",backup:"Données / Sauvegarde",
+    export:"Exporter les données",import:"Importer les données",deleteAll:"Effacer les données locales",
+    pendingInfo:"Les nouveaux comptes restent en attente jusqu'à leur validation par un administrateur."
+  }
 };
-
 
 function t(key){
-
-  const lang =
-    localStorage.getItem("appLanguage") || "ht";
-
-  return translations[lang]?.[key]
-    || translations.ht[key]
-    || key;
+  const lang = localStorage.getItem("appLanguage") || "ht";
+  return translations[lang]?.[key] || translations.ht[key] || key;
 }
 
-
-window.changerLangue=function(lang){
-
-  localStorage.setItem(
-    "appLanguage",
-    lang
-  );
-
-  document.getElementById(
-    "languageSelect"
-  ).value=lang;
-
-  document
-    .querySelectorAll("[data-i18n]")
-    .forEach(el=>{
-
-      const key=
-        el.getAttribute("data-i18n");
-
-      if(translations[lang][key]){
-        el.textContent=
-          translations[lang][key];
-      }
-
-    });
-
+window.changerLangue = function(lang){
+  localStorage.setItem("appLanguage",lang);
+  document.getElementById("languageSelect").value=lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.getAttribute("data-i18n");
+    if(translations[lang][key]) el.textContent=translations[lang][key];
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
+    const key=el.getAttribute("data-i18n-placeholder");
+    el.placeholder=translations[lang][key] || key;
+  });
 };
 
-
 function initLanguage(){
-
-  const lang=
-    localStorage.getItem("appLanguage")
-    || "ht";
-
+  const lang=localStorage.getItem("appLanguage") || "ht";
   changerLangue(lang);
-
 }
-
 
 /* ==========================================================
    OUTILS
    ========================================================== */
-
 function uid(){
-
-  return Date.now().toString(36)
-    +"-"
-    +Math.random()
-      .toString(36)
-      .slice(2,9);
-
+  return Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,9);
 }
-
 
 function escapeHTML(value){
-
-  return String(value ?? "")
-    .replace(/[&<>"']/g,m=>({
-
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      '"':"&quot;",
-      "'":"&#039;"
-
-    }[m]));
-
+  return String(value ?? "").replace(/[&<>"']/g,m=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[m]));
 }
-
 
 function showToast(msg){
-
-  const el=
-    document.getElementById("toast");
-
+  const el=document.getElementById("toast");
   el.textContent=msg;
-
   el.style.display="block";
-
-  setTimeout(()=>{
-    el.style.display="none";
-  },3000);
-
+  setTimeout(()=>el.style.display="none",3000);
 }
 
-
-function showAuthMsg(
-  msg,
-  type="error"
-){
-
-  const el=
-    document.getElementById("authMsg");
-
+function showAuthMsg(msg,type="error"){
+  const el=document.getElementById("authMsg");
   el.textContent=msg;
-
-  el.className=
-    "authMsg "+type;
-
+  el.className="authMsg "+type;
 }
-
 
 function hideLoading(){
-
-  document.getElementById(
-    "loading"
-  ).style.display="none";
-
+  document.getElementById("loading").style.display="none";
 }
-
 
 function roleLabel(role){
-
-  if(role==="administrateur")
-    return "Administratè";
-
-  if(role==="professeur")
-    return "Pwofesè";
-
-  return "Elèv";
-
+  if(role==="administrateur") return "Administratè";
+  if(role==="professeur") return "Pwofesè";
+  if(role==="eleve") return "Elèv";
+  return "Pa ankò";
 }
-
 
 function roleClass(role){
-
-  if(role==="administrateur")
-    return "badgeAdmin";
-
-  if(role==="professeur")
-    return "badgeProf";
-
-  return "badgeEleve";
-
+  if(role==="administrateur") return "badgeAdmin";
+  if(role==="professeur") return "badgeProf";
+  if(role==="eleve") return "badgeEleve";
+  return "badgePending";
 }
-
 
 function getData(key){
-
-  try{
-
-    return JSON.parse(
-      localStorage.getItem(key)
-      || "[]"
-    );
-
-  }catch{
-
-    return [];
-
-  }
-
+  try{return JSON.parse(localStorage.getItem(key)||"[]")}catch{return []}
 }
-
 
 function saveData(key,data){
-
-  localStorage.setItem(
-    key,
-    JSON.stringify(data)
-  );
-
-  if(window.firebaseSaveData)
-    window.firebaseSaveData(
-      key,
-      data
-    );
-
+  localStorage.setItem(key,JSON.stringify(data));
+  if(window.firebaseSaveData) window.firebaseSaveData(key,data);
 }
-
 
 function canAccess(section){
+  const role=currentUserProfile?.role;
 
-  const role=
-    currentUserProfile?.role;
-
-  if(role==="administrateur")
-    return true;
+  if(role==="administrateur") return true;
 
   const permissions={
-
-    professeur:[
-      "accueil",
-      "eleves",
-      "classes",
-      "matieres",
-      "devoirs",
-      "remises",
-      "resultats",
-      "statistiques"
-    ],
-
-    eleve:[
-      "accueil",
-      "devoirs",
-      "remises",
-      "resultats"
-    ]
-
+    professeur:["accueil","eleves","classes","matieres","devoirs","remises","resultats","statistiques"],
+    eleve:["accueil","devoirs","remises","resultats"]
   };
 
-  return permissions[role]?.includes(section)
-    || false;
-
+  return permissions[role]?.includes(section) || false;
 }
-
 
 function requireRole(roles){
-
-  if(
-    !currentUserProfile
-    || !roles.includes(
-      currentUserProfile.role
-    )
-  ){
-
-    showToast(
-      "⛔ Aksyon sa a rezève pou wòl ki otorize a."
-    );
-
+  if(!currentUserProfile || !roles.includes(currentUserProfile.role)){
+    showToast("⛔ Aksyon sa a rezève pou wòl ki otorize a.");
     return false;
   }
-
   return true;
-
 }
 
-
 /* ==========================================================
-   AUTHENTIFICATION
+   AUTH
    ========================================================== */
-
 window.showAuthTab=function(tab){
-
-  document
-    .getElementById("loginForm")
-    .classList
-    .toggle(
-      "hidden",
-      tab!=="login"
-    );
-
-  document
-    .getElementById("registerForm")
-    .classList
-    .toggle(
-      "hidden",
-      tab!=="register"
-    );
-
-  document
-    .getElementById("tabLogin")
-    .classList
-    .toggle(
-      "active",
-      tab==="login"
-    );
-
-  document
-    .getElementById("tabRegister")
-    .classList
-    .toggle(
-      "active",
-      tab==="register"
-    );
-
-  document
-    .getElementById("authMsg")
-    .className="authMsg";
-
+  document.getElementById("loginForm").classList.toggle("hidden",tab!=="login");
+  document.getElementById("registerForm").classList.toggle("hidden",tab!=="register");
+  document.getElementById("tabLogin").classList.toggle("active",tab==="login");
+  document.getElementById("tabRegister").classList.toggle("active",tab==="register");
+  document.getElementById("authMsg").className="authMsg";
 };
 
-
 window.creerCompte=async function(){
+  const nom=document.getElementById("regNom").value.trim();
+  const prenom=document.getElementById("regPrenom").value.trim();
+  const email=document.getElementById("regEmail").value.trim();
+  const password=document.getElementById("regPassword").value;
+  const password2=document.getElementById("regPassword2").value;
 
-  const nom=
-    document
-      .getElementById("regNom")
-      .value.trim();
-
-  const prenom=
-    document
-      .getElementById("regPrenom")
-      .value.trim();
-
-  const email=
-    document
-      .getElementById("regEmail")
-      .value.trim();
-
-  const password=
-    document
-      .getElementById("regPassword")
-      .value;
-
-  const password2=
-    document
-      .getElementById("regPassword2")
-      .value;
-
-  const role=
-    document
-      .getElementById("regRole")
-      .value;
-
-
-  if(
-    !nom ||
-    !prenom ||
-    !email ||
-    !password ||
-    !password2
-  ){
-
-    showAuthMsg(
-      "Tanpri ranpli tout chan yo."
-    );
-
+  if(!nom||!prenom||!email||!password||!password2){
+    showAuthMsg("Tanpri ranpli tout chan yo.");
     return;
-
   }
-
 
   if(password!==password2){
-
-    showAuthMsg(
-      "De mot de passe yo pa menm."
-    );
-
+    showAuthMsg("De mot de passe yo pa menm.");
     return;
-
   }
-
 
   if(password.length<6){
-
-    showAuthMsg(
-      "Mot de passe a dwe gen omwen 6 karaktè."
-    );
-
+    showAuthMsg("Mot de passe a dwe gen omwen 6 karaktè.");
     return;
-
   }
 
-
   try{
-
-    const cred=
-      await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
+    const cred=await createUserWithEmailAndPassword(auth,email,password);
     const user=cred.user;
+    const displayName=`${prenom} ${nom}`;
 
-    const displayName=
-      `${prenom} ${nom}`;
+    await updateProfile(user,{displayName});
 
-
-    await updateProfile(
-      user,
-      {
-        displayName
-      }
-    );
-
-
-    await setDoc(
-      doc(
-        db,
-        "users",
-        user.uid
-      ),
-      {
-        uid:user.uid,
-        nom,
-        prenom,
-        displayName,
-        email:user.email,
-        role,
-        status:"pending",
-        provider:"password",
-        createdAt:serverTimestamp()
-      },
-      {
-        merge:true
-      }
-    );
-
+    await setDoc(doc(db,"users",user.uid),{
+      uid:user.uid,
+      nom,
+      prenom,
+      displayName,
+      email:user.email,
+      role:"",
+      status:"pending",
+      provider:"password",
+      createdAt:serverTimestamp()
+    },{merge:true});
 
     await signOut(auth);
-
 
     showAuthMsg(
       "Kont lan kreye. Li rete an attente jiskaske administratè a valide li.",
       "success"
     );
 
-
     showAuthTab("login");
 
-
-    document.getElementById(
-      "loginEmail"
-    ).value=email;
-
-
   }catch(error){
-
     console.error(error);
-
-    if(
-      error.code==="auth/email-already-in-use"
-    ){
-
-      showAuthMsg(
-        "E-mail sa deja gen yon kont. Eseye konekte pito."
-      );
-
-    }else if(
-      error.code==="auth/invalid-email"
-    ){
-
-      showAuthMsg(
-        "E-mail la pa valab."
-      );
-
-    }else{
-
-      showAuthMsg(
-        "Erè lè y ap kreye kont lan: "
-        +error.message
-      );
-
-    }
-
+    showAuthMsg("Erè: "+error.message);
   }
-
 };
 
-
-window.connexionEmail=async function(){
-
-  const email=
-    document
-      .getElementById("loginEmail")
-      .value.trim();
-
-  const password=
-    document
-      .getElementById("loginPassword")
-      .value;
-
+window.connecter=async function(){
+  const email=document.getElementById("loginEmail").value.trim();
+  const password=document.getElementById("loginPassword").value;
 
   if(!email||!password){
-
-    showAuthMsg(
-      "Antre e-mail ak mot de passe ou."
-    );
-
+    showAuthMsg("Tanpri antre e-mail ak mot de passe.");
     return;
-
   }
-
 
   try{
-
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-
-    showAuthMsg(
-      "Connexion réussie.",
-      "success"
-    );
-
+    await signInWithEmailAndPassword(auth,email,password);
   }catch(error){
-
     console.error(error);
-
-    if(
-      error.code==="auth/invalid-credential"
-    ){
-
-      showAuthMsg(
-        "E-mail oswa mot de passe pa kòrèk."
-      );
-
-    }else{
-
-      showAuthMsg(
-        "Erè connexion: "
-        +error.message
-      );
-
-    }
-
+    showAuthMsg("Erè koneksyon: "+error.message);
   }
-
 };
-
 
 window.connecterAvecGoogle=async function(){
-
   try{
+    await setPersistence(auth,browserLocalPersistence);
 
-    await signInWithPopup(
-      auth,
-      provider
-    );
-
-  }catch(error){
-
-    console.error(error);
-
-    if(
-      error.code==="auth/popup-blocked"
-      ||
-      error.code==="auth/popup-closed-by-user"
-      ||
-      error.code==="auth/cancelled-popup-request"
-    ){
-
-      await signInWithRedirect(
-        auth,
-        provider
-      );
-
-    }else{
-
-      showAuthMsg(
-        "Google connexion pa mache: "
-        +error.message
-      );
-
+    try{
+      await signInWithPopup(auth,provider);
+    }catch(popupError){
+      console.log("Popup Google pa mache, Redirect ap eseye...",popupError);
+      await signInWithRedirect(auth,provider);
     }
 
+  }catch(error){
+    console.error(error);
+    showAuthMsg("Google pa kapab konekte: "+error.message);
   }
-
 };
 
-
-async function handleUser(user){
-
-  if(!user){
-
+window.deconnecter=async function(){
+  try{
+    await signOut(auth);
     currentUser=null;
     currentUserProfile=null;
 
-    document.getElementById(
-      "app"
-    ).style.display="none";
+    document.getElementById("app").style.display="none";
+    document.getElementById("loginBox").style.display="flex";
 
-    document.getElementById(
-      "loginBox"
-    ).style.display="flex";
-
-    hideLoading();
-
-    return;
-
+    showAuthMsg("Ou dekonekte.","success");
+  }catch(error){
+    console.error(error);
   }
-
-
-  currentUser=user;
-
-  let profile={};
-
-
-  try{
-
-    const snap=
-      await getDoc(
-        doc(
-          db,
-          "users",
-          user.uid
-        )
-      );
-
-    if(snap.exists())
-      profile=snap.data();
-
-  }catch(e){
-
-    console.error(
-      "Profile read:",
-      e
-    );
-
-  }
-
-
-  if(!profile.uid){
-
-    profile={
-
-      uid:user.uid,
-
-      nom:
-        user.displayName
-          ?.split(" ")
-          .slice(1)
-          .join(" ")
-        || "",
-
-      prenom:
-        user.displayName
-          ?.split(" ")[0]
-        || "",
-
-      displayName:
-        user.displayName
-        || user.email
-          ?.split("@")[0]
-        || "Utilisateur",
-
-      email:user.email || "",
-
-      role:"eleve",
-
-      status:"pending",
-
-      provider:"google",
-
-      createdAt:
-        serverTimestamp()
-
-    };
-
-
-    try{
-
-      await setDoc(
-        doc(
-          db,
-          "users",
-          user.uid
-        ),
-        profile,
-        {
-          merge:true
-        }
-      );
-
-    }catch(e){
-
-      console.error(
-        "Profile create:",
-        e
-      );
-
-    }
-
-  }
-
-
-  currentUserProfile=profile;
-
-
-  if(
-    profile.status!=="accepted"
-    &&
-    profile.role!=="administrateur"
-  ){
-
-    document.getElementById(
-      "app"
-    ).style.display="none";
-
-    document.getElementById(
-      "loginBox"
-    ).style.display="flex";
-
-    showAuthTab("login");
-
-    showAuthMsg(
-      "Kont ou an attente. Se yon administratè ki ka aksepte demann ou."
-    );
-
-    await signOut(auth);
-
-    hideLoading();
-
-    return;
-
-  }
-
-
-  document.getElementById(
-    "loginBox"
-  ).style.display="none";
-
-  document.getElementById(
-    "app"
-  ).style.display="block";
-
-
-  document.getElementById(
-    "userName"
-  ).textContent=
-    profile.displayName
-    ||
-    `${profile.prenom||""} ${profile.nom||""}`.trim()
-    ||
-    "Utilisateur";
-
-
-  document.getElementById(
-    "userEmail"
-  ).textContent=
-    profile.email
-    ||
-    user.email
-    ||
-    "";
-
-
-  document.getElementById(
-    "userRole"
-  ).textContent=
-    roleLabel(profile.role);
-
-
-  const photo=
-    document.getElementById(
-      "userPhoto"
-    );
-
-  photo.src=
-    user.photoURL
-    ||
-    "https://ui-avatars.com/api/?name="
-    +
-    encodeURIComponent(
-      profile.displayName
-      || "U"
-    );
-
-
-  applyRoleUI();
-
-  await chargerDonneesFirebase();
-
-  convertirNotesAnciennes();
-
-  actualiserTout();
-
-
-  const first=
-    profile.role==="administrateur"
-      ? "accueil"
-      : profile.role==="professeur"
-        ? "eleves"
-        : "devoirs";
-
-
-  showSection(first);
-
-  hideLoading();
-
-}
-
-
-onAuthStateChanged(
-  auth,
-  handleUser
-);
-
-
-getRedirectResult(auth)
-.catch(error=>{
-  if(error)
-    console.error(
-      "Redirect:",
-      error
-    );
-});
-
-
-setPersistence(
-  auth,
-  browserLocalPersistence
-)
-.catch(console.error);
-
-
-window.deconnecter=async function(){
-
-  await signOut(auth);
-
 };
 
-
-function applyRoleUI(){
-
-  document
-    .querySelectorAll(
-      "#mainNav button[data-section]"
-    )
-    .forEach(btn=>{
-
-      const section=
-        btn.dataset.section;
-
-      btn.style.display=
-        canAccess(section)
-          ? "block"
-          : "none";
-
-    });
-
-
-  document.getElementById(
-    "utilisateurs"
-  ).style.display=
-    currentUserProfile?.role==="administrateur"
-      ? ""
-      : "none";
-
-}
-
-
 /* ==========================================================
-   FIRESTORE
+   FIREBASE DATA
    ========================================================== */
-
 const collections=[
   "eleves",
   "professeurs",
@@ -2794,509 +626,344 @@ const collections=[
   "remises"
 ];
 
-
-window.firebaseSaveData=
-async function(key,data){
-
-  if(!currentUser)
-    return;
-
+window.firebaseSaveData=async function(key,data){
   try{
-
-    for(
-      const item of data
-    ){
-
-      if(!item.id)
-        item.id=uid();
-
-      await setDoc(
-        doc(
-          db,
-          key,
-          String(item.id)
-        ),
-        item,
-        {
-          merge:true
-        }
-      );
-
+    for(const item of data){
+      if(!item.id) continue;
+      await setDoc(doc(db,key,String(item.id)),item,{merge:true});
     }
-
+    console.log("Firebase OK:",key);
   }catch(error){
-
-    console.error(
-      "Firebase save:",
-      key,
-      error
-    );
-
+    console.error("Firebase save error:",key,error);
   }
-
 };
 
-
-async function chargerDonneesFirebase(){
-
-  if(!currentUser)
-    return;
-
-
-  for(
-    const key of collections
-  ){
-
-    try{
-
-      const snap=
-        await getDocs(
-          collection(
-            db,
-            key
-          )
-        );
-
-      const data=[];
-
-      snap.forEach(d=>{
-        data.push({
-          id:d.id,
-          ...d.data()
-        });
-      });
-
-
-      if(data.length>0){
-
-        localStorage.setItem(
-          key,
-          JSON.stringify(data)
-        );
-
-      }
-
-    }catch(error){
-
-      console.error(
-        "Firebase read:",
-        key,
-        error
-      );
-
-    }
-
-  }
-
-
-  if(
-    currentUserProfile?.role
-    ==="administrateur"
-  ){
-
-    await chargerUtilisateurs();
-
-  }
-
-}
-
-
-async function chargerUtilisateurs(){
-
-  const tbody=
-    document.getElementById(
-      "listeUtilisateurs"
-    );
-
-  const demandes=
-    document.getElementById(
-      "listeDemandes"
-    );
-
-
-  if(!tbody||!demandes)
-    return;
-
-
+async function chargerCollection(key){
   try{
-
-    const snap=
-      await getDocs(
-        collection(
-          db,
-          "users"
-        )
-      );
-
-
-    tbody.innerHTML="";
-    demandes.innerHTML="";
-
-    let pending=0;
-
+    const snap=await getDocs(collection(db,key));
+    const data=[];
 
     snap.forEach(d=>{
-
-      const u=d.data();
-
-      const status=
-        u.status
-        || "pending";
-
-
-      tbody.innerHTML+=`
-
-        <tr>
-
-          <td>
-            ${escapeHTML(
-              u.displayName
-              ||
-              `${u.prenom||""} ${u.nom||""}`
-            )}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              u.email||""
-            )}
-          </td>
-
-          <td>
-            <span class="badge ${roleClass(u.role)}">
-              ${escapeHTML(
-                roleLabel(u.role)
-              )}
-            </span>
-          </td>
-
-          <td>
-            ${statusBadge(status)}
-          </td>
-
-        </tr>
-
-      `;
-
-
-      if(status==="pending"){
-
-        pending++;
-
-
-        demandes.innerHTML+=`
-
-          <tr>
-
-            <td>
-              ${escapeHTML(
-                u.displayName
-                ||
-                `${u.prenom||""} ${u.nom||""}`
-              )}
-            </td>
-
-            <td>
-              ${escapeHTML(
-                u.email||""
-              )}
-            </td>
-
-            <td>
-              ${escapeHTML(
-                roleLabel(u.role)
-              )}
-            </td>
-
-            <td>
-              ${statusBadge(status)}
-            </td>
-
-            <td>
-
-              <button
-                class="smallBtn successBtn"
-                onclick="accepterDemande('${d.id}')">
-                ✅ Aksepte
-              </button>
-
-              <button
-                class="smallBtn dangerBtn"
-                onclick="refuserDemande('${d.id}')">
-                ❌ Refize
-              </button>
-
-            </td>
-
-          </tr>
-
-        `;
-
-      }
-
+      data.push({
+        id:d.id,
+        ...d.data()
+      });
     });
 
+    localStorage.setItem(key,JSON.stringify(data));
+    return data;
 
-    if(!pending){
+  }catch(error){
+    console.error("Firebase read error:",key,error);
+    return getData(key);
+  }
+}
 
-      demandes.innerHTML=`
+async function chargerToutFirebase(){
+  for(const key of collections){
+    await chargerCollection(key);
+  }
+}
 
-        <tr>
+/* ==========================================================
+   USER PROFILE
+   ========================================================== */
+async function handleUser(user){
+  if(!user)return;
 
-          <td
-            colspan="5"
-            class="empty">
+  currentUser=user;
 
-            Pa gen demann an attente.
+  try{
+    const ref=doc(db,"users",user.uid);
+    const snap=await getDoc(ref);
 
-          </td>
+    let profile;
 
-        </tr>
+    if(!snap.exists()){
+      profile={
+        uid:user.uid,
+        nom:user.displayName?.split(" ").slice(1).join(" ") || "",
+        prenom:user.displayName?.split(" ")[0] || "",
+        displayName:user.displayName || user.email?.split("@")[0] || "Utilisateur",
+        email:user.email || "",
+        role:"",
+        status:"pending",
+        provider:"google",
+        createdAt:serverTimestamp()
+      };
 
-      `;
-
+      await setDoc(ref,profile,{merge:true});
+    }else{
+      profile={
+        uid:user.uid,
+        ...snap.data()
+      };
     }
 
+    currentUserProfile=profile;
+
+    if(profile.status!=="accepted" && profile.role!=="administrateur"){
+      document.getElementById("app").style.display="none";
+      document.getElementById("loginBox").style.display="flex";
+
+      showAuthMsg(
+        profile.role
+          ? "Kont ou poko valide."
+          : "Kont ou an attente. Administratè a dwe chwazi wòl ou anvan li valide kont lan.",
+        "error"
+      );
+
+      await signOut(auth);
+      return;
+    }
+
+    document.getElementById("loginBox").style.display="none";
+    document.getElementById("app").style.display="block";
+
+    document.getElementById("userEmail").textContent=user.email || "";
+
+    await chargerToutFirebase();
+    convertirNotesAnciennes();
+    actualiserTout();
+
+    appliquerPermissions();
+
   }catch(error){
-
-    console.error(error);
-
+    console.error("handleUser:",error);
+    showAuthMsg("Erè pandan chajman kont lan: "+error.message);
   }
-
 }
 
+/* ==========================================================
+   REDIRECT GOOGLE
+   ========================================================== */
+getRedirectResult(auth)
+  .then(result=>{
+    if(result?.user){
+      handleUser(result.user);
+    }
+  })
+  .catch(error=>{
+    console.error("Redirect Google:",error);
+  });
+
+onAuthStateChanged(auth,user=>{
+  if(user){
+    handleUser(user);
+  }else{
+    currentUser=null;
+    currentUserProfile=null;
+
+    document.getElementById("app").style.display="none";
+    document.getElementById("loginBox").style.display="flex";
+  }
+});
+
+/* ==========================================================
+   NAVIGATION / PERMISSIONS
+   ========================================================== */
+window.showSection=function(id){
+  if(!canAccess(id)){
+    showToast("⛔ Ou pa gen aksè ak seksyon sa a.");
+    return;
+  }
+
+  document.querySelectorAll(".section").forEach(s=>{
+    s.style.display="none";
+  });
+
+  const section=document.getElementById(id);
+  if(section){
+    section.style.display="block";
+  }
+
+  document.querySelectorAll(".navBtn").forEach(btn=>{
+    btn.classList.remove("active");
+  });
+
+  const btn=document.querySelector(`[data-section="${id}"]`);
+  if(btn)btn.classList.add("active");
+};
+
+function appliquerPermissions(){
+  const role=currentUserProfile?.role;
+
+  document.querySelectorAll("[data-section]").forEach(btn=>{
+    const section=btn.getAttribute("data-section");
+    btn.style.display=canAccess(section)?"":"none";
+  });
+
+  const userSection=document.querySelector('[data-section="utilisateurs"]');
+  const backupSection=document.querySelector('[data-section="backup"]');
+
+  if(userSection){
+    userSection.style.display=role==="administrateur"?"":"none";
+  }
+
+  if(backupSection){
+    backupSection.style.display=role==="administrateur"?"":"none";
+  }
+
+  document.querySelectorAll("[data-admin-only]").forEach(el=>{
+    el.style.display=role==="administrateur"?"":"none";
+  });
+
+  const firstAllowed=
+    role==="administrateur" ? "accueil" :
+    role==="professeur" ? "accueil" :
+    role==="eleve" ? "accueil" : null;
+
+  if(firstAllowed){
+    showSection(firstAllowed);
+  }
+}
+
+/* ==========================================================
+   UTILISATEURS / ADMIN
+   ========================================================== */
+async function chargerUtilisateurs(){
+  if(!requireRole(["administrateur"])) return;
+
+  const tbody=document.getElementById("listeUtilisateurs");
+  if(!tbody)return;
+
+  try{
+    const snap=await getDocs(collection(db,"users"));
+    const users=[];
+
+    snap.forEach(d=>{
+      users.push({
+        id:d.id,
+        ...d.data()
+      });
+    });
+
+    users.sort((a,b)=>{
+      const sa=a.status==="pending"?0:1;
+      const sb=b.status==="pending"?0:1;
+      return sa-sb;
+    });
+
+    tbody.innerHTML=users.length
+      ?users.map(d=>{
+        const pending=d.status!=="accepted" && d.status!=="rejected";
+
+        return `
+          <tr>
+            <td>${escapeHTML(d.displayName||`${d.prenom||""} ${d.nom||""}`)}</td>
+            <td>${escapeHTML(d.email||"")}</td>
+            <td>
+              <span class="${roleClass(d.role)}">
+                ${escapeHTML(roleLabel(d.role))}
+              </span>
+            </td>
+            <td>${escapeHTML(statusBadge(d.status))}</td>
+            <td>
+              ${pending ? `
+                <select id="role_${d.id}" style="padding:8px;border-radius:8px;border:1px solid #ddd;">
+                  <option value="">Chwazi wòl</option>
+                  <option value="eleve">Elèv</option>
+                  <option value="professeur">Pwofesè</option>
+                  <option value="administrateur">Administratè</option>
+                </select>
+
+                <button class="smallBtn successBtn"
+                  onclick="accepterDemande('${d.id}')">
+                  ✅ Aksepte
+                </button>
+
+                <button class="smallBtn dangerBtn"
+                  onclick="refuserDemande('${d.id}')">
+                  ❌ Refize
+                </button>
+              ` : ""}
+            </td>
+          </tr>
+        `;
+      }).join("")
+      : `<tr><td colspan="5" class="empty">Pa gen itilizatè.</td></tr>`;
+
+  }catch(error){
+    console.error(error);
+    showToast("Erè pandan chajman itilizatè yo.");
+  }
+}
 
 function statusBadge(status){
-
-  const s=
-    status==="accepted"
-      ? "Aksepte"
-      : status==="rejected"
-        ? "Refize"
-        : "An attente";
-
-
-  const c=
-    status==="accepted"
-      ? "badgeAccepted"
-      : status==="rejected"
-        ? "badgeRejected"
-        : "badgePending";
-
-
-  return `
-    <span class="badge ${c}">
-      ${s}
-    </span>
-  `;
-
+  if(status==="accepted") return "Aksepte";
+  if(status==="rejected") return "Refize";
+  return "An attente";
 }
 
-
-window.accepterDemande=
-async function(uidUser){
-
-  if(
-    !requireRole([
-      "administrateur"
-    ])
-  )
+window.accepterDemande=async function(uidUser){
+  if(!currentUser || currentUserProfile?.role!=="administrateur"){
+    showToast("⛔ Se administratè a ki ka aksepte demann.");
     return;
+  }
 
+  const roleSelect=document.getElementById("role_"+uidUser);
+  const role=roleSelect ? roleSelect.value : "";
+
+  if(!["eleve","professeur","administrateur"].includes(role)){
+    showToast("⚠️ Tanpri chwazi wòl itilizatè a anvan ou aksepte li.");
+    return;
+  }
 
   try{
+    await setDoc(doc(db,"users",uidUser),{
+      role:role,
+      status:"accepted",
+      approvedBy:currentUser.uid,
+      approvedAt:serverTimestamp()
+    },{merge:true});
 
-    await setDoc(
-      doc(
-        db,
-        "users",
-        uidUser
-      ),
-      {
-        status:"accepted",
-        approvedBy:
-          currentUser.uid,
-        approvedAt:
-          serverTimestamp()
-      },
-      {
-        merge:true
-      }
-    );
-
-
-    showToast(
-      "✅ Demann lan aksepte."
-    );
-
+    showToast("✅ Kont lan aksepte. Wòl la se: "+roleLabel(role));
 
     await chargerUtilisateurs();
 
   }catch(error){
-
     console.error(error);
-
-    showToast(
-      "Erè pandan akseptasyon an."
-    );
-
+    showToast("Erè pandan akseptasyon an: "+error.message);
   }
-
 };
 
-
-window.refizeDemande=
-async function(uidUser){
-
-  if(
-    !requireRole([
-      "administrateur"
-    ])
-  )
+window.refuserDemande=async function(uidUser){
+  if(!currentUser || currentUserProfile?.role!=="administrateur"){
+    showToast("⛔ Se administratè a ki ka refize demann.");
     return;
-
+  }
 
   try{
+    await setDoc(doc(db,"users",uidUser),{
+      status:"rejected",
+      approvedBy:currentUser.uid,
+      approvedAt:serverTimestamp()
+    },{merge:true});
 
-    await setDoc(
-      doc(
-        db,
-        "users",
-        uidUser
-      ),
-      {
-        status:"rejected",
-        rejectedBy:
-          currentUser.uid,
-        rejectedAt:
-          serverTimestamp()
-      },
-      {
-        merge:true
-      }
-    );
-
-
-    showToast(
-      "Demann lan refize."
-    );
-
-
+    showToast("❌ Demann lan refize.");
     await chargerUtilisateurs();
 
   }catch(error){
-
     console.error(error);
-
+    showToast("Erè pandan refi a: "+error.message);
   }
-
 };
 
-
 /* ==========================================================
-   NAVIGATION
+   CLASSES
    ========================================================== */
-
-window.showSection=function(id){
-
-  if(!canAccess(id)){
-
-    showToast(
-      "⛔ Ou pa gen aksè ak seksyon sa a."
-    );
-
-    return;
-
-  }
-
-
-  document
-    .querySelectorAll(".section")
-    .forEach(
-      s=>s.classList.remove("active")
-    );
-
-
-  const section=
-    document.getElementById(id);
-
-
-  if(section)
-    section.classList.add("active");
-
-
-  document
-    .querySelectorAll("nav button")
-    .forEach(
-      b=>b.classList.remove("active")
-    );
-
-
-  const btn=
-    document.querySelector(
-      `nav button[data-section="${id}"]`
-    );
-
-
-  if(btn)
-    btn.classList.add("active");
-
-
-  if(
-    id==="utilisateurs"
-    &&
-    currentUserProfile?.role
-      ==="administrateur"
-  ){
-
-    chargerUtilisateurs();
-
-  }
-
-};
-
-
-/* ==========================================================
-   KLAS
-   ========================================================== */
-
 window.ajouterClasse=function(){
+  if(!requireRole(["administrateur","professeur"]))return;
 
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  )
-    return;
-
-
-  const nom=
-    document
-      .getElementById("classeNom")
-      .value.trim();
-
-
-  const niveau=
-    document
-      .getElementById("classeNiveau")
-      .value.trim();
-
+  const nom=document.getElementById("classeNom").value.trim();
+  const niveau=document.getElementById("classeNiveau").value.trim();
 
   if(!nom){
-
-    showToast(
-      "Antre non klas la."
-    );
-
+    showToast("Tanpri antre non klas la.");
     return;
-
   }
 
-
-  const data=
-    getData("classes");
-
+  const data=getData("classes");
 
   data.push({
     id:uid(),
@@ -3304,755 +971,272 @@ window.ajouterClasse=function(){
     niveau
   });
 
+  saveData("classes",data);
 
-  saveData(
-    "classes",
-    data
-  );
-
-
-  document.getElementById(
-    "classeNom"
-  ).value="";
-
-  document.getElementById(
-    "classeNiveau"
-  ).value="";
-
+  document.getElementById("classeNom").value="";
+  document.getElementById("classeNiveau").value="";
 
   afficherClasses();
-
   remplirSelects();
-
   actualiserDashboard();
-
 };
-
 
 function afficherClasses(){
+  const tbody=document.getElementById("listeClasses");
+  if(!tbody)return;
 
-  const tbody=
-    document.getElementById(
-      "listeClasses"
-    );
+  const data=getData("classes");
 
-
-  if(!tbody)
-    return;
-
-
-  const data=
-    getData("classes");
-
-
-  tbody.innerHTML=
-    data.length
-
-      ?
-
-      data.map(x=>`
-
-        <tr>
-
-          <td>
-            ${escapeHTML(x.nom)}
-          </td>
-
-          <td>
-            ${escapeHTML(x.niveau)}
-          </td>
-
-          <td>
-
-            <button
-              class="smallBtn dangerBtn"
-              onclick="supprimerClasse('${x.id}')">
-              🗑️
-            </button>
-
-          </td>
-
-        </tr>
-
-      `).join("")
-
-      :
-
-      `
-
-        <tr>
-
-          <td
-            colspan="3"
-            class="empty">
-
-            Pa gen klas.
-
-          </td>
-
-        </tr>
-
-      `;
-
+  tbody.innerHTML=data.length
+    ?data.map(x=>`
+      <tr>
+        <td>${escapeHTML(x.nom)}</td>
+        <td>${escapeHTML(x.niveau)}</td>
+        <td>
+          <button class="smallBtn dangerBtn"
+            onclick="supprimerClasse('${x.id}')">🗑️</button>
+        </td>
+      </tr>
+    `).join("")
+    :`<tr><td colspan="3" class="empty">Pa gen klas.</td></tr>`;
 }
 
-
-window.supprimerClasse=
-function(id){
-
-  if(
-    !requireRole([
-      "administrateur"
-    ])
-  )
-    return;
-
-
-  const data=
-    getData("classes")
-      .filter(
-        x=>String(x.id)
-        !==String(id)
-      );
-
+window.supprimerClasse=function(id){
+  if(!requireRole(["administrateur","professeur"]))return;
 
   saveData(
     "classes",
-    data
+    getData("classes").filter(x=>String(x.id)!==String(id))
   );
 
-
   afficherClasses();
-
   remplirSelects();
-
+  actualiserDashboard();
 };
 
-
 /* ==========================================================
-   MATYÈ
+   MATIERES
    ========================================================== */
-
 window.ajouterMatiere=function(){
+  if(!requireRole(["administrateur","professeur"]))return;
 
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  )
-    return;
-
-
-  const nom=
-    document
-      .getElementById("matiereNom")
-      .value.trim();
-
+  const nom=document.getElementById("matiereNom").value.trim();
 
   if(!nom){
-
-    showToast(
-      "Antre non matyè a."
-    );
-
+    showToast("Tanpri antre non matyè a.");
     return;
-
   }
 
-
-  const data=
-    getData("matieres");
-
+  const data=getData("matieres");
 
   data.push({
     id:uid(),
     nom
   });
 
+  saveData("matieres",data);
 
-  saveData(
-    "matieres",
-    data
-  );
-
-
-  document.getElementById(
-    "matiereNom"
-  ).value="";
-
+  document.getElementById("matiereNom").value="";
 
   afficherMatieres();
-
   remplirSelects();
-
 };
-
 
 function afficherMatieres(){
+  const tbody=document.getElementById("listeMatieres");
+  if(!tbody)return;
 
-  const tbody=
-    document.getElementById(
-      "listeMatieres"
-    );
+  const data=getData("matieres");
 
-
-  const data=
-    getData("matieres");
-
-
-  tbody.innerHTML=
-    data.length
-
-      ?
-
-      data.map(x=>`
-
-        <tr>
-
-          <td>
-            ${escapeHTML(x.nom)}
-          </td>
-
-          <td>
-
-            <button
-              class="smallBtn dangerBtn"
-              onclick="supprimerMatiere('${x.id}')">
-              🗑️
-            </button>
-
-          </td>
-
-        </tr>
-
-      `).join("")
-
-      :
-
-      `
-
-        <tr>
-
-          <td
-            colspan="2"
-            class="empty">
-
-            Pa gen matyè.
-
-          </td>
-
-        </tr>
-
-      `;
-
+  tbody.innerHTML=data.length
+    ?data.map(x=>`
+      <tr>
+        <td>${escapeHTML(x.nom)}</td>
+        <td>
+          <button class="smallBtn dangerBtn"
+            onclick="supprimerMatiere('${x.id}')">🗑️</button>
+        </td>
+      </tr>
+    `).join("")
+    :`<tr><td colspan="2" class="empty">Pa gen matyè.</td></tr>`;
 }
 
-
-window.supprimerMatiere=
-function(id){
-
-  if(
-    !requireRole([
-      "administrateur"
-    ])
-  )
-    return;
-
+window.supprimerMatiere=function(id){
+  if(!requireRole(["administrateur","professeur"]))return;
 
   saveData(
     "matieres",
-    getData("matieres")
-      .filter(
-        x=>String(x.id)
-        !==String(id)
-      )
+    getData("matieres").filter(x=>String(x.id)!==String(id))
   );
 
-
   afficherMatieres();
-
   remplirSelects();
-
 };
 
-
 /* ==========================================================
-   ELÈV
+   ELEVES
    ========================================================== */
-
 window.ajouterEleve=function(){
+  if(!requireRole(["administrateur","professeur"]))return;
 
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  )
+  const prenom=document.getElementById("elevePrenom").value.trim();
+  const nom=document.getElementById("eleveNom").value.trim();
+  const classe=document.getElementById("eleveClasse").value;
+
+  if(!prenom||!nom||!classe){
+    showToast("Tanpri ranpli enfòmasyon elèv la.");
     return;
-
-
-  const nom=
-    document
-      .getElementById("eleveNom")
-      .value.trim();
-
-
-  const prenom=
-    document
-      .getElementById("elevePrenom")
-      .value.trim();
-
-
-  const email=
-    document
-      .getElementById("eleveEmail")
-      .value.trim();
-
-
-  const classe=
-    document
-      .getElementById("eleveClasse")
-      .value;
-
-
-  if(!nom||!prenom){
-
-    showToast(
-      "Ranpli non ak prénom elèv la."
-    );
-
-    return;
-
   }
 
-
-  const data=
-    getData("eleves");
-
+  const data=getData("eleves");
 
   data.push({
     id:uid(),
-    nom,
     prenom,
-    email,
+    nom,
     classe
   });
 
+  saveData("eleves",data);
 
-  saveData(
-    "eleves",
-    data
-  );
-
-
-  [
-    "eleveNom",
-    "elevePrenom",
-    "eleveEmail"
-  ].forEach(id=>{
-
-    document.getElementById(
-      id
-    ).value="";
-
-  });
-
+  document.getElementById("elevePrenom").value="";
+  document.getElementById("eleveNom").value="";
 
   afficherEleves();
-
   remplirSelects();
-
   actualiserDashboard();
-
+  actualiserStatistiques();
 };
-
 
 function afficherEleves(){
+  const tbody=document.getElementById("listeEleves");
+  if(!tbody)return;
 
-  const tbody=
-    document.getElementById(
-      "listeEleves"
-    );
-
-
-  const classes=
-    getData("classes");
-
+  const classes=getData("classes");
+  const data=getData("eleves");
 
   const className=id=>
-    classes.find(
-      c=>String(c.id)
-      ===String(id)
-    )?.nom
-    ||
-    id
-    ||
-    "";
+    classes.find(x=>String(x.id)===String(id))?.nom||id||"";
 
-
-  const data=
-    getData("eleves");
-
-
-  tbody.innerHTML=
-    data.length
-
-      ?
-
-      data.map(x=>`
-
-        <tr>
-
-          <td>
-            ${escapeHTML(x.nom)}
-          </td>
-
-          <td>
-            ${escapeHTML(x.prenom)}
-          </td>
-
-          <td>
-            ${escapeHTML(x.email)}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              className(x.classe)
-            )}
-          </td>
-
-          <td>
-
-            <button
-              class="smallBtn dangerBtn"
-              onclick="supprimerEleve('${x.id}')">
-              🗑️
-            </button>
-
-          </td>
-
-        </tr>
-
-      `).join("")
-
-      :
-
-      `
-
-        <tr>
-
-          <td
-            colspan="5"
-            class="empty">
-
-            Pa gen elèv.
-
-          </td>
-
-        </tr>
-
-      `;
-
+  tbody.innerHTML=data.length
+    ?data.map(x=>`
+      <tr>
+        <td>${escapeHTML(x.prenom)}</td>
+        <td>${escapeHTML(x.nom)}</td>
+        <td>${escapeHTML(className(x.classe))}</td>
+        <td>
+          <button class="smallBtn dangerBtn"
+            onclick="supprimerEleve('${x.id}')">🗑️</button>
+        </td>
+      </tr>
+    `).join("")
+    :`<tr><td colspan="4" class="empty">Pa gen elèv.</td></tr>`;
 }
 
-
-window.supprimerEleve=
-function(id){
-
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  )
-    return;
-
+window.supprimerEleve=function(id){
+  if(!requireRole(["administrateur","professeur"]))return;
 
   saveData(
     "eleves",
-    getData("eleves")
-      .filter(
-        x=>String(x.id)
-        !==String(id)
-      )
+    getData("eleves").filter(x=>String(x.id)!==String(id))
   );
 
-
   afficherEleves();
-
   remplirSelects();
-
   actualiserDashboard();
-
+  actualiserStatistiques();
 };
 
-
 /* ==========================================================
-   PROFESÈ
+   PROFESSEURS
    ========================================================== */
+window.ajouterProfesseur=function(){
+  if(!requireRole(["administrateur"]))return;
 
-window.ajouterProfesseur=
-function(){
+  const prenom=document.getElementById("profPrenom").value.trim();
+  const nom=document.getElementById("profNom").value.trim();
+  const matiere=document.getElementById("profMatiere").value;
 
-  if(
-    !requireRole([
-      "administrateur"
-    ])
-  )
+  if(!prenom||!nom||!matiere){
+    showToast("Tanpri ranpli enfòmasyon pwofesè a.");
     return;
-
-
-  const nom=
-    document
-      .getElementById("profNom")
-      .value.trim();
-
-
-  const prenom=
-    document
-      .getElementById("profPrenom")
-      .value.trim();
-
-
-  const email=
-    document
-      .getElementById("profEmail")
-      .value.trim();
-
-
-  const matiere=
-    document
-      .getElementById("profMatiere")
-      .value;
-
-
-  if(!nom||!prenom){
-
-    showToast(
-      "Ranpli non ak prénom pwofesè a."
-    );
-
-    return;
-
   }
 
-
-  const data=
-    getData("professeurs");
-
+  const data=getData("professeurs");
 
   data.push({
     id:uid(),
-    nom,
     prenom,
-    email,
+    nom,
     matiere
   });
 
+  saveData("professeurs",data);
 
-  saveData(
-    "professeurs",
-    data
-  );
-
-
-  [
-    "profNom",
-    "profPrenom",
-    "profEmail"
-  ].forEach(id=>{
-
-    document.getElementById(
-      id
-    ).value="";
-
-  });
-
+  document.getElementById("profPrenom").value="";
+  document.getElementById("profNom").value="";
 
   afficherProfesseurs();
-
   actualiserDashboard();
-
+  actualiserStatistiques();
 };
-
 
 function afficherProfesseurs(){
+  const tbody=document.getElementById("listeProfesseurs");
+  if(!tbody)return;
 
-  const tbody=
-    document.getElementById(
-      "listeProfesseurs"
-    );
-
-
-  const matieres=
-    getData("matieres");
-
+  const matieres=getData("matieres");
+  const data=getData("professeurs");
 
   const matName=id=>
-    matieres.find(
-      m=>String(m.id)
-      ===String(id)
-    )?.nom
-    ||
-    id
-    ||
-    "";
+    matieres.find(x=>String(x.id)===String(id))?.nom||id||"";
 
-
-  const data=
-    getData("professeurs");
-
-
-  tbody.innerHTML=
-    data.length
-
-      ?
-
-      data.map(x=>`
-
-        <tr>
-
-          <td>
-            ${escapeHTML(x.nom)}
-          </td>
-
-          <td>
-            ${escapeHTML(x.prenom)}
-          </td>
-
-          <td>
-            ${escapeHTML(x.email)}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              matName(x.matiere)
-            )}
-          </td>
-
-          <td>
-
-            <button
-              class="smallBtn dangerBtn"
-              onclick="supprimerProfesseur('${x.id}')">
-              🗑️
-            </button>
-
-          </td>
-
-        </tr>
-
-      `).join("")
-
-      :
-
-      `
-
-        <tr>
-
-          <td
-            colspan="5"
-            class="empty">
-
-            Pa gen pwofesè.
-
-          </td>
-
-        </tr>
-
-      `;
-
+  tbody.innerHTML=data.length
+    ?data.map(x=>`
+      <tr>
+        <td>${escapeHTML(x.prenom)}</td>
+        <td>${escapeHTML(x.nom)}</td>
+        <td>${escapeHTML(matName(x.matiere))}</td>
+        <td>
+          <button class="smallBtn dangerBtn"
+            onclick="supprimerProfesseur('${x.id}')">🗑️</button>
+        </td>
+      </tr>
+    `).join("")
+    :`<tr><td colspan="4" class="empty">Pa gen pwofesè.</td></tr>`;
 }
 
-
-window.supprimerProfesseur=
-function(id){
-
-  if(
-    !requireRole([
-      "administrateur"
-    ])
-  )
-    return;
-
+window.supprimerProfesseur=function(id){
+  if(!requireRole(["administrateur"]))return;
 
   saveData(
     "professeurs",
-    getData("professeurs")
-      .filter(
-        x=>String(x.id)
-        !==String(id)
-      )
+    getData("professeurs").filter(x=>String(x.id)!==String(id))
   );
 
-
   afficherProfesseurs();
-
   actualiserDashboard();
-
+  actualiserStatistiques();
 };
 
-
 /* ==========================================================
-   DEVWA
+   DEVOIRS
    ========================================================== */
-
 window.ajouterDevoir=function(){
+  if(!requireRole(["administrateur","professeur"]))return;
 
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  )
+  const titre=document.getElementById("devoirTitre").value.trim();
+  const date=document.getElementById("devoirDate").value;
+  const description=document.getElementById("devoirDescription").value.trim();
+  const matiere=document.getElementById("devoirMatiere").value;
+  const classe=document.getElementById("devoirClasse").value;
+
+  if(!titre||!date||!matiere||!classe){
+    showToast("Tanpri ranpli enfòmasyon devwa a.");
     return;
-
-
-  const titre=
-    document
-      .getElementById("devoirTitre")
-      .value.trim();
-
-
-  const matiere=
-    document
-      .getElementById("devoirMatiere")
-      .value;
-
-
-  const classe=
-    document
-      .getElementById("devoirClasse")
-      .value;
-
-
-  const date=
-    document
-      .getElementById("devoirDate")
-      .value;
-
-
-  const description=
-    document
-      .getElementById("devoirDescription")
-      .value.trim();
-
-
-  if(!titre){
-
-    showToast(
-      "Antre tit devwa a."
-    );
-
-    return;
-
   }
 
-
-  const data=
-    getData("devoirs");
-
+  const data=getData("devoirs");
 
   data.push({
     id:uid(),
@@ -4063,1247 +1247,461 @@ window.ajouterDevoir=function(){
     description
   });
 
+  saveData("devoirs",data);
 
-  saveData(
-    "devoirs",
-    data
-  );
-
-
-  [
-    "devoirTitre",
-    "devoirDate",
-    "devoirDescription"
-  ].forEach(id=>{
-
-    document.getElementById(
-      id
-    ).value="";
-
-  });
-
+  ["devoirTitre","devoirDate","devoirDescription"]
+    .forEach(id=>document.getElementById(id).value="");
 
   afficherDevoirs();
-
   remplirSelects();
-
   actualiserDashboard();
-
 };
-
 
 function afficherDevoirs(){
+  const tbody=document.getElementById("listeDevoirs");
+  if(!tbody)return;
 
-  const tbody=
-    document.getElementById(
-      "listeDevoirs"
-    );
-
-
-  const mat=
-    getData("matieres");
-
-
-  const cls=
-    getData("classes");
-
+  const mat=getData("matieres");
+  const cls=getData("classes");
 
   const matName=id=>
-    mat.find(
-      x=>String(x.id)
-      ===String(id)
-    )?.nom
-    ||
-    id
-    ||
-    "";
-
+    mat.find(x=>String(x.id)===String(id))?.nom||id||"";
 
   const clsName=id=>
-    cls.find(
-      x=>String(x.id)
-      ===String(id)
-    )?.nom
-    ||
-    id
-    ||
-    "";
+    cls.find(x=>String(x.id)===String(id))?.nom||id||"";
 
+  const data=getData("devoirs");
 
-  const data=
-    getData("devoirs");
-
-
-  tbody.innerHTML=
-    data.length
-
-      ?
-
-      data.map(x=>`
-
-        <tr>
-
-          <td>
-            ${escapeHTML(x.titre)}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              matName(x.matiere)
-            )}
-          </td>
-
-          <td>
-            ${escapeHTML(
-              clsName(x.classe)
-            )}
-          </td>
-
-          <td>
-            ${escapeHTML(x.date)}
-          </td>
-
-          <td>
-
-            <button
-              class="smallBtn dangerBtn"
-              onclick="supprimerDevoir('${x.id}')">
-              🗑️
-            </button>
-
-          </td>
-
-        </tr>
-
-      `).join("")
-
-      :
-
-      `
-
-        <tr>
-
-          <td
-            colspan="5"
-            class="empty">
-
-            Pa gen devwa.
-
-          </td>
-
-        </tr>
-
-      `;
-
+  tbody.innerHTML=data.length
+    ?data.map(x=>`
+      <tr>
+        <td>${escapeHTML(x.titre)}</td>
+        <td>${escapeHTML(matName(x.matiere))}</td>
+        <td>${escapeHTML(clsName(x.classe))}</td>
+        <td>${escapeHTML(x.date)}</td>
+        <td>
+          <button class="smallBtn dangerBtn"
+            onclick="supprimerDevoir('${x.id}')">🗑️</button>
+        </td>
+      </tr>
+    `).join("")
+    :`<tr><td colspan="5" class="empty">Pa gen devwa.</td></tr>`;
 }
 
-
-window.supprimerDevoir=
-function(id){
-
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  )
-    return;
-
+window.supprimerDevoir=function(id){
+  if(!requireRole(["administrateur","professeur"]))return;
 
   saveData(
     "devoirs",
-    getData("devoirs")
-      .filter(
-        x=>String(x.id)
-        !==String(id)
-      )
+    getData("devoirs").filter(x=>String(x.id)!==String(id))
   );
-
 
   afficherDevoirs();
-
   remplirSelects();
-
   actualiserDashboard();
-
 };
 
-
 /* ==========================================================
-   REMÈT + NÒT /20
+   REMISES / NOTES SUR 20
    ========================================================== */
+window.ajouterRemise=function(){
+  if(!requireRole(["administrateur","professeur"]))return;
 
-window.ajouterRemise=
-function(){
+  const eleve=document.getElementById("remiseEleve").value;
+  const devoir=document.getElementById("remiseDevoir").value;
+  const note=Number(document.getElementById("remiseNote").value);
+  const commentaire=document.getElementById("remiseCommentaire").value.trim();
 
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  )
+  if(!eleve||!devoir||Number.isNaN(note)||note<0||note>20){
+    showToast("Nòt la dwe ant 0 ak 20.");
     return;
-
-
-  const eleve=
-    document
-      .getElementById("remiseEleve")
-      .value;
-
-
-  const devoir=
-    document
-      .getElementById("remiseDevoir")
-      .value;
-
-
-  const note=
-    Number(
-      document
-        .getElementById("remiseNote")
-        .value
-    );
-
-
-  const commentaire=
-    document
-      .getElementById(
-        "remiseCommentaire"
-      )
-      .value.trim();
-
-
-  if(
-    !eleve
-    ||
-    !devoir
-    ||
-    Number.isNaN(note)
-    ||
-    note<0
-    ||
-    note>20
-  ){
-
-    showToast(
-      "Nòt la dwe ant 0 ak 20."
-    );
-
-    return;
-
   }
 
-
-  const data=
-    getData("remises");
-
+  const data=getData("remises");
 
   data.push({
-
     id:uid(),
-
     eleve,
-
     devoir,
-
-    note20:
-      Number(
-        note.toFixed(2)
-      ),
-
-    note:
-      Number(
-        note.toFixed(2)
-      ),
-
+    note20:Number(note.toFixed(2)),
+    note:Number(note.toFixed(2)),
     commentaire
-
   });
 
+  saveData("remises",data);
 
-  saveData(
-    "remises",
-    data
-  );
-
-
-  document.getElementById(
-    "remiseNote"
-  ).value="";
-
-
-  document.getElementById(
-    "remiseCommentaire"
-  ).value="";
-
+  document.getElementById("remiseNote").value="";
+  document.getElementById("remiseCommentaire").value="";
 
   afficherRemises();
-
   afficherResultatEleve();
-
   actualiserStatistiques();
-
 };
-
 
 function afficherRemises(){
+  const tbody=document.getElementById("listeRemises");
+  if(!tbody)return;
 
-  const tbody=
-    document.getElementById(
-      "listeRemises"
-    );
-
-
-  const eleves=
-    getData("eleves");
-
-
-  const devoirs=
-    getData("devoirs");
-
+  const eleves=getData("eleves");
+  const devoirs=getData("devoirs");
 
   const eName=id=>{
-
-    const e=
-      eleves.find(
-        x=>String(x.id)
-        ===String(id)
-      );
-
-    return e
-      ? `${e.prenom} ${e.nom}`
-      : id||"";
-
+    const e=eleves.find(x=>String(x.id)===String(id));
+    return e?`${e.prenom} ${e.nom}`:id||"";
   };
 
-
   const dName=id=>
-    devoirs.find(
-      x=>String(x.id)
-      ===String(id)
-    )?.titre
-    ||
-    id
-    ||
-    "";
+    devoirs.find(x=>String(x.id)===String(id))?.titre||id||"";
 
+  const data=getData("remises");
 
-  const data=
-    getData("remises");
+  tbody.innerHTML=data.length
+    ?data.map(x=>{
+      const n=Number(x.note20 ?? x.note ?? 0);
+      const n20=Math.min(20,Math.max(0,n));
+      const n100=n20*5;
 
-
-  tbody.innerHTML=
-    data.length
-
-      ?
-
-      data.map(x=>{
-
-        const n=
-          Number(
-            x.note20
-            ??
-            x.note
-            ??
-            0
-          );
-
-
-        const n20=
-          Math.min(
-            20,
-            Math.max(
-              0,
-              n
-            )
-          );
-
-
-        const n100=
-          n20*5;
-
-
-        return `
-
-          <tr>
-
-            <td>
-              ${escapeHTML(
-                eName(x.eleve)
-              )}
-            </td>
-
-            <td>
-              ${escapeHTML(
-                dName(x.devoir)
-              )}
-            </td>
-
-            <td class="note20">
-              ${n20.toFixed(2)}/20
-            </td>
-
-            <td class="note100">
-              ${n100.toFixed(2)}/100
-            </td>
-
-            <td>
-              ${escapeHTML(
-                x.commentaire
-              )}
-            </td>
-
-            <td>
-
-              <button
-                class="smallBtn dangerBtn"
-                onclick="supprimerRemise('${x.id}')">
-                🗑️
-              </button>
-
-            </td>
-
-          </tr>
-
-        `;
-
-      }).join("")
-
-      :
-
-      `
-
-        <tr>
-
-          <td
-            colspan="6"
-            class="empty">
-
-            Pa gen remèt devwa.
-
-          </td>
-
-        </tr>
-
-      `;
-
+      return `<tr>
+        <td>${escapeHTML(eName(x.eleve))}</td>
+        <td>${escapeHTML(dName(x.devoir))}</td>
+        <td class="note20">${n20.toFixed(2)}/20</td>
+        <td class="note100">${n100.toFixed(2)}/100</td>
+        <td>${escapeHTML(x.commentaire)}</td>
+        <td>
+          <button class="smallBtn dangerBtn"
+            onclick="supprimerRemise('${x.id}')">🗑️</button>
+        </td>
+      </tr>`;
+    }).join("")
+    :`<tr><td colspan="6" class="empty">Pa gen remèt devwa.</td></tr>`;
 }
 
-
-window.supprimerRemise=
-function(id){
-
-  if(
-    !requireRole([
-      "administrateur",
-      "professeur"
-    ])
-  )
-    return;
-
+window.supprimerRemise=function(id){
+  if(!requireRole(["administrateur","professeur"]))return;
 
   saveData(
     "remises",
-    getData("remises")
-      .filter(
-        x=>String(x.id)
-        !==String(id)
-      )
+    getData("remises").filter(x=>String(x.id)!==String(id))
   );
 
-
   afficherRemises();
-
   actualiserStatistiques();
-
 };
 
-
-/* ==========================================================
-   KONVÈSYON ANCIEN NÒT
-   ========================================================== */
-
 function convertirNotesAnciennes(){
-
-  const data=
-    getData("remises");
-
-
+  const data=getData("remises");
   let changed=false;
 
+  const converted=data.map(x=>{
+    let n=Number(x.note20 ?? x.note);
 
-  const converted=
-    data.map(x=>{
+    if(Number.isNaN(n)) return x;
 
-      let n=
-        Number(
-          x.note20
-          ??
-          x.note
-        );
-
-
-      if(Number.isNaN(n))
-        return x;
-
-
-      if(n>20){
-
-        n=n/5;
-
-        changed=true;
-
-      }
-
-
-      const y={
-        ...x,
-        note20:
-          Number(
-            n.toFixed(2)
-          ),
-        note:
-          Number(
-            n.toFixed(2)
-          )
-      };
-
-
-      if(
-        x.note20
-        !==
-        y.note20
-      ){
-
-        changed=true;
-
-      }
-
-
-      return y;
-
-    });
-
-
-  if(changed){
-
-    localStorage.setItem(
-      "remises",
-      JSON.stringify(
-        converted
-      )
-    );
-
-
-    if(currentUser){
-
-      window.firebaseSaveData(
-        "remises",
-        converted
-      );
-
+    if(n>20){
+      n=n/5;
+      changed=true;
     }
 
-  }
+    const y={
+      ...x,
+      note20:Number(n.toFixed(2)),
+      note:Number(n.toFixed(2))
+    };
 
+    if(x.note20!==y.note20) changed=true;
+
+    return y;
+  });
+
+  if(changed){
+    localStorage.setItem("remises",JSON.stringify(converted));
+
+    if(currentUser){
+      window.firebaseSaveData("remises",converted);
+    }
+  }
 }
 
-
 /* ==========================================================
-   REZILTA
+   RESULTATS
    ========================================================== */
-
-window.afficherResultatEleve=
-function(){
-
-  const id=
-    document
-      .getElementById(
-        "resultatEleve"
-      )
-      .value;
-
-
-  const box=
-    document.getElementById(
-      "resultatEleveDetails"
-    );
-
+window.afficherResultatEleve=function(){
+  const id=document.getElementById("resultatEleve").value;
+  const box=document.getElementById("resultatEleveDetails");
 
   if(!id){
-
     box.innerHTML="";
-
     return;
-
   }
 
+  const eleves=getData("eleves");
+  const e=eleves.find(x=>String(x.id)===String(id));
 
-  const eleves=
-    getData("eleves");
-
-
-  const e=
-    eleves.find(
-      x=>String(x.id)
-      ===String(id)
-    );
-
-
-  const remises=
-    getData("remises")
-      .filter(
-        x=>String(x.eleve)
-        ===String(id)
-      );
-
+  const remises=getData("remises")
+    .filter(x=>String(x.eleve)===String(id));
 
   if(!e){
-
     box.innerHTML="";
-
     return;
-
   }
 
+  const notes=remises
+    .map(x=>Number(x.note20??x.note))
+    .filter(n=>!Number.isNaN(n));
 
-  const notes=
-    remises
-      .map(
-        x=>Number(
-          x.note20
-          ??
-          x.note
-        )
-      )
-      .filter(
-        n=>!Number.isNaN(n)
-      );
-
-
-  const moyenne=
-    notes.length
-      ? notes.reduce(
-          (a,b)=>a+b,
-          0
-        )/notes.length
-      :0;
-
+  const moyenne=notes.length
+    ?notes.reduce((a,b)=>a+b,0)/notes.length
+    :0;
 
   box.innerHTML=`
-
-    <div
-      class="card"
-      style="margin-top:15px">
-
-      <h3>
-
-        ${escapeHTML(e.prenom)}
-        ${escapeHTML(e.nom)}
-
-      </h3>
+    <div class="card" style="margin-top:15px">
+      <h3>${escapeHTML(e.prenom)} ${escapeHTML(e.nom)}</h3>
 
       <p>
-
-        <strong>
-          Mwayèn:
-        </strong>
-
-        ${moyenne.toFixed(2)}/20
-
-        —
-
+        <strong>Mwayèn:</strong>
+        ${moyenne.toFixed(2)}/20 —
         ${(moyenne*5).toFixed(2)}/100
-
       </p>
 
       <br>
 
       <div class="tableWrap">
-
         <table>
-
           <thead>
-
             <tr>
-
-              <th>
-                Devwa
-              </th>
-
-              <th>
-                Nòt /20
-              </th>
-
-              <th>
-                /100
-              </th>
-
+              <th>Devwa</th>
+              <th>Nòt /20</th>
+              <th>/100</th>
             </tr>
-
           </thead>
 
           <tbody>
-
-            ${
-              remises.length
-
-              ?
-
-              remises.map(r=>{
-
-                const n=
-                  Number(
-                    r.note20
-                    ??
-                    r.note
-                    ??
-                    0
-                  );
-
+            ${remises.length
+              ?remises.map(r=>{
+                const n=Number(r.note20??r.note??0);
 
                 return `
-
                   <tr>
-
                     <td>
-
                       ${escapeHTML(
                         getData("devoirs")
-                        .find(
-                          d=>String(d.id)
-                          ===String(r.devoir)
-                        )
-                        ?.titre
-                        ||
-                        ""
+                        .find(d=>String(d.id)===String(r.devoir))
+                        ?.titre||""
                       )}
-
                     </td>
-
-                    <td>
-                      ${n.toFixed(2)}/20
-                    </td>
-
-                    <td>
-                      ${(n*5).toFixed(2)}/100
-                    </td>
-
+                    <td>${n.toFixed(2)}/20</td>
+                    <td>${(n*5).toFixed(2)}/100</td>
                   </tr>
-
                 `;
-
               }).join("")
-
-              :
-
-              `
-
+              :`
                 <tr>
-
-                  <td
-                    colspan="3"
-                    class="empty">
-
-                    Pa gen nòt.
-
-                  </td>
-
+                  <td colspan="3" class="empty">Pa gen nòt.</td>
                 </tr>
-
               `
             }
-
           </tbody>
-
         </table>
-
       </div>
-
     </div>
-
   `;
-
 };
-
 
 /* ==========================================================
    SELECTS
    ========================================================== */
+function setSelect(id,items,labelFn,empty=""){
+  const el=document.getElementById(id);
+  if(!el)return;
 
-function setSelect(
-  id,
-  items,
-  labelFn,
-  empty=""
-){
-
-  const el=
-    document.getElementById(id);
-
-
-  if(!el)
-    return;
-
-
-  const old=
-    el.value;
-
+  const old=el.value;
 
   el.innerHTML=
-    `<option value="">
-      ${empty || "Chwazi..."}
-    </option>`
-    +
-    items.map(x=>`
+    `<option value="">${empty || "Chwazi..."}</option>`+
+    items.map(x=>
+      `<option value="${escapeHTML(x.id)}">
+        ${escapeHTML(labelFn(x))}
+      </option>`
+    ).join("");
 
-      <option
-        value="${escapeHTML(x.id)}">
-
-        ${escapeHTML(
-          labelFn(x)
-        )}
-
-      </option>
-
-    `).join("");
-
-
-  if(
-    items.some(
-      x=>String(x.id)
-      ===String(old)
-    )
-  ){
-
+  if(items.some(x=>String(x.id)===String(old))){
     el.value=old;
-
   }
-
 }
-
 
 function remplirSelects(){
+  const classes=getData("classes");
+  const matieres=getData("matieres");
+  const eleves=getData("eleves");
+  const devoirs=getData("devoirs");
 
-  const classes=
-    getData("classes");
-
-  const matieres=
-    getData("matieres");
-
-  const eleves=
-    getData("eleves");
-
-  const devoirs=
-    getData("devoirs");
-
-
-  setSelect(
-    "eleveClasse",
-    classes,
-    x=>x.nom,
-    "Chwazi klas"
-  );
-
-
-  setSelect(
-    "devoirClasse",
-    classes,
-    x=>x.nom,
-    "Chwazi klas"
-  );
-
-
-  setSelect(
-    "profMatiere",
-    matieres,
-    x=>x.nom,
-    "Chwazi matyè"
-  );
-
-
-  setSelect(
-    "devoirMatiere",
-    matieres,
-    x=>x.nom,
-    "Chwazi matyè"
-  );
-
-
-  setSelect(
-    "remiseEleve",
-    eleves,
-    x=>`${x.prenom} ${x.nom}`,
-    "Chwazi elèv"
-  );
-
-
-  setSelect(
-    "remiseDevoir",
-    devoirs,
-    x=>x.titre,
-    "Chwazi devwa"
-  );
-
-
-  setSelect(
-    "resultatEleve",
-    eleves,
-    x=>`${x.prenom} ${x.nom}`,
-    "Chwazi elèv"
-  );
-
+  setSelect("eleveClasse",classes,x=>x.nom,"Chwazi klas");
+  setSelect("devoirClasse",classes,x=>x.nom,"Chwazi klas");
+  setSelect("profMatiere",matieres,x=>x.nom,"Chwazi matyè");
+  setSelect("devoirMatiere",matieres,x=>x.nom,"Chwazi matyè");
+  setSelect("remiseEleve",eleves,x=>`${x.prenom} ${x.nom}`,"Chwazi elèv");
+  setSelect("remiseDevoir",devoirs,x=>x.titre,"Chwazi devwa");
+  setSelect("resultatEleve",eleves,x=>`${x.prenom} ${x.nom}`,"Chwazi elèv");
 }
 
-
 /* ==========================================================
-   DASHBOARD
+   DASHBOARD / STATISTIQUES
    ========================================================== */
-
 function actualiserDashboard(){
-
-  document.getElementById(
-    "statEleves"
-  ).textContent=
+  document.getElementById("statEleves").textContent=
     getData("eleves").length;
 
-
-  document.getElementById(
-    "statProfesseurs"
-  ).textContent=
+  document.getElementById("statProfesseurs").textContent=
     getData("professeurs").length;
 
-
-  document.getElementById(
-    "statClasses"
-  ).textContent=
+  document.getElementById("statClasses").textContent=
     getData("classes").length;
 
-
-  document.getElementById(
-    "statDevoirs"
-  ).textContent=
+  document.getElementById("statDevoirs").textContent=
     getData("devoirs").length;
-
 }
-
-
-/* ==========================================================
-   STATISTIQUES
-   ========================================================== */
 
 function actualiserStatistiques(){
+  const remises=getData("remises");
 
-  const remises=
-    getData("remises");
+  const notes=remises
+    .map(x=>Number(x.note20??x.note))
+    .filter(n=>!Number.isNaN(n));
 
+  const avg=notes.length
+    ?notes.reduce((a,b)=>a+b,0)/notes.length
+    :0;
 
-  const notes=
-    remises
-      .map(
-        x=>Number(
-          x.note20
-          ??
-          x.note
-        )
-      )
-      .filter(
-        n=>!Number.isNaN(n)
-      );
-
-
-  const avg=
-    notes.length
-      ? notes.reduce(
-          (a,b)=>a+b,
-          0
-        )/notes.length
-      :0;
-
-
-  document.getElementById(
-    "totalElevesStat"
-  ).textContent=
+  document.getElementById("totalElevesStat").textContent=
     getData("eleves").length;
 
-
-  document.getElementById(
-    "totalProfStat"
-  ).textContent=
+  document.getElementById("totalProfStat").textContent=
     getData("professeurs").length;
 
-
-  document.getElementById(
-    "totalDevoirStat"
-  ).textContent=
+  document.getElementById("totalDevoirStat").textContent=
     getData("devoirs").length;
 
-
-  document.getElementById(
-    "moyenneStat"
-  ).textContent=
+  document.getElementById("moyenneStat").textContent=
     avg.toFixed(2);
-
 }
-
-
-/* ==========================================================
-   ACTUALISER TOUT
-   ========================================================== */
 
 function actualiserTout(){
-
   afficherClasses();
-
   afficherMatieres();
-
   afficherEleves();
-
   afficherProfesseurs();
-
   afficherDevoirs();
-
   afficherRemises();
-
   remplirSelects();
-
   actualiserDashboard();
-
   actualiserStatistiques();
 
+  if(currentUserProfile?.role==="administrateur"){
+    chargerUtilisateurs();
+  }
 }
-
 
 /* ==========================================================
    SAUVEGARDE
    ========================================================== */
-
 window.exporterDonnees=function(){
-
   const obj={};
 
+  collections.forEach(k=>{
+    obj[k]=getData(k);
+  });
 
-  collections.forEach(
-    k=>{
-      obj[k]=getData(k);
-    }
+  const blob=new Blob(
+    [JSON.stringify(obj,null,2)],
+    {type:"application/json"}
   );
 
-
-  const blob=
-    new Blob(
-      [
-        JSON.stringify(
-          obj,
-          null,
-          2
-        )
-      ],
-      {
-        type:"application/json"
-      }
-    );
-
-
-  const a=
-    document.createElement("a");
-
-
-  a.href=
-    URL.createObjectURL(
-      blob
-    );
-
-
-  a.download=
-    "sistem-lekol-done.json";
-
-
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="sistem-lekol-done.json";
   a.click();
 
-
-  URL.revokeObjectURL(
-    a.href
-  );
-
+  URL.revokeObjectURL(a.href);
 };
 
+window.importerDonnees=function(event){
+  if(!requireRole(["administrateur"]))return;
 
-window.importerDonnees=
-function(event){
+  const file=event.target.files[0];
+  if(!file)return;
 
-  if(
-    !requireRole([
-      "administrateur"
-    ])
-  )
-    return;
-
-
-  const file=
-    event.target.files[0];
-
-
-  if(!file)
-    return;
-
-
-  const reader=
-    new FileReader();
-
+  const reader=new FileReader();
 
   reader.onload=e=>{
-
     try{
-
-      const obj=
-        JSON.parse(
-          e.target.result
-        );
-
+      const obj=JSON.parse(e.target.result);
 
       collections.forEach(k=>{
-
-        if(
-          Array.isArray(
-            obj[k]
-          )
-        ){
-
+        if(Array.isArray(obj[k])){
           localStorage.setItem(
             k,
-            JSON.stringify(
-              obj[k]
-            )
+            JSON.stringify(obj[k])
           );
-
         }
-
       });
 
-
       actualiserTout();
-
-      showToast(
-        "Done yo enpòte."
-      );
-
+      showToast("Done yo enpòte.");
 
     }catch{
-
-      showToast(
-        "Fichye a pa valab."
-      );
-
+      showToast("Fichye a pa valab.");
     }
-
   };
 
-
   reader.readAsText(file);
-
 };
 
+window.effacerTout=function(){
+  if(!requireRole(["administrateur"]))return;
 
-window.effacerTout=
-function(){
-
-  if(
-    !requireRole([
-      "administrateur"
-    ])
-  )
+  if(!confirm("Èske ou sèten ou vle efase done lokal yo?"))
     return;
 
-
-  if(
-    !confirm(
-      "Èske ou sèten ou vle efase done lokal yo?"
-    )
-  )
-    return;
-
-
-  collections.forEach(
-    k=>localStorage.removeItem(k)
-  );
-
+  collections.forEach(k=>{
+    localStorage.removeItem(k);
+  });
 
   actualiserTout();
-
 };
-
 
 /* ==========================================================
    PWA
    ========================================================== */
+window.addEventListener("beforeinstallprompt",e=>{
+  e.preventDefault();
+  deferredPrompt=e;
 
-window.addEventListener(
-  "beforeinstallprompt",
-  e=>{
+  document.getElementById("installButton").style.display="block";
+});
 
-    e.preventDefault();
-
-    deferredPrompt=e;
-
-    document.getElementById(
-      "installButton"
-    ).style.display="block";
-
-  }
-);
-
-
-window.installerApp=
-async function(){
-
-  if(!deferredPrompt)
-    return;
-
+window.installerApp=async function(){
+  if(!deferredPrompt)return;
 
   deferredPrompt.prompt();
-
   await deferredPrompt.userChoice;
 
   deferredPrompt=null;
 
-  document.getElementById(
-    "installButton"
-  ).style.display="none";
-
+  document.getElementById("installButton").style.display="none";
 };
 
-
-if(
-  "serviceWorker"
-  in navigator
-){
-
-  window.addEventListener(
-    "load",
-    ()=>{
-
-      navigator.serviceWorker
-        .register("./sw.js")
-        .catch(
-          e=>console.log(
-            "SW:",
-            e
-          )
-        );
-
-    }
-  );
-
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker
+      .register("./sw.js")
+      .catch(e=>console.log("SW:",e));
+  });
 }
-
 
 /* ==========================================================
    INITIALISATION
    ========================================================== */
-
 initLanguage();
-
 hideLoading();
 
 </script>
