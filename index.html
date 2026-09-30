@@ -198,6 +198,29 @@ th{
   background:#f1f5f9
 }
 
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold
+}
+
+.badgePending{
+  background:#fef3c7;
+  color:#92400e
+}
+
+.badgeAccepted{
+  background:#dcfce7;
+  color:#166534
+}
+
+.badgeRejected{
+  background:#fee2e2;
+  color:#991b1b
+}
+
 #loginBox{
   min-height:100vh;
   display:flex;
@@ -296,6 +319,11 @@ th{
 
   .card{
     padding:14px
+  }
+
+  th,
+  td{
+    font-size:13px
   }
 
 }
@@ -491,6 +519,14 @@ th{
     📈 Estatistik
   </button>
 
+  <!-- ADMIN -->
+  <button
+    id="usersNavBtn"
+    onclick="showSection('utilisateurs')"
+    style="display:none">
+    👥 Itilizatè
+  </button>
+
   <button onclick="showSection('donnees')">
     💾 Done
   </button>
@@ -555,22 +591,13 @@ th{
 
     <h2>👨‍🎓 Elèv</h2>
 
-    <input
-      id="elevePrenom"
-      placeholder="Prénom">
+    <input id="elevePrenom" placeholder="Prénom">
 
-    <input
-      id="eleveNom"
-      placeholder="Nom">
+    <input id="eleveNom" placeholder="Nom">
 
-    <input
-      id="eleveClasse"
-      placeholder="Klas">
+    <input id="eleveClasse" placeholder="Klas">
 
-    <input
-      id="eleveEmail"
-      type="email"
-      placeholder="Imèl">
+    <input id="eleveEmail" type="email" placeholder="Imèl">
 
     <button
       class="btn btnSuccess"
@@ -589,14 +616,12 @@ th{
       <table>
 
         <thead>
-
           <tr>
             <th>Prénom</th>
             <th>Nom</th>
             <th>Klas</th>
             <th>Imèl</th>
           </tr>
-
         </thead>
 
         <tbody id="listeEleves"></tbody>
@@ -620,22 +645,13 @@ th{
 
     <h2>👨‍🏫 Pwofesè</h2>
 
-    <input
-      id="profPrenom"
-      placeholder="Prénom">
+    <input id="profPrenom" placeholder="Prénom">
 
-    <input
-      id="profNom"
-      placeholder="Nom">
+    <input id="profNom" placeholder="Nom">
 
-    <input
-      id="profMatiere"
-      placeholder="Matyè">
+    <input id="profMatiere" placeholder="Matyè">
 
-    <input
-      id="profEmail"
-      type="email"
-      placeholder="Imèl">
+    <input id="profEmail" type="email" placeholder="Imèl">
 
     <button
       class="btn btnSuccess"
@@ -654,14 +670,12 @@ th{
       <table>
 
         <thead>
-
           <tr>
             <th>Prénom</th>
             <th>Nom</th>
             <th>Matyè</th>
             <th>Imèl</th>
           </tr>
-
         </thead>
 
         <tbody id="listeProfesseurs"></tbody>
@@ -685,13 +699,9 @@ th{
 
     <h2>🏫 Klas</h2>
 
-    <input
-      id="classeNom"
-      placeholder="Non klas la">
+    <input id="classeNom" placeholder="Non klas la">
 
-    <input
-      id="classeNiveau"
-      placeholder="Nivo">
+    <input id="classeNiveau" placeholder="Nivo">
 
     <button
       class="btn btnSuccess"
@@ -710,12 +720,10 @@ th{
       <table>
 
         <thead>
-
           <tr>
             <th>Non</th>
             <th>Nivo</th>
           </tr>
-
         </thead>
 
         <tbody id="listeClasses"></tbody>
@@ -739,13 +747,9 @@ th{
 
     <h2>📚 Matyè</h2>
 
-    <input
-      id="matiereNom"
-      placeholder="Non matyè">
+    <input id="matiereNom" placeholder="Non matyè">
 
-    <input
-      id="matiereCode"
-      placeholder="Kòd matyè">
+    <input id="matiereCode" placeholder="Kòd matyè">
 
     <button
       class="btn btnSuccess"
@@ -764,12 +768,10 @@ th{
       <table>
 
         <thead>
-
           <tr>
             <th>Matyè</th>
             <th>Kòd</th>
           </tr>
-
         </thead>
 
         <tbody id="listeMatieres"></tbody>
@@ -793,21 +795,13 @@ th{
 
     <h2>📝 Devwa</h2>
 
-    <input
-      id="devoirTitre"
-      placeholder="Tit devwa">
+    <input id="devoirTitre" placeholder="Tit devwa">
 
-    <input
-      id="devoirMatiere"
-      placeholder="Matyè">
+    <input id="devoirMatiere" placeholder="Matyè">
 
-    <input
-      id="devoirClasse"
-      placeholder="Klas">
+    <input id="devoirClasse" placeholder="Klas">
 
-    <input
-      id="devoirDate"
-      type="date">
+    <input id="devoirDate" type="date">
 
     <textarea
       id="devoirDescription"
@@ -830,7 +824,6 @@ th{
       <table>
 
         <thead>
-
           <tr>
             <th>Tit</th>
             <th>Matyè</th>
@@ -838,7 +831,6 @@ th{
             <th>Dat</th>
             <th>Deskripsyon</th>
           </tr>
-
         </thead>
 
         <tbody id="listeDevoirs"></tbody>
@@ -862,17 +854,11 @@ th{
 
     <h2>📤 Remèt Devwa</h2>
 
-    <input
-      id="remiseEleve"
-      placeholder="Elèv">
+    <input id="remiseEleve" placeholder="Elèv">
 
-    <input
-      id="remiseDevoir"
-      placeholder="Devwa">
+    <input id="remiseDevoir" placeholder="Devwa">
 
-    <input
-      id="remiseDate"
-      type="date">
+    <input id="remiseDate" type="date">
 
     <textarea
       id="remiseCommentaire"
@@ -895,14 +881,12 @@ th{
       <table>
 
         <thead>
-
           <tr>
             <th>Elèv</th>
             <th>Devwa</th>
             <th>Dat</th>
             <th>Kòmantè</th>
           </tr>
-
         </thead>
 
         <tbody id="listeRemises"></tbody>
@@ -956,42 +940,69 @@ th{
   <div class="grid">
 
     <div class="statCard">
-
       <h3>Total Elèv</h3>
-
-      <strong id="totalElevesStat">
-        0
-      </strong>
-
+      <strong id="totalElevesStat">0</strong>
     </div>
 
     <div class="statCard">
-
       <h3>Total Pwofesè</h3>
-
-      <strong id="totalProfStat">
-        0
-      </strong>
-
+      <strong id="totalProfStat">0</strong>
     </div>
 
     <div class="statCard">
-
       <h3>Total Devwa</h3>
-
-      <strong id="totalDevoirStat">
-        0
-      </strong>
-
+      <strong id="totalDevoirStat">0</strong>
     </div>
 
     <div class="statCard">
-
       <h3>Mwayèn</h3>
+      <strong id="moyenneStat">0</strong>
+    </div>
 
-      <strong id="moyenneStat">
-        0
-      </strong>
+  </div>
+
+</section>
+
+
+<!-- =========================
+     ADMIN - ITILIZATÈ
+========================= -->
+
+<section id="utilisateurs" class="section">
+
+  <div class="card">
+
+    <h2>👥 Jesyon Itilizatè</h2>
+
+    <p>
+      Se Administratè sèlman ki ka valide kont yo epi bay wòl.
+    </p>
+
+  </div>
+
+  <div class="card">
+
+    <h3>Lis Itilizatè yo</h3>
+
+    <div class="tableWrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Non</th>
+            <th>Email</th>
+            <th>Wòl</th>
+            <th>Status</th>
+            <th>Aksyon</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="listeUtilisateurs"></tbody>
+
+      </table>
 
     </div>
 
@@ -1078,9 +1089,11 @@ from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 import {
   getFirestore,
   setDoc,
+  getDoc,
   collection,
   getDocs,
-  doc
+  doc,
+  serverTimestamp
 }
 from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
@@ -1137,7 +1150,7 @@ let currentUserProfile=null;
 
 function hideLoading(){
 
-  const el=
+  const el =
     document.getElementById(
       "loadingOverlay"
     );
@@ -1158,7 +1171,7 @@ function showAuthMsg(
   type="error"
 ){
 
-  const el=
+  const el =
     document.getElementById(
       "authMsg"
     );
@@ -1167,7 +1180,7 @@ function showAuthMsg(
 
   el.textContent=message;
 
-  el.className=
+  el.className =
     "authMsg "+type;
 
 }
@@ -1196,11 +1209,9 @@ try{
 
 /* ==================================================
    GOOGLE LOGIN
-   ANDROID = REDIRECT
-   DESKTOP = POPUP
 ================================================== */
 
-window.connecterAvecGoogle=
+window.connecterAvecGoogle =
 async function(){
 
   try{
@@ -1210,17 +1221,10 @@ async function(){
       "success"
     );
 
-
-    const isMobile=
+    const isMobile =
       /Android|iPhone|iPad|iPod/i.test(
         navigator.userAgent
       );
-
-
-    /*
-      Sou telefòn nou itilize REDIRECT
-      dirèkteman pou popup pa rete ap tann.
-    */
 
     if(isMobile){
 
@@ -1235,20 +1239,14 @@ async function(){
       );
 
       return;
-
     }
 
 
-    /*
-      Sou òdinatè nou itilize POPUP.
-    */
-
-    const result=
+    const result =
       await signInWithPopup(
         auth,
         provider
       );
-
 
     if(
       result &&
@@ -1268,19 +1266,17 @@ async function(){
       error
     );
 
+    const redirectErrors = [
 
-    /*
-      Si popup pa mache,
-      itilize redirect.
-    */
-
-    const redirectErrors=[
       "auth/popup-blocked",
-      "auth/popup-closed-by-user",
-      "auth/cancelled-popup-request",
-      "auth/operation-not-supported-in-this-environment"
-    ];
 
+      "auth/popup-closed-by-user",
+
+      "auth/cancelled-popup-request",
+
+      "auth/operation-not-supported-in-this-environment"
+
+    ];
 
     if(
       redirectErrors.includes(
@@ -1291,28 +1287,23 @@ async function(){
       try{
 
         showAuthMsg(
-          "Popup la pa disponib. N ap itilize Redirect...",
+          "N ap itilize Redirect pou konekte...",
           "success"
         );
-
 
         await signInWithRedirect(
           auth,
           provider
         );
 
-
         return;
 
-      }catch(
-        redirectError
-      ){
+      }catch(redirectError){
 
         console.error(
           "ERÈ REDIRECT:",
           redirectError
         );
-
 
         showAuthMsg(
           "Erè Google: "+
@@ -1320,22 +1311,17 @@ async function(){
           "error"
         );
 
-
-        hideLoading();
-
-        return;
-
       }
 
+    }else{
+
+      showAuthMsg(
+        "Erè Google: "+
+        (error.message || "Erè enkoni"),
+        "error"
+      );
+
     }
-
-
-    showAuthMsg(
-      "Erè Google: "+
-      (error.message || "Erè enkoni"),
-      "error"
-    );
-
 
     hideLoading();
 
@@ -1348,20 +1334,18 @@ async function(){
    EMAIL LOGIN
 ================================================== */
 
-window.loginEmailPassword=
+window.loginEmailPassword =
 async function(){
 
-  const email=
+  const email =
     document.getElementById(
       "loginEmail"
     ).value.trim();
 
-
-  const password=
+  const password =
     document.getElementById(
       "loginPassword"
     ).value;
-
 
   if(!email || !password){
 
@@ -1371,9 +1355,7 @@ async function(){
     );
 
     return;
-
   }
-
 
   try{
 
@@ -1382,19 +1364,16 @@ async function(){
       "success"
     );
 
-
-    const result=
+    const result =
       await signInWithEmailAndPassword(
         auth,
         email,
         password
       );
 
-
     await handleUser(
       result.user
     );
-
 
   }catch(error){
 
@@ -1403,13 +1382,11 @@ async function(){
       error
     );
 
-
     showAuthMsg(
       "Erè koneksyon: "+
       (error.message || "Erè enkoni"),
       "error"
     );
-
 
     hideLoading();
 
@@ -1422,14 +1399,13 @@ async function(){
    REGISTER BOX
 ================================================== */
 
-window.showRegister=
+window.showRegister =
 function(){
 
-  const box=
+  const box =
     document.getElementById(
       "registerBox"
     );
-
 
   if(
     box.style.display==="block"
@@ -1448,36 +1424,31 @@ function(){
 
 /* ==================================================
    CREATE ACCOUNT
-   PA GEN PENDING
-   PA GEN ADMIN VALIDATION
+   NOUVO KONTA = PENDING
 ================================================== */
 
-window.registerAccount=
+window.registerAccount =
 async function(){
 
-  const prenom=
+  const prenom =
     document.getElementById(
       "registerPrenom"
     ).value.trim();
 
-
-  const nom=
+  const nom =
     document.getElementById(
       "registerNom"
     ).value.trim();
 
-
-  const email=
+  const email =
     document.getElementById(
       "registerEmail"
     ).value.trim();
 
-
-  const password=
+  const password =
     document.getElementById(
       "registerPassword"
     ).value;
-
 
   if(
     !prenom ||
@@ -1492,11 +1463,9 @@ async function(){
     );
 
     return;
-
   }
 
-
-  if(password.length<6){
+  if(password.length < 6){
 
     showAuthMsg(
       "Modpas la dwe gen omwen 6 karaktè.",
@@ -1504,9 +1473,7 @@ async function(){
     );
 
     return;
-
   }
-
 
   try{
 
@@ -1515,14 +1482,12 @@ async function(){
       "success"
     );
 
-
-    const result=
+    const result =
       await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-
 
     await updateProfile(
       result.user,
@@ -1534,47 +1499,254 @@ async function(){
 
 
     /*
-      PA KREYE users/{uid}
-      PA mete pending
-      PA mande administratè.
+      Kreye pwofil pending.
     */
 
-
-    currentUser=
-      result.user;
-
-
-    currentUserProfile={
+    const profile = {
 
       uid:
         result.user.uid,
 
       prenom:
-
         prenom,
 
       nom:
-
         nom,
 
       displayName:
-
         prenom+" "+nom,
 
       email:
-
         email,
 
       role:
-
         "",
 
       status:
+        "pending",
 
-        "accepted"
+      provider:
+        "password",
+
+      createdAt:
+        serverTimestamp()
 
     };
 
+
+    await setDoc(
+      doc(
+        db,
+        "users",
+        result.user.uid
+      ),
+      profile
+    );
+
+
+    /*
+      Dekonekte apre enskripsyon.
+      Li dwe tann Administratè a.
+    */
+
+    await signOut(auth);
+
+
+    document.getElementById(
+      "registerBox"
+    ).style.display="none";
+
+
+    showAuthMsg(
+      "Kont ou kreye avèk siksè. Li an attente pou Administratè a valide li.",
+      "success"
+    );
+
+
+    hideLoading();
+
+  }catch(error){
+
+    console.error(
+      "ERÈ REGISTER:",
+      error
+    );
+
+    showAuthMsg(
+      "Erè pandan kreyasyon kont lan: "+
+      (error.message || "Erè enkoni"),
+      "error"
+    );
+
+    hideLoading();
+
+  }
+
+};
+
+
+/* ==================================================
+   HANDLE USER
+   ADMIN / PROFESÈ / ELÈV
+================================================== */
+
+async function handleUser(user){
+
+  if(!user)return;
+
+  currentUser=user;
+
+  try{
+
+    const userRef =
+      doc(
+        db,
+        "users",
+        user.uid
+      );
+
+    const userSnap =
+      await getDoc(
+        userRef
+      );
+
+
+    /*
+      SI PA GEN USERS/{UID}
+      KREYE L AN PENDING.
+    */
+
+    if(!userSnap.exists()){
+
+      const profile = {
+
+        uid:
+          user.uid,
+
+        email:
+          user.email || "",
+
+        displayName:
+          user.displayName ||
+          user.email?.split("@")[0] ||
+          "Utilisateur",
+
+        role:
+          "",
+
+        status:
+          "pending",
+
+        provider:
+          "google",
+
+        createdAt:
+          serverTimestamp()
+
+      };
+
+
+      await setDoc(
+        userRef,
+        profile
+      );
+
+
+      currentUserProfile =
+        profile;
+
+
+      document.getElementById(
+        "app"
+      ).style.display="none";
+
+
+      document.getElementById(
+        "loginBox"
+      ).style.display="flex";
+
+
+      showAuthMsg(
+        "Kont ou kreye. Li an attente pou Administratè a valide li epi bay yon wòl.",
+        "success"
+      );
+
+
+      await signOut(
+        auth
+      );
+
+
+      hideLoading();
+
+      return;
+    }
+
+
+    const profile =
+      userSnap.data();
+
+
+    currentUserProfile =
+      profile;
+
+
+    /*
+      KONT REFIZE
+    */
+
+    if(
+      profile.status ===
+      "rejected"
+    ){
+
+      showAuthMsg(
+        "Administratè a pa apwouve kont sa a.",
+        "error"
+      );
+
+
+      await signOut(
+        auth
+      );
+
+
+      hideLoading();
+
+      return;
+    }
+
+
+    /*
+      KONT PENDING
+    */
+
+    if(
+      profile.status !==
+      "accepted" ||
+      !profile.role
+    ){
+
+      showAuthMsg(
+        "Kont ou an attente. Administratè a dwe valide kont lan epi bay yon wòl.",
+        "success"
+      );
+
+
+      await signOut(
+        auth
+      );
+
+
+      hideLoading();
+
+      return;
+    }
+
+
+    /*
+      KONT AKSEPTE
+    */
 
     document.getElementById(
       "loginBox"
@@ -1587,22 +1759,55 @@ async function(){
 
 
     document.getElementById(
-      "userName"
-    ).textContent=
-      prenom+" "+nom;
+      "userEmail"
+    ).textContent =
+      user.email || "";
 
 
     document.getElementById(
-      "userEmail"
-    ).textContent=
-      email;
+      "userName"
+    ).textContent =
+      profile.displayName ||
+      user.displayName ||
+      "Utilisateur";
+
+
+    const roleText =
+      profile.role === "administrateur"
+        ? "Administratè"
+        : profile.role === "professeur"
+          ? "Pwofesè"
+          : profile.role === "eleve"
+            ? "Elèv"
+            : "Utilisateur";
 
 
     document.getElementById(
       "userRole"
-    ).textContent=
-      "Utilisateur";
+    ).textContent =
+      roleText;
 
+
+    if(user.photoURL){
+
+      document.getElementById(
+        "userPhoto"
+      ).src =
+        user.photoURL;
+
+    }
+
+
+    /*
+      APLIKE PÈMISYON
+    */
+
+    appliquerPermissions();
+
+
+    /*
+      Chaje done Firebase.
+    */
 
     try{
 
@@ -1611,7 +1816,7 @@ async function(){
     }catch(error){
 
       console.warn(
-        "Firestore pa disponib:",
+        "Firebase pa chaje tout done yo:",
         error
       );
 
@@ -1624,18 +1829,33 @@ async function(){
 
     hideLoading();
 
-
   }catch(error){
 
     console.error(
-      "ERÈ REGISTER:",
+      "ERÈ HANDLE USER:",
       error
     );
 
 
+    /*
+      Si gen pwoblèm Firestore,
+      nou pa ouvri aplikasyon an
+      paske nou pa ka verifye wòl la.
+    */
+
+    document.getElementById(
+      "app"
+    ).style.display="none";
+
+
+    document.getElementById(
+      "loginBox"
+    ).style.display="flex";
+
+
     showAuthMsg(
-      "Erè pandan kreyasyon kont lan: "+
-      (error.message || "Erè enkoni"),
+      "Nou pa kapab verifye kont ou kounye a: "+
+      (error.message || "Erè Firestore"),
       "error"
     );
 
@@ -1643,145 +1863,6 @@ async function(){
     hideLoading();
 
   }
-
-};
-
-
-/* ==================================================
-   HANDLE USER
-   PA GEN ROLE
-   PA GEN STATUS
-   PA GEN ADMIN CHECK
-================================================== */
-
-async function handleUser(user){
-
-  if(!user)return;
-
-
-  currentUser=user;
-
-
-  currentUserProfile={
-
-    uid:
-      user.uid,
-
-    email:
-      user.email || "",
-
-    displayName:
-      user.displayName ||
-      user.email?.split("@")[0] ||
-      "Utilisateur",
-
-    role:
-      "",
-
-    status:
-      "accepted"
-
-  };
-
-
-  console.log(
-    "========================================"
-  );
-
-  console.log(
-    "UTILISATEUR CONNECTE"
-  );
-
-  console.log(
-    "UID:",
-    user.uid
-  );
-
-  console.log(
-    "Email:",
-    user.email
-  );
-
-  console.log(
-    "Nom:",
-    user.displayName
-  );
-
-  console.log(
-    "========================================"
-  );
-
-
-  /*
-    MENM SI FIRESTORE PA BAY AKSÈ,
-    APP LA DWE OUVRI.
-  */
-
-  document.getElementById(
-    "loginBox"
-  ).style.display="none";
-
-
-  document.getElementById(
-    "app"
-  ).style.display="block";
-
-
-  document.getElementById(
-    "userEmail"
-  ).textContent=
-    user.email || "";
-
-
-  document.getElementById(
-    "userName"
-  ).textContent=
-    user.displayName ||
-    user.email?.split("@")[0] ||
-    "Utilisateur";
-
-
-  document.getElementById(
-    "userRole"
-  ).textContent=
-    "Utilisateur";
-
-
-  if(user.photoURL){
-
-    document.getElementById(
-      "userPhoto"
-    ).src=
-      user.photoURL;
-
-  }
-
-
-  /*
-    Chaje done Firebase.
-    Si rules yo bloke l,
-    sa pap bloke aplikasyon an.
-  */
-
-  try{
-
-    await chargerToutFirebase();
-
-  }catch(error){
-
-    console.warn(
-      "Firestore pa disponib:",
-      error
-    );
-
-  }
-
-
-  convertirNotesAnciennes();
-
-  actualiserTout();
-
-  hideLoading();
 
 }
 
@@ -1792,22 +1873,14 @@ async function handleUser(user){
 
 try{
 
-  const redirectResult=
-    await getRedirectResult(
-      auth
-    );
+  /*
+    Nou pa rele handleUser() isit la.
+    onAuthStateChanged() ap fè verifikasyon an.
+  */
 
-
-  if(
-    redirectResult &&
-    redirectResult.user
-  ){
-
-    await handleUser(
-      redirectResult.user
-    );
-
-  }
+  await getRedirectResult(
+    auth
+  );
 
 }catch(error){
 
@@ -1859,7 +1932,7 @@ onAuthStateChanged(
    LOGOUT
 ================================================== */
 
-window.deconnecter=
+window.deconnecter =
 async function(){
 
   try{
@@ -1868,27 +1941,22 @@ async function(){
       auth
     );
 
-
     currentUser=null;
 
     currentUserProfile=null;
-
 
     document.getElementById(
       "app"
     ).style.display="none";
 
-
     document.getElementById(
       "loginBox"
     ).style.display="flex";
-
 
     showAuthMsg(
       "Ou dekonekte.",
       "success"
     );
-
 
   }catch(error){
 
@@ -1903,10 +1971,416 @@ async function(){
 
 
 /* ==================================================
+   ADMIN PERMISSIONS
+================================================== */
+
+window.appliquerPermissions =
+function(){
+
+  const role =
+    currentUserProfile?.role || "";
+
+  const isAdmin =
+    role === "administrateur";
+
+
+  const nav =
+    document.getElementById(
+      "usersNavBtn"
+    );
+
+
+  if(nav){
+
+    nav.style.display =
+      isAdmin
+        ? "block"
+        : "none";
+
+  }
+
+
+  /*
+    Si se admin, chaje itilizatè yo.
+  */
+
+  if(isAdmin){
+
+    chargerUtilisateurs();
+
+  }
+
+};
+
+
+/* ==================================================
+   ADMIN - CHARGE UTILISATEURS
+================================================== */
+
+async function chargerUtilisateurs(){
+
+  const tbody =
+    document.getElementById(
+      "listeUtilisateurs"
+    );
+
+  if(!tbody)return;
+
+
+  if(
+    currentUserProfile?.role !==
+    "administrateur"
+  ){
+
+    return;
+  }
+
+
+  tbody.innerHTML =
+    `<tr>
+      <td colspan="5">
+        Chaje itilizatè yo...
+      </td>
+    </tr>`;
+
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "users"
+        )
+      );
+
+
+    tbody.innerHTML="";
+
+
+    if(snapshot.empty){
+
+      tbody.innerHTML =
+        `<tr>
+          <td colspan="5">
+            Pa gen itilizatè.
+          </td>
+        </tr>`;
+
+      return;
+    }
+
+
+    snapshot.forEach(
+      docSnap=>{
+
+        const user =
+          docSnap.data();
+
+
+        const role =
+          user.role || "";
+
+
+        const status =
+          user.status ||
+          "pending";
+
+
+        let statusHTML =
+          `<span class="badge badgePending">
+             ${status}
+           </span>`;
+
+
+        if(status === "accepted"){
+
+          statusHTML =
+            `<span class="badge badgeAccepted">
+               Aksepte
+             </span>`;
+
+        }
+
+
+        if(status === "rejected"){
+
+          statusHTML =
+            `<span class="badge badgeRejected">
+               Refize
+             </span>`;
+
+        }
+
+
+        const tr =
+          document.createElement(
+            "tr"
+          );
+
+
+        tr.innerHTML = `
+
+          <td>
+            ${user.displayName || ""}
+          </td>
+
+          <td>
+            ${user.email || ""}
+          </td>
+
+          <td>
+
+            <select
+              id="role-${docSnap.id}">
+
+              <option
+                value=""
+                ${role === "" ? "selected" : ""}>
+                Chwazi wòl
+              </option>
+
+              <option
+                value="administrateur"
+                ${role === "administrateur" ? "selected" : ""}>
+                Administratè
+              </option>
+
+              <option
+                value="professeur"
+                ${role === "professeur" ? "selected" : ""}>
+                Pwofesè
+              </option>
+
+              <option
+                value="eleve"
+                ${role === "eleve" ? "selected" : ""}>
+                Elèv
+              </option>
+
+            </select>
+
+          </td>
+
+          <td>
+            ${statusHTML}
+          </td>
+
+          <td>
+
+            <button
+              class="btn btnSuccess"
+              onclick="accepterUtilisateur('${docSnap.id}')">
+
+              ✅ Aksepte
+
+            </button>
+
+            <br><br>
+
+            <button
+              class="btn btnDanger"
+              onclick="refizeUtilisateur('${docSnap.id}')">
+
+              ❌ Refize
+
+            </button>
+
+          </td>
+
+        `;
+
+
+        tbody.appendChild(
+          tr
+        );
+
+      }
+    );
+
+  }catch(error){
+
+    console.error(
+      "ERÈ USERS:",
+      error
+    );
+
+
+    tbody.innerHTML =
+      `<tr>
+        <td colspan="5">
+          Erè pandan chajman itilizatè yo.
+        </td>
+      </tr>`;
+
+  }
+
+}
+
+
+/* ==================================================
+   ADMIN - AKSEPTE
+================================================== */
+
+window.accepterUtilisateur =
+async function(uid){
+
+  if(
+    currentUserProfile?.role !==
+    "administrateur"
+  ){
+
+    alert(
+      "Se Administratè sèlman ki ka fè sa."
+    );
+
+    return;
+  }
+
+
+  const roleSelect =
+    document.getElementById(
+      "role-"+uid
+    );
+
+
+  const role =
+    roleSelect?.value || "";
+
+
+  if(!role){
+
+    alert(
+      "Chwazi yon wòl anvan ou aksepte kont lan."
+    );
+
+    return;
+  }
+
+
+  try{
+
+    await setDoc(
+
+      doc(
+        db,
+        "users",
+        uid
+      ),
+
+      {
+        status:
+          "accepted",
+
+        role:
+          role
+
+      },
+
+      {
+        merge:true
+      }
+
+    );
+
+
+    alert(
+      "Kont lan aksepte avèk siksè."
+    );
+
+
+    await chargerUtilisateurs();
+
+  }catch(error){
+
+    console.error(
+      "ERÈ AKSEPTE:",
+      error
+    );
+
+
+    alert(
+      "Erè: "+
+      error.message
+    );
+
+  }
+
+};
+
+
+/* ==================================================
+   ADMIN - REFIZE
+================================================== */
+
+window.refizeUtilisateur =
+async function(uid){
+
+  if(
+    currentUserProfile?.role !==
+    "administrateur"
+  ){
+
+    alert(
+      "Se Administratè sèlman ki ka fè sa."
+    );
+
+    return;
+  }
+
+
+  try{
+
+    await setDoc(
+
+      doc(
+        db,
+        "users",
+        uid
+      ),
+
+      {
+        status:
+          "rejected"
+      },
+
+      {
+        merge:true
+      }
+
+    );
+
+
+    alert(
+      "Kont lan refize."
+    );
+
+
+    await chargerUtilisateurs();
+
+  }catch(error){
+
+    console.error(
+      "ERÈ REFIZE:",
+      error
+    );
+
+
+    alert(
+      "Erè: "+
+      error.message
+    );
+
+  }
+
+};
+
+
+/* ==================================================
    FIREBASE SAVE
 ================================================== */
 
-window.firebaseSaveData=
+window.firebaseSaveData =
 async function(
   key,
   data
@@ -1920,7 +2394,7 @@ async function(
 
       if(!item.id){
 
-        item.id=
+        item.id =
           Date.now()+
           Math.random()
             .toString(36)
@@ -1953,7 +2427,6 @@ async function(
       key
     );
 
-
   }catch(error){
 
     console.error(
@@ -1977,7 +2450,7 @@ function getData(key){
 
   try{
 
-    const value=
+    const value =
       localStorage.getItem(
         key
       );
@@ -1993,7 +2466,6 @@ function getData(key){
     return JSON.parse(
       value
     ) || [];
-
 
   }catch(error){
 
@@ -2018,21 +2490,11 @@ async function saveData(
   data
 ){
 
-  /*
-    Toujou sove lokalman.
-  */
-
   localStorage.setItem(
     key,
     JSON.stringify(data)
   );
 
-
-  /*
-    Eseye sove Firebase.
-    Si rules bloke l,
-    aplikasyon an pa kraze.
-  */
 
   try{
 
@@ -2059,7 +2521,7 @@ async function saveData(
 
 async function chargerToutFirebase(){
 
-  const collections=[
+  const collections = [
 
     "eleves",
 
@@ -2082,7 +2544,7 @@ async function chargerToutFirebase(){
 
     try{
 
-      const snapshot=
+      const snapshot =
         await getDocs(
           collection(
             db,
@@ -2099,7 +2561,8 @@ async function chargerToutFirebase(){
 
           data.push({
 
-            id:item.id,
+            id:
+              item.id,
 
             ...item.data()
 
@@ -2126,7 +2589,6 @@ async function chargerToutFirebase(){
         data.length
       );
 
-
     }catch(error){
 
       console.warn(
@@ -2146,8 +2608,23 @@ async function chargerToutFirebase(){
    NAVIGATION
 ================================================== */
 
-window.showSection=
+window.showSection =
 function(id){
+
+  /*
+    Seksyon itilizatè a sèlman
+    pou admin.
+  */
+
+  if(
+    id === "utilisateurs" &&
+    currentUserProfile?.role !==
+    "administrateur"
+  ){
+
+    return;
+  }
+
 
   document
     .querySelectorAll(
@@ -2164,7 +2641,7 @@ function(id){
     );
 
 
-  const section=
+  const section =
     document.getElementById(
       id
     );
@@ -2185,7 +2662,7 @@ function(id){
    ACTUALISER TOUT
 ================================================== */
 
-window.actualiserTout=
+window.actualiserTout =
 function(){
 
   afficherEleves();
@@ -2202,6 +2679,16 @@ function(){
 
   afficherStatistiques();
 
+
+  if(
+    currentUserProfile?.role ===
+    "administrateur"
+  ){
+
+    chargerUtilisateurs();
+
+  }
+
 };
 
 
@@ -2209,28 +2696,25 @@ function(){
    ELÈV
 ================================================== */
 
-window.ajouterEleve=
+window.ajouterEleve =
 async function(){
 
-  const prenom=
+  const prenom =
     document.getElementById(
       "elevePrenom"
     ).value.trim();
 
-
-  const nom=
+  const nom =
     document.getElementById(
       "eleveNom"
     ).value.trim();
 
-
-  const classe=
+  const classe =
     document.getElementById(
       "eleveClasse"
     ).value.trim();
 
-
-  const email=
+  const email =
     document.getElementById(
       "eleveEmail"
     ).value.trim();
@@ -2247,13 +2731,13 @@ async function(){
   }
 
 
-  const data=
+  const data =
     getData(
       "eleves"
     );
 
 
-  const item={
+  const item = {
 
     id:
       Date.now(),
@@ -2287,16 +2771,13 @@ async function(){
     "elevePrenom"
   ).value="";
 
-
   document.getElementById(
     "eleveNom"
   ).value="";
 
-
   document.getElementById(
     "eleveClasse"
   ).value="";
-
 
   document.getElementById(
     "eleveEmail"
@@ -2310,10 +2791,10 @@ async function(){
 };
 
 
-window.afficherEleves=
+window.afficherEleves =
 function(){
 
-  const tbody=
+  const tbody =
     document.getElementById(
       "listeEleves"
     );
@@ -2322,7 +2803,7 @@ function(){
   if(!tbody)return;
 
 
-  const data=
+  const data =
     getData(
       "eleves"
     );
@@ -2334,13 +2815,13 @@ function(){
   data.forEach(
     item=>{
 
-      const tr=
+      const tr =
         document.createElement(
           "tr"
         );
 
 
-      tr.innerHTML=`
+      tr.innerHTML = `
 
         <td>
           ${item.prenom||""}
@@ -2375,28 +2856,25 @@ function(){
    PWOFESÈ
 ================================================== */
 
-window.ajouterProfesseur=
+window.ajouterProfesseur =
 async function(){
 
-  const prenom=
+  const prenom =
     document.getElementById(
       "profPrenom"
     ).value.trim();
 
-
-  const nom=
+  const nom =
     document.getElementById(
       "profNom"
     ).value.trim();
 
-
-  const matiere=
+  const matiere =
     document.getElementById(
       "profMatiere"
     ).value.trim();
 
-
-  const email=
+  const email =
     document.getElementById(
       "profEmail"
     ).value.trim();
@@ -2413,7 +2891,7 @@ async function(){
   }
 
 
-  const data=
+  const data =
     getData(
       "professeurs"
     );
@@ -2448,16 +2926,13 @@ async function(){
     "profPrenom"
   ).value="";
 
-
   document.getElementById(
     "profNom"
   ).value="";
 
-
   document.getElementById(
     "profMatiere"
   ).value="";
-
 
   document.getElementById(
     "profEmail"
@@ -2471,10 +2946,10 @@ async function(){
 };
 
 
-window.afficherProfesseurs=
+window.afficherProfesseurs =
 function(){
 
-  const tbody=
+  const tbody =
     document.getElementById(
       "listeProfesseurs"
     );
@@ -2483,7 +2958,7 @@ function(){
   if(!tbody)return;
 
 
-  const data=
+  const data =
     getData(
       "professeurs"
     );
@@ -2495,13 +2970,13 @@ function(){
   data.forEach(
     item=>{
 
-      const tr=
+      const tr =
         document.createElement(
           "tr"
         );
 
 
-      tr.innerHTML=`
+      tr.innerHTML = `
 
         <td>
           ${item.prenom||""}
@@ -2536,16 +3011,15 @@ function(){
    KLAS
 ================================================== */
 
-window.ajouterClasse=
+window.ajouterClasse =
 async function(){
 
-  const nom=
+  const nom =
     document.getElementById(
       "classeNom"
     ).value.trim();
 
-
-  const niveau=
+  const niveau =
     document.getElementById(
       "classeNiveau"
     ).value.trim();
@@ -2562,7 +3036,7 @@ async function(){
   }
 
 
-  const data=
+  const data =
     getData(
       "classes"
     );
@@ -2593,7 +3067,6 @@ async function(){
     "classeNom"
   ).value="";
 
-
   document.getElementById(
     "classeNiveau"
   ).value="";
@@ -2606,10 +3079,10 @@ async function(){
 };
 
 
-window.afficherClasses=
+window.afficherClasses =
 function(){
 
-  const tbody=
+  const tbody =
     document.getElementById(
       "listeClasses"
     );
@@ -2618,7 +3091,7 @@ function(){
   if(!tbody)return;
 
 
-  const data=
+  const data =
     getData(
       "classes"
     );
@@ -2630,13 +3103,13 @@ function(){
   data.forEach(
     item=>{
 
-      const tr=
+      const tr =
         document.createElement(
           "tr"
         );
 
 
-      tr.innerHTML=`
+      tr.innerHTML = `
 
         <td>
           ${item.nom||""}
@@ -2663,16 +3136,15 @@ function(){
    MATYÈ
 ================================================== */
 
-window.ajouterMatiere=
+window.ajouterMatiere =
 async function(){
 
-  const nom=
+  const nom =
     document.getElementById(
       "matiereNom"
     ).value.trim();
 
-
-  const code=
+  const code =
     document.getElementById(
       "matiereCode"
     ).value.trim();
@@ -2689,7 +3161,7 @@ async function(){
   }
 
 
-  const data=
+  const data =
     getData(
       "matieres"
     );
@@ -2720,7 +3192,6 @@ async function(){
     "matiereNom"
   ).value="";
 
-
   document.getElementById(
     "matiereCode"
   ).value="";
@@ -2731,14 +3202,10 @@ async function(){
 };
 
 
-/* ==================================================
-   MATYÈ — AFFICHAGE
-================================================== */
-
-window.afficherMatieres=
+window.afficherMatieres =
 function(){
 
-  const tbody=
+  const tbody =
     document.getElementById(
       "listeMatieres"
     );
@@ -2747,7 +3214,7 @@ function(){
   if(!tbody)return;
 
 
-  const data=
+  const data =
     getData(
       "matieres"
     );
@@ -2759,13 +3226,13 @@ function(){
   data.forEach(
     item=>{
 
-      const tr=
+      const tr =
         document.createElement(
           "tr"
         );
 
 
-      tr.innerHTML=`
+      tr.innerHTML = `
 
         <td>
           ${item.nom||""}
@@ -2792,34 +3259,30 @@ function(){
    DEVWA
 ================================================== */
 
-window.ajouterDevoir=
+window.ajouterDevoir =
 async function(){
 
-  const titre=
+  const titre =
     document.getElementById(
       "devoirTitre"
     ).value.trim();
 
-
-  const matiere=
+  const matiere =
     document.getElementById(
       "devoirMatiere"
     ).value.trim();
 
-
-  const classe=
+  const classe =
     document.getElementById(
       "devoirClasse"
     ).value.trim();
 
-
-  const date=
+  const date =
     document.getElementById(
       "devoirDate"
     ).value;
 
-
-  const description=
+  const description =
     document.getElementById(
       "devoirDescription"
     ).value.trim();
@@ -2836,7 +3299,7 @@ async function(){
   }
 
 
-  const data=
+  const data =
     getData(
       "devoirs"
     );
@@ -2873,21 +3336,17 @@ async function(){
     "devoirTitre"
   ).value="";
 
-
   document.getElementById(
     "devoirMatiere"
   ).value="";
-
 
   document.getElementById(
     "devoirClasse"
   ).value="";
 
-
   document.getElementById(
     "devoirDate"
   ).value="";
-
 
   document.getElementById(
     "devoirDescription"
@@ -2901,10 +3360,10 @@ async function(){
 };
 
 
-window.afficherDevoirs=
+window.afficherDevoirs =
 function(){
 
-  const tbody=
+  const tbody =
     document.getElementById(
       "listeDevoirs"
     );
@@ -2913,7 +3372,7 @@ function(){
   if(!tbody)return;
 
 
-  const data=
+  const data =
     getData(
       "devoirs"
     );
@@ -2925,13 +3384,13 @@ function(){
   data.forEach(
     item=>{
 
-      const tr=
+      const tr =
         document.createElement(
           "tr"
         );
 
 
-      tr.innerHTML=`
+      tr.innerHTML = `
 
         <td>
           ${item.titre||""}
@@ -2967,31 +3426,28 @@ function(){
 
 
 /* ==================================================
-   REMÈT DEVWA
+   REMÈT
 ================================================== */
 
-window.ajouterRemise=
+window.ajouterRemise =
 async function(){
 
-  const eleve=
+  const eleve =
     document.getElementById(
       "remiseEleve"
     ).value.trim();
 
-
-  const devoir=
+  const devoir =
     document.getElementById(
       "remiseDevoir"
     ).value.trim();
 
-
-  const date=
+  const date =
     document.getElementById(
       "remiseDate"
     ).value;
 
-
-  const commentaire=
+  const commentaire =
     document.getElementById(
       "remiseCommentaire"
     ).value.trim();
@@ -3008,7 +3464,7 @@ async function(){
   }
 
 
-  const data=
+  const data =
     getData(
       "remises"
     );
@@ -3043,16 +3499,13 @@ async function(){
     "remiseEleve"
   ).value="";
 
-
   document.getElementById(
     "remiseDevoir"
   ).value="";
 
-
   document.getElementById(
     "remiseDate"
   ).value="";
-
 
   document.getElementById(
     "remiseCommentaire"
@@ -3064,10 +3517,10 @@ async function(){
 };
 
 
-window.afficherRemises=
+window.afficherRemises =
 function(){
 
-  const tbody=
+  const tbody =
     document.getElementById(
       "listeRemises"
     );
@@ -3076,7 +3529,7 @@ function(){
   if(!tbody)return;
 
 
-  const data=
+  const data =
     getData(
       "remises"
     );
@@ -3088,13 +3541,13 @@ function(){
   data.forEach(
     item=>{
 
-      const tr=
+      const tr =
         document.createElement(
           "tr"
         );
 
 
-      tr.innerHTML=`
+      tr.innerHTML = `
 
         <td>
           ${item.eleve||""}
@@ -3129,118 +3582,103 @@ function(){
    ESTATISTIK
 ================================================== */
 
-window.afficherStatistiques=
+window.afficherStatistiques =
 function(){
 
-  const eleves=
+  const eleves =
     getData(
       "eleves"
     );
 
-
-  const professeurs=
+  const professeurs =
     getData(
       "professeurs"
     );
 
-
-  const classes=
+  const classes =
     getData(
       "classes"
     );
 
-
-  const devoirs=
+  const devoirs =
     getData(
       "devoirs"
     );
 
 
-  const statEleves=
+  const statEleves =
     document.getElementById(
       "statEleves"
     );
 
-
-  const statProfesseurs=
+  const statProfesseurs =
     document.getElementById(
       "statProfesseurs"
     );
 
-
-  const statClasses=
+  const statClasses =
     document.getElementById(
       "statClasses"
     );
 
-
-  const statDevoirs=
+  const statDevoirs =
     document.getElementById(
       "statDevoirs"
     );
 
-
-  const totalElevesStat=
+  const totalElevesStat =
     document.getElementById(
       "totalElevesStat"
     );
 
-
-  const totalProfStat=
+  const totalProfStat =
     document.getElementById(
       "totalProfStat"
     );
 
-
-  const totalDevoirStat=
+  const totalDevoirStat =
     document.getElementById(
       "totalDevoirStat"
     );
 
 
   if(statEleves)
-    statEleves.textContent=
+    statEleves.textContent =
       eleves.length;
-
 
   if(statProfesseurs)
-    statProfesseurs.textContent=
+    statProfesseurs.textContent =
       professeurs.length;
-
 
   if(statClasses)
-    statClasses.textContent=
+    statClasses.textContent =
       classes.length;
 
-
   if(statDevoirs)
-    statDevoirs.textContent=
+    statDevoirs.textContent =
       devoirs.length;
-
 
   if(totalElevesStat)
-    totalElevesStat.textContent=
+    totalElevesStat.textContent =
       eleves.length;
 
-
   if(totalProfStat)
-    totalProfStat.textContent=
+    totalProfStat.textContent =
       professeurs.length;
 
-
   if(totalDevoirStat)
-    totalDevoirStat.textContent=
+    totalDevoirStat.textContent =
       devoirs.length;
 
 
-  const moyenneStat=
+  const moyenneStat =
     document.getElementById(
       "moyenneStat"
     );
 
 
   if(moyenneStat)
-    moyenneStat.textContent=
+    moyenneStat.textContent =
       "0";
 
 };
@@ -3250,16 +3688,15 @@ function(){
    REZILTA
 ================================================== */
 
-window.afficherResultat=
+window.afficherResultat =
 function(){
 
-  const input=
+  const input =
     document.getElementById(
       "resultatEleve"
     );
 
-
-  const container=
+  const container =
     document.getElementById(
       "resultatContainer"
     );
@@ -3269,13 +3706,13 @@ function(){
     return;
 
 
-  const recherche=
+  const recherche =
     input.value
       .trim()
       .toLowerCase();
 
 
-  const eleves=
+  const eleves =
     getData(
       "eleves"
     );
@@ -3283,7 +3720,7 @@ function(){
 
   if(!recherche){
 
-    container.innerHTML=`
+    container.innerHTML = `
 
       <p>
         Tape non oswa ID elèv la pou wè rezilta a.
@@ -3296,11 +3733,11 @@ function(){
   }
 
 
-  const trouve=
+  const trouve =
     eleves.filter(
       item=>{
 
-        const texte=`
+        const texte = `
 
           ${item.id||""}
 
@@ -3321,7 +3758,7 @@ function(){
 
   if(!trouve.length){
 
-    container.innerHTML=`
+    container.innerHTML = `
 
       <p>
         Pa gen elèv ki koresponn ak rechèch la.
@@ -3334,7 +3771,7 @@ function(){
   }
 
 
-  container.innerHTML=`
+  container.innerHTML = `
 
     <h3>
       Elèv jwenn
@@ -3381,25 +3818,20 @@ function(){
    NOTES ANSYEN
 ================================================== */
 
-window.convertirNotesAnciennes=
+window.convertirNotesAnciennes =
 function(){
-
-  /*
-    Fonksyon konsève pou
-    ansyen done aplikasyon an.
-  */
 
 };
 
 
 /* ==================================================
-   EXPORT DONE
+   EXPORT
 ================================================== */
 
-window.exporterDonnees=
+window.exporterDonnees =
 function(){
 
-  const backup={
+  const backup = {
 
     eleves:
       getData("eleves"),
@@ -3422,7 +3854,7 @@ function(){
   };
 
 
-  const blob=
+  const blob =
     new Blob(
 
       [
@@ -3441,13 +3873,13 @@ function(){
     );
 
 
-  const url=
+  const url =
     URL.createObjectURL(
       blob
     );
 
 
-  const a=
+  const a =
     document.createElement(
       "a"
     );
@@ -3456,7 +3888,7 @@ function(){
   a.href=url;
 
 
-  a.download=
+  a.download =
     "sistem-aprantisaj-backup.json";
 
 
@@ -3479,13 +3911,13 @@ function(){
 
 
 /* ==================================================
-   IMPORT DONE
+   IMPORT
 ================================================== */
 
-window.importerDonnees=
+window.importerDonnees =
 function(){
 
-  const input=
+  const input =
     document.getElementById(
       "importFile"
     );
@@ -3502,7 +3934,7 @@ function(){
   }
 
 
-  const file=
+  const file =
     input.files[0];
 
 
@@ -3517,22 +3949,22 @@ function(){
   }
 
 
-  const reader=
+  const reader =
     new FileReader();
 
 
-  reader.onload=
+  reader.onload =
   async function(){
 
     try{
 
-      const data=
+      const data =
         JSON.parse(
           reader.result
         );
 
 
-      const keys=[
+      const keys = [
 
         "eleves",
 
@@ -3607,10 +4039,10 @@ function(){
    EFASE DONE LOKAL
 ================================================== */
 
-window.effacerTout=
+window.effacerTout =
 function(){
 
-  const ok=
+  const ok =
     confirm(
       "Èske ou sèten ou vle efase done lokal yo?"
     );
@@ -3619,7 +4051,7 @@ function(){
   if(!ok)return;
 
 
-  const keys=[
+  const keys = [
 
     "eleves",
 
@@ -3658,7 +4090,7 @@ function(){
 
 
 /* ==================================================
-   NETWAYAJ SERVICE WORKER + CACHE
+   SERVICE WORKER + CACHE
 ================================================== */
 
 if(
@@ -3671,7 +4103,7 @@ if(
 
       try{
 
-        const registrations=
+        const registrations =
           await navigator
             .serviceWorker
             .getRegistrations();
@@ -3684,10 +4116,6 @@ if(
 
           await registration.unregister();
 
-          console.log(
-            "Service Worker retire."
-          );
-
         }
 
 
@@ -3695,7 +4123,7 @@ if(
           "caches" in window
         ){
 
-          const keys=
+          const keys =
             await caches.keys();
 
 
@@ -3704,11 +4132,6 @@ if(
           ){
 
             await caches.delete(
-              key
-            );
-
-            console.log(
-              "Cache efase:",
               key
             );
 
