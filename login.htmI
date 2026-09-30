@@ -1,223 +1,790 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Supabase Login</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-      :root {
-        --bg: #0f172a;
-        --panel: #111827;
-        --panel-light: #1f2937;
-        --border: rgba(148, 163, 184, 0.3);
-        --text: #e5e7eb;
-        --muted: #94a3b8;
-        --primary: #38bdf8;
-        --primary-dark: #0284c7;
-        --success: #22c55e;
-        --danger: #ef4444;
+<html lang="ht">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sistèm Aprantisaj</title>
+
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+      font-family:Arial,sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      background:#f4f6f8;
+      color:#1f2937;
+    }
+
+    /* LOADING */
+    #loading{
+      position:fixed;
+      inset:0;
+      background:#ffffff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      font-size:20px;
+      font-weight:bold;
+      color:#2563eb;
+    }
+
+    /* LOGIN */
+    #loginScreen{
+      min-height:100vh;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    }
+
+    .loginBox{
+      width:100%;
+      max-width:420px;
+      background:white;
+      border-radius:18px;
+      padding:30px;
+      box-shadow:0 20px 50px rgba(0,0,0,.20);
+    }
+
+    .loginBox h1{
+      text-align:center;
+      margin-bottom:10px;
+      color:#1e3a8a;
+    }
+
+    .loginBox p{
+      text-align:center;
+      color:#64748b;
+      margin-bottom:25px;
+    }
+
+    .inputGroup{
+      margin-bottom:15px;
+    }
+
+    .inputGroup label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:bold;
+    }
+
+    .inputGroup input{
+      width:100%;
+      padding:13px;
+      border:1px solid #cbd5e1;
+      border-radius:10px;
+      font-size:16px;
+    }
+
+    .btn{
+      width:100%;
+      padding:13px;
+      border:0;
+      border-radius:10px;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+      margin-top:10px;
+    }
+
+    .btnGoogle{
+      background:#ffffff;
+      border:1px solid #cbd5e1;
+      color:#111827;
+    }
+
+    .btnGoogle:hover{
+      background:#f8fafc;
+    }
+
+    .btnEmail{
+      background:#2563eb;
+      color:white;
+    }
+
+    .btnLogout{
+      background:#dc2626;
+      color:white;
+      width:auto;
+      padding:10px 16px;
+      margin:0;
+    }
+
+    #message{
+      margin-top:15px;
+      padding:10px;
+      border-radius:8px;
+      text-align:center;
+      display:none;
+      white-space:pre-line;
+    }
+
+    .success{
+      background:#dcfce7;
+      color:#166534;
+      display:block !important;
+    }
+
+    .error{
+      background:#fee2e2;
+      color:#991b1b;
+      display:block !important;
+    }
+
+    .info{
+      background:#dbeafe;
+      color:#1e40af;
+      display:block !important;
+    }
+
+    /* APP */
+    #app{
+      display:none;
+      min-height:100vh;
+    }
+
+    header{
+      background:#2563eb;
+      color:white;
+      padding:15px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    header h1{
+      font-size:22px;
+    }
+
+    .userInfo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .userInfo span{
+      font-size:14px;
+    }
+
+    main{
+      max-width:1000px;
+      margin:auto;
+      padding:25px 15px;
+    }
+
+    .welcome{
+      background:white;
+      border-radius:15px;
+      padding:25px;
+      box-shadow:0 5px 20px rgba(0,0,0,.08);
+    }
+
+    .welcome h2{
+      color:#1e3a8a;
+      margin-bottom:12px;
+    }
+
+    .status{
+      margin-top:20px;
+      padding:15px;
+      background:#dcfce7;
+      color:#166534;
+      border-radius:10px;
+      font-weight:bold;
+    }
+
+    footer{
+      text-align:center;
+      padding:20px;
+      color:#64748b;
+    }
+
+    @media(max-width:600px){
+      header{
+        flex-direction:column;
+        align-items:flex-start;
       }
 
-      * { box-sizing: border-box; }
-
-      body {
-        margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        background: linear-gradient(135deg, #020617, #111827 40%, #0f172a);
-        color: var(--text);
-        font-family: Arial, sans-serif;
+      .userInfo{
+        width:100%;
+        justify-content:space-between;
       }
 
-      .card {
-        width: min(420px, 92vw);
-        background: rgba(17, 24, 39, 0.95);
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.55);
-        padding: 2rem;
+      .loginBox{
+        padding:22px;
       }
+    }
+  </style>
+</head>
 
-      h1 {
-        margin: 0 0 0.5rem;
-        font-size: 2rem;
-      }
+<body>
 
-      .subtitle {
-        margin: 0 0 1.5rem;
-        color: var(--muted);
-      }
+  <!-- LOADING -->
+  <div id="loading">
+    Chaje Sistèm Aprantisaj...
+  </div>
 
-      form {
-        display: grid;
-        gap: 1rem;
-      }
 
-      label {
-        display: grid;
-        gap: 0.45rem;
-        font-weight: 600;
-        color: var(--text);
-      }
+  <!-- LOGIN -->
+  <div id="loginScreen">
 
-      input {
-        width: 100%;
-        padding: 0.9rem 1rem;
-        border-radius: 10px;
-        border: 1px solid var(--border);
-        background: rgba(15, 23, 42, 0.9);
-        color: var(--text);
-        font-size: 1rem;
-      }
+    <div class="loginBox">
 
-      input:focus {
-        outline: 2px solid rgba(56, 189, 248, 0.7);
-        border-color: var(--primary);
-      }
+      <h1>📚 Sistèm Aprantisaj</h1>
 
-      .actions {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.8rem;
-        margin-top: 0.5rem;
-      }
+      <p>Konekte pou antre nan sistèm nan</p>
 
-      button {
-        border: none;
-        border-radius: 10px;
-        padding: 0.9rem 1rem;
-        font-size: 1rem;
-        font-weight: 700;
-        cursor: pointer;
-        transition: 0.2s ease;
-      }
+      <div class="inputGroup">
+        <label>Email</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Email ou"
+        >
+      </div>
 
-      .primary {
-        background: var(--primary);
-        color: #082f49;
-      }
+      <div class="inputGroup">
+        <label>Modpas</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Modpas ou"
+        >
+      </div>
 
-      .primary:hover { background: #7dd3fc; }
+      <button
+        class="btn btnEmail"
+        onclick="loginEmail()"
+      >
+        Konekte ak Email
+      </button>
 
-      .secondary {
-        background: transparent;
-        color: var(--text);
-        border: 1px solid var(--border);
-      }
+      <button
+        class="btn btnGoogle"
+        id="googleButton"
+        onclick="loginGoogle()"
+      >
+        🔵 Konekte ak Google
+      </button>
 
-      .secondary:hover { background: rgba(255,255,255,0.04); }
+      <div id="message"></div>
 
-      .message {
-        margin-top: 1rem;
-        min-height: 24px;
-        font-size: 0.95rem;
-        color: var(--muted);
-      }
-
-      .message.success { color: var(--success); }
-      .message.error { color: var(--danger); }
-    </style>
-  </head>
-  <body>
-    <div class="card">
-      <h1>Welcome back</h1>
-      <p class="subtitle">Sign in to continue</p>
-
-      <form id="loginForm">
-        <label>
-          Email
-          <input id="email" type="email" placeholder="you@example.com" required />
-        </label>
-
-        <label>
-          Password
-          <input id="password" type="password" placeholder="••••••••" required />
-        </label>
-
-        <div class="actions">
-          <button class="primary" type="submit">Login</button>
-          <button class="secondary" type="button" id="signUpBtn">Create account</button>
-        </div>
-      </form>
-
-      <div id="message" class="message" aria-live="polite"></div>
     </div>
 
-    <script>
-      const supabaseUrl = 'https://ezjfyyoguyknxepjfcrs.supabase.co';
-      const supabaseKey = 'sb_publishable_pRj6SP-YfxQFwOxRdXtotw_O7K7TtTX';
-      const supabase = supabaseJs.createClient(supabaseUrl, supabaseKey);
+  </div>
 
-      const loginForm = document.getElementById('loginForm');
-      const emailInput = document.getElementById('email');
-      const passwordInput = document.getElementById('password');
-      const message = document.getElementById('message');
-      const signUpBtn = document.getElementById('signUpBtn');
 
-      function showMessage(text, type = 'info') {
-        message.textContent = text;
-        message.className = 'message';
-        if (type === 'success') message.classList.add('success');
-        if (type === 'error') message.classList.add('error');
+  <!-- APPLICATION -->
+  <div id="app">
+
+    <header>
+
+      <h1>📚 Sistèm Aprantisaj</h1>
+
+      <div class="userInfo">
+
+        <span id="userEmail"></span>
+
+        <button
+          class="btn btnLogout"
+          onclick="logout()"
+        >
+          Déconnexion
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <main>
+
+      <div class="welcome">
+
+        <h2>Byenveni nan Sistèm Aprantisaj</h2>
+
+        <p>
+          Koneksyon Firebase la mache.
+        </p>
+
+        <div class="status">
+          ✅ Kont Google la konekte avèk siksè.
+        </div>
+
+      </div>
+
+    </main>
+
+
+    <footer>
+      © 2026 - Sistèm Aprantisaj
+    </footer>
+
+  </div>
+
+
+  <!-- FIREBASE -->
+  <script type="module">
+
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signInWithRedirect,
+      getRedirectResult,
+      onAuthStateChanged,
+      signOut,
+      signInWithEmailAndPassword
+    }
+      from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+    /* =========================
+       FIREBASE CONFIG
+    ========================= */
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAufCl8gDfygwo2Mcxyede496L9Ysq2_DQ",
+      authDomain: "sistem-aprantisaj-rapid.firebaseapp.com",
+      projectId: "sistem-aprantisaj-rapid",
+      storageBucket: "sistem-aprantisaj-rapid.firebasestorage.app",
+      messagingSenderId: "369863005137",
+      appId: "1:369863005137:web:a78f295285144be19b46f0",
+      measurementId: "G-4FLZ95YX2F"
+    };
+
+
+    /* =========================
+       INITIALIZE FIREBASE
+    ========================= */
+
+    const firebaseApp = initializeApp(firebaseConfig);
+
+    const auth = getAuth(firebaseApp);
+
+    const googleProvider = new GoogleAuthProvider();
+
+    googleProvider.setCustomParameters({
+      prompt:"select_account"
+    });
+
+
+    let currentUser = null;
+
+
+    /* =========================
+       MESSAGE
+    ========================= */
+
+    function showMessage(text,type="info"){
+
+      const box = document.getElementById("message");
+
+      box.textContent = text;
+
+      box.className = "";
+
+      box.id = "message";
+
+      if(type === "success"){
+        box.classList.add("success");
       }
 
-      async function redirectIfSignedIn() {
-        const { data: { session }, error } = await supabase.auth.getSession();
-        if (!error && session) {
-          window.location.href = 'dashboard.html';
-        }
+      if(type === "error"){
+        box.classList.add("error");
       }
 
-      loginForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
+      if(type === "info"){
+        box.classList.add("info");
+      }
+    }
 
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
 
-        if (!email || !password) {
-          showMessage('Please enter your email and password.', 'error');
+    /* =========================
+       ERROR FIREBASE
+    ========================= */
+
+    function firebaseError(error){
+
+      console.error("Firebase error:",error);
+
+      const code = error?.code || "unknown";
+
+      const message = error?.message || "Erè enkoni.";
+
+      return (
+        "Firebase bay yon erè.\n\n"+
+        "Kòd: "+code+
+        "\n\n"+
+        "Mesaj: "+message
+      );
+    }
+
+
+    /* =========================
+       EMAIL LOGIN
+    ========================= */
+
+    window.loginEmail = async function(){
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+
+      if(!email || !password){
+
+        showMessage(
+          "Tanpri mete email ak modpas ou.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      try{
+
+        showMessage(
+          "Koneksyon an ap fèt...",
+          "info"
+        );
+
+
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+
+      }catch(error){
+
+        showMessage(
+          firebaseError(error),
+          "error"
+        );
+
+      }
+
+    };
+
+
+    /* =========================
+       GOOGLE LOGIN
+    ========================= */
+
+    window.loginGoogle = async function(){
+
+      const button =
+        document.getElementById("googleButton");
+
+
+      try{
+
+        button.disabled = true;
+
+        button.textContent =
+          "⏳ Koneksyon Google...";
+
+
+        showMessage(
+          "Koneksyon Google la ap fèt...",
+          "info"
+        );
+
+
+        /*
+          Sou telefòn Android,
+          nou itilize Redirect dirèkteman.
+          Sa evite popup ki ka rete ap tann.
+        */
+
+        const mobile =
+          /Android|iPhone|iPad|iPod/i.test(
+            navigator.userAgent
+          );
+
+
+        if(mobile){
+
+          showMessage(
+            "N ap louvri Google pou koneksyon an...",
+            "info"
+          );
+
+          await signInWithRedirect(
+            auth,
+            googleProvider
+          );
+
           return;
         }
 
-        showMessage('Signing in...');
 
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        /*
+          Sou òdinatè:
+          eseye Popup.
+        */
 
-        if (error) {
-          showMessage(error.message, 'error');
-          return;
+        await signInWithPopup(
+          auth,
+          googleProvider
+        );
+
+
+      }catch(error){
+
+        console.error(
+          "Google login error:",
+          error
+        );
+
+
+        const redirectErrors = [
+
+          "auth/popup-blocked",
+
+          "auth/popup-closed-by-user",
+
+          "auth/cancelled-popup-request",
+
+          "auth/operation-not-supported-in-this-environment"
+
+        ];
+
+
+        if(
+          redirectErrors.includes(error.code)
+        ){
+
+          try{
+
+            showMessage(
+              "Popup la pa disponib. N ap itilize Redirect...",
+              "info"
+            );
+
+
+            await signInWithRedirect(
+              auth,
+              googleProvider
+            );
+
+
+            return;
+
+
+          }catch(redirectError){
+
+            showMessage(
+              firebaseError(redirectError),
+              "error"
+            );
+
+          }
+
+        }else{
+
+          showMessage(
+            firebaseError(error),
+            "error"
+          );
+
         }
 
-        showMessage('Login successful! Redirecting...', 'success');
-        setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 800);
+
+        button.disabled = false;
+
+        button.textContent =
+          "🔵 Konekte ak Google";
+
+      }
+
+    };
+
+
+    /* =========================
+       REDIRECT RESULT
+    ========================= */
+
+    getRedirectResult(auth)
+
+      .then(result => {
+
+        if(result && result.user){
+
+          console.log(
+            "Google Redirect OK:",
+            result.user.email
+          );
+
+          console.log(
+            "Google UID:",
+            result.user.uid
+          );
+
+        }
+
+      })
+
+      .catch(error => {
+
+        console.error(
+          "Redirect result error:",
+          error
+        );
+
+        showMessage(
+          firebaseError(error),
+          "error"
+        );
+
       });
 
-      signUpBtn.addEventListener('click', async () => {
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
 
-        if (!email || !password) {
-          showMessage('Enter email and password to create an account.', 'error');
-          return;
+    /* =========================
+       AUTH STATE
+    ========================= */
+
+    onAuthStateChanged(
+      auth,
+      async user => {
+
+        try{
+
+          if(!user){
+
+            currentUser = null;
+
+            document.getElementById(
+              "loading"
+            ).style.display = "none";
+
+
+            document.getElementById(
+              "app"
+            ).style.display = "none";
+
+
+            document.getElementById(
+              "loginScreen"
+            ).style.display = "flex";
+
+
+            return;
+          }
+
+
+          /*
+            PA GEN ADMIN / APPROVAL
+            NAN ETAP SA A.
+
+            Nenpòt kont ki autentifye
+            antre dirèkteman.
+          */
+
+          currentUser = user;
+
+
+          console.log(
+            "USER:",
+            user.email
+          );
+
+          console.log(
+            "UID:",
+            user.uid
+          );
+
+
+          document.getElementById(
+            "loading"
+          ).style.display = "none";
+
+
+          document.getElementById(
+            "loginScreen"
+          ).style.display = "none";
+
+
+          document.getElementById(
+            "app"
+          ).style.display = "block";
+
+
+          document.getElementById(
+            "userEmail"
+          ).textContent =
+            user.email || "";
+
+
+        }catch(error){
+
+          console.error(
+            "AUTH ERROR:",
+            error
+          );
+
+
+          document.getElementById(
+            "loading"
+          ).style.display = "none";
+
+
+          document.getElementById(
+            "loginScreen"
+          ).style.display = "flex";
+
+
+          showMessage(
+            firebaseError(error),
+            "error"
+          );
+
         }
 
-        showMessage('Creating account...');
+      }
+    );
 
-        const { data, error } = await supabase.auth.signUp({ email, password });
 
-        if (error) {
-          showMessage(error.message, 'error');
-          return;
-        }
+    /* =========================
+       LOGOUT
+    ========================= */
 
-        showMessage('Account created. Check your email to confirm your sign up.', 'success');
-      });
+    window.logout = async function(){
 
-      redirectIfSignedIn();
-    </script>
-  </body>
+      try{
+
+        await signOut(auth);
+
+      }catch(error){
+
+        showMessage(
+          firebaseError(error),
+          "error"
+        );
+
+      }
+
+    };
+
+  </script>
+
+</body>
 </html>
